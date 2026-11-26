@@ -277,6 +277,130 @@ footer a:hover{text-decoration:underline}
 footer p{margin:0 0 6px}
 .demo{grid-column:1/-1;border-top:1px solid var(--line);padding-top:20px;color:var(--muted);font-size:14px}
 @media (max-width:760px){footer .wrap{grid-template-columns:1fr}}
+
+/* ---------- Избранное, сравнение, кнопки-иконки ---------- */
+.fav-head{display:inline-flex;align-items:center;gap:6px;height:40px;padding:0 12px;border-radius:999px;border:1px solid currentColor;background:none;color:inherit;cursor:pointer;font-size:14px}
+.fav-head svg{fill:none;stroke:currentColor;stroke-width:1.8}
+.fav-head.has svg{fill:#FF7A86;stroke:#FF7A86}
+.icon-btn{width:42px;height:42px;display:inline-flex;align-items:center;justify-content:center;border-radius:50%;border:1px solid var(--line);background:rgba(255,255,255,.08);color:#fff;cursor:pointer}
+.icon-btn svg{fill:none;stroke:currentColor;stroke-width:1.8;transition:transform .2s}
+.icon-btn[aria-pressed="true"] svg{fill:#FF7A86;stroke:#FF7A86;transform:scale(1.08)}
+.icon-btn:hover{background:rgba(255,255,255,.18)}
+.pill{display:inline-flex;align-items:center;gap:8px;min-height:42px;padding:0 16px;border-radius:999px;border:1px solid var(--line);background:rgba(255,255,255,.08);color:#fff;cursor:pointer;font-size:15px}
+.pill:hover{background:rgba(255,255,255,.18)}
+.pill[aria-pressed="true"]{background:#fff;color:var(--sea);border-color:#fff}
+.btn.small{min-height:40px;padding:0 16px;font-size:15px}
+.linkish{all:unset;cursor:pointer;font-family:var(--display);font-size:22px;display:block;margin-top:10px}
+.linkish:hover{text-decoration:underline}
+.linkish:focus-visible{outline:2px solid #fff;outline-offset:3px}
+.muted{color:var(--muted);font-size:14px}
+
+/* ---------- Фильтры-переключатели ---------- */
+.toggles{display:flex;flex-wrap:wrap;gap:8px;width:100%}
+.tg{position:relative;display:inline-flex}
+.tg input{position:absolute;opacity:0;width:1px;height:1px}
+.tg span{display:inline-flex;align-items:center;gap:8px;min-height:38px;padding:0 14px;border-radius:999px;border:1px dashed var(--line);font-size:14px;color:var(--ink-2);cursor:pointer}
+.tg span::before{content:"";width:14px;height:14px;border-radius:4px;border:1.5px solid currentColor}
+.tg input:checked+span{border-style:solid;border-color:#fff;color:#fff;background:rgba(255,255,255,.14)}
+.tg input:checked+span::before{background:#fff;box-shadow:inset 0 0 0 2px var(--sea)}
+.tg input:focus-visible+span{outline:2px solid #fff;outline-offset:2px}
+
+/* ---------- Карточки: кликабельна вся карточка, кнопки поверх ---------- */
+.card{position:relative;cursor:default}
+.card .open{all:unset;cursor:pointer}
+.card .open::after{content:"";position:absolute;inset:0;z-index:1}
+.card .open:focus-visible{outline:none}
+.card:has(.open:focus-visible){outline:2px solid #fff;outline-offset:4px}
+.card .actions{position:relative;z-index:2;display:flex;gap:8px;margin-top:14px}
+.card .badges{position:absolute;left:12px;top:12px;display:flex;flex-wrap:wrap;gap:6px}
+.card .badges span{background:var(--sea);color:#fff;border-radius:6px;padding:4px 8px;font-size:12px;font-weight:500}
+.card .photos{position:absolute;right:12px;top:12px;background:rgba(9,22,29,.6);color:#fff;border-radius:6px;padding:4px 8px;font-size:12px}
+
+/* ---------- Галерея в карточке виллы ---------- */
+.dlg .gallery{align-self:start;position:sticky;top:0;min-height:0}
+.dlg .gallery > img{height:auto;aspect-ratio:4/3}
+@media (max-width:820px){.dlg .gallery{position:relative}}
+.card .row{flex-direction:column;align-items:flex-start;gap:2px}
+.card .price{font-size:22px}
+.gallery{overflow:hidden;touch-action:pan-y}
+.gallery img{cursor:zoom-in;user-select:none;-webkit-user-drag:none}
+.gal-nav{position:absolute;top:50%;transform:translateY(-50%);width:46px;height:46px;border-radius:50%;border:0;background:rgba(255,255,255,.9);color:var(--sea);display:flex;align-items:center;justify-content:center;cursor:pointer;z-index:2}
+.gal-nav.prev{left:14px}.gal-nav.next{right:14px}
+.gal-full{position:absolute;top:14px;right:66px;width:40px;height:40px;border-radius:50%;border:0;background:rgba(9,22,29,.6);color:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer;z-index:2}
+.gal-count{position:absolute;top:14px;left:14px;background:rgba(9,22,29,.6);color:#fff;border-radius:6px;padding:4px 10px;font-size:13px;z-index:2}
+.thumbs{z-index:2;max-width:calc(100% - 28px);overflow-x:auto}
+.thumbs button{flex:none}
+@media (max-width:820px){.gal-full{right:14px;top:auto;bottom:70px}.thumbs button{width:52px;height:40px}}
+.ref{margin:0 0 6px;font-size:14px;color:var(--muted)}
+.price-row{display:flex;align-items:baseline;gap:14px;flex-wrap:wrap}
+.ppm{color:var(--muted);font-size:15px}
+.d-actions,.d-cta{display:flex;flex-wrap:wrap;gap:10px}
+.btn.wa{background:#1FA855}
+.btn.wa:hover{background:#178a45}
+.btn.wa svg{flex:none}
+
+/* ---------- Калькулятор ---------- */
+.calc{border:1px solid var(--line);border-radius:14px;padding:4px 18px;background:rgba(255,255,255,.04)}
+.calc summary{cursor:pointer;padding:14px 0;font-family:var(--display);font-size:22px;list-style:none;display:flex;justify-content:space-between;align-items:center}
+.calc summary::-webkit-details-marker{display:none}
+.calc summary::after{content:"+";font-family:var(--text);font-size:24px;transition:transform .2s}
+.calc[open] summary::after{transform:rotate(45deg)}
+.calc h3{font-size:20px;margin:18px 0 10px}
+.costs{margin:0;display:grid;gap:8px}
+.costs div{display:flex;justify-content:space-between;gap:16px;font-size:15px}
+.costs dt{color:var(--ink-2)}
+.costs dd{margin:0;font-variant-numeric:tabular-nums;white-space:nowrap}
+.costs .sum{border-top:1px solid var(--line);padding-top:8px;font-weight:600}
+.costs .sum dt{color:#fff}
+.costs.result{margin-top:16px}
+.costs.result .sum dd{font-family:var(--display);font-size:24px;font-weight:400}
+.calc-grid{display:grid;gap:14px}
+.calc-grid label{display:grid;grid-template-columns:1fr auto;gap:6px 12px;align-items:center;font-size:15px;color:var(--ink-2)}
+.calc-grid output{color:#fff;font-variant-numeric:tabular-nums}
+.calc-grid input[type=range]{grid-column:1/-1;width:100%;accent-color:#fff}
+.calc-grid input[type=number]{width:96px;border:1px solid var(--line);background:rgba(255,255,255,.08);border-radius:8px;padding:8px 10px;color:#fff}
+.calc-note{font-size:13px;color:var(--muted);margin:14px 0 16px}
+
+/* ---------- Фото на весь экран ---------- */
+.lb{width:100vw;height:100svh;max-width:none;max-height:none;margin:0;border:0;border-radius:0;background:#05090b;padding:0}
+.lb::backdrop{background:#05090b}
+.lb-stage{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;touch-action:pan-y}
+.lb-stage img{max-width:100%;max-height:100%;object-fit:contain;user-select:none;-webkit-user-drag:none}
+.lb-btn{position:absolute;width:52px;height:52px;border-radius:50%;border:0;background:rgba(255,255,255,.14);color:#fff;font-size:28px;display:flex;align-items:center;justify-content:center;cursor:pointer;z-index:2}
+.lb-btn:hover{background:rgba(255,255,255,.26)}
+.lb-close{top:max(14px,env(safe-area-inset-top));right:14px}
+.lb-prev{left:14px;top:50%;transform:translateY(-50%)}
+.lb-next{right:14px;top:50%;transform:translateY(-50%)}
+.lb-count{position:absolute;left:50%;bottom:calc(18px + env(safe-area-inset-bottom));transform:translateX(-50%);color:#fff;font-size:14px;background:rgba(255,255,255,.12);padding:6px 12px;border-radius:999px}
+@media (max-width:640px){.lb-prev,.lb-next{top:auto;bottom:calc(8px + env(safe-area-inset-bottom));transform:none}}
+
+/* ---------- Сравнение ---------- */
+.cmp-dlg{width:min(1100px,100vw - 24px);padding:clamp(18px,3vw,32px)}
+.cmp-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px}
+.cmp-head h2{font-size:clamp(28px,3vw,40px);text-shadow:none}
+.cmp-head .close{position:static;flex:none}
+.cmp-scroll{overflow-x:auto;-webkit-overflow-scrolling:touch}
+.cmp{border-collapse:collapse;width:100%;min-width:560px}
+.cmp th,.cmp td{text-align:left;padding:10px 12px;border-bottom:1px solid var(--line);vertical-align:top;font-size:15px}
+.cmp th{color:var(--muted);font-weight:400;width:150px}
+.cmp td img{width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:8px}
+
+/* ---------- Плашка сравнения, WhatsApp, уведомления ---------- */
+.tray{position:fixed;left:50%;bottom:calc(16px + env(safe-area-inset-bottom));transform:translate(-50%,140%);z-index:25;display:flex;align-items:center;gap:12px;padding:8px 8px 8px 10px;border-radius:999px;background:var(--glass-strong);border:1px solid var(--line);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);transition:transform .35s var(--ease);font-size:15px;white-space:nowrap}
+.tray.on{transform:translate(-50%,0)}
+.tray-thumbs{display:flex}
+.tray-thumbs img{width:34px;height:34px;border-radius:50%;object-fit:cover;border:2px solid var(--sea);margin-left:-8px}
+.tray-thumbs img:first-child{margin-left:0}
+.tray-x{width:36px;height:36px;border-radius:50%;border:0;background:rgba(255,255,255,.12);color:#fff;font-size:20px;cursor:pointer}
+.wa-fab{position:fixed;right:max(16px,env(safe-area-inset-right));bottom:calc(16px + env(safe-area-inset-bottom));z-index:24;width:56px;height:56px;border-radius:50%;background:#1FA855;color:#fff;display:flex;align-items:center;justify-content:center;box-shadow:0 6px 20px rgba(0,0,0,.3)}
+.wa-fab:hover{background:#178a45}
+.clock{right:auto;left:max(16px,env(safe-area-inset-left))}
+.has-tray .clock,.has-tray .wa-fab{bottom:calc(80px + env(safe-area-inset-bottom))}
+@media (max-width:640px){.tray{left:12px;right:12px;transform:translateY(140%);justify-content:space-between}.tray.on{transform:none}}
+.toast{position:fixed;left:50%;top:84px;transform:translate(-50%,-20px);z-index:60;background:#fff;color:var(--sea);padding:10px 18px;border-radius:999px;font-size:15px;opacity:0;pointer-events:none;transition:opacity .25s,transform .25s;box-shadow:0 8px 24px rgba(0,0,0,.25);max-width:calc(100vw - 32px);text-align:center}
+.toast.on{opacity:1;transform:translate(-50%,0)}
+@media (max-width:960px){.fav-head{height:36px;padding:0 10px}}
+@media (max-width:420px){.lang button{padding:5px 7px}.top .wrap{gap:12px}}
 </style>
 </head>
 <body>
@@ -295,6 +419,7 @@ footer p{margin:0 0 6px}
       <a href="#buy" data-i="nav.buy">Как купить</a>
       <a href="#visit" data-i="nav.visit">Просмотр</a>
     </nav>
+    <button class="fav-head" id="favBtn" type="button" data-i-label="fav.header" aria-label="Избранное"><svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 20.5s-7.5-4.6-9.3-9.4C1.4 7.6 3.6 4 7.1 4c2 0 3.6 1.1 4.9 2.8C13.3 5.1 14.9 4 16.9 4c3.5 0 5.7 3.6 4.4 7.1-1.8 4.8-9.3 9.4-9.3 9.4z"/></svg><span id="favCount">0</span></button>
     <div class="lang" role="group" aria-label="Language">
       <button type="button" data-lang="es"><span>ES</span></button>
       <button type="button" data-lang="en"><span>EN</span></button>
@@ -311,7 +436,7 @@ footer p{margin:0 0 6px}
   <div class="wrap">
     <div>
       <h1 id="h1" data-i="hero.title">Виллы над морем Коста-дель-Соль</h1>
-      <p data-i="hero.text">Подбираем дом по тому, как в нём падает свет: утренний кофе на восточной террасе, ужин у бассейна на закате. Шесть вилл от Михаса до Эстепоны.</p>
+      <p id="heroText">Подбираем дом по тому, как в нём падает свет: утренний кофе на восточной террасе, ужин у бассейна на закате. Шесть вилл от Михаса до Эстепоны.</p>
       <div class="ctas">
         <a class="btn" href="#villas" data-i="cta.see">Смотреть виллы</a>
         <a class="btn ghost" href="#visit" data-i="cta.visit">Записаться на просмотр</a>
@@ -349,8 +474,17 @@ footer p{margin:0 0 6px}
           <select id="beds"><option value="0" data-i="filter.any">любое</option><option value="3">3+</option><option value="4">4+</option><option value="5">5+</option></select>
         </label>
         <label><span data-i="filter.price">Цена</span>
-          <select id="price"><option value="0" data-i="filter.anyp">любая</option><option value="2000000" data-i="filter.p2">до 2 млн €</option><option value="4000000" data-i="filter.p4">до 4 млн €</option></select>
+          <select id="price"><option value="0" data-i="filter.anyp">любая</option><option value="2000000" data-i="filter.p2">до 2 млн €</option><option value="3000000" data-i="filter.p3">до 3 млн €</option><option value="5000000" data-i="filter.p5">до 5 млн €</option></select>
         </label>
+        <label><span data-i="sort.label">Сортировка</span>
+          <select id="sort"><option value="rec" data-i="sort.rec">Рекомендуем</option><option value="pa" data-i="sort.pa">Сначала дешевле</option><option value="pd" data-i="sort.pd">Сначала дороже</option><option value="area" data-i="sort.area">Больше площадь</option></select>
+        </label>
+      </div>
+      <div class="toggles">
+        <label class="tg"><input type="checkbox" id="fSea"><span data-i="flt.sea">Вид на море</span></label>
+        <label class="tg"><input type="checkbox" id="fNew"><span data-i="flt.new">Новостройка</span></label>
+        <label class="tg"><input type="checkbox" id="fBeach"><span data-i="flt.beach">До пляжа 10 минут</span></label>
+        <label class="tg"><input type="checkbox" id="fFav"><span data-i="flt.fav">Только избранное</span></label>
       </div>
       <p class="count" id="count" aria-live="polite"></p>
     </div>
@@ -436,8 +570,8 @@ footer p{margin:0 0 6px}
       <p data-i="foot.tag">Виллы на склонах Коста-дель-Соль.</p>
     </div>
     <div>
-      <p>Avenida del Mar 14, Marbella</p>
-      <p><a href="#visit">+34 600 000 000</a></p>
+      <p id="footAddr"></p>
+      <p><a href="#visit" id="footPhone"></a></p>
     </div>
     <div>
       <p><a href="#villas" data-i="nav.villas">Виллы</a></p>
@@ -451,390 +585,75 @@ footer p{margin:0 0 6px}
 <dialog id="dlg" aria-labelledby="dName">
   <button class="close" type="button" id="dClose" data-i-label="d.close" aria-label="Закрыть">×</button>
   <div class="dlg">
-    <div class="gallery">
+    <div class="gallery" id="dGallery">
       <img id="dImg" alt="">
+      <button class="gal-nav prev" type="button" id="dPrev" data-i-label="gal.prev" aria-label="Предыдущее фото"><svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="2"/></svg></button>
+      <button class="gal-nav next" type="button" id="dNext" data-i-label="gal.next" aria-label="Следующее фото"><svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7" fill="none" stroke="currentColor" stroke-width="2"/></svg></button>
+      <button class="gal-full" type="button" id="dFull" data-i-label="gal.full" aria-label="На весь экран"><svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5" fill="none" stroke="currentColor" stroke-width="2"/></svg></button>
+      <span class="gal-count" id="dCount"></span>
       <div class="thumbs" id="dThumbs"></div>
     </div>
     <div class="dlg-body">
       <div>
+        <p class="ref" id="dRef"></p>
         <h2 id="dName"></h2>
         <p class="where" id="dWhere"></p>
       </div>
-      <div class="price" id="dPrice"></div>
-      <dl class="specs" id="dSpecs"></dl>
+      <div class="price-row"><span class="price" id="dPrice"></span><span class="ppm" id="dPpm"></span></div>
+      <div class="d-actions">
+        <button type="button" class="icon-btn fav" id="dFav" data-fav="" aria-pressed="false"><svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 20.5s-7.5-4.6-9.3-9.4C1.4 7.6 3.6 4 7.1 4c2 0 3.6 1.1 4.9 2.8C13.3 5.1 14.9 4 16.9 4c3.5 0 5.7 3.6 4.4 7.1-1.8 4.8-9.3 9.4-9.3 9.4z"/></svg></button>
+        <button type="button" class="pill" id="dCmp" data-cmp="" aria-pressed="false"><svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M2 3h5v10H2zM9 3h5v10H9z" fill="none" stroke="currentColor" stroke-width="1.4"/></svg><span></span></button>
+        <button type="button" class="pill" id="dShare"><svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12M7 8l5-5 5 5M5 13v7h14v-7" fill="none" stroke="currentColor" stroke-width="1.8"/></svg><span data-i="share">Поделиться</span></button>
+      </div>
       <p class="desc" id="dDesc"></p>
-      <div><button class="btn" type="button" id="dBook" data-i="cta.visitThis">Записаться на просмотр этой виллы</button></div>
+      <dl class="specs" id="dSpecs"></dl>
+      <div class="d-cta">
+        <button class="btn" type="button" id="dBook" data-i="cta.visitThis">Записаться на просмотр</button>
+        <a class="btn wa" id="dWa" href="#" target="_blank" rel="noopener"><svg width="26" height="26" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 11.8 11.8 0 0 0 4.5 4c1.7.7 2.3.8 3.2.6.5-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.2-1.2-.1-.1-.3-.2-.5-.3z"/></svg><span data-i="wa">Написать в WhatsApp</span></a>
+      </div>
+      <details class="calc">
+        <summary data-i="calc.title">Сколько стоит покупка</summary>
+        <dl class="costs" id="cCosts"></dl>
+        <h3 data-i="calc.mort">Ипотека</h3>
+        <div class="calc-grid">
+          <label><span data-i="calc.down">Первый взнос</span><output id="cDownOut"></output><input type="range" id="cDown" min="30" max="100" step="5" value="40"></label>
+          <label><span data-i="calc.term">Срок</span><output id="cTermOut"></output><input type="range" id="cTerm" min="5" max="30" step="1" value="20"></label>
+          <label><span data-i="calc.rate">Ставка, % годовых</span><input type="number" id="cRate" min="0" max="15" step="0.1" value="3.4" inputmode="decimal"></label>
+        </div>
+        <dl class="costs result">
+          <div><dt data-i="calc.loan">Кредит</dt><dd id="cLoan"></dd></div>
+          <div class="sum"><dt data-i="calc.monthly">Платёж в месяц</dt><dd id="cMonthly"></dd></div>
+          <div><dt data-i="calc.cash">Нужно своих денег</dt><dd id="cCash"></dd></div>
+        </dl>
+        <p class="calc-note" data-i="calc.note"></p>
+      </details>
     </div>
   </div>
 </dialog>
 
-<script>
-/* ===== Данные ===== */
-const AREAS = {
-  marbella:  {x:520, y:148, lx:0,   ly:-20},
-  benahavis: {x:372, y:118, lx:0,   ly:-20},
-  estepona:  {x:250, y:203, lx:-14, ly:-18, anchor:'end'},
-  mijas:     {x:700, y:160, lx:0,   ly:-20}
-};
-const VILLAS = [
-  {id:'mirador', area:'marbella', img:'mirador', extra:['mirador-in','sea'], beds:5, baths:6, built:610, plot:2300, price:6400000, sun:[9,30,21,20], face:'sw'},
-  {id:'alba', area:'benahavis', img:'alba', extra:['alba-in'], beds:4, baths:4, built:412, plot:1850, price:3950000, sun:[8,45,21,5], face:'s'},
-  {id:'lindero', area:'estepona', img:'lindero', extra:['sea'], beds:5, baths:5, built:480, plot:1600, price:3200000, sun:[10,0,21,30], face:'w'},
-  {id:'patio', area:'marbella', img:'patio', extra:['dusk'], beds:4, baths:4, built:360, plot:1200, price:2750000, sun:[8,30,20,15], face:'s'},
-  {id:'faro', area:'estepona', img:'faro', extra:['sea'], beds:4, baths:3, built:298, plot:920, price:1890000, sun:[9,15,21,10], face:'sw'},
-  {id:'brisa', area:'mijas', img:'brisa', extra:['sea'], beds:3, baths:3, built:245, plot:780, price:1450000, sun:[7,50,19,40], face:'se'}
-];
+<dialog id="lb" class="lb" aria-label="Фото">
+  <div class="lb-stage" id="lbStage"><img id="lbImg" alt=""></div>
+  <button class="lb-btn lb-close" type="button" id="lbClose" data-i-label="d.close" aria-label="Закрыть">×</button>
+  <button class="lb-btn lb-prev" type="button" id="lbPrev" data-i-label="gal.prev" aria-label="Предыдущее фото"><svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="2"/></svg></button>
+  <button class="lb-btn lb-next" type="button" id="lbNext" data-i-label="gal.next" aria-label="Следующее фото"><svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7" fill="none" stroke="currentColor" stroke-width="2"/></svg></button>
+  <span class="lb-count" id="lbCount"></span>
+</dialog>
 
-/* ===== Тексты ===== */
-const T = {
-ru:{
- 'nav.villas':'Виллы','nav.coast':'Районы','nav.buy':'Как купить','nav.visit':'Просмотр','nav.menu':'Меню',
- 'cta.visit':'Записаться на просмотр','cta.see':'Смотреть виллы','cta.visitThis':'Записаться на просмотр этой виллы',
- 'hero.title':'Виллы над морем Коста-дель-Соль',
- 'hero.text':'Подбираем дом по тому, как в нём падает свет: утренний кофе на восточной террасе, ужин у бассейна на закате. Шесть вилл от Михаса до Эстепоны.',
- 'hero.alt':'Белая вилла с бассейном на склоне',
- 'dial.label':'Время суток','dial.hint':'Передвиньте солнце или просто листайте вниз: за одну страницу на побережье пройдёт целый день.',
- 'visit.q':'Чаще всего просят показать дом на закате.','visit.qs':'Мы подстраиваем просмотр под солнце: приезжайте за час до заката, и вы увидите дом в его лучшем свете.',
- 'ph.dawn':'Раннее утро','ph.morning':'Утро','ph.noon':'Полдень','ph.afternoon':'Вторая половина дня','ph.golden':'Золотой час','ph.dusk':'После заката',
- 'villas.title':'Шесть домов, в которых живёт свет',
- 'villas.lead':'У каждой виллы указано, куда смотрит терраса и сколько часов на ней солнце летом. Это первое, о чём спрашивают наши покупатели.',
- 'filter.area':'Район','filter.all':'Все районы','filter.beds':'Спальни','filter.any':'любое','filter.price':'Цена','filter.anyp':'любая','filter.p2':'до 2 млн €','filter.p4':'до 4 млн €',
- 'count':n=>`${n} ${plural(n,'вилла','виллы','вилл')}`,
- 'empty':'Под эти условия вилл нет.','reset':'Сбросить фильтры',
- 'sun':(a,b)=>`Солнце на террасе ${a}–${b}`,
- 'beds':n=>`${n} ${plural(n,'спальня','спальни','спален')}`,'m2':'м²',
- 'coast.title':'Сорок минут побережья','coast.lead':'От аэропорта Малаги до Эстепоны — одна трасса вдоль моря. Нажмите на район, и мы покажем виллы только там.',
- 'coast.map':'Карта побережья от Гибралтара до Малаги','coast.sea':'Средиземное море',
- 'zone.villas':n=>`${n} ${plural(n,'вилла','виллы','вилл')} в продаже`,
- 'buy.title':'Как купить дом в Испании','buy.lead':'Обычно от первого просмотра до ключей проходит шесть–восемь недель. Мы ведём сделку на русском, испанском и английском.',
- 's1.t':'Просмотр','s1.p':'Показываем дом в то время суток, которое для вас важно. Если вы не в Испании — по видеосвязи, с той же террасы.','s1.d':'1–3 дня',
- 's2.t':'Задаток','s2.p':'Договор задатка (contrato de arras), обычно 10% цены. После него дом снимают с продажи.','s2.d':'1 неделя',
- 's3.t':'Проверка','s3.p':'Юрист проверяет выписку из реестра (nota simple), долги и лицензии. Помогаем оформить NIE и счёт в банке.','s3.d':'3–5 недель',
- 's4.t':'Нотариус и ключи','s4.p':'Подписание у нотариуса. Налог на покупку вторичного жилья в Андалусии — 7%. Ключи в тот же день.','s4.d':'1 день',
- 'visit.title':'Записаться на просмотр','visit.lead':'Оставьте контакт — перезвоним в течение часа в рабочее время и предложим время.',
- 'visit.cap':'Чаще всего просят показать дом на закате. Мы подстраиваем время просмотра под солнце.','visit.alt':'Вилла с освещённой террасой в сумерках',
- 'f.name':'Имя','f.contact':'Телефон или e-mail','f.villa':'Вилла','f.any':'Пока не выбрал(а) — помогите подобрать','f.light':'Когда показать дом',
- 'l.m':'Утром','l.d':'Днём','l.s':'На закате','l.st':'за час до заката',
- 'f.msg':'Комментарий (необязательно)','f.send':'Отправить заявку','f.note':'Это демонстрационная форма: заявка никуда не отправляется.',
- 'e.name':'Напишите, как к вам обращаться.','e.contact':'Нужен телефон или e-mail, чтобы мы могли связаться.',
- 'ok.t':'Заявка отправлена','ok.p':(n,v)=>`${n}, перезвоним в течение часа и предложим время просмотра${v?': '+v:''}.`,'ok.again':'Отправить ещё одну',
- 'foot.tag':'Виллы на склонах Коста-дель-Соль.','foot.demo':'Концепт-проект для портфолио. Агентство Vertiente, виллы, цены и контакты вымышлены. Фото: Unsplash.',
- 'd.close':'Закрыть','d.beds':'Спальни','d.baths':'Ванные','d.built':'Площадь дома','d.plot':'Участок','d.face':'Терраса смотрит','d.sun':'Солнце на террасе летом',
- 'face':{s:'на юг',sw:'на юго-запад',w:'на запад',se:'на юго-восток'},
- 'area':{marbella:'Марбелья',benahavis:'Бенаавис',estepona:'Эстепона',mijas:'Михас-Коста'},
- 'areaText':{
-   marbella:'Город, рестораны и пляжи в десяти минутах. Склоны Сьерра-Бланки дают вид сразу на море и Африку.',
-   benahavis:'Тихая деревня в горах над Марбельей. Большие участки, сосны, гольф-поля.',
-   estepona:'Белый старый город и новая набережная. Самые длинные закаты: побережье здесь смотрит на запад.',
-   mijas:'Двадцать минут до аэропорта. Холмы Каласонды, дома с видом на всё побережье.'},
- 'v':{
-   mirador:{name:'Вилла Мирадор',where:'Сьерра-Бланка, Марбелья',desc:'Три уровня над морем, стеклянные стены в гостиной и бассейн-инфинити, который на закате сливается с горизонтом. В ясный день видно Гибралтар и горы Марокко.'},
-   alba:{name:'Каса Альба',where:'Бенаавис',desc:'Белый кубический дом среди сосен в духе андалусских деревень. Внутренний двор с оливой, кабинет с отдельным входом, гостевой дом у бассейна.'},
-   lindero:{name:'Вилла Линдеро',where:'Новая Золотая миля, Эстепона',desc:'Пять минут пешком до пляжа. Терраса смотрит на запад: солнце уходит в море прямо напротив бассейна.'},
-   patio:{name:'Каса Патио',where:'Нуэва-Андалусия, Марбелья',desc:'Одноэтажный дом вокруг бассейна: каждая комната открывается на воду. Летняя кухня под навесом и гольф в пяти минутах.'},
-   faro:{name:'Каса-дель-Фаро',where:'Эль-Падрон, Эстепона',desc:'Новый дом 2024 года с солярием на крыше. Видно маяк Эстепоны и порт, до старого города — десять минут.'},
-   brisa:{name:'Вилла Бриса',where:'Каласонда, Михас-Коста',desc:'Компактная вилла с садом и бассейном. Утреннее солнце на кухне, вечером терраса в тени — удобно жарким летом.'}}
-},
-es:{
- 'nav.villas':'Villas','nav.coast':'Zonas','nav.buy':'Cómo comprar','nav.visit':'Visita','nav.menu':'Menú',
- 'cta.visit':'Reservar una visita','cta.see':'Ver villas','cta.visitThis':'Reservar visita a esta villa',
- 'hero.title':'Villas sobre el mar de la Costa del Sol',
- 'hero.text':'Elegimos casas por cómo entra la luz: el café de la mañana en la terraza este, la cena junto a la piscina al atardecer. Seis villas entre Mijas y Estepona.',
- 'hero.alt':'Villa blanca con piscina en una ladera',
- 'dial.label':'Hora del día','dial.hint':'Mueve el sol o simplemente desliza hacia abajo: en una página pasa un día entero en la costa.',
- 'visit.q':'Casi todos piden ver la casa al atardecer.','visit.qs':'Ajustamos la visita al sol: ven una hora antes de la puesta y verás la casa con su mejor luz.',
- 'ph.dawn':'Primera hora','ph.morning':'Mañana','ph.noon':'Mediodía','ph.afternoon':'Tarde','ph.golden':'Hora dorada','ph.dusk':'Tras la puesta de sol',
- 'villas.title':'Seis casas donde vive la luz',
- 'villas.lead':'En cada villa indicamos hacia dónde mira la terraza y cuántas horas de sol tiene en verano. Es lo primero que preguntan nuestros clientes.',
- 'filter.area':'Zona','filter.all':'Todas las zonas','filter.beds':'Dormitorios','filter.any':'cualquiera','filter.price':'Precio','filter.anyp':'cualquiera','filter.p2':'hasta 2 M€','filter.p4':'hasta 4 M€',
- 'count':n=>`${n} ${n===1?'villa':'villas'}`,
- 'empty':'No hay villas con estos filtros.','reset':'Quitar filtros',
- 'sun':(a,b)=>`Sol en la terraza ${a}–${b}`,
- 'beds':n=>`${n} ${n===1?'dormitorio':'dormitorios'}`,'m2':'m²',
- 'coast.title':'Cuarenta minutos de costa','coast.lead':'Del aeropuerto de Málaga a Estepona, una sola carretera junto al mar. Pulsa una zona y te mostramos solo sus villas.',
- 'coast.map':'Mapa de la costa de Gibraltar a Málaga','coast.sea':'Mar Mediterráneo',
- 'zone.villas':n=>`${n} ${n===1?'villa':'villas'} en venta`,
- 'buy.title':'Cómo comprar una casa en España','buy.lead':'Desde la primera visita hasta las llaves suelen pasar de seis a ocho semanas. Llevamos la operación en español, inglés y ruso.',
- 's1.t':'Visita','s1.p':'Te enseñamos la casa a la hora del día que te importa. Si no estás en España, por videollamada desde la misma terraza.','s1.d':'1–3 días',
- 's2.t':'Arras','s2.p':'Contrato de arras, normalmente el 10% del precio. Desde ese momento la casa se retira del mercado.','s2.d':'1 semana',
- 's3.t':'Comprobación','s3.p':'El abogado revisa la nota simple, deudas y licencias. Te ayudamos con el NIE y la cuenta bancaria.','s3.d':'3–5 semanas',
- 's4.t':'Notaría y llaves','s4.p':'Firma ante notario. El ITP de vivienda usada en Andalucía es del 7%. Llaves el mismo día.','s4.d':'1 día',
- 'visit.title':'Reservar una visita','visit.lead':'Déjanos tu contacto: te llamamos en menos de una hora en horario laboral para proponerte una hora.',
- 'visit.cap':'Casi todos piden ver la casa al atardecer. Ajustamos la visita al sol.','visit.alt':'Villa con la terraza iluminada al anochecer',
- 'f.name':'Nombre','f.contact':'Teléfono o e-mail','f.villa':'Villa','f.any':'Aún no lo sé, ayúdame a elegir','f.light':'Cuándo ver la casa',
- 'l.m':'Por la mañana','l.d':'A mediodía','l.s':'Al atardecer','l.st':'una hora antes de la puesta',
- 'f.msg':'Comentario (opcional)','f.send':'Enviar solicitud','f.note':'Formulario de demostración: la solicitud no se envía a ningún sitio.',
- 'e.name':'Dinos cómo te llamas.','e.contact':'Necesitamos un teléfono o un e-mail para contactarte.',
- 'ok.t':'Solicitud enviada','ok.p':(n,v)=>`${n}, te llamamos en menos de una hora para proponerte la visita${v?': '+v:''}.`,'ok.again':'Enviar otra',
- 'foot.tag':'Villas en las laderas de la Costa del Sol.','foot.demo':'Proyecto conceptual para portafolio. La agencia Vertiente, las villas, los precios y los contactos son ficticios. Fotos: Unsplash.',
- 'd.close':'Cerrar','d.beds':'Dormitorios','d.baths':'Baños','d.built':'Construidos','d.plot':'Parcela','d.face':'Orientación de la terraza','d.sun':'Sol en la terraza en verano',
- 'face':{s:'sur',sw:'suroeste',w:'oeste',se:'sureste'},
- 'area':{marbella:'Marbella',benahavis:'Benahavís',estepona:'Estepona',mijas:'Mijas Costa'},
- 'areaText':{
-   marbella:'Ciudad, restaurantes y playas a diez minutos. Desde Sierra Blanca se ve el mar y África.',
-   benahavis:'Pueblo tranquilo en la montaña sobre Marbella. Parcelas grandes, pinos y campos de golf.',
-   estepona:'Casco antiguo blanco y paseo marítimo nuevo. Los atardeceres más largos: la costa mira al oeste.',
-   mijas:'A veinte minutos del aeropuerto. Las colinas de Calahonda, con vistas a toda la costa.'},
- 'v':{
-   mirador:{name:'Villa Mirador',where:'Sierra Blanca, Marbella',desc:'Tres niveles sobre el mar, salón con paredes de cristal y piscina infinita que al atardecer se funde con el horizonte. En días claros se ven Gibraltar y las montañas de Marruecos.'},
-   alba:{name:'Casa Alba',where:'Benahavís',desc:'Casa blanca de volúmenes puros entre pinos, al estilo de los pueblos andaluces. Patio con olivo, despacho con entrada propia y casa de invitados junto a la piscina.'},
-   lindero:{name:'Villa Lindero',where:'Nueva Milla de Oro, Estepona',desc:'A cinco minutos a pie de la playa. La terraza mira al oeste: el sol se pone en el mar justo frente a la piscina.'},
-   patio:{name:'Casa Patio',where:'Nueva Andalucía, Marbella',desc:'Casa de una planta alrededor de la piscina: cada estancia se abre al agua. Cocina de verano bajo pérgola y golf a cinco minutos.'},
-   faro:{name:'Casa del Faro',where:'El Padrón, Estepona',desc:'Obra nueva de 2024 con solárium en la cubierta. Vistas al faro y al puerto de Estepona, a diez minutos del casco antiguo.'},
-   brisa:{name:'Villa Brisa',where:'Calahonda, Mijas Costa',desc:'Villa compacta con jardín y piscina. Sol de mañana en la cocina y terraza en sombra por la tarde, cómoda en pleno verano.'}}
-},
-en:{
- 'nav.villas':'Villas','nav.coast':'Areas','nav.buy':'How to buy','nav.visit':'Viewing','nav.menu':'Menu',
- 'cta.visit':'Book a viewing','cta.see':'See the villas','cta.visitThis':'Book a viewing of this villa',
- 'hero.title':'Villas above the sea on the Costa del Sol',
- 'hero.text':'We choose homes by how the light falls: morning coffee on an east terrace, dinner by the pool at sunset. Six villas between Mijas and Estepona.',
- 'hero.alt':'White villa with a pool on a hillside',
- 'dial.label':'Time of day','dial.hint':'Move the sun or just scroll down: a whole day on the coast passes in one page.',
- 'visit.q':'Most people ask to see the house at sunset.','visit.qs':'We time the viewing to the sun: come an hour before sunset and you will see the house in its best light.',
- 'ph.dawn':'Early morning','ph.morning':'Morning','ph.noon':'Midday','ph.afternoon':'Afternoon','ph.golden':'Golden hour','ph.dusk':'After sunset',
- 'villas.title':'Six houses that live in the light',
- 'villas.lead':'For every villa we show which way the terrace faces and how many hours of summer sun it gets. It is the first thing our buyers ask.',
- 'filter.area':'Area','filter.all':'All areas','filter.beds':'Bedrooms','filter.any':'any','filter.price':'Price','filter.anyp':'any','filter.p2':'up to €2M','filter.p4':'up to €4M',
- 'count':n=>`${n} ${n===1?'villa':'villas'}`,
- 'empty':'No villas match these filters.','reset':'Clear filters',
- 'sun':(a,b)=>`Sun on the terrace ${a}–${b}`,
- 'beds':n=>`${n} ${n===1?'bedroom':'bedrooms'}`,'m2':'m²',
- 'coast.title':'Forty minutes of coastline','coast.lead':'From Málaga airport to Estepona it is one road along the sea. Tap an area to see only the villas there.',
- 'coast.map':'Map of the coast from Gibraltar to Málaga','coast.sea':'Mediterranean Sea',
- 'zone.villas':n=>`${n} ${n===1?'villa':'villas'} for sale`,
- 'buy.title':'How to buy a home in Spain','buy.lead':'From the first viewing to the keys usually takes six to eight weeks. We handle the purchase in English, Spanish and Russian.',
- 's1.t':'Viewing','s1.p':'We show the house at the time of day that matters to you. If you are not in Spain, by video call from the same terrace.','s1.d':'1–3 days',
- 's2.t':'Deposit','s2.p':'A deposit contract (contrato de arras), usually 10% of the price. The house then comes off the market.','s2.d':'1 week',
- 's3.t':'Checks','s3.p':'A lawyer reviews the land registry extract (nota simple), debts and licences. We help you get an NIE and a bank account.','s3.d':'3–5 weeks',
- 's4.t':'Notary and keys','s4.p':'Signing at the notary. Transfer tax on resale homes in Andalusia is 7%. Keys the same day.','s4.d':'1 day',
- 'visit.title':'Book a viewing','visit.lead':'Leave your contact and we will call back within an hour during office hours to suggest a time.',
- 'visit.cap':'Most people ask to see the house at sunset. We time the viewing to the sun.','visit.alt':'Villa with a lit terrace at dusk',
- 'f.name':'Name','f.contact':'Phone or email','f.villa':'Villa','f.any':'Not sure yet, help me choose','f.light':'When to see the house',
- 'l.m':'Morning','l.d':'Midday','l.s':'At sunset','l.st':'an hour before sunset',
- 'f.msg':'Comment (optional)','f.send':'Send request','f.note':'This is a demo form: the request is not sent anywhere.',
- 'e.name':'Tell us what to call you.','e.contact':'We need a phone number or email to reach you.',
- 'ok.t':'Request sent','ok.p':(n,v)=>`${n}, we will call within an hour to suggest a viewing time${v?': '+v:''}.`,'ok.again':'Send another',
- 'foot.tag':'Villas on the hillsides of the Costa del Sol.','foot.demo':'Portfolio concept project. The Vertiente agency, villas, prices and contacts are fictional. Photos: Unsplash.',
- 'd.close':'Close','d.beds':'Bedrooms','d.baths':'Bathrooms','d.built':'Built area','d.plot':'Plot','d.face':'Terrace faces','d.sun':'Summer sun on the terrace',
- 'face':{s:'south',sw:'south-west',w:'west',se:'south-east'},
- 'area':{marbella:'Marbella',benahavis:'Benahavís',estepona:'Estepona',mijas:'Mijas Costa'},
- 'areaText':{
-   marbella:'Town, restaurants and beaches ten minutes away. The slopes of Sierra Blanca look over the sea to Africa.',
-   benahavis:'A quiet mountain village above Marbella. Large plots, pine trees and golf courses.',
-   estepona:'A white old town and a new seafront. The longest sunsets: the coast here faces west.',
-   mijas:'Twenty minutes from the airport. The hills of Calahonda, with views along the whole coast.'},
- 'v':{
-   mirador:{name:'Villa Mirador',where:'Sierra Blanca, Marbella',desc:'Three levels above the sea, a glass-walled living room and an infinity pool that merges with the horizon at sunset. On clear days you can see Gibraltar and the mountains of Morocco.'},
-   alba:{name:'Casa Alba',where:'Benahavís',desc:'A white cubic house among pines in the spirit of Andalusian villages. Courtyard with an olive tree, a study with its own entrance and a guest house by the pool.'},
-   lindero:{name:'Villa Lindero',where:'New Golden Mile, Estepona',desc:'Five minutes on foot to the beach. The terrace faces west: the sun sets into the sea right across the pool.'},
-   patio:{name:'Casa Patio',where:'Nueva Andalucía, Marbella',desc:'A single-storey house around the pool: every room opens onto the water. Summer kitchen under a pergola, golf five minutes away.'},
-   faro:{name:'Casa del Faro',where:'El Padrón, Estepona',desc:'New build from 2024 with a rooftop solarium. Views of the Estepona lighthouse and harbour, ten minutes from the old town.'},
-   brisa:{name:'Villa Brisa',where:'Calahonda, Mijas Costa',desc:'A compact villa with garden and pool. Morning sun in the kitchen, a shaded terrace in the evening — easy living in high summer.'}}
-}};
-function plural(n,one,few,many){const a=n%10,b=n%100;if(a===1&&b!==11)return one;if(a>=2&&a<=4&&(b<12||b>14))return few;return many}
+<dialog id="cmpDlg" class="cmp-dlg" aria-labelledby="cmpTitle">
+  <div class="cmp-head"><h2 id="cmpTitle">Сравнение вилл</h2><button class="close" type="button" id="cmpClose" data-i-label="d.close" aria-label="Закрыть">×</button></div>
+  <div id="cmpBody"></div>
+</dialog>
 
-/* ===== Язык ===== */
-let lang='ru';
-try{const s=localStorage.getItem('vt-lang');if(s&&T[s])lang=s;else{const n=(navigator.language||'').slice(0,2);lang=T[n]?n:'en'}}catch(e){const n=(navigator.language||'').slice(0,2);lang=T[n]?n:'en'}
-const t=(k,...a)=>{const v=T[lang][k];return typeof v==='function'?v(...a):v};
-const LOCALE={ru:'ru-RU',es:'es-ES',en:'en-GB'};
-const money=n=>new Intl.NumberFormat(LOCALE[lang],{style:'currency',currency:'EUR',maximumFractionDigits:0}).format(n);
-const num=n=>new Intl.NumberFormat(LOCALE[lang]).format(n);
-const hm=(h,m)=>`${h}:${String(m).padStart(2,'0')}`;
+<div class="tray" id="tray" role="region" aria-live="polite">
+  <div class="tray-thumbs" id="trayThumbs"></div>
+  <span id="trayText"></span>
+  <button class="btn small" type="button" id="trayOpen" data-i="cmp.open">Сравнить</button>
+  <button class="tray-x" type="button" id="trayClear" data-i-label="cmp.clear" aria-label="Очистить">×</button>
+</div>
+<a class="wa-fab" id="waFab" href="#" target="_blank" rel="noopener" aria-label="WhatsApp"><svg width="26" height="26" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 11.8 11.8 0 0 0 4.5 4c1.7.7 2.3.8 3.2.6.5-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.2-1.2-.1-.1-.3-.2-.5-.3z"/></svg></a>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
 
-function applyLang(){
-  document.documentElement.lang=lang;
-  document.querySelectorAll('[data-i]').forEach(el=>{const v=T[lang][el.dataset.i];if(typeof v==='string')el.textContent=v});
-  document.querySelectorAll('[data-i-label]').forEach(el=>el.setAttribute('aria-label',T[lang][el.dataset.iLabel]));
-  document.querySelectorAll('[data-i-alt]').forEach(el=>el.alt=T[lang][el.dataset.iAlt]);
-  document.querySelectorAll('.lang button').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.lang===lang)));
-  document.title=`Vertiente — ${{ru:'виллы на Коста-дель-Соль',es:'villas en la Costa del Sol',en:'villas on the Costa del Sol'}[lang]}`;
-  renderChips();renderGrid();renderMap();renderVillaSelect();updateSun(minutes);
-  if(dlg.open&&current)openVilla(current,true);
-}
-document.querySelectorAll('.lang button').forEach(b=>b.addEventListener('click',()=>{lang=b.dataset.lang;try{localStorage.setItem('vt-lang',lang)}catch(e){}applyLang()}));
-
-/* ===== Шапка ===== */
-const top_=document.getElementById('top'),menuBtn=document.querySelector('.menu-btn');
-const onScroll=()=>top_.classList.toggle('solid',scrollY>window.innerHeight*.75);
-addEventListener('scroll',onScroll,{passive:true});onScroll();
-menuBtn.addEventListener('click',()=>{const o=top_.classList.toggle('open');menuBtn.setAttribute('aria-expanded',o)});
-document.querySelectorAll('#nav a').forEach(a=>a.addEventListener('click',()=>{top_.classList.remove('open');menuBtn.setAttribute('aria-expanded','false')}));
-
-/* ===== Солнце: время суток = положение на странице ===== */
-const sun=document.getElementById('sun'),dot=document.getElementById('sunDot'),layersEl=document.getElementById('layers'),
-      tint=document.getElementById('tint'),glow=document.getElementById('glow'),timeOut=document.getElementById('dialTime'),phase=document.getElementById('dialPhase'),
-      clock=document.getElementById('clock'),clockTime=document.getElementById('clockTime'),clockPhase=document.getElementById('clockPhase');
-const DAY_START=420,DAY_END=1290,MORNING=560;   // 7:00, 21:30, 9:20
-// ключевые кадры освещения: минуты, цвет «тени» (multiply), цвет «света» (screen), яркость, насыщенность
-const KEYS=[
-  [420, [150,172,205,.55],[255,190,150,.10],.78,.80],
-  [540, [205,218,232,.28],[255,236,210,.10],.95,.95],
-  [780, [255,255,255,0],  [255,255,255,0],  1.04,1.05],
-  [960, [255,246,230,.10],[255,230,190,.06],1.02,1.05],
-  [1170,[255,150,80,.58],[255,165,80,.40], 1.02,1.28],
-  [1230,[205,105,100,.62],[255,115,60,.26], .84,1.12],
-  [1290,[52,70,128,.78],  [255,150,90,.06], .62,.85]
-];
-const lerp=(a,b,k)=>a+(b-a)*k;
-function at(m){
-  let i=0;while(i<KEYS.length-2&&m>KEYS[i+1][0])i++;
-  const A=KEYS[i],B=KEYS[i+1],k=Math.min(1,Math.max(0,(m-A[0])/(B[0]-A[0])));
-  const mix=(x,y)=>x.map((v,j)=>lerp(v,y[j],k));
-  return{sh:mix(A[1],B[1]),li:mix(A[2],B[2]),br:lerp(A[3],B[3],k),sa:lerp(A[4],B[4],k)};
-}
-const phaseKey=m=>m<500?'ph.dawn':m<690?'ph.morning':m<870?'ph.noon':m<1110?'ph.afternoon':m<1250?'ph.golden':'ph.dusk';
-let minutes=MORNING;
-function updateSun(m){
-  minutes=m;
-  const p=(m-DAY_START)/(DAY_END-DAY_START),ang=Math.PI*(1-p);
-  dot.setAttribute('cx',(150+140*Math.cos(ang)).toFixed(1));
-  dot.setAttribute('cy',(86-78*Math.sin(ang)).toFixed(1));
-  const s=at(m),rgba=c=>`rgba(${c[0]|0},${c[1]|0},${c[2]|0},${c[3].toFixed(3)})`;
-  tint.style.background=`linear-gradient(${lerp(200,250,p)}deg, ${rgba(s.sh)} 0%, ${rgba([s.sh[0],s.sh[1],s.sh[2],s.sh[3]*.55])} 100%)`;
-  glow.style.background=`radial-gradient(circle at ${lerp(15,92,p)}% ${lerp(30,8,Math.sin(Math.PI*p))}%, ${rgba(s.li)} 0%, rgba(0,0,0,0) 60%)`;
-  layersEl.style.filter=`brightness(${s.br.toFixed(3)}) saturate(${s.sa.toFixed(3)})`;
-  const r=Math.round(m),label=hm(Math.floor(r/60),r%60),ph=t(phaseKey(m));
-  timeOut.textContent=label;clockTime.textContent=label;phase.textContent=ph;clockPhase.textContent=ph;
-  sun.value=r;sun.setAttribute('aria-valuetext',label);
-}
-// время на вершине страницы; к концу страницы солнце садится
-let base=MORNING;
-const progress=()=>{const h=document.documentElement.scrollHeight-innerHeight;return h>0?Math.min(1,Math.max(0,scrollY/h)):0};
-const timeFromScroll=()=>base+(DAY_END-base)*progress();
-let raf=0;
-function onScrollLight(){if(raf)return;raf=requestAnimationFrame(()=>{raf=0;if(!introRaf)updateSun(timeFromScroll());clock.classList.toggle('on',scrollY>innerHeight*.6)})}
-addEventListener('scroll',onScrollLight,{passive:true});
-addEventListener('resize',onScrollLight);
-sun.addEventListener('input',()=>{
-  stopIntro();const v=+sun.value,p=progress();
-  base=p>.98?base:Math.min(DAY_END,Math.max(DAY_START,(v-DAY_END*p)/(1-p)));
-  updateSun(v);
-});
-// одно вступление: рассвет над виллой
-let introRaf=0;
-function stopIntro(){if(introRaf){cancelAnimationFrame(introRaf);introRaf=0}}
-function intro(){
-  if(matchMedia('(prefers-reduced-motion: reduce)').matches||scrollY>10){updateSun(timeFromScroll());return}
-  const from=DAY_START,dur=2400,t0=performance.now();
-  const step=now=>{const k=Math.min(1,(now-t0)/dur),e=1-Math.pow(1-k,3);updateSun(lerp(from,timeFromScroll(),e));introRaf=k<1?requestAnimationFrame(step):0};
-  introRaf=requestAnimationFrame(step);
-}
-
-/* ===== Фото разделов сменяют друг друга ===== */
-const layerEls=[...document.querySelectorAll('.layer')],scrim=document.getElementById('scrim');
-function showBg(key){
-  layerEls.forEach(l=>l.classList.toggle('on',l.dataset.bg===key));
-  scrim.classList.toggle('on',key!=='hero');
-}
-showBg('hero');
-const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)showBg(e.target.dataset.bg)}),{rootMargin:'-45% 0px -45% 0px'});
-document.querySelectorAll('[data-bg]:not(.layer)').forEach(sec=>io.observe(sec));
-
-/* ===== Каталог ===== */
-const F={area:'all',beds:0,price:0};
-const chipsEl=document.getElementById('areaChips'),grid=document.getElementById('grid'),count=document.getElementById('count'),
-      bedsSel=document.getElementById('beds'),priceSel=document.getElementById('price');
-function renderChips(){
-  chipsEl.innerHTML='';
-  ['all',...Object.keys(AREAS)].forEach(a=>{
-    const b=document.createElement('button');b.type='button';b.className='chip';
-    b.textContent=a==='all'?t('filter.all'):t('area')[a];b.setAttribute('aria-pressed',String(F.area===a));
-    b.addEventListener('click',()=>{F.area=a;renderChips();renderGrid()});chipsEl.appendChild(b);
-  });
-}
-const sunIcon='<svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="9" r="3.2" fill="#E3A33B"/><path d="M1 13h14" stroke="#10242E" stroke-width="1.2"/></svg>';
-function sunText(v){return t('sun',hm(v.sun[0],v.sun[1]),hm(v.sun[2],v.sun[3]))}
-function renderGrid(){
-  const list=VILLAS.filter(v=>(F.area==='all'||v.area===F.area)&&v.beds>=F.beds&&(!F.price||v.price<=F.price));
-  count.textContent=t('count',list.length);
-  grid.innerHTML='';
-  if(!list.length){
-    const d=document.createElement('div');d.className='empty panel';
-    d.innerHTML=`<p>${t('empty')}</p><button class="btn ghost" type="button">${t('reset')}</button>`;
-    d.querySelector('button').addEventListener('click',resetFilters);grid.appendChild(d);return;
-  }
-  list.forEach((v,i)=>{
-    const L=t('v')[v.id],b=document.createElement('button');b.type='button';
-    b.className='card'+(i===0&&list.length>2?' feature':'');
-    b.innerHTML=`<div class="ph"><img src="img/${v.img}-800.webp" srcset="img/${v.img}-800.webp 800w, img/${v.img}-1600.webp 1600w" sizes="(max-width:640px) 100vw, ${i===0?'66vw':'33vw'}" alt="${L.name}" loading="lazy"><span class="sunline">${sunIcon}${sunText(v)}</span></div>
-      <div class="body"><div class="row"><h3>${L.name}</h3><span class="price">${money(v.price)}</span></div>
-      <div class="meta">${L.where}. ${t('beds',v.beds)}, ${num(v.built)} ${t('m2')}</div></div>`;
-    b.addEventListener('click',()=>openVilla(v));grid.appendChild(b);
-  });
-}
-function resetFilters(){F.area='all';F.beds=0;F.price=0;bedsSel.value='0';priceSel.value='0';renderChips();renderGrid()}
-bedsSel.addEventListener('change',()=>{F.beds=+bedsSel.value;renderGrid()});
-priceSel.addEventListener('change',()=>{F.price=+priceSel.value;renderGrid()});
-
-/* ===== Карта ===== */
-const pins=document.getElementById('pins'),zones=document.getElementById('zones');
-function pickArea(a){F.area=a;renderChips();renderGrid();document.getElementById('villas').scrollIntoView()}
-function renderMap(){
-  pins.innerHTML='';zones.innerHTML='';
-  const NS='http://www.w3.org/2000/svg';
-  Object.entries(AREAS).forEach(([a,p])=>{
-    const n=VILLAS.filter(v=>v.area===a).length;
-    const g=document.createElementNS(NS,'g');g.setAttribute('class','pin');g.setAttribute('tabindex','0');g.setAttribute('role','button');
-    g.setAttribute('aria-label',`${t('area')[a]}: ${t('zone.villas',n)}`);
-    g.innerHTML=`<circle class="halo" cx="${p.x}" cy="${p.y}" r="22"/><circle class="dot" cx="${p.x}" cy="${p.y}" r="8"/><text x="${p.x+p.lx}" y="${p.y+p.ly}" text-anchor="${p.anchor||'middle'}">${t('area')[a]}</text>`;
-    g.addEventListener('click',()=>pickArea(a));
-    g.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();pickArea(a)}});
-    pins.appendChild(g);
-    const z=document.createElement('button');z.type='button';z.className='zone panel';
-    z.innerHTML=`<h3>${t('area')[a]}</h3><p>${t('areaText')[a]}</p><small>${t('zone.villas',n)}</small>`;
-    z.addEventListener('click',()=>pickArea(a));zones.appendChild(z);
-  });
-}
-
-/* ===== Карточка виллы ===== */
-const dlg=document.getElementById('dlg');let current=null;
-function openVilla(v,keep){
-  current=v;const L=t('v')[v.id];
-  document.getElementById('dName').textContent=L.name;
-  document.getElementById('dWhere').textContent=`${L.where}`;
-  document.getElementById('dPrice').textContent=money(v.price);
-  document.getElementById('dDesc').textContent=L.desc;
-  const rows=[[t('d.beds'),v.beds],[t('d.baths'),v.baths],[t('d.built'),`${num(v.built)} ${t('m2')}`],[t('d.plot'),`${num(v.plot)} ${t('m2')}`],[t('d.face'),t('face')[v.face]],[t('d.sun'),`${hm(v.sun[0],v.sun[1])}–${hm(v.sun[2],v.sun[3])}`]];
-  document.getElementById('dSpecs').innerHTML=rows.map(r=>`<div><dt>${r[0]}</dt><dd>${r[1]}</dd></div>`).join('');
-  const imgs=[v.img,...v.extra],main=document.getElementById('dImg'),th=document.getElementById('dThumbs');
-  const show=i=>{main.src=`img/${imgs[i]}-1600.webp`;main.alt=L.name;th.querySelectorAll('button').forEach((b,j)=>b.setAttribute('aria-current',String(i===j)))};
-  th.innerHTML='';
-  imgs.forEach((im,i)=>{const b=document.createElement('button');b.type='button';b.setAttribute('aria-label',`${L.name}, ${i+1}/${imgs.length}`);b.innerHTML=`<img src="img/${im}-800.webp" alt="">`;b.addEventListener('click',()=>show(i));th.appendChild(b)});
-  show(0);
-  if(!keep&&!dlg.open)dlg.showModal();
-}
-document.getElementById('dClose').addEventListener('click',()=>dlg.close());
-dlg.addEventListener('click',e=>{if(e.target===dlg)dlg.close()});
-document.getElementById('dBook').addEventListener('click',()=>{
-  fVilla.value=current.id;dlg.close();document.getElementById('visit').scrollIntoView();setTimeout(()=>document.getElementById('fName').focus({preventScroll:true}),400);
-});
-
-/* ===== Форма ===== */
-const form=document.getElementById('form'),fVilla=document.getElementById('fVilla'),formBox=document.getElementById('formBox');
-function renderVillaSelect(){
-  const keep=fVilla.value;
-  fVilla.innerHTML=`<option value="">${t('f.any')}</option>`+VILLAS.map(v=>`<option value="${v.id}">${t('v')[v.id].name} — ${money(v.price)}</option>`).join('');
-  fVilla.value=keep||'';
-}
-function setErr(id,box,msg){const f=document.getElementById(id).closest('.field');document.getElementById(box).textContent=msg||'';if(msg)f.setAttribute('data-invalid','');else f.removeAttribute('data-invalid')}
-form.addEventListener('submit',e=>{
-  e.preventDefault();
-  const fN=document.getElementById('fName'),fC=document.getElementById('fContact');
-  const name=fN.value.trim(),contact=fC.value.trim();
-  const okContact=/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(contact)||contact.replace(/[^\d]/g,'').length>=9;
-  setErr('fName','eName',name?'':t('e.name'));setErr('fContact','eContact',okContact?'':t('e.contact'));
-  if(!name){fN.focus();return}
-  if(!okContact){fC.focus();return}
-  const v=VILLAS.find(x=>x.id===fVilla.value);
-  formBox.innerHTML=`<div class="done" tabindex="-1"><h3>${t('ok.t')}</h3><p></p><button class="btn ghost" type="button">${t('ok.again')}</button></div>`;
-  formBox.querySelector('p').textContent=t('ok.p',name,v?t('v')[v.id].name:'');
-  formBox.querySelector('.done').focus();
-  formBox.querySelector('button').addEventListener('click',()=>location.reload());
-});
-['fName','fContact'].forEach(id=>document.getElementById(id).addEventListener('input',()=>setErr(id,id==='fName'?'eName':'eContact','')));
-
-applyLang();intro();
-</script>
+<script src="data.js"></script>
+<script src="app.js"></script>
 </body>
 </html>
