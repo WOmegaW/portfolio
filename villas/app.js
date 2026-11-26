@@ -10,7 +10,7 @@ const byId = id => VILLAS.find(v => v.id === id);
 function plural(n, one, few, many) { const a = n % 10, b = n % 100; if (a === 1 && b !== 11) return one; if (a >= 2 && a <= 4 && (b < 12 || b > 14)) return few; return many; }
 const T = {
 ru: {
- 'nav.villas': 'Виллы', 'nav.coast': 'Районы', 'nav.buy': 'Как купить', 'nav.visit': 'Просмотр', 'nav.menu': 'Меню', 'nav.sell': 'Продать',
+ 'nav.villas': 'Виллы', 'nav.coast': 'Районы', 'nav.buy': 'Как купить', 'nav.visit': 'Просмотр', 'nav.menu': 'Меню', 'nav.sell': 'Продать', 'pdf': 'Буклет PDF',
  'sell.title': 'Продаёте виллу?', 'sell.lead': 'Оценим ваш дом бесплатно за 48 часов: по реальным сделкам в вашем районе, с учётом вида, террасы и солнца. Наши покупатели из Великобритании, Скандинавии, Германии и Бельгии уже ищут дома на этом побережье.',
  'sell.p1': 'Оценка по реальным сделкам в вашем районе, а не по средней цене', 'sell.p2': 'Профессиональная съёмка: фото, видео и 3D-тур', 'sell.p3': 'Показ на трёх языках, на этом сайте и международных порталах',
  'sell.form': 'Бесплатная оценка', 'sell.area': 'Район', 'sell.other': 'Другой район', 'sell.type': 'Тип недвижимости',
@@ -72,7 +72,7 @@ ru: {
  'title': 'виллы на Коста-дель-Соль'
 },
 es: {
- 'nav.villas': 'Villas', 'nav.coast': 'Zonas', 'nav.buy': 'Cómo comprar', 'nav.visit': 'Visita', 'nav.menu': 'Menú', 'nav.sell': 'Vender',
+ 'nav.villas': 'Villas', 'nav.coast': 'Zonas', 'nav.buy': 'Cómo comprar', 'nav.visit': 'Visita', 'nav.menu': 'Menú', 'nav.sell': 'Vender', 'pdf': 'Ficha PDF',
  'sell.title': '¿Vendes tu villa?', 'sell.lead': 'Valoramos tu casa gratis en 48 horas, según operaciones reales en tu zona y teniendo en cuenta las vistas, la terraza y el sol. Nuestros compradores del Reino Unido, Escandinavia, Alemania y Bélgica ya buscan casa en esta costa.',
  'sell.p1': 'Valoración con operaciones reales de tu zona, no con precios medios', 'sell.p2': 'Reportaje profesional: fotos, vídeo y tour 3D', 'sell.p3': 'Difusión en tres idiomas, en esta web y en portales internacionales',
  'sell.form': 'Valoración gratuita', 'sell.area': 'Zona', 'sell.other': 'Otra zona', 'sell.type': 'Tipo de inmueble',
@@ -134,7 +134,7 @@ es: {
  'title': 'villas en la Costa del Sol'
 },
 en: {
- 'nav.villas': 'Villas', 'nav.coast': 'Areas', 'nav.buy': 'How to buy', 'nav.visit': 'Viewing', 'nav.menu': 'Menu', 'nav.sell': 'Sell',
+ 'nav.villas': 'Villas', 'nav.coast': 'Areas', 'nav.buy': 'How to buy', 'nav.visit': 'Viewing', 'nav.menu': 'Menu', 'nav.sell': 'Sell', 'pdf': 'PDF brochure',
  'sell.title': 'Selling your villa?', 'sell.lead': 'We value your home for free within 48 hours, based on real sales in your area and taking the views, terrace and sun into account. Our buyers from the UK, Scandinavia, Germany and Belgium are already looking for homes on this coast.',
  'sell.p1': 'A valuation based on real sales in your area, not average prices', 'sell.p2': 'Professional photos, video and a 3D tour', 'sell.p3': 'Marketing in three languages, on this site and international portals',
  'sell.form': 'Free valuation', 'sell.area': 'Area', 'sell.other': 'Another area', 'sell.type': 'Property type',
@@ -607,6 +607,7 @@ function renderAtlasVilla(box) {
     </div>
     <div class="ai-cta">
       <button type="button" class="btn" id="aiOpen">${t('atlas.more')}</button>
+      <a class="pill" href="${lang}/${v.id}/brochure.html" target="_blank" rel="noopener">${t('pdf')}</a>
       <button type="button" class="icon-btn fav" data-fav="${v.id}" aria-pressed="false">${heart}</button>
       <a class="btn wa" href="${waLink(l.name)}" target="_blank" rel="noopener" aria-label="${t('wa')}"><svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2z"/></svg>WhatsApp</a>
     </div>`;
@@ -691,6 +692,7 @@ function renderVilla() {
   $$('#dThumbs button').forEach((b, i) => b.addEventListener('click', () => setGal(i)));
   $('#dFav').dataset.fav = v.id; $('#dCmp').dataset.cmp = v.id;
   $('#dWa').href = waLink(l.name);
+  $('#dPdf').href = `${lang}/${v.id}/brochure.html`;
   setGal(galIdx); renderCalc(); syncFavs(); syncCompare();
 }
 function openVilla(id, fromHash) {

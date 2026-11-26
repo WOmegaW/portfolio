@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Casa Cala — Vertiente (PDF)</title>
+<meta name="robots" content="noindex">
+<link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Prata&family=Onest:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../brochure.css?v=2026-11-26">
+</head>
+<body>
+<div class="toolbar"><a href="./">Volver a la villa</a><button type="button" onclick="window.print()">Guardar PDF / imprimir</button><p>En el móvil: «Compartir» → «Imprimir» → pellizca la vista previa → «Guardar en Archivos».</p></div>
+<section class="sheet">
+  <div class="b-hero"><img src="../../img/cala-1600.webp" alt="Casa Cala"><span class="b-brand">Vertiente</span><span class="b-ref">Referencia VT-1103</span></div>
+  <div class="b-body">
+    <p class="b-where">La Cala de Mijas</p>
+    <h1>Casa Cala</h1>
+    <div class="b-price"><b>2.150.000 €</b><span>8269 € / m²</span></div>
+    <div class="b-badges"><span>Vistas al mar</span><span>✈ 25 min del aeropuerto de Málaga</span></div>
+    <dl class="b-facts"><div><dt>Dormitorios</dt><dd>3</dd></div><div><dt>Baños</dt><dd>3</dd></div><div><dt>Construidos</dt><dd>260 m²</dd></div><div><dt>Parcela</dt><dd>700 m²</dd></div><div><dt>Terraza orientada al</dt><dd>sur</dd></div><div><dt>Sol en la terraza en verano</dt><dd>8:10–21:15</dd></div><div><dt>A la playa</dt><dd>2 min</dd></div><div><dt>Año</dt><dd>2017</dd></div><div><dt>Certificado energético</dt><dd>B</dd></div></dl>
+  </div>
+  <div class="b-foot"><div><b>Vertiente</b><span>Avenida del Mar 14, Marbella</span><span>+34 000 000 000 · hola@vertiente.example</span></div>
+      <div class="b-url"><span>Fotos, mapa y calculadora en</span><b>womegaw.github.io/portfolio/villas/es/cala/</b></div></div>
+</section>
+<section class="sheet">
+  <div class="b-grid"><img src="../../img/in-living-11-800.webp" alt=""><img src="../../img/in-dining-2-800.webp" alt=""><img src="../../img/in-bed-4-800.webp" alt=""><img src="../../img/resort-800.webp" alt=""></div>
+  <div class="b-two">
+    <div><h2>Sobre la casa</h2><p>A dos minutos de la playa. Cubierta de madera con tumbonas y una piscina con el mar justo detrás. Restaurantes y paseo marítimo de La Cala a pie.</p></div>
+    <div><h2>Cuánto cuesta la compra</h2>
+      <dl class="b-costs">
+        <div><dt>ITP (vivienda usada), 7%</dt><dd>150.500 €</dd></div>
+        <div><dt>Notaría y registro, aprox. 0,5%</dt><dd>10.750 €</dd></div>
+        <div><dt>Abogado, 1% + IVA</dt><dd>26.015 €</dd></div>
+        <div class="sum"><dt>Total con gastos</dt><dd>2.337.265 €</dd></div>
+        <div><dt>Hipoteca orientativa</dt><dd>7415 € al mes</dd></div>
+      </dl>
+      <p class="b-note">40% de entrada, 20 años, 3,4% anual. Cálculo orientativo.</p>
+    </div>
+  </div>
+  <div class="b-foot"><div><b>Vertiente</b><span>Avenida del Mar 14, Marbella</span><span>+34 000 000 000 · hola@vertiente.example</span></div>
+      <div class="b-url"><span>Fotos, mapa y calculadora en</span><b>womegaw.github.io/portfolio/villas/es/cala/</b></div></div>
+  <p class="b-demo">Nº RAIA AT/MA/00000. Proyecto conceptual para portafolio: la agencia, las villas, los precios y los contactos son ficticios. Fotos: Unsplash.</p>
+</section>
+<script>
+// на узком экране лист A4 уменьшается под ширину; при печати — снова точный A4
+(function () {
+  var fit = function () { var k = Math.min(1, (innerWidth - 16) / 794);
+    document.querySelectorAll('.sheet').forEach(function (s) { s.style.zoom = k < 1 ? k : ''; }); };
+  fit(); addEventListener('resize', fit);
+  addEventListener('beforeprint', function () { document.querySelectorAll('.sheet').forEach(function (s) { s.style.zoom = ''; }); });
+  addEventListener('afterprint', fit);
+})();
+</script>
+</body>
+</html>

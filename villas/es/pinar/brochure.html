@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Villa Pinar — Vertiente (PDF)</title>
+<meta name="robots" content="noindex">
+<link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Prata&family=Onest:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../brochure.css?v=2026-11-26">
+</head>
+<body>
+<div class="toolbar"><a href="./">Volver a la villa</a><button type="button" onclick="window.print()">Guardar PDF / imprimir</button><p>En el móvil: «Compartir» → «Imprimir» → pellizca la vista previa → «Guardar en Archivos».</p></div>
+<section class="sheet">
+  <div class="b-hero"><img src="../../img/pinar-1600.webp" alt="Villa Pinar"><span class="b-brand">Vertiente</span><span class="b-ref">Referencia VT-1058</span></div>
+  <div class="b-body">
+    <p class="b-where">El Madroñal, Benahavís</p>
+    <h1>Villa Pinar</h1>
+    <div class="b-price"><b>1.750.000 €</b><span>6250 € / m²</span></div>
+    <div class="b-badges"><span>✈ 50 min del aeropuerto de Málaga</span></div>
+    <dl class="b-facts"><div><dt>Dormitorios</dt><dd>3</dd></div><div><dt>Baños</dt><dd>3</dd></div><div><dt>Construidos</dt><dd>280 m²</dd></div><div><dt>Parcela</dt><dd>2400 m²</dd></div><div><dt>Terraza orientada al</dt><dd>sureste</dd></div><div><dt>Sol en la terraza en verano</dt><dd>7:40–20:10</dd></div><div><dt>A la playa</dt><dd>20 min</dd></div><div><dt>Año</dt><dd>2014</dd></div><div><dt>Certificado energético</dt><dd>C</dd></div></dl>
+  </div>
+  <div class="b-foot"><div><b>Vertiente</b><span>Avenida del Mar 14, Marbella</span><span>+34 000 000 000 · hola@vertiente.example</span></div>
+      <div class="b-url"><span>Fotos, mapa y calculadora en</span><b>womegaw.github.io/portfolio/villas/es/pinar/</b></div></div>
+</section>
+<section class="sheet">
+  <div class="b-grid"><img src="../../img/in-living-6-800.webp" alt=""><img src="../../img/in-kitchen-1-800.webp" alt=""><img src="../../img/in-bed-3-800.webp" alt=""><img src="../../img/in-bath-2-800.webp" alt=""></div>
+  <div class="b-two">
+    <div><h2>Sobre la casa</h2><p>La casa se construyó alrededor de un viejo eucalipto que da sombra a toda la terraza. Parcela grande, silencio y sol de mañana en el salón. Ideal para trabajar desde casa.</p></div>
+    <div><h2>Cuánto cuesta la compra</h2>
+      <dl class="b-costs">
+        <div><dt>ITP (vivienda usada), 7%</dt><dd>122.500 €</dd></div>
+        <div><dt>Notaría y registro, aprox. 0,5%</dt><dd>8750 €</dd></div>
+        <div><dt>Abogado, 1% + IVA</dt><dd>21.175 €</dd></div>
+        <div class="sum"><dt>Total con gastos</dt><dd>1.902.425 €</dd></div>
+        <div><dt>Hipoteca orientativa</dt><dd>6036 € al mes</dd></div>
+      </dl>
+      <p class="b-note">40% de entrada, 20 años, 3,4% anual. Cálculo orientativo.</p>
+    </div>
+  </div>
+  <div class="b-foot"><div><b>Vertiente</b><span>Avenida del Mar 14, Marbella</span><span>+34 000 000 000 · hola@vertiente.example</span></div>
+      <div class="b-url"><span>Fotos, mapa y calculadora en</span><b>womegaw.github.io/portfolio/villas/es/pinar/</b></div></div>
+  <p class="b-demo">Nº RAIA AT/MA/00000. Proyecto conceptual para portafolio: la agencia, las villas, los precios y los contactos son ficticios. Fotos: Unsplash.</p>
+</section>
+<script>
+// на узком экране лист A4 уменьшается под ширину; при печати — снова точный A4
+(function () {
+  var fit = function () { var k = Math.min(1, (innerWidth - 16) / 794);
+    document.querySelectorAll('.sheet').forEach(function (s) { s.style.zoom = k < 1 ? k : ''; }); };
+  fit(); addEventListener('resize', fit);
+  addEventListener('beforeprint', function () { document.querySelectorAll('.sheet').forEach(function (s) { s.style.zoom = ''; }); });
+  addEventListener('afterprint', fit);
+})();
+</script>
+</body>
+</html>

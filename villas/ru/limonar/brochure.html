@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Вилла Лимонар — Vertiente (PDF)</title>
+<meta name="robots" content="noindex">
+<link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Prata&family=Onest:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../brochure.css?v=2026-11-26">
+</head>
+<body>
+<div class="toolbar"><a href="./">Вернуться к вилле</a><button type="button" onclick="window.print()">Сохранить PDF / печать</button><p>На телефоне: «Поделиться» → «Напечатать» → разведите пальцами превью → «Сохранить в Файлы».</p></div>
+<section class="sheet">
+  <div class="b-hero"><img src="../../img/limonar-1600.webp" alt="Вилла Лимонар"><span class="b-brand">Vertiente</span><span class="b-ref">Объект VT-1152</span></div>
+  <div class="b-body">
+    <p class="b-where">Эль-Лимонар, Малага</p>
+    <h1>Вилла Лимонар</h1>
+    <div class="b-price"><b>4 100 000 €</b><span>7 593 € / м²</span></div>
+    <div class="b-badges"><span>Вид на море</span><span>✈ 20 мин из аэропорта Малаги</span></div>
+    <dl class="b-facts"><div><dt>Спальни</dt><dd>5</dd></div><div><dt>Ванные</dt><dd>5</dd></div><div><dt>Площадь дома</dt><dd>540 м²</dd></div><div><dt>Участок</dt><dd>1 900 м²</dd></div><div><dt>Терраса смотрит на</dt><dd>юг</dd></div><div><dt>Солнце на террасе летом</dt><dd>8:15–21:00</dd></div><div><dt>До пляжа</dt><dd>5 мин</dd></div><div><dt>Год постройки</dt><dd>2017</dd></div><div><dt>Энергосертификат</dt><dd>B</dd></div></dl>
+  </div>
+  <div class="b-foot"><div><b>Vertiente</b><span>Avenida del Mar 14, Marbella</span><span>+34 000 000 000 · hola@vertiente.example</span></div>
+      <div class="b-url"><span>Фото, карта и калькулятор:</span><b>womegaw.github.io/portfolio/villas/ru/limonar/</b></div></div>
+</section>
+<section class="sheet">
+  <div class="b-grid"><img src="../../img/in-living-15-800.webp" alt=""><img src="../../img/in-dining-1-800.webp" alt=""><img src="../../img/in-bed-5-800.webp" alt=""><img src="../../img/in-bath-3-800.webp" alt=""></div>
+  <div class="b-two">
+    <div><h2>О доме</h2><p>Бассейн на крыше с видом на порт и собор Малаги, на закате всё побережье в огнях. Десять минут до центра и музея Пикассо.</p></div>
+    <div><h2>Сколько стоит покупка</h2>
+      <dl class="b-costs">
+        <div><dt>Налог на вторичное жильё (ITP), 7%</dt><dd>287 000 €</dd></div>
+        <div><dt>Нотариус и реестр, около 0,5%</dt><dd>20 500 €</dd></div>
+        <div><dt>Юрист, 1% + НДС</dt><dd>49 610 €</dd></div>
+        <div class="sum"><dt>Всего с расходами</dt><dd>4 457 110 €</dd></div>
+        <div><dt>Ипотека, примерно</dt><dd>14 141 € в месяц</dd></div>
+      </dl>
+      <p class="b-note">Взнос 40%, 20 лет, 3,4% годовых. Расчёт ориентировочный.</p>
+    </div>
+  </div>
+  <div class="b-foot"><div><b>Vertiente</b><span>Avenida del Mar 14, Marbella</span><span>+34 000 000 000 · hola@vertiente.example</span></div>
+      <div class="b-url"><span>Фото, карта и калькулятор:</span><b>womegaw.github.io/portfolio/villas/ru/limonar/</b></div></div>
+  <p class="b-demo">Номер RAIA AT/MA/00000. Концепт-проект для портфолио: агентство, виллы, цены и контакты вымышлены. Фото: Unsplash.</p>
+</section>
+<script>
+// на узком экране лист A4 уменьшается под ширину; при печати — снова точный A4
+(function () {
+  var fit = function () { var k = Math.min(1, (innerWidth - 16) / 794);
+    document.querySelectorAll('.sheet').forEach(function (s) { s.style.zoom = k < 1 ? k : ''; }); };
+  fit(); addEventListener('resize', fit);
+  addEventListener('beforeprint', function () { document.querySelectorAll('.sheet').forEach(function (s) { s.style.zoom = ''; }); });
+  addEventListener('afterprint', fit);
+})();
+</script>
+</body>
+</html>

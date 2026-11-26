@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Villa Limonar — Vertiente (PDF)</title>
+<meta name="robots" content="noindex">
+<link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Prata&family=Onest:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../brochure.css?v=2026-11-26">
+</head>
+<body>
+<div class="toolbar"><a href="./">Back to the villa</a><button type="button" onclick="window.print()">Save PDF / print</button><p>On a phone: “Share” → “Print” → pinch the preview → “Save to Files”.</p></div>
+<section class="sheet">
+  <div class="b-hero"><img src="../../img/limonar-1600.webp" alt="Villa Limonar"><span class="b-brand">Vertiente</span><span class="b-ref">Reference VT-1152</span></div>
+  <div class="b-body">
+    <p class="b-where">El Limonar, Málaga</p>
+    <h1>Villa Limonar</h1>
+    <div class="b-price"><b>€4,100,000</b><span>€7,593 / m²</span></div>
+    <div class="b-badges"><span>Sea views</span><span>✈ 20 min from Málaga airport</span></div>
+    <dl class="b-facts"><div><dt>Bedrooms</dt><dd>5</dd></div><div><dt>Bathrooms</dt><dd>5</dd></div><div><dt>Built area</dt><dd>540 m²</dd></div><div><dt>Plot</dt><dd>1,900 m²</dd></div><div><dt>Terrace faces</dt><dd>south</dd></div><div><dt>Summer sun on the terrace</dt><dd>8:15–21:00</dd></div><div><dt>To the beach</dt><dd>5 min</dd></div><div><dt>Year built</dt><dd>2017</dd></div><div><dt>Energy rating</dt><dd>B</dd></div></dl>
+  </div>
+  <div class="b-foot"><div><b>Vertiente</b><span>Avenida del Mar 14, Marbella</span><span>+34 000 000 000 · hola@vertiente.example</span></div>
+      <div class="b-url"><span>Photos, map and calculator at</span><b>womegaw.github.io/portfolio/villas/en/limonar/</b></div></div>
+</section>
+<section class="sheet">
+  <div class="b-grid"><img src="../../img/in-living-15-800.webp" alt=""><img src="../../img/in-dining-1-800.webp" alt=""><img src="../../img/in-bed-5-800.webp" alt=""><img src="../../img/in-bath-3-800.webp" alt=""></div>
+  <div class="b-two">
+    <div><h2>About the house</h2><p>A rooftop pool overlooking Málaga’s harbour and cathedral; at sunset the whole coast lights up. Ten minutes from the centre and the Picasso Museum.</p></div>
+    <div><h2>What the purchase costs</h2>
+      <dl class="b-costs">
+        <div><dt>Transfer tax (resale), 7%</dt><dd>€287,000</dd></div>
+        <div><dt>Notary and land registry, about 0.5%</dt><dd>€20,500</dd></div>
+        <div><dt>Lawyer, 1% + VAT</dt><dd>€49,610</dd></div>
+        <div class="sum"><dt>Total with costs</dt><dd>€4,457,110</dd></div>
+        <div><dt>Mortgage estimate</dt><dd>€14,141 a month</dd></div>
+      </dl>
+      <p class="b-note">40% deposit, 20 years, 3.4% a year. An estimate.</p>
+    </div>
+  </div>
+  <div class="b-foot"><div><b>Vertiente</b><span>Avenida del Mar 14, Marbella</span><span>+34 000 000 000 · hola@vertiente.example</span></div>
+      <div class="b-url"><span>Photos, map and calculator at</span><b>womegaw.github.io/portfolio/villas/en/limonar/</b></div></div>
+  <p class="b-demo">RAIA no. AT/MA/00000. Portfolio concept project: the agency, villas, prices and contacts are fictional. Photos: Unsplash.</p>
+</section>
+<script>
+// на узком экране лист A4 уменьшается под ширину; при печати — снова точный A4
+(function () {
+  var fit = function () { var k = Math.min(1, (innerWidth - 16) / 794);
+    document.querySelectorAll('.sheet').forEach(function (s) { s.style.zoom = k < 1 ? k : ''; }); };
+  fit(); addEventListener('resize', fit);
+  addEventListener('beforeprint', function () { document.querySelectorAll('.sheet').forEach(function (s) { s.style.zoom = ''; }); });
+  addEventListener('afterprint', fit);
+})();
+</script>
+</body>
+</html>

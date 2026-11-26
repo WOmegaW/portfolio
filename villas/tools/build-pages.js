@@ -138,6 +138,7 @@ ${LANGS.map(x => `<link rel="alternate" hreflang="${x}" href="${SITE.url}/${x}/$
       <a class="btn" href="../../?villa=${v.id}#visit">${t.book}</a>
       <a class="btn wa" href="https://wa.me/${SITE.whatsapp}?text=${encodeURIComponent(t.waText(`${d.name} (${v.ref})`))}" target="_blank" rel="noopener">${t.wa}</a>
       <a class="btn ghost" href="../../#villa/${v.id}">${t.map}</a>
+      <a class="btn ghost" href="brochure.html">${B[l].save.split(' / ')[0]}</a>
     </div>
   </aside>
 </div>
@@ -156,6 +157,83 @@ ${LANGS.map(x => `<link rel="alternate" hreflang="${x}" href="${SITE.url}/${x}/$
 `;
 }
 
+/* ===== Буклет виллы для печати и PDF: villas/<язык>/<id>/brochure.html (2 листа A4) ===== */
+const B = {
+  es: { save: 'Guardar PDF / imprimir', back: 'Volver a la villa', hint: 'En el móvil: «Compartir» → «Imprimir» → pellizca la vista previa → «Guardar en Archivos».',
+    online: 'Fotos, mapa y calculadora en', contact: 'Contacto', desc: 'Sobre la casa', costs: 'Cuánto cuesta la compra' },
+  en: { save: 'Save PDF / print', back: 'Back to the villa', hint: 'On a phone: “Share” → “Print” → pinch the preview → “Save to Files”.',
+    online: 'Photos, map and calculator at', contact: 'Contact', desc: 'About the house', costs: 'What the purchase costs' },
+  ru: { save: 'Сохранить PDF / печать', back: 'Вернуться к вилле', hint: 'На телефоне: «Поделиться» → «Напечатать» → разведите пальцами превью → «Сохранить в Файлы».',
+    online: 'Фото, карта и калькулятор:', contact: 'Контакты', desc: 'О доме', costs: 'Сколько стоит покупка' }
+};
+function brochure(v, l) {
+  const t = T[l], b = B[l], d = L(v, l), c = calc(v), url = `${SITE.url}/${l}/${v.id}/`, short = url.replace(/^https?:\/\//, '');
+  const photo = (g, w) => rel(g, w);
+  const facts = [[t.beds, v.beds], [t.baths, v.baths], [t.built, `${num(v.built, l)} ${t.ppm}`], [t.plot, `${num(v.plot, l)} ${t.ppm}`],
+    [t.face, t.faces[v.face] || v.face], [t.sun, `${hm(v.sun[0], v.sun[1])}–${hm(v.sun[2], v.sun[3])}`], [t.beach, `${v.beach} ${t.min}`],
+    [t.year, v.year], [t.energy, v.energy]];
+  const badges = [v.newBuild && t.newBuild, v.sea && t.sea, `✈ ${AREAS[v.area].airport} ${t.airport}`].filter(Boolean);
+  const more = v.gallery.slice(1, 5);
+  const foot = `<div class="b-foot"><div><b>${esc(SITE.brand)}</b><span>${esc(SITE.address)}</span><span>${esc(SITE.phone)} · ${esc(SITE.email)}</span></div>
+      <div class="b-url"><span>${b.online}</span><b>${esc(short)}</b></div></div>`;
+  return `<!doctype html>
+<html lang="${l}">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>${esc(d.name)} — ${esc(SITE.brand)} (PDF)</title>
+<meta name="robots" content="noindex">
+<link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Prata&family=Onest:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../brochure.css?v=${TODAY}">
+</head>
+<body>
+<div class="toolbar"><a href="./">${b.back}</a><button type="button" onclick="window.print()">${b.save}</button><p>${b.hint}</p></div>
+<section class="sheet">
+  <div class="b-hero"><img src="${photo(v.gallery[0], 1600)}" alt="${esc(d.name)}"><span class="b-brand">${esc(SITE.brand)}</span><span class="b-ref">${t.ref} ${esc(v.ref)}</span></div>
+  <div class="b-body">
+    <p class="b-where">${esc(d.where)}</p>
+    <h1>${esc(d.name)}</h1>
+    <div class="b-price"><b>${money(v.price, l)}</b><span>${money(Math.round(v.price / v.built), l)} / ${t.ppm}</span></div>
+    <div class="b-badges">${badges.map(x => `<span>${esc(x)}</span>`).join('')}</div>
+    <dl class="b-facts">${facts.map(([k, x]) => `<div><dt>${k}</dt><dd>${esc(x)}</dd></div>`).join('')}</dl>
+  </div>
+  ${foot}
+</section>
+<section class="sheet">
+  <div class="b-grid">${more.map(g => `<img src="${photo(g, 800)}" alt="">`).join('')}</div>
+  <div class="b-two">
+    <div><h2>${b.desc}</h2><p>${esc(d.desc)}</p></div>
+    <div><h2>${b.costs}</h2>
+      <dl class="b-costs">
+        <div><dt>${v.newBuild ? t.iva : t.itp}</dt><dd>${money(c.tax, l)}</dd></div>
+        <div><dt>${t.notary}</dt><dd>${money(c.notary, l)}</dd></div>
+        <div><dt>${t.lawyer}</dt><dd>${money(c.lawyer, l)}</dd></div>
+        <div class="sum"><dt>${t.total}</dt><dd>${money(c.total, l)}</dd></div>
+        <div><dt>${t.mortgage}</dt><dd>${money(c.monthly, l)} ${t.monthly}</dd></div>
+      </dl>
+      <p class="b-note">${t.mnote}</p>
+    </div>
+  </div>
+  ${foot}
+  <p class="b-demo">${t.raia} ${esc((SITE.legal || {}).raia || '—')}. ${t.demo}</p>
+</section>
+<script>
+// на узком экране лист A4 уменьшается под ширину; при печати — снова точный A4
+(function () {
+  var fit = function () { var k = Math.min(1, (innerWidth - 16) / 794);
+    document.querySelectorAll('.sheet').forEach(function (s) { s.style.zoom = k < 1 ? k : ''; }); };
+  fit(); addEventListener('resize', fit);
+  addEventListener('beforeprint', function () { document.querySelectorAll('.sheet').forEach(function (s) { s.style.zoom = ''; }); });
+  addEventListener('afterprint', fit);
+})();
+</script>
+</body>
+</html>
+`;
+}
+
 // страницы вилл
 let pages = 0;
 for (const l of LANGS) {
@@ -163,6 +241,7 @@ for (const l of LANGS) {
   for (const v of VILLAS) {
     fs.mkdirSync(path.join(dir, v.id), { recursive: true });
     fs.writeFileSync(path.join(dir, v.id, 'index.html'), villaPage(v, l)); pages++;
+    fs.writeFileSync(path.join(dir, v.id, 'brochure.html'), brochure(v, l));
   }
 }
 // карта сайта и robots.txt

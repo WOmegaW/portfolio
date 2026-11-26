@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Villa Blanca — Vertiente (PDF)</title>
+<meta name="robots" content="noindex">
+<link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Prata&family=Onest:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../brochure.css?v=2026-11-26">
+</head>
+<body>
+<div class="toolbar"><a href="./">Back to the villa</a><button type="button" onclick="window.print()">Save PDF / print</button><p>On a phone: “Share” → “Print” → pinch the preview → “Save to Files”.</p></div>
+<section class="sheet">
+  <div class="b-hero"><img src="../../img/blanca-1600.webp" alt="Villa Blanca"><span class="b-brand">Vertiente</span><span class="b-ref">Reference VT-1124</span></div>
+  <div class="b-body">
+    <p class="b-where">Los Monteros, Marbella</p>
+    <h1>Villa Blanca</h1>
+    <div class="b-price"><b>€4,750,000</b><span>€9,135 / m²</span></div>
+    <div class="b-badges"><span>New build</span><span>Sea views</span><span>✈ 40 min from Málaga airport</span></div>
+    <dl class="b-facts"><div><dt>Bedrooms</dt><dd>5</dd></div><div><dt>Bathrooms</dt><dd>5</dd></div><div><dt>Built area</dt><dd>520 m²</dd></div><div><dt>Plot</dt><dd>1,400 m²</dd></div><div><dt>Terrace faces</dt><dd>south</dd></div><div><dt>Summer sun on the terrace</dt><dd>8:40–20:55</dd></div><div><dt>To the beach</dt><dd>4 min</dd></div><div><dt>Year built</dt><dd>2025</dd></div><div><dt>Energy rating</dt><dd>A</dd></div></dl>
+  </div>
+  <div class="b-foot"><div><b>Vertiente</b><span>Avenida del Mar 14, Marbella</span><span>+34 000 000 000 · hola@vertiente.example</span></div>
+      <div class="b-url"><span>Photos, map and calculator at</span><b>womegaw.github.io/portfolio/villas/en/blanca/</b></div></div>
+</section>
+<section class="sheet">
+  <div class="b-grid"><img src="../../img/blanca-2-800.webp" alt=""><img src="../../img/in-living-10-800.webp" alt=""><img src="../../img/in-kitchen-3-800.webp" alt=""><img src="../../img/in-bath-4-800.webp" alt=""></div>
+  <div class="b-two">
+    <div><h2>About the house</h2><p>A 2025 new build in white stone, with a large pool with a beach entry and a covered summer lounge. Four minutes on foot to the sea, smart home, heat pump and solar panels.</p></div>
+    <div><h2>What the purchase costs</h2>
+      <dl class="b-costs">
+        <div><dt>VAT 10% and stamp duty 1.2% (new build)</dt><dd>€532,000</dd></div>
+        <div><dt>Notary and land registry, about 0.5%</dt><dd>€23,750</dd></div>
+        <div><dt>Lawyer, 1% + VAT</dt><dd>€57,475</dd></div>
+        <div class="sum"><dt>Total with costs</dt><dd>€5,363,225</dd></div>
+        <div><dt>Mortgage estimate</dt><dd>€16,383 a month</dd></div>
+      </dl>
+      <p class="b-note">40% deposit, 20 years, 3.4% a year. An estimate.</p>
+    </div>
+  </div>
+  <div class="b-foot"><div><b>Vertiente</b><span>Avenida del Mar 14, Marbella</span><span>+34 000 000 000 · hola@vertiente.example</span></div>
+      <div class="b-url"><span>Photos, map and calculator at</span><b>womegaw.github.io/portfolio/villas/en/blanca/</b></div></div>
+  <p class="b-demo">RAIA no. AT/MA/00000. Portfolio concept project: the agency, villas, prices and contacts are fictional. Photos: Unsplash.</p>
+</section>
+<script>
+// на узком экране лист A4 уменьшается под ширину; при печати — снова точный A4
+(function () {
+  var fit = function () { var k = Math.min(1, (innerWidth - 16) / 794);
+    document.querySelectorAll('.sheet').forEach(function (s) { s.style.zoom = k < 1 ? k : ''; }); };
+  fit(); addEventListener('resize', fit);
+  addEventListener('beforeprint', function () { document.querySelectorAll('.sheet').forEach(function (s) { s.style.zoom = ''; }); });
+  addEventListener('afterprint', fit);
+})();
+</script>
+</body>
+</html>
