@@ -12,6 +12,7 @@ const { SITE, AREAS, VILLAS } = ctx.window;
 const LANGS = ['es', 'en', 'ru'];
 const TODAY = new Date().toISOString().slice(0, 10);
 
+const TOUR = { es: ['Vídeo tour', 'Tour 3D 360°'], en: ['Video tour', '3D tour 360°'], ru: ['Видео-тур', '3D-тур 360°'] };
 const T = {
   es: { locale: 'es-ES', title: 'villas en la Costa del Sol', all: 'Todas las villas', book: 'Reservar una visita', wa: 'Escribir por WhatsApp', map: 'Ver en el mapa y la calculadora',
     photos: 'Fotos', about: 'Sobre la casa', facts: 'Características', beds: 'Dormitorios', baths: 'Baños', built: 'Construidos', plot: 'Parcela', face: 'Terraza orientada al',
@@ -150,6 +151,8 @@ ${LANGS.map(x => `<link rel="alternate" hreflang="${x}" href="${SITE.url}/${x}/$
     <div class="ctas">
       <a class="btn" href="../../?villa=${v.id}#visit">${t.book}</a>
       <a class="btn wa" href="https://wa.me/${SITE.whatsapp}?text=${encodeURIComponent(t.waText(`${d.name} (${v.ref})`))}" target="_blank" rel="noopener">${t.wa}</a>
+      <a class="btn ghost" href="../../#video/${v.id}">▶ ${TOUR[l][0]}</a>
+      ${v.tour ? `<a class="btn ghost" href="../../#tour/${v.id}">${TOUR[l][1]}</a>` : ''}
       <a class="btn ghost" href="../../#villa/${v.id}">${t.map}</a>
       <a class="btn ghost" href="brochure.html">${B[l].save.split(' / ')[0]}</a>
     </div>
@@ -268,11 +271,11 @@ ${urls.map(u => `  <url><loc>${u}</loc><lastmod>${TODAY}</lastmod></url>`).join(
 `);
 fs.writeFileSync(path.join(ROOT, 'robots.txt'), `User-agent: *\nAllow: /\n\nSitemap: ${SITE.url}/sitemap.xml\n`);
 // шаблон Google Таблицы из текущих вилл
-const cols = ['id', 'ref', 'area', 'lat', 'lng', 'price', 'status', 'oldprice', 'beds', 'baths', 'built', 'plot', 'sun', 'face', 'sea', 'newbuild', 'beach', 'golf', 'school', 'hospital', 'shops', 'town', 'year', 'energy', 'photos',
+const cols = ['id', 'ref', 'area', 'lat', 'lng', 'price', 'status', 'oldprice', 'beds', 'baths', 'built', 'plot', 'sun', 'face', 'sea', 'newbuild', 'beach', 'golf', 'school', 'hospital', 'shops', 'town', 'year', 'energy', 'photos', 'tour', 'video',
   'name_es', 'where_es', 'desc_es', 'name_en', 'where_en', 'desc_en', 'name_ru', 'where_ru', 'desc_ru'];
 const cell = x => /[",\n]/.test(String(x)) ? `"${String(x).replace(/"/g, '""')}"` : String(x);
 const csv = [cols.join(','), ...VILLAS.map(v => [v.id, v.ref, v.area, v.lat, v.lng, v.price, v.status || '', v.oldPrice || '', v.beds, v.baths, v.built, v.plot,
-  `${hm(v.sun[0], v.sun[1])}-${hm(v.sun[2], v.sun[3])}`, v.face, v.sea ? 'si' : 'no', v.newBuild ? 'si' : 'no', v.beach, ...['golf', 'school', 'hospital', 'shops', 'town'].map(k => (v.near || {})[k] || ''), v.year, v.energy, v.gallery.join(' | '),
+  `${hm(v.sun[0], v.sun[1])}-${hm(v.sun[2], v.sun[3])}`, v.face, v.sea ? 'si' : 'no', v.newBuild ? 'si' : 'no', v.beach, ...['golf', 'school', 'hospital', 'shops', 'town'].map(k => (v.near || {})[k] || ''), v.year, v.energy, v.gallery.join(' | '), Array.isArray(v.tour) ? '' : v.tour || '', v.video || '',
   v.es.name, v.es.where, v.es.desc, v.en.name, v.en.where, v.en.desc, v.ru.name, v.ru.where, v.ru.desc].map(cell).join(','))].join('\n');
 fs.writeFileSync(path.join(ROOT, 'plantilla-villas.csv'), '﻿' + csv + '\n');
 console.log(`Готово: ${pages} страниц вилл, sitemap.xml (${urls.length} адресов), robots.txt, plantilla-villas.csv`);

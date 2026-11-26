@@ -11,6 +11,11 @@ function plural(n, one, few, many) { const a = n % 10, b = n % 100; if (a === 1 
 const T = {
 ru: {
  'nav.villas': 'Виллы', 'nav.coast': 'Районы', 'nav.buy': 'Как купить', 'nav.visit': 'Просмотр', 'nav.menu': 'Меню', 'nav.sell': 'Продать', 'pdf': 'Буклет PDF', 'cur.label': 'Валюта',
+ 'tour.video': 'Видео-тур', 'tour.360': '3D-тур 360°', 'tour.badge': '3D-тур', 'tour.hint': 'Тяните, чтобы осмотреться', 'tour.rooms': 'Комнаты', 'tour.zoomIn': 'Приблизить', 'tour.zoomOut': 'Отдалить',
+ 'tour.pause': 'Пауза', 'tour.play': 'Продолжить', 'tour.replay': 'Смотреть ещё раз', 'tour.beds': 'спальни', 'tour.endText': 'Понравилось? Покажем виллу вживую — или проведём видеопросмотр по WhatsApp.',
+ 'tour.demo': 'Демо-панорамы: Poly Haven (CC0). Агентство ставит сюда свои 360° фото или ссылку Matterport.',
+ 'room.living': 'Гостиная', 'room.kitchen': 'Кухня', 'room.dining': 'Столовая', 'room.bed': 'Спальня', 'room.bath': 'Ванная', 'room.pool': 'Бассейн', 'room.view': 'Вид с террасы', 'room.terrace': 'Терраса', 'room.garden': 'Сад', 'room.inside': 'Интерьер', 'room.outside': 'Вилла снаружи',
+ 
  'near.title': 'Что рядом', 'near.note': 'Минуты на машине, до пляжа — пешком или на машине.',
  'near': { beach: 'Пляж', golf: 'Гольф', school: 'Международная школа', hospital: 'Больница', shops: 'Магазины', town: 'Центр города', airport: 'Аэропорт Малаги' },
  'st.new': 'Новое', 'st.reduced': 'Цена снижена', 'st.reserved': 'Зарезервирована', 'st.sold': 'Продана', 'st.was': 'Прежняя цена',
@@ -77,6 +82,11 @@ ru: {
 },
 es: {
  'nav.villas': 'Villas', 'nav.coast': 'Zonas', 'nav.buy': 'Cómo comprar', 'nav.visit': 'Visita', 'nav.menu': 'Menú', 'nav.sell': 'Vender', 'pdf': 'Ficha PDF', 'cur.label': 'Moneda',
+ 'tour.video': 'Vídeo tour', 'tour.360': 'Tour 3D 360°', 'tour.badge': 'Tour 3D', 'tour.hint': 'Arrastra para mirar alrededor', 'tour.rooms': 'Estancias', 'tour.zoomIn': 'Acercar', 'tour.zoomOut': 'Alejar',
+ 'tour.pause': 'Pausa', 'tour.play': 'Continuar', 'tour.replay': 'Ver otra vez', 'tour.beds': 'dormitorios', 'tour.endText': '¿Te gusta? Te la enseñamos en persona o por videollamada de WhatsApp.',
+ 'tour.demo': 'Panorámicas de demostración: Poly Haven (CC0). La agencia pone aquí sus fotos 360° o un enlace de Matterport.',
+ 'room.living': 'Salón', 'room.kitchen': 'Cocina', 'room.dining': 'Comedor', 'room.bed': 'Dormitorio', 'room.bath': 'Baño', 'room.pool': 'Piscina', 'room.view': 'Vistas desde la terraza', 'room.terrace': 'Terraza', 'room.garden': 'Jardín', 'room.inside': 'Interior', 'room.outside': 'Exterior',
+ 
  'near.title': 'Qué hay cerca', 'near.note': 'Minutos en coche; a la playa, a pie o en coche.',
  'near': { beach: 'Playa', golf: 'Golf', school: 'Colegio internacional', hospital: 'Hospital', shops: 'Tiendas', town: 'Centro', airport: 'Aeropuerto de Málaga' },
  'st.new': 'Novedad', 'st.reduced': 'Precio rebajado', 'st.reserved': 'Reservada', 'st.sold': 'Vendida', 'st.was': 'Precio anterior',
@@ -143,6 +153,11 @@ es: {
 },
 en: {
  'nav.villas': 'Villas', 'nav.coast': 'Areas', 'nav.buy': 'How to buy', 'nav.visit': 'Viewing', 'nav.menu': 'Menu', 'nav.sell': 'Sell', 'pdf': 'PDF brochure', 'cur.label': 'Currency',
+ 'tour.video': 'Video tour', 'tour.360': '3D tour 360°', 'tour.badge': '3D tour', 'tour.hint': 'Drag to look around', 'tour.rooms': 'Rooms', 'tour.zoomIn': 'Zoom in', 'tour.zoomOut': 'Zoom out',
+ 'tour.pause': 'Pause', 'tour.play': 'Play', 'tour.replay': 'Watch again', 'tour.beds': 'bedrooms', 'tour.endText': 'Like it? We will show it to you in person — or on a WhatsApp video call.',
+ 'tour.demo': 'Demo panoramas: Poly Haven (CC0). The agency puts its own 360° photos or a Matterport link here.',
+ 'room.living': 'Living room', 'room.kitchen': 'Kitchen', 'room.dining': 'Dining room', 'room.bed': 'Bedroom', 'room.bath': 'Bathroom', 'room.pool': 'Pool', 'room.view': 'Terrace view', 'room.terrace': 'Terrace', 'room.garden': 'Garden', 'room.inside': 'Interior', 'room.outside': 'Exterior',
+ 
  'near.title': 'What’s nearby', 'near.note': 'Minutes by car; to the beach on foot or by car.',
  'near': { beach: 'Beach', golf: 'Golf', school: 'International school', hospital: 'Hospital', shops: 'Shops', town: 'Town centre', airport: 'Málaga airport' },
  'st.new': 'New listing', 'st.reduced': 'Price reduced', 'st.reserved': 'Reserved', 'st.sold': 'Sold', 'st.was': 'Previous price',
@@ -430,7 +445,7 @@ function cardHTML(v, feature) {
   const l = L(v), badges = [v.newBuild && t('badge.new'), v.sea && t('badge.sea')].filter(Boolean);
   return `<article class="card${feature ? ' feature' : ''}${v.status ? ' is-' + v.status : ''}">
     <div class="ph"><img src="${img(v.gallery[0], 800)}" srcset="${srcset(v.gallery[0])}" sizes="(max-width:640px) 100vw, ${feature ? '66vw' : '33vw'}" alt="${l.name}" loading="lazy">
-      <span class="badges">${statusTag(v)}${badges.map(b => `<span>${b}</span>`).join('')}</span>
+      <span class="badges">${statusTag(v)}${v.tour ? `<span class="badge-360">${t('tour.badge')}</span>` : ''}${badges.map(b => `<span>${b}</span>`).join('')}</span>
       <span class="photos">${t('photos', v.gallery.length)}</span>
       <span class="sunline">${sunIcon}${sunText(v)}</span></div>
     <div class="body">
@@ -633,6 +648,7 @@ function renderAtlasVilla(box) {
       <div class="ai-thumbs">${v.gallery.map((g, i) => `<button type="button" data-g="${i}" aria-current="${i === 0}" aria-label="${t('gal.of', i + 1, v.gallery.length)}"><img src="${img(g, 800)}" alt=""></button>`).join('')}</div></div>
     <div><p class="ref">${t('d.ref')} ${v.ref}</p><h3>${l.name}</h3><p class="muted">${l.where}</p></div>
     <div class="price-row">${statusTag(v)}<span class="price">${oldPrice(v)}${money(v.price)}</span><span class="ppm">${money(Math.round(v.price / v.built))} / ${t('m2')}</span></div>
+    <div class="tour-btns tour-row">${tourBtns(v)}</div>
     <dl class="ai-specs">${specs.map(([k, x]) => `<div><dt>${k}</dt><dd>${x}</dd></div>`).join('')}</dl>
     <div><h4 class="near-h">${t('near.title')}</h4><ul class="near">${nearHTML(v)}</ul></div>
     <p>${l.desc}</p>
@@ -712,6 +728,21 @@ drawGeography();
 new ResizeObserver(() => { if (vb && !vbAnim) flyTo(atlasArea, true); }).observe(atlasMap);
 
 /* ===================== Карточка виллы ===================== */
+/* Кнопки «Видео-тур» и «3D-тур 360°» (сам тур — в tour.js) */
+const PLAY_ICO = '<svg width="12" height="12" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 4v16l13-8z" fill="currentColor"/></svg>';
+const tourBtns = v => `<button type="button" data-tour="video" data-vid="${v.id}"><span class="ico">${PLAY_ICO}</span>${t('tour.video')}</button>`
+  + (v.tour ? `<button type="button" data-tour="360" data-vid="${v.id}"><span class="ico">360°</span>${t('tour.badge')}</button>` : '');
+const openTour = (kind, id) => { const v = byId(id); if (!v || !window.VTour) return; if (kind === '360' && v.tour) VTour.pano(v); else VTour.video(v); };
+document.addEventListener('click', e => { const b = e.target.closest('[data-tour]'); if (b) { e.preventDefault(); e.stopPropagation(); openTour(b.dataset.tour, b.dataset.vid); } }, true);
+if (window.VTour) VTour.init({
+  t, L, img, brand: SITE.brand, money: n => money(n), waLink: n => waLink(n), onBook: v => bookVilla(v),
+  onClose: () => { if (/^#(video|tour)\//.test(location.hash)) history.replaceState(null, '', location.pathname + location.search); }
+});
+const bookVilla = v => {
+  fVilla.value = v.id; if (dlg.open) closeVilla();
+  setTimeout(() => { $('#visit').scrollIntoView(); $('#fName').focus({ preventScroll: true }); }, 60);
+};
+
 const dlg = $('#dlg'); let current = null, galIdx = 0, pushedHash = false;
 function setGal(i) {
   const g = current.gallery; galIdx = (i + g.length) % g.length;
@@ -735,6 +766,7 @@ function renderVilla() {
   $('#dFav').dataset.fav = v.id; $('#dCmp').dataset.cmp = v.id;
   $('#dWa').href = waLink(l.name);
   $('#dPdf').href = `${lang}/${v.id}/brochure.html`;
+  $('#dTour').innerHTML = tourBtns(v);
   setGal(galIdx); renderCalc(); syncFavs(); syncCompare();
 }
 function openVilla(id, fromHash) {
@@ -791,7 +823,8 @@ $('#dBook').addEventListener('click', () => {
   setTimeout(() => { $('#visit').scrollIntoView(); $('#fName').focus({ preventScroll: true }); }, 60);
 });
 addEventListener('hashchange', () => {
-  const m = location.hash.match(/^#villa\/([\w-]+)$/);
+  const m = location.hash.match(/^#villa\/([\w-]+)$/), tm = location.hash.match(/^#(video|tour)\/([\w-]+)$/);
+  if (tm) { openTour(tm[1] === 'tour' ? '360' : 'video', tm[2]); return; }
   if (m) openVilla(m[1], true); else if (dlg.open) { pushedHash = false; dlg.close(); }
 });
 swipe($('#dGallery .gal-main'), d => setGal(galIdx + d));
@@ -994,6 +1027,7 @@ function rowsToVillas(rows) {
       beach: toNum(g('beach')), year: toNum(g('year')), energy: g('energy') || '—',
       near: Object.fromEntries(['golf', 'school', 'hospital', 'shops', 'town'].map(k => [k, toNum(g(k))]).filter(([, x]) => x)),
       status: ['new', 'reduced', 'reserved', 'sold'].includes(g('status').toLowerCase()) ? g('status').toLowerCase() : '', oldPrice: toNum(g('oldprice')),
+      tour: g('tour'), video: g('video'),
       gallery: g('photos').split(/[|\n]|,\s*(?=https?:|[a-z])/).map(s => s.trim()).filter(Boolean) };
     ['ru', 'es', 'en'].forEach(l => { v[l] = { name: g('name_' + l), where: g('where_' + l), desc: g('desc_' + l) }; });
     return v;
@@ -1037,6 +1071,9 @@ Promise.all([loadSheet(), loadRates()]).finally(() => {
   reveal($$('.steps li'));
   const startHash = location.hash.match(/^#villa\/([\w-]+)$/);
   if (startHash) openVilla(startHash[1], true);
+  // прямая ссылка на тур: #video/<id> или #tour/<id> (со страниц вилл и для рассылки клиентам)
+  const tourHash = location.hash.match(/^#(video|tour)\/([\w-]+)$/);
+  if (tourHash) openTour(tourHash[1] === 'tour' ? '360' : 'video', tourHash[2]);
   // пришли со страницы виллы по кнопке «Записаться» (?villa=id#visit): вилла уже выбрана в форме
   const pre = new URLSearchParams(location.search).get('villa');
   if (pre && byId(pre)) fVilla.value = pre;
