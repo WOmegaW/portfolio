@@ -364,6 +364,10 @@ footer .brand{color:#fff;font-size:34px;display:block;margin-bottom:10px}
 footer a{text-decoration:none}
 footer a:hover{text-decoration:underline}
 footer p{margin:0 0 6px}
+.sell-points{list-style:none;margin:24px 0 0;padding:0;display:grid;gap:12px;max-width:44ch}
+.sell-points li{position:relative;padding-left:34px;font-size:17px;color:var(--ink-2)}
+.sell-points li::before{content:"";position:absolute;left:0;top:2px;width:22px;height:22px;border-radius:50%;background:#fff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M6 12.5l4 4 8-9' fill='none' stroke='%2310242E' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/14px no-repeat}
+.form-h{font-size:clamp(26px,2.8vw,34px);margin-bottom:18px}
 .legal-row{grid-column:1/-1;display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px 24px;border-top:1px solid var(--line);padding-top:18px;font-size:14px}
 .legal-row p{margin:0}
 .legal-row nav{display:flex;flex-wrap:wrap;gap:8px 20px}
@@ -528,7 +532,7 @@ footer p{margin:0 0 6px}
 </head>
 <body>
 <div class="stage" aria-hidden="true">
-  <div class="layers" id="layers"><div class="layer" data-bg="hero"><img src="img/hero-1600.webp" srcset="img/hero-800.webp 800w, img/hero-1600.webp 1600w" sizes="108vw" alt="" decoding="async" fetchpriority="high"></div><div class="layer" data-bg="patio"><img src="img/patio-1600.webp" srcset="img/patio-800.webp 800w, img/patio-1600.webp 1600w" sizes="108vw" alt="" decoding="async"></div><div class="layer" data-bg="sea"><img src="img/sea-1600.webp" srcset="img/sea-800.webp 800w, img/sea-1600.webp 1600w" sizes="108vw" alt="" decoding="async"></div><div class="layer" data-bg="mirador-in"><img src="img/mirador-in-1600.webp" srcset="img/mirador-in-800.webp 800w, img/mirador-in-1600.webp 1600w" sizes="108vw" alt="" decoding="async"></div><div class="layer" data-bg="dusk"><img src="img/dusk-1600.webp" srcset="img/dusk-800.webp 800w, img/dusk-1600.webp 1600w" sizes="108vw" alt="" decoding="async"></div></div>
+  <div class="layers" id="layers"><div class="layer" data-bg="hero"><img src="img/hero-1600.webp" srcset="img/hero-800.webp 800w, img/hero-1600.webp 1600w" sizes="108vw" alt="" decoding="async" fetchpriority="high"></div><div class="layer" data-bg="patio"><img src="img/patio-1600.webp" srcset="img/patio-800.webp 800w, img/patio-1600.webp 1600w" sizes="108vw" alt="" decoding="async"></div><div class="layer" data-bg="sea"><img src="img/sea-1600.webp" srcset="img/sea-800.webp 800w, img/sea-1600.webp 1600w" sizes="108vw" alt="" decoding="async"></div><div class="layer" data-bg="mirador-in"><img src="img/mirador-in-1600.webp" srcset="img/mirador-in-800.webp 800w, img/mirador-in-1600.webp 1600w" sizes="108vw" alt="" decoding="async"></div><div class="layer" data-bg="dusk"><img src="img/dusk-1600.webp" srcset="img/dusk-800.webp 800w, img/dusk-1600.webp 1600w" sizes="108vw" alt="" decoding="async"></div><div class="layer" data-bg="cortijo"><img src="img/cortijo-1600.webp" srcset="img/cortijo-800.webp 800w, img/cortijo-1600.webp 1600w" sizes="108vw" alt="" decoding="async"></div></div>
   <div class="tint" id="tint"></div><div class="glow" id="glow"></div><div class="scrim" id="scrim"></div>
 </div>
 <button type="button" class="to-top" id="toTop" data-i-label="toTop" aria-label="Наверх"><svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 19V5M5 12l7-7 7 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
@@ -541,6 +545,7 @@ footer p{margin:0 0 6px}
       <a href="#coast" data-i="nav.coast">Районы</a>
       <a href="#buy" data-i="nav.buy">Как купить</a>
       <a href="#visit" data-i="nav.visit">Просмотр</a>
+      <a href="#sell" data-i="nav.sell">Продать</a>
       <a href="#visit" class="btn nav-cta" data-i="cta.visit">Записаться на просмотр</a>
     </nav>
     <button class="fav-head" id="favBtn" type="button" data-i-label="fav.header" aria-label="Избранное"><svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 20.5s-7.5-4.6-9.3-9.4C1.4 7.6 3.6 4 7.1 4c2 0 3.6 1.1 4.9 2.8C13.3 5.1 14.9 4 16.9 4c3.5 0 5.7 3.6 4.4 7.1-1.8 4.8-9.3 9.4-9.3 9.4z"/></svg><span id="favCount">0</span></button>
@@ -681,6 +686,42 @@ footer p{margin:0 0 6px}
     </div>
   </div>
 </section>
+<section class="section" id="sell" data-bg="cortijo" aria-labelledby="sellTitle">
+  <div class="wrap visit">
+    <div>
+      <h2 id="sellTitle" data-i="sell.title">Продаёте виллу?</h2>
+      <p class="lead" data-i="sell.lead"></p>
+      <ul class="sell-points">
+        <li data-i="sell.p1"></li><li data-i="sell.p2"></li><li data-i="sell.p3"></li>
+      </ul>
+    </div>
+    <div class="panel form-panel">
+      <h3 class="form-h" data-i="sell.form">Бесплатная оценка</h3>
+      <div id="sellBox">
+        <form id="sellForm" novalidate>
+          <div class="two">
+            <div class="field"><label for="sName" data-i="f.name">Имя</label><input id="sName" autocomplete="name" required><span class="err" id="esName"></span></div>
+            <div class="field"><label for="sContact" data-i="f.contact">Телефон или e-mail</label><input id="sContact" autocomplete="email" required><span class="err" id="esContact"></span></div>
+          </div>
+          <div class="two">
+            <div class="field"><label for="sArea" data-i="sell.area">Район</label><select id="sArea"></select></div>
+            <div class="field"><label for="sType" data-i="sell.type">Тип</label><select id="sType"></select></div>
+          </div>
+          <div class="two">
+            <div class="field"><label for="sBeds" data-i="sell.beds">Спальни</label><input id="sBeds" type="number" min="0" max="20" inputmode="numeric"></div>
+            <div class="field"><label for="sBuilt" data-i="sell.built">Площадь, м²</label><input id="sBuilt" type="number" min="0" max="10000" inputmode="numeric"></div>
+          </div>
+          <div class="field"><label for="sAddr" data-i="sell.addr">Адрес или урбанизация</label><input id="sAddr"></div>
+          <div class="field"><label for="sMsg" data-i="f.msg">Комментарий</label><textarea id="sMsg"></textarea></div>
+          <div class="trap" aria-hidden="true"><label for="sTrap">Website</label><input id="sTrap" tabindex="-1" autocomplete="off"></div>
+          <div><button class="btn" type="submit" data-i="sell.send">Получить оценку</button></div>
+          <p class="err" id="esSend" role="alert"></p>
+          <p class="form-note"><span class="fNoteText"></span> <a href="privacidad.html">Política de privacidad</a></p>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
 </main>
 
 <footer>
@@ -784,7 +825,7 @@ footer p{margin:0 0 6px}
 <a class="wa-fab" id="waFab" href="#" target="_blank" rel="noopener" aria-label="WhatsApp"><svg width="26" height="26" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 11.8 11.8 0 0 0 4.5 4c1.7.7 2.3.8 3.2.6.5-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.2-1.2-.1-.1-.3-.2-.5-.3z"/></svg></a>
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
-<script src="data.js?v=2026-11-26-15"></script>
-<script src="app.js?v=2026-11-26-15"></script>
+<script src="data.js?v=2026-11-27-1"></script>
+<script src="app.js?v=2026-11-27-1"></script>
 </body>
 </html>

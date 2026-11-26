@@ -10,7 +10,13 @@ const byId = id => VILLAS.find(v => v.id === id);
 function plural(n, one, few, many) { const a = n % 10, b = n % 100; if (a === 1 && b !== 11) return one; if (a >= 2 && a <= 4 && (b < 12 || b > 14)) return few; return many; }
 const T = {
 ru: {
- 'nav.villas': 'Виллы', 'nav.coast': 'Районы', 'nav.buy': 'Как купить', 'nav.visit': 'Просмотр', 'nav.menu': 'Меню',
+ 'nav.villas': 'Виллы', 'nav.coast': 'Районы', 'nav.buy': 'Как купить', 'nav.visit': 'Просмотр', 'nav.menu': 'Меню', 'nav.sell': 'Продать',
+ 'sell.title': 'Продаёте виллу?', 'sell.lead': 'Оценим ваш дом бесплатно за 48 часов: по реальным сделкам в вашем районе, с учётом вида, террасы и солнца. Наши покупатели из Великобритании, Скандинавии, Германии и Бельгии уже ищут дома на этом побережье.',
+ 'sell.p1': 'Оценка по реальным сделкам в вашем районе, а не по средней цене', 'sell.p2': 'Профессиональная съёмка: фото, видео и 3D-тур', 'sell.p3': 'Показ на трёх языках, на этом сайте и международных порталах',
+ 'sell.form': 'Бесплатная оценка', 'sell.area': 'Район', 'sell.other': 'Другой район', 'sell.type': 'Тип недвижимости',
+ 'sell.types': { villa: 'Вилла', townhouse: 'Таунхаус', apartment: 'Квартира', plot: 'Участок', other: 'Другое' },
+ 'sell.beds': 'Спальни', 'sell.built': 'Площадь, м²', 'sell.addr': 'Адрес или урбанизация (необязательно)', 'sell.send': 'Получить оценку',
+ 'sell.ok.t': 'Заявка на оценку принята', 'sell.ok.p': n => `${n}, свяжемся с вами в течение 24 часов и договоримся о визите.`,
  'cta.visit': 'Записаться на просмотр', 'cta.see': 'Смотреть виллы', 'cta.visitThis': 'Записаться на просмотр',
  'hero.title': 'Виллы над морем Коста-дель-Соль',
  'hero.text': n => `Подбираем дом по тому, как в нём падает свет: утренний кофе на восточной террасе, ужин у бассейна на закате. ${n} ${plural(n, 'вилла', 'виллы', 'вилл')} от Сотогранде до Малаги.`,
@@ -66,7 +72,13 @@ ru: {
  'title': 'виллы на Коста-дель-Соль'
 },
 es: {
- 'nav.villas': 'Villas', 'nav.coast': 'Zonas', 'nav.buy': 'Cómo comprar', 'nav.visit': 'Visita', 'nav.menu': 'Menú',
+ 'nav.villas': 'Villas', 'nav.coast': 'Zonas', 'nav.buy': 'Cómo comprar', 'nav.visit': 'Visita', 'nav.menu': 'Menú', 'nav.sell': 'Vender',
+ 'sell.title': '¿Vendes tu villa?', 'sell.lead': 'Valoramos tu casa gratis en 48 horas, según operaciones reales en tu zona y teniendo en cuenta las vistas, la terraza y el sol. Nuestros compradores del Reino Unido, Escandinavia, Alemania y Bélgica ya buscan casa en esta costa.',
+ 'sell.p1': 'Valoración con operaciones reales de tu zona, no con precios medios', 'sell.p2': 'Reportaje profesional: fotos, vídeo y tour 3D', 'sell.p3': 'Difusión en tres idiomas, en esta web y en portales internacionales',
+ 'sell.form': 'Valoración gratuita', 'sell.area': 'Zona', 'sell.other': 'Otra zona', 'sell.type': 'Tipo de inmueble',
+ 'sell.types': { villa: 'Villa', townhouse: 'Adosado', apartment: 'Piso o apartamento', plot: 'Parcela', other: 'Otro' },
+ 'sell.beds': 'Dormitorios', 'sell.built': 'Superficie, m²', 'sell.addr': 'Dirección o urbanización (opcional)', 'sell.send': 'Pedir valoración',
+ 'sell.ok.t': 'Solicitud de valoración recibida', 'sell.ok.p': n => `${n}, te contactamos en menos de 24 horas para acordar la visita.`,
  'cta.visit': 'Reservar una visita', 'cta.see': 'Ver villas', 'cta.visitThis': 'Reservar visita',
  'hero.title': 'Villas sobre el mar de la Costa del Sol',
  'hero.text': n => `Elegimos casas por cómo entra la luz: el café de la mañana en la terraza este, la cena junto a la piscina al atardecer. ${n} villas entre Sotogrande y Málaga.`,
@@ -122,7 +134,13 @@ es: {
  'title': 'villas en la Costa del Sol'
 },
 en: {
- 'nav.villas': 'Villas', 'nav.coast': 'Areas', 'nav.buy': 'How to buy', 'nav.visit': 'Viewing', 'nav.menu': 'Menu',
+ 'nav.villas': 'Villas', 'nav.coast': 'Areas', 'nav.buy': 'How to buy', 'nav.visit': 'Viewing', 'nav.menu': 'Menu', 'nav.sell': 'Sell',
+ 'sell.title': 'Selling your villa?', 'sell.lead': 'We value your home for free within 48 hours, based on real sales in your area and taking the views, terrace and sun into account. Our buyers from the UK, Scandinavia, Germany and Belgium are already looking for homes on this coast.',
+ 'sell.p1': 'A valuation based on real sales in your area, not average prices', 'sell.p2': 'Professional photos, video and a 3D tour', 'sell.p3': 'Marketing in three languages, on this site and international portals',
+ 'sell.form': 'Free valuation', 'sell.area': 'Area', 'sell.other': 'Another area', 'sell.type': 'Property type',
+ 'sell.types': { villa: 'Villa', townhouse: 'Townhouse', apartment: 'Apartment', plot: 'Plot', other: 'Other' },
+ 'sell.beds': 'Bedrooms', 'sell.built': 'Built area, m²', 'sell.addr': 'Address or development (optional)', 'sell.send': 'Get a valuation',
+ 'sell.ok.t': 'Valuation request received', 'sell.ok.p': n => `${n}, we will contact you within 24 hours to arrange a visit.`,
  'cta.visit': 'Book a viewing', 'cta.see': 'See the villas', 'cta.visitThis': 'Book a viewing',
  'hero.title': 'Villas above the sea on the Costa del Sol',
  'hero.text': n => `We choose homes by how the light falls: morning coffee on an east terrace, dinner by the pool at sunset. ${n} villas between Sotogrande and Málaga.`,
@@ -813,20 +831,50 @@ form.addEventListener('submit', e => {
     $('.done', box).focus();
     $('button', box).addEventListener('click', () => location.reload());
   };
-  if (!SITE.web3formsKey) { done(); return; }          // демо-режим: ничего не отправляем
-  const btn = $('button[type=submit]', form), err = $('#eSend');
-  btn.disabled = true; btn.textContent = t('f.sending'); err.textContent = '';
   const light = (form.querySelector('input[name=light]:checked') || {}).value || '';
+  postLead({ subject: `${SITE.brand}: ${v ? L(v).name + ' (' + v.ref + ')' : t('f.any')}`,
+    name, contact, villa: v ? `${L(v).name} — ${v.ref} — ${money(v.price)}` : '—', time: t({ morning: 'l.m', day: 'l.d', sunset: 'l.s' }[light] || 'l.s'),
+    message: $('#fMsg').value.trim() || '—' }, $('button[type=submit]', form), $('#eSend'), 'f.send', done);
+});
+
+// Отправка заявки агентству (Web3Forms). Без ключа — демо-режим: сразу «отправлено».
+function postLead(fields, btn, err, btnKey, done) {
+  if (!SITE.web3formsKey) { done(); return; }
+  btn.disabled = true; btn.textContent = t('f.sending'); err.textContent = '';
   fetch('https://api.web3forms.com/submit', {
     method: 'POST', headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
-    body: JSON.stringify({
-      access_key: SITE.web3formsKey, subject: `${SITE.brand}: ${v ? L(v).name + ' (' + v.ref + ')' : t('f.any')}`, from_name: SITE.brand,
-      name, contact, villa: v ? `${L(v).name} — ${v.ref} — ${money(v.price)}` : '—', time: t({ morning: 'l.m', day: 'l.d', sunset: 'l.s' }[light] || 'l.s'),
-      message: $('#fMsg').value.trim() || '—', language: lang, page: location.href
-    })
+    body: JSON.stringify({ access_key: SITE.web3formsKey, from_name: SITE.brand, ...fields, language: lang, page: location.href })
   }).then(r => r.json()).then(j => { if (!j.success) throw new Error(j.message || 'error'); done(); })
-    .catch(() => { btn.disabled = false; btn.textContent = t('f.send'); err.textContent = t('e.send'); });
+    .catch(() => { btn.disabled = false; btn.textContent = t(btnKey); err.textContent = t('e.send'); });
+}
+
+/* ===================== Продать дом: бесплатная оценка ===================== */
+const sellForm = $('#sellForm');
+function renderSellSelects() {
+  const a = $('#sArea'), ty = $('#sType'), ka = a.value, kt = ty.value;
+  a.innerHTML = liveAreas().map(x => `<option value="${x}">${areaName(x)}</option>`).join('') + `<option value="other">${t('sell.other')}</option>`;
+  ty.innerHTML = Object.entries(t('sell.types')).map(([k, x]) => `<option value="${k}">${x}</option>`).join('');
+  if (ka) a.value = ka; if (kt) ty.value = kt;
+}
+sellForm.addEventListener('submit', e => {
+  e.preventDefault();
+  const fN = $('#sName'), fC = $('#sContact'), name = fN.value.trim(), contact = fC.value.trim();
+  const okContact = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(contact) || contact.replace(/[^\d]/g, '').length >= 9;
+  setErr(fN, $('#esName'), name ? '' : t('e.name')); setErr(fC, $('#esContact'), okContact ? '' : t('e.contact'));
+  if (!name) { fN.focus(); return; }
+  if (!okContact) { fC.focus(); return; }
+  if ($('#sTrap').value) return;
+  const box = $('#sellBox'), area = $('#sArea').value;
+  const done = () => {
+    box.innerHTML = `<div class="done" tabindex="-1"><h3>${t('sell.ok.t')}</h3><p></p></div>`;
+    $('p', box).textContent = t('sell.ok.p', name); $('.done', box).focus();
+  };
+  postLead({ subject: `${SITE.brand}: ${t('sell.form')} — ${area === 'other' ? t('sell.other') : areaName(area)}`, name, contact,
+    area: area === 'other' ? t('sell.other') : areaName(area), type: t('sell.types')[$('#sType').value],
+    beds: $('#sBeds').value || '—', built_m2: $('#sBuilt').value || '—', address: $('#sAddr').value.trim() || '—',
+    message: $('#sMsg').value.trim() || '—' }, $('button[type=submit]', sellForm), $('#esSend'), 'sell.send', done);
 });
+['sName', 'sContact'].forEach(id => $('#' + id).addEventListener('input', e => setErr(e.target, $(id === 'sName' ? '#esName' : '#esContact'), '')));
 ['fName', 'fContact'].forEach(id => $('#' + id).addEventListener('input', e => setErr(e.target, $(id === 'fName' ? '#eName' : '#eContact'), '')));
 
 /* ===================== Язык: применить ко всей странице ===================== */
@@ -842,6 +890,8 @@ function applyLang() {
   $('#footEmail').textContent = SITE.email; $('#footEmail').href = `mailto:${SITE.email}`;
   $('#footRaia').textContent = (SITE.legal || {}).raia || '—';
   $('#fNote').textContent = SITE.web3formsKey ? t('f.privacy') : t('f.note');
+  $$('.fNoteText').forEach(el => { el.textContent = SITE.web3formsKey ? t('f.privacy') : t('f.note'); });
+  renderSellSelects();
   renderChips(); renderGrid(); renderAtlas(); renderVillaSelect(); updateSun(minutes);
   if (dlg.open && current) renderVilla();
   if ($('#cmpDlg').open) renderCompare();
