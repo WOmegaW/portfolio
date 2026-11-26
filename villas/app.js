@@ -428,8 +428,9 @@ const atlasMap = $('#atlasMap'), mapSvg = $('#mapSvg'), atlasPins = $('#atlasPin
 let atlasArea = 'all', vb = null, vbAnim = 0;
 const villaXY = v => proj(v.lat, v.lng);
 function targetBox(area) {
-  const pts = area === 'all' ? [...VILLAS.map(villaXY), proj(36.675, -4.499), proj(36.29, -5.27)] : VILLAS.filter(v => v.area === area).map(villaXY);
-  const pad = area === 'all' ? 40 : 55;
+  // «Всё побережье» — весь берег от Гибралтара до Малаги
+  const pts = area === 'all' ? [...VILLAS.map(villaXY), proj(36.13, -5.35), proj(36.725, -4.40)] : VILLAS.filter(v => v.area === area).map(villaXY);
+  const pad = area === 'all' ? 30 : 55;
   let x0 = Math.min(...pts.map(p => p[0])) - pad, x1 = Math.max(...pts.map(p => p[0])) + pad;
   let y0 = Math.min(...pts.map(p => p[1])) - pad, y1 = Math.max(...pts.map(p => p[1])) + pad;
   const r = atlasMap.clientWidth / Math.max(1, atlasMap.clientHeight), cx = (x0 + x1) / 2, cy = (y0 + y1) / 2;
@@ -462,10 +463,22 @@ function applyVb(b) {
 function flyTo(area, instant) {
   const to = targetBox(area), from = vb || to;
   cancelAnimationFrame(vbAnim);
-  if (instant || matchMedia('(prefers-reduced-motion: reduce)').matches) { applyVb(to); return; }
-  const t0 = performance.now(), dur = 750;
-  const step = now => { const k = Math.min(1, (now - t0) / dur), e = k < .5 ? 4 * k * k * k : 1 - Math.pow(-2 * k + 2, 3) / 2;
-    applyVb(from.map((v, i) => lerp(v, to[i], e))); if (k < 1) vbAnim = requestAnimationFrame(step); };
+  if (instant || matchMedia('(prefers-reduced-motion: reduce)').matches) { applyVb(to); setTimeout(() => atlasPins.classList.remove('fade'), 280); return; }
+  // «Камера»: центр едет плавно, масштаб меняется по нарастающей (в логарифме — так глаз воспринимает приближение ровно).
+  // Между двумя районами камера сначала немного отдаляется, «пролетает» и приближается снова.
+  const c0 = [from[0] + from[2] / 2, from[1] + from[3] / 2], c1 = [to[0] + to[2] / 2, to[1] + to[3] / 2];
+  const travel = Math.hypot(c1[0] - c0[0], c1[1] - c0[1]) / Math.max(from[2], to[2]);
+  const bump = Math.min(.9, travel * 1.4);                     // насколько отдалиться в середине полёта
+  const dur = 1100 + Math.min(500, travel * 900), t0 = performance.now(), aspect = to[2] / to[3];
+  const ease = k => k < .5 ? 4 * k * k * k : 1 - Math.pow(-2 * k + 2, 3) / 2;
+  const step = now => {
+    const k = Math.min(1, (now - t0) / dur), e = ease(k);
+    const w = Math.exp(lerp(Math.log(from[2]), Math.log(to[2]), e)) * (1 + bump * Math.sin(Math.PI * e));
+    const h = w / aspect, cx = lerp(c0[0], c1[0], e), cy = lerp(c0[1], c1[1], e);
+    applyVb([cx - w / 2, cy - h / 2, w, h]);
+    if (k < 1) vbAnim = requestAnimationFrame(step); else { vbAnim = 0; applyVb(to); atlasMap.classList.remove('flying'); atlasPins.classList.remove('fade'); }
+  };
+  atlasMap.classList.add('flying');
   vbAnim = requestAnimationFrame(step);
 }
 const compact = n => new Intl.NumberFormat(LOCALE[lang], { notation: 'compact', style: 'currency', currency: 'EUR', maximumFractionDigits: 2 }).format(n);
@@ -514,11 +527,22 @@ function renderAtlasTabs() {
   el.innerHTML = ['all', ...Object.keys(AREAS)].map(a => `<button type="button" class="chip" data-tab="${a}" aria-pressed="${atlasArea === a}">${a === 'all' ? t('atlas.allTitle') : t('area')[a]}</button>`).join('');
   $$('[data-tab]', el).forEach(b => b.addEventListener('click', () => selectArea(b.dataset.tab)));
 }
-function selectArea(a) { atlasArea = a; renderAtlasTabs(); renderPins(); renderAtlasInfo(); flyTo(a); }
+// Смена района: метки и панель гаснут, камера летит, новые метки проявляются по прилёте
+let swapTimer = 0;
+function selectArea(a) {
+  if (a === atlasArea && !vbAnim) return;
+  atlasArea = a; renderAtlasTabs();
+  const info = $('#atlasInfo');
+  atlasPins.classList.add('fade'); info.classList.add('fade');
+  clearTimeout(swapTimer);
+  swapTimer = setTimeout(() => { renderPins(); renderAtlasInfo(); info.classList.remove('fade'); }, 260);
+  flyTo(a);
+}
 function renderAtlas() { renderAtlasTabs(); renderPins(); renderAtlasInfo(); if (!vb) flyTo(atlasArea, true); else applyVb(vb); }
 function pickArea(a) { F.area = a; renderChips(); renderGrid(); $('#villas').scrollIntoView(); }
 drawGeography();
-new ResizeObserver(() => { if (vb) flyTo(atlasArea, true); }).observe(atlasMap);
+// Размер карты поменялся (поворот телефона, окно): подогнать вид, не обрывая полёт
+new ResizeObserver(() => { if (vb && !vbAnim) flyTo(atlasArea, true); }).observe(atlasMap);
 
 /* ===================== Карточка виллы ===================== */
 const dlg = $('#dlg'); let current = null, galIdx = 0, pushedHash = false;
