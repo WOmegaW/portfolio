@@ -10,7 +10,8 @@ const byId = id => VILLAS.find(v => v.id === id);
 function plural(n, one, few, many) { const a = n % 10, b = n % 100; if (a === 1 && b !== 11) return one; if (a >= 2 && a <= 4 && (b < 12 || b > 14)) return few; return many; }
 const T = {
 ru: {
- 'nav.villas': 'Виллы', 'nav.coast': 'Районы', 'nav.buy': 'Как купить', 'nav.visit': 'Просмотр', 'nav.menu': 'Меню', 'nav.sell': 'Продать', 'pdf': 'Буклет PDF',
+ 'nav.villas': 'Виллы', 'nav.coast': 'Районы', 'nav.buy': 'Как купить', 'nav.visit': 'Просмотр', 'nav.menu': 'Меню', 'nav.sell': 'Продать', 'pdf': 'Буклет PDF', 'cur.label': 'Валюта',
+ 'cur.note': d => `Пересчёт по курсу Европейского ЦБ${d ? ' на ' + d : ''}. Сделка проводится в евро.`,
  'sell.title': 'Продаёте виллу?', 'sell.lead': 'Оценим ваш дом бесплатно за 48 часов: по реальным сделкам в вашем районе, с учётом вида, террасы и солнца. Наши покупатели из Великобритании, Скандинавии, Германии и Бельгии уже ищут дома на этом побережье.',
  'sell.p1': 'Оценка по реальным сделкам в вашем районе, а не по средней цене', 'sell.p2': 'Профессиональная съёмка: фото, видео и 3D-тур', 'sell.p3': 'Показ на трёх языках, на этом сайте и международных порталах',
  'sell.form': 'Бесплатная оценка', 'sell.area': 'Район', 'sell.other': 'Другой район', 'sell.type': 'Тип недвижимости',
@@ -72,7 +73,8 @@ ru: {
  'title': 'виллы на Коста-дель-Соль'
 },
 es: {
- 'nav.villas': 'Villas', 'nav.coast': 'Zonas', 'nav.buy': 'Cómo comprar', 'nav.visit': 'Visita', 'nav.menu': 'Menú', 'nav.sell': 'Vender', 'pdf': 'Ficha PDF',
+ 'nav.villas': 'Villas', 'nav.coast': 'Zonas', 'nav.buy': 'Cómo comprar', 'nav.visit': 'Visita', 'nav.menu': 'Menú', 'nav.sell': 'Vender', 'pdf': 'Ficha PDF', 'cur.label': 'Moneda',
+ 'cur.note': d => `Conversión al cambio del Banco Central Europeo${d ? ' del ' + d : ''}. La compraventa se realiza en euros.`,
  'sell.title': '¿Vendes tu villa?', 'sell.lead': 'Valoramos tu casa gratis en 48 horas, según operaciones reales en tu zona y teniendo en cuenta las vistas, la terraza y el sol. Nuestros compradores del Reino Unido, Escandinavia, Alemania y Bélgica ya buscan casa en esta costa.',
  'sell.p1': 'Valoración con operaciones reales de tu zona, no con precios medios', 'sell.p2': 'Reportaje profesional: fotos, vídeo y tour 3D', 'sell.p3': 'Difusión en tres idiomas, en esta web y en portales internacionales',
  'sell.form': 'Valoración gratuita', 'sell.area': 'Zona', 'sell.other': 'Otra zona', 'sell.type': 'Tipo de inmueble',
@@ -134,7 +136,8 @@ es: {
  'title': 'villas en la Costa del Sol'
 },
 en: {
- 'nav.villas': 'Villas', 'nav.coast': 'Areas', 'nav.buy': 'How to buy', 'nav.visit': 'Viewing', 'nav.menu': 'Menu', 'nav.sell': 'Sell', 'pdf': 'PDF brochure',
+ 'nav.villas': 'Villas', 'nav.coast': 'Areas', 'nav.buy': 'How to buy', 'nav.visit': 'Viewing', 'nav.menu': 'Menu', 'nav.sell': 'Sell', 'pdf': 'PDF brochure', 'cur.label': 'Currency',
+ 'cur.note': d => `Converted at the European Central Bank rate${d ? ' of ' + d : ''}. The purchase is completed in euros.`,
  'sell.title': 'Selling your villa?', 'sell.lead': 'We value your home for free within 48 hours, based on real sales in your area and taking the views, terrace and sun into account. Our buyers from the UK, Scandinavia, Germany and Belgium are already looking for homes on this coast.',
  'sell.p1': 'A valuation based on real sales in your area, not average prices', 'sell.p2': 'Professional photos, video and a 3D tour', 'sell.p3': 'Marketing in three languages, on this site and international portals',
  'sell.form': 'Free valuation', 'sell.area': 'Area', 'sell.other': 'Another area', 'sell.type': 'Property type',
@@ -208,7 +211,12 @@ let lang = store.get('vt-lang', null);
 if (!T[lang]) lang = T[navLang] ? navLang : 'en';
 const t = (k, ...a) => { const v = T[lang][k]; return typeof v === 'function' ? v(...a) : v; };
 const LOCALE = { ru: 'ru-RU', es: 'es-ES', en: 'en-GB' };
-const money = n => new Intl.NumberFormat(LOCALE[lang], { style: 'currency', currency: 'EUR', maximumFractionDigits: 0 }).format(n);
+/* Валюта: цены в базе в евро, показываем в выбранной валюте по курсу ЕЦБ */
+const CURS = SITE.currencies || ['EUR'];
+let cur = store.get('vt-cur', 'EUR'); if (!CURS.includes(cur)) cur = 'EUR';
+let rates = { EUR: 1, ...(SITE.fallbackRates || {}) }, ratesDate = '';
+const conv = n => n * (rates[cur] || 1);
+const money = n => new Intl.NumberFormat(LOCALE[lang], { style: 'currency', currency: cur, maximumFractionDigits: 0 }).format(conv(n));
 const num = n => new Intl.NumberFormat(LOCALE[lang]).format(n);
 const hm = (h, m) => `${h}:${String(m).padStart(2, '0')}`;
 const L = v => v[lang] || v.en;
@@ -533,7 +541,7 @@ function flyTo(area, instant) {
   atlasMap.classList.add('flying');
   vbAnim = requestAnimationFrame(step);
 }
-const compact = n => new Intl.NumberFormat(LOCALE[lang], { notation: 'compact', style: 'currency', currency: 'EUR', maximumFractionDigits: 2 }).format(n);
+const compact = n => new Intl.NumberFormat(LOCALE[lang], { notation: 'compact', style: 'currency', currency: cur, maximumFractionDigits: 2 }).format(conv(n));
 const areaVillas = a => VILLAS.filter(v => v.area === a).sort((x, y) => y.price - x.price);
 function renderPins() {
   const A = atlasArea, html = [];
@@ -684,6 +692,7 @@ function renderVilla() {
   $('#dRef').textContent = `${t('d.ref')} ${v.ref}`;
   $('#dName').textContent = l.name; $('#dWhere').textContent = l.where;
   $('#dPrice').textContent = money(v.price); $('#dPpm').textContent = `${money(Math.round(v.price / v.built))} / ${t('m2')}`;
+  $('#dCurNote').textContent = cur === 'EUR' ? '' : t('cur.note', ratesDate);
   $('#dDesc').textContent = l.desc;
   const rows = [[t('d.beds'), v.beds], [t('d.baths'), v.baths], [t('d.built'), `${num(v.built)} ${t('m2')}`], [t('d.plot'), `${num(v.plot)} ${t('m2')}`],
     [t('d.face'), t('face')[v.face]], [t('d.sun'), `${hm(v.sun[0], v.sun[1])}–${hm(v.sun[2], v.sun[3])}`], [t('d.beach'), t('min', v.beach)], [t('d.year'), v.year], [t('d.energy'), v.energy]];
@@ -850,6 +859,30 @@ function postLead(fields, btn, err, btnKey, done) {
     .catch(() => { btn.disabled = false; btn.textContent = t(btnKey); err.textContent = t('e.send'); });
 }
 
+/* ===================== Валюта ===================== */
+const CUR_LABEL = { EUR: '€ EUR', GBP: '£ GBP', USD: '$ USD', SEK: 'kr SEK', NOK: 'kr NOK', CHF: 'CHF', DKK: 'kr DKK' };
+function renderCur() {
+  const sel = $('#cur');
+  sel.innerHTML = CURS.map(c => `<option value="${c}">${CUR_LABEL[c] || c}</option>`).join(''); sel.value = cur;
+  $('#navCurs').innerHTML = CURS.map(c => `<button type="button" data-cur="${c}" aria-pressed="${c === cur}">${CUR_LABEL[c] || c}</button>`).join('');
+  $$('[data-cur]', $('#navCurs')).forEach(b => b.addEventListener('click', () => setCur(b.dataset.cur)));
+}
+function setCur(c) { cur = c; store.set('vt-cur', c); applyLang(); }
+$('#cur').addEventListener('change', e => setCur(e.target.value));
+// курсы ЕЦБ: берём раз в 12 часов, при ошибке остаются запасные курсы из data.js
+async function loadRates() {
+  const cached = store.get('vt-rates', null);
+  if (cached && Date.now() - cached.t < 12 * 3600e3) { rates = { EUR: 1, ...cached.rates }; ratesDate = cached.date; return; }
+  try {
+    const want = CURS.filter(c => c !== 'EUR').join(',');
+    if (!want) return;
+    const r = await fetch(`https://api.frankfurter.app/latest?from=EUR&to=${want}`);
+    if (!r.ok) return;
+    const j = await r.json();
+    if (j && j.rates) { rates = { EUR: 1, ...j.rates }; ratesDate = j.date || ''; store.set('vt-rates', { t: Date.now(), rates: j.rates, date: ratesDate }); }
+  } catch (e) { /* нет сети — остаются запасные курсы */ }
+}
+
 /* ===================== Продать дом: бесплатная оценка ===================== */
 const sellForm = $('#sellForm');
 function renderSellSelects() {
@@ -893,7 +926,7 @@ function applyLang() {
   $('#footRaia').textContent = (SITE.legal || {}).raia || '—';
   $('#fNote').textContent = SITE.web3formsKey ? t('f.privacy') : t('f.note');
   $$('.fNoteText').forEach(el => { el.textContent = SITE.web3formsKey ? t('f.privacy') : t('f.note'); });
-  renderSellSelects();
+  renderSellSelects(); renderCur();
   renderChips(); renderGrid(); renderAtlas(); renderVillaSelect(); updateSun(minutes);
   if (dlg.open && current) renderVilla();
   if ($('#cmpDlg').open) renderCompare();
@@ -964,7 +997,7 @@ function analytics() {
 }
 
 /* ===================== Запуск ===================== */
-loadSheet().finally(() => {
+Promise.all([loadSheet(), loadRates()]).finally(() => {
   applyLang(); intro();
   reveal($$('.steps li'));
   const startHash = location.hash.match(/^#villa\/([\w-]+)$/);
