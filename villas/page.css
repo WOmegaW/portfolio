@@ -89,3 +89,4 @@ footer p{margin:0}
 .legal th,.legal td{text-align:left;border-bottom:1px solid var(--line);padding:8px 10px 8px 0;vertical-align:top}
 .legal th{color:var(--muted);font-weight:400}
 .legal .warn{border-left:3px solid #E3A33B;padding:10px 14px;background:rgba(227,163,59,.1);border-radius:0 10px 10px 0;font-size:15px}
+.v-price s{color:var(--muted);font-size:20px;text-decoration-thickness:1.5px}

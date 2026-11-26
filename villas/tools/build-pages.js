@@ -36,6 +36,11 @@ const T = {
     waText: n => `Здравствуйте! Интересует ${n}. Когда можно посмотреть?`, desc: (l, v, p) => `${l.name}, ${l.where}: ${v.beds} спален, ${v.built} м², ${p}. ${l.desc}` }
 };
 
+// метки статуса и доступность для Google
+const ST = { es: { new: 'Novedad', reduced: 'Precio rebajado', reserved: 'Reservada', sold: 'Vendida' },
+  en: { new: 'New listing', reduced: 'Price reduced', reserved: 'Reserved', sold: 'Sold' },
+  ru: { new: 'Новое', reduced: 'Цена снижена', reserved: 'Зарезервирована', sold: 'Продана' } };
+const AVAIL = { sold: 'https://schema.org/SoldOut', reserved: 'https://schema.org/Reserved' };
 const esc = s => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 const money = (n, L) => new Intl.NumberFormat(T[L].locale, { style: 'currency', currency: 'EUR', maximumFractionDigits: 0 }).format(n);
 const num = (n, L) => new Intl.NumberFormat(T[L].locale).format(n);
@@ -60,7 +65,7 @@ function villaPage(v, l) {
   const others = VILLAS.filter(x => x.area === v.area && x.id !== v.id).concat(VILLAS.filter(x => x.area !== v.area && x.id !== v.id)).slice(0, 3);
   const ld = { '@context': 'https://schema.org', '@type': 'RealEstateListing', name: d.name, description: d.desc, url, datePosted: TODAY,
     image: v.gallery.map(g => abs(g, 1600)),
-    offers: { '@type': 'Offer', price: v.price, priceCurrency: 'EUR', availability: 'https://schema.org/InStock', seller: { '@type': 'RealEstateAgent', name: SITE.brand, telephone: SITE.phone, email: SITE.email } },
+    offers: { '@type': 'Offer', price: v.price, priceCurrency: 'EUR', availability: AVAIL[v.status] || 'https://schema.org/InStock', seller: { '@type': 'RealEstateAgent', name: SITE.brand, telephone: SITE.phone, email: SITE.email } },
     about: { '@type': 'SingleFamilyResidence', numberOfRooms: v.beds, numberOfBathroomsTotal: v.baths,
       floorSize: { '@type': 'QuantitativeValue', value: v.built, unitCode: 'MTK' },
       address: { '@type': 'PostalAddress', addressLocality: d.where, addressRegion: v.area === 'sotogrande' ? 'Cádiz' : 'Málaga', addressCountry: 'ES' },
@@ -68,7 +73,7 @@ function villaPage(v, l) {
   const facts = [[t.beds, v.beds], [t.baths, v.baths], [t.built, `${num(v.built, l)} ${t.ppm}`], [t.plot, `${num(v.plot, l)} ${t.ppm}`],
     [t.face, t.faces[v.face] || v.face], [t.sun, `${hm(v.sun[0], v.sun[1])}–${hm(v.sun[2], v.sun[3])}`], [t.beach, `${v.beach} ${t.min}`],
     [t.year, v.year], [t.energy, v.energy], [t.ref, v.ref]];
-  const badges = [v.newBuild && t.newBuild, v.sea && t.sea, `✈ ${AREAS[v.area].airport} ${t.airport}`].filter(Boolean);
+  const badges = [v.status && ST[l][v.status], v.newBuild && t.newBuild, v.sea && t.sea, `✈ ${AREAS[v.area].airport} ${t.airport}`].filter(Boolean);
   return `<!doctype html>
 <html lang="${l}">
 <head>
@@ -106,7 +111,7 @@ ${LANGS.map(x => `<link rel="alternate" hreflang="${x}" href="${SITE.url}/${x}/$
     <p class="crumbs"><a href="../../#villas">${t.all}</a> / ${esc(areaName(v.area, l))}</p>
     <h1>${esc(d.name)}</h1>
     <p class="where">${esc(d.where)}</p>
-    <div class="v-price"><b>${price}</b><span>${money(Math.round(v.price / v.built), l)} / ${t.ppm}</span></div>
+    <div class="v-price">${v.status === 'reduced' && v.oldPrice ? `<s>${money(v.oldPrice, l)}</s>` : ''}<b>${price}</b><span>${money(Math.round(v.price / v.built), l)} / ${t.ppm}</span></div>
     <div class="badges">${badges.map(b => `<span>${esc(b)}</span>`).join('')}</div>
   </div>
 </section>
@@ -172,7 +177,7 @@ function brochure(v, l) {
   const facts = [[t.beds, v.beds], [t.baths, v.baths], [t.built, `${num(v.built, l)} ${t.ppm}`], [t.plot, `${num(v.plot, l)} ${t.ppm}`],
     [t.face, t.faces[v.face] || v.face], [t.sun, `${hm(v.sun[0], v.sun[1])}–${hm(v.sun[2], v.sun[3])}`], [t.beach, `${v.beach} ${t.min}`],
     [t.year, v.year], [t.energy, v.energy]];
-  const badges = [v.newBuild && t.newBuild, v.sea && t.sea, `✈ ${AREAS[v.area].airport} ${t.airport}`].filter(Boolean);
+  const badges = [v.status && ST[l][v.status], v.newBuild && t.newBuild, v.sea && t.sea, `✈ ${AREAS[v.area].airport} ${t.airport}`].filter(Boolean);
   const more = v.gallery.slice(1, 5);
   const foot = `<div class="b-foot"><div><b>${esc(SITE.brand)}</b><span>${esc(SITE.address)}</span><span>${esc(SITE.phone)} · ${esc(SITE.email)}</span></div>
       <div class="b-url"><span>${b.online}</span><b>${esc(short)}</b></div></div>`;
@@ -195,7 +200,7 @@ function brochure(v, l) {
   <div class="b-body">
     <p class="b-where">${esc(d.where)}</p>
     <h1>${esc(d.name)}</h1>
-    <div class="b-price"><b>${money(v.price, l)}</b><span>${money(Math.round(v.price / v.built), l)} / ${t.ppm}</span></div>
+    <div class="b-price">${v.status === 'reduced' && v.oldPrice ? `<s>${money(v.oldPrice, l)}</s>` : ''}<b>${money(v.price, l)}</b><span>${money(Math.round(v.price / v.built), l)} / ${t.ppm}</span></div>
     <div class="b-badges">${badges.map(x => `<span>${esc(x)}</span>`).join('')}</div>
     <dl class="b-facts">${facts.map(([k, x]) => `<div><dt>${k}</dt><dd>${esc(x)}</dd></div>`).join('')}</dl>
   </div>
@@ -253,10 +258,10 @@ ${urls.map(u => `  <url><loc>${u}</loc><lastmod>${TODAY}</lastmod></url>`).join(
 `);
 fs.writeFileSync(path.join(ROOT, 'robots.txt'), `User-agent: *\nAllow: /\n\nSitemap: ${SITE.url}/sitemap.xml\n`);
 // шаблон Google Таблицы из текущих вилл
-const cols = ['id', 'ref', 'area', 'lat', 'lng', 'price', 'beds', 'baths', 'built', 'plot', 'sun', 'face', 'sea', 'newbuild', 'beach', 'year', 'energy', 'photos',
+const cols = ['id', 'ref', 'area', 'lat', 'lng', 'price', 'status', 'oldprice', 'beds', 'baths', 'built', 'plot', 'sun', 'face', 'sea', 'newbuild', 'beach', 'year', 'energy', 'photos',
   'name_es', 'where_es', 'desc_es', 'name_en', 'where_en', 'desc_en', 'name_ru', 'where_ru', 'desc_ru'];
 const cell = x => /[",\n]/.test(String(x)) ? `"${String(x).replace(/"/g, '""')}"` : String(x);
-const csv = [cols.join(','), ...VILLAS.map(v => [v.id, v.ref, v.area, v.lat, v.lng, v.price, v.beds, v.baths, v.built, v.plot,
+const csv = [cols.join(','), ...VILLAS.map(v => [v.id, v.ref, v.area, v.lat, v.lng, v.price, v.status || '', v.oldPrice || '', v.beds, v.baths, v.built, v.plot,
   `${hm(v.sun[0], v.sun[1])}-${hm(v.sun[2], v.sun[3])}`, v.face, v.sea ? 'si' : 'no', v.newBuild ? 'si' : 'no', v.beach, v.year, v.energy, v.gallery.join(' | '),
   v.es.name, v.es.where, v.es.desc, v.en.name, v.en.where, v.en.desc, v.ru.name, v.ru.where, v.ru.desc].map(cell).join(','))].join('\n');
 fs.writeFileSync(path.join(ROOT, 'plantilla-villas.csv'), '﻿' + csv + '\n');

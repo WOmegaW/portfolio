@@ -11,6 +11,7 @@ function plural(n, one, few, many) { const a = n % 10, b = n % 100; if (a === 1 
 const T = {
 ru: {
  'nav.villas': 'Виллы', 'nav.coast': 'Районы', 'nav.buy': 'Как купить', 'nav.visit': 'Просмотр', 'nav.menu': 'Меню', 'nav.sell': 'Продать', 'pdf': 'Буклет PDF', 'cur.label': 'Валюта',
+ 'st.new': 'Новое', 'st.reduced': 'Цена снижена', 'st.reserved': 'Зарезервирована', 'st.sold': 'Продана', 'st.was': 'Прежняя цена',
  'cur.note': d => `Пересчёт по курсу Европейского ЦБ${d ? ' на ' + d : ''}. Сделка проводится в евро.`,
  'sell.title': 'Продаёте виллу?', 'sell.lead': 'Оценим ваш дом бесплатно за 48 часов: по реальным сделкам в вашем районе, с учётом вида, террасы и солнца. Наши покупатели из Великобритании, Скандинавии, Германии и Бельгии уже ищут дома на этом побережье.',
  'sell.p1': 'Оценка по реальным сделкам в вашем районе, а не по средней цене', 'sell.p2': 'Профессиональная съёмка: фото, видео и 3D-тур', 'sell.p3': 'Показ на трёх языках, на этом сайте и международных порталах',
@@ -74,6 +75,7 @@ ru: {
 },
 es: {
  'nav.villas': 'Villas', 'nav.coast': 'Zonas', 'nav.buy': 'Cómo comprar', 'nav.visit': 'Visita', 'nav.menu': 'Menú', 'nav.sell': 'Vender', 'pdf': 'Ficha PDF', 'cur.label': 'Moneda',
+ 'st.new': 'Novedad', 'st.reduced': 'Precio rebajado', 'st.reserved': 'Reservada', 'st.sold': 'Vendida', 'st.was': 'Precio anterior',
  'cur.note': d => `Conversión al cambio del Banco Central Europeo${d ? ' del ' + d : ''}. La compraventa se realiza en euros.`,
  'sell.title': '¿Vendes tu villa?', 'sell.lead': 'Valoramos tu casa gratis en 48 horas, según operaciones reales en tu zona y teniendo en cuenta las vistas, la terraza y el sol. Nuestros compradores del Reino Unido, Escandinavia, Alemania y Bélgica ya buscan casa en esta costa.',
  'sell.p1': 'Valoración con operaciones reales de tu zona, no con precios medios', 'sell.p2': 'Reportaje profesional: fotos, vídeo y tour 3D', 'sell.p3': 'Difusión en tres idiomas, en esta web y en portales internacionales',
@@ -137,6 +139,7 @@ es: {
 },
 en: {
  'nav.villas': 'Villas', 'nav.coast': 'Areas', 'nav.buy': 'How to buy', 'nav.visit': 'Viewing', 'nav.menu': 'Menu', 'nav.sell': 'Sell', 'pdf': 'PDF brochure', 'cur.label': 'Currency',
+ 'st.new': 'New listing', 'st.reduced': 'Price reduced', 'st.reserved': 'Reserved', 'st.sold': 'Sold', 'st.was': 'Previous price',
  'cur.note': d => `Converted at the European Central Bank rate${d ? ' of ' + d : ''}. The purchase is completed in euros.`,
  'sell.title': 'Selling your villa?', 'sell.lead': 'We value your home for free within 48 hours, based on real sales in your area and taking the views, terrace and sun into account. Our buyers from the UK, Scandinavia, Germany and Belgium are already looking for homes on this coast.',
  'sell.p1': 'A valuation based on real sales in your area, not average prices', 'sell.p2': 'Professional photos, video and a 3D tour', 'sell.p3': 'Marketing in three languages, on this site and international portals',
@@ -347,7 +350,7 @@ function renderCompare() {
   const vs = compare.map(byId);
   const rows = [
     ['', v => `<img src="${img(v.gallery[0], 800)}" alt=""><button type="button" class="linkish" data-openv="${v.id}">${L(v).name}</button><div class="muted">${L(v).where}</div>`],
-    [t('calc.price'), v => money(v.price)], [t('d.ppm'), v => money(Math.round(v.price / v.built))],
+    [t('calc.price'), v => `${statusTag(v)} ${oldPrice(v)} ${money(v.price)}`], [t('d.ppm'), v => money(Math.round(v.price / v.built))],
     [t('d.beds'), v => v.beds], [t('d.baths'), v => v.baths], [t('d.built'), v => `${num(v.built)} ${t('m2')}`], [t('d.plot'), v => `${num(v.plot)} ${t('m2')}`],
     [t('d.face'), v => t('face')[v.face]], [t('d.sun'), v => `${hm(v.sun[0], v.sun[1])}–${hm(v.sun[2], v.sun[3])}`],
     [t('d.sea'), v => t(v.sea ? 'yes' : 'no')], [t('d.beach'), v => t('min', v.beach)], [t('d.year'), v => v.year], [t('d.energy'), v => v.energy],
@@ -391,19 +394,26 @@ function filtered() {
   const list = VILLAS.filter(v => (F.area === 'all' || v.area === F.area) && v.beds >= F.beds && (!F.price || v.price <= F.price) &&
     (!F.sea || v.sea) && (!F.newBuild || v.newBuild) && (!F.beach || v.beach <= 10) && (!F.fav || isFav(v.id)));
   const by = { pa: (a, b) => a.price - b.price, pd: (a, b) => b.price - a.price, area: (a, b) => b.built - a.built }[F.sort];
-  return by ? [...list].sort(by) : list;
+  const sorted = by ? [...list].sort(by) : [...list];
+  // зарезервированные и проданные — в конце каталога (порядок внутри групп сохраняется)
+  return sorted.sort((a, b) => taken(a) - taken(b));
 }
+/* Статус виллы: новое / цена снижена / зарезервирована / продана */
+const taken = v => v.status === 'sold' ? 2 : v.status === 'reserved' ? 1 : 0;
+const statusTag = v => v.status ? `<span class="st st-${v.status}">${t('st.' + v.status)}</span>` : '';
+const oldPrice = v => v.status === 'reduced' && v.oldPrice ? `<s class="old" aria-label="${t('st.was')}">${money(v.oldPrice)}</s>` : '';
+const pinLabel = v => v.status === 'sold' ? t('st.sold') : v.status === 'reserved' ? t('st.reserved') : compact(v.price);
 const heart = '<svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 20.5s-7.5-4.6-9.3-9.4C1.4 7.6 3.6 4 7.1 4c2 0 3.6 1.1 4.9 2.8C13.3 5.1 14.9 4 16.9 4c3.5 0 5.7 3.6 4.4 7.1-1.8 4.8-9.3 9.4-9.3 9.4z"/></svg>';
 const sunIcon = '<svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="9" r="3.2" fill="#E3A33B"/><path d="M1 13h14" stroke="#10242E" stroke-width="1.2"/></svg>';
 function cardHTML(v, feature) {
   const l = L(v), badges = [v.newBuild && t('badge.new'), v.sea && t('badge.sea')].filter(Boolean);
-  return `<article class="card${feature ? ' feature' : ''}">
+  return `<article class="card${feature ? ' feature' : ''}${v.status ? ' is-' + v.status : ''}">
     <div class="ph"><img src="${img(v.gallery[0], 800)}" srcset="${srcset(v.gallery[0])}" sizes="(max-width:640px) 100vw, ${feature ? '66vw' : '33vw'}" alt="${l.name}" loading="lazy">
-      ${badges.length ? `<span class="badges">${badges.map(b => `<span>${b}</span>`).join('')}</span>` : ''}
+      <span class="badges">${statusTag(v)}${badges.map(b => `<span>${b}</span>`).join('')}</span>
       <span class="photos">${t('photos', v.gallery.length)}</span>
       <span class="sunline">${sunIcon}${sunText(v)}</span></div>
     <div class="body">
-      <div class="row"><h3><a class="open" href="${pageUrl(v.id)}" data-open="${v.id}">${l.name}</a></h3><span class="price">${money(v.price)}</span></div>
+      <div class="row"><h3><a class="open" href="${pageUrl(v.id)}" data-open="${v.id}">${l.name}</a></h3><span class="price">${oldPrice(v)}${money(v.price)}</span></div>
       <div class="meta">${l.where}. ${t('beds', v.beds)}, ${num(v.built)} ${t('m2')}</div>
       <div class="actions">
         <button type="button" class="icon-btn fav" data-fav="${v.id}" aria-pressed="false">${heart}</button>
@@ -556,7 +566,7 @@ function renderPins() {
       html.push(`<button type="button" class="apin" data-area="${a}" data-x="${x}" data-y="${y}" aria-label="${areaName(a)}: ${t('zone.villas', vs.length)}"><span class="an">${areaName(a)}</span> <b>${vs.length}</b></button>`); });
   } else {
     areaVillas(A).forEach(v => { const [x, y] = villaXY(v);
-      html.push(`<button type="button" class="vpin" data-vid="${v.id}" data-x="${x}" data-y="${y - 14}" aria-label="${L(v).name}, ${money(v.price)}">${compact(v.price)}<span class="vcard" aria-hidden="true"><img src="${img(v.gallery[0], 800)}" alt=""><span>${L(v).name}</span></span></button>`); });
+      html.push(`<button type="button" class="vpin${v.status === 'sold' || v.status === 'reserved' ? ' taken' : ''}" data-vid="${v.id}" data-x="${x}" data-y="${y - 14}" aria-label="${L(v).name}, ${v.status ? t('st.' + v.status) + ', ' : ''}${money(v.price)}">${pinLabel(v)}<span class="vcard" aria-hidden="true"><img src="${img(v.gallery[0], 800)}" alt=""><span>${L(v).name}</span></span></button>`); });
   }
   atlasPins.innerHTML = html.join('');
   $$('.apin', atlasPins).forEach(b => b.addEventListener('click', () => selectArea(b.dataset.area)));
@@ -601,7 +611,7 @@ function renderAtlasVilla(box) {
     <div class="ai-gal"><img class="ai-photo ai-main" id="aiImg" src="${img(v.gallery[0], 800)}" alt="${l.name}">
       <div class="ai-thumbs">${v.gallery.map((g, i) => `<button type="button" data-g="${i}" aria-current="${i === 0}" aria-label="${t('gal.of', i + 1, v.gallery.length)}"><img src="${img(g, 800)}" alt=""></button>`).join('')}</div></div>
     <div><p class="ref">${t('d.ref')} ${v.ref}</p><h3>${l.name}</h3><p class="muted">${l.where}</p></div>
-    <div class="price-row"><span class="price">${money(v.price)}</span><span class="ppm">${money(Math.round(v.price / v.built))} / ${t('m2')}</span></div>
+    <div class="price-row">${statusTag(v)}<span class="price">${oldPrice(v)}${money(v.price)}</span><span class="ppm">${money(Math.round(v.price / v.built))} / ${t('m2')}</span></div>
     <dl class="ai-specs">${specs.map(([k, x]) => `<div><dt>${k}</dt><dd>${x}</dd></div>`).join('')}</dl>
     <p>${l.desc}</p>
     <div class="ai-calc">
@@ -691,7 +701,7 @@ function renderVilla() {
   const v = current, l = L(v);
   $('#dRef').textContent = `${t('d.ref')} ${v.ref}`;
   $('#dName').textContent = l.name; $('#dWhere').textContent = l.where;
-  $('#dPrice').textContent = money(v.price); $('#dPpm').textContent = `${money(Math.round(v.price / v.built))} / ${t('m2')}`;
+  $('#dPrice').innerHTML = `${statusTag(v)}${oldPrice(v)}${money(v.price)}`; $('#dPpm').textContent = `${money(Math.round(v.price / v.built))} / ${t('m2')}`;
   $('#dCurNote').textContent = cur === 'EUR' ? '' : t('cur.note', ratesDate);
   $('#dDesc').textContent = l.desc;
   const rows = [[t('d.beds'), v.beds], [t('d.baths'), v.baths], [t('d.built'), `${num(v.built)} ${t('m2')}`], [t('d.plot'), `${num(v.plot)} ${t('m2')}`],
@@ -959,6 +969,7 @@ function rowsToVillas(rows) {
       price: toNum(g('price')), beds: toNum(g('beds')), baths: toNum(g('baths')), built: toNum(g('built')), plot: toNum(g('plot')),
       sun: [sun[0], sun[1] || 0, sun[2] || 21, sun[3] || 0], face: g('face') || 's', sea: yes(g('sea')), newBuild: yes(g('newbuild')),
       beach: toNum(g('beach')), year: toNum(g('year')), energy: g('energy') || '—',
+      status: ['new', 'reduced', 'reserved', 'sold'].includes(g('status').toLowerCase()) ? g('status').toLowerCase() : '', oldPrice: toNum(g('oldprice')),
       gallery: g('photos').split(/[|\n]|,\s*(?=https?:|[a-z])/).map(s => s.trim()).filter(Boolean) };
     ['ru', 'es', 'en'].forEach(l => { v[l] = { name: g('name_' + l), where: g('where_' + l), desc: g('desc_' + l) }; });
     return v;

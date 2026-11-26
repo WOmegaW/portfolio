@@ -57,3 +57,4 @@ h1,h2{font-family:var(--display);font-weight:400;margin:0}
   .toolbar{display:none}
   .sheet{margin:0;box-shadow:none;zoom:1}
 }
+.b-price s{color:var(--muted);font-size:12pt}
