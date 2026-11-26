@@ -13,7 +13,7 @@ ru: {
  'nav.villas': 'Виллы', 'nav.coast': 'Районы', 'nav.buy': 'Как купить', 'nav.visit': 'Просмотр', 'nav.menu': 'Меню',
  'cta.visit': 'Записаться на просмотр', 'cta.see': 'Смотреть виллы', 'cta.visitThis': 'Записаться на просмотр',
  'hero.title': 'Виллы над морем Коста-дель-Соль',
- 'hero.text': n => `Подбираем дом по тому, как в нём падает свет: утренний кофе на восточной террасе, ужин у бассейна на закате. ${n} ${plural(n, 'вилла', 'виллы', 'вилл')} от Михаса до Эстепоны.`,
+ 'hero.text': n => `Подбираем дом по тому, как в нём падает свет: утренний кофе на восточной террасе, ужин у бассейна на закате. ${n} ${plural(n, 'вилла', 'виллы', 'вилл')} от Сотогранде до Малаги.`,
  'dial.label': 'Время суток', 'dial.hint': 'Передвиньте солнце или просто листайте вниз: за одну страницу на побережье пройдёт целый день.',
  'ph.dawn': 'Раннее утро', 'ph.morning': 'Утро', 'ph.noon': 'Полдень', 'ph.afternoon': 'После обеда', 'ph.golden': 'Золотой час', 'ph.dusk': 'После заката',
  'villas.title': 'Дома, в которых живёт свет',
@@ -32,7 +32,7 @@ ru: {
  'cmp.max': 'Сравнить можно до трёх вилл. Уберите одну, чтобы добавить новую.', 'cmp.title': 'Сравнение вилл', 'cmp.remove': 'Убрать из сравнения', 'cmp.need': 'Добавьте ещё одну виллу, чтобы сравнить.',
  'share': 'Поделиться', 'copied': 'Ссылка на виллу скопирована', 'favAdded': 'Добавлено в избранное', 'favRemoved': 'Убрано из избранного',
  'coast.title': 'Побережье за один час', 'coast.lead': 'От аэропорта Малаги до Эстепоны меньше часа по трассе вдоль моря. Выберите район: карта приблизится и покажет каждую виллу с ценой.',
- 'atlas.allTitle': 'Всё побережье', 'atlas.allText': 'Четыре района, четырнадцать вилл. Чем западнее, тем длиннее закаты и тише вечера; ближе к Малаге — аэропорт в двадцати минутах.', 'atlas.airport': n => `${n} мин из аэропорта`, 'atlas.from': p => `от ${p}`, 'atlas.range': (a, b) => `от ${a} до ${b}`, 'atlas.show': n => `Показать ${n} ${plural(n, 'виллу', 'виллы', 'вилл')} в каталоге`, 'atlas.scale': '10 км',
+ 'atlas.allTitle': 'Всё побережье', 'atlas.allText': (a, v) => `${a} ${plural(a, 'район', 'района', 'районов')} и ${v} ${plural(v, 'вилла', 'виллы', 'вилл')} от Гибралтара до Малаги. Чем западнее, тем длиннее закаты и тише вечера; ближе к Малаге — аэропорт в пятнадцати минутах.`, 'atlas.airport': n => `${n} мин из аэропорта`, 'atlas.from': p => `от ${p}`, 'atlas.range': (a, b) => `от ${a} до ${b}`, 'atlas.show': n => `Показать ${n} ${plural(n, 'виллу', 'виллы', 'вилл')} в каталоге`, 'atlas.scale': '10 км',
  'coast.map': 'Карта побережья от Гибралтара до Малаги', 'coast.sea': 'Средиземное море',
  'zone.villas': n => `${n} ${plural(n, 'вилла', 'виллы', 'вилл')} в продаже`,
  'buy.title': 'Как купить дом в Испании', 'buy.lead': 'Обычно от первого просмотра до ключей проходит шесть–восемь недель. Мы ведём сделку на русском, испанском и английском.',
@@ -59,19 +59,13 @@ ru: {
  'calc.mort': 'Ипотека', 'calc.down': 'Первый взнос', 'calc.rate': 'Ставка, % годовых', 'calc.term': 'Срок', 'calc.years': n => `${n} ${plural(n, 'год', 'года', 'лет')}`,
  'calc.loan': 'Кредит', 'calc.monthly': 'Платёж в месяц', 'calc.cash': 'Нужно своих денег (взнос и расходы)',
  'calc.note': 'Расчёт ориентировочный. Нерезидентам испанские банки обычно дают до 60–70% стоимости дома.',
- 'area': { marbella: 'Марбелья', benahavis: 'Бенаавис', estepona: 'Эстепона', mijas: 'Михас' },
- 'areaText': {
-   marbella: 'Город, рестораны и пляжи в десяти минутах. Склоны Сьерра-Бланки дают вид сразу на море и Африку.',
-   benahavis: 'Тихая деревня в горах над Марбельей. Большие участки, сосны, гольф-поля.',
-   estepona: 'Белый старый город и новая набережная. Самые длинные закаты: побережье здесь смотрит на запад.',
-   mijas: 'Двадцать минут до аэропорта. Холмы Каласонды и пляжи Ла-Калы, вид на всё побережье.' },
  'title': 'виллы на Коста-дель-Соль'
 },
 es: {
  'nav.villas': 'Villas', 'nav.coast': 'Zonas', 'nav.buy': 'Cómo comprar', 'nav.visit': 'Visita', 'nav.menu': 'Menú',
  'cta.visit': 'Reservar una visita', 'cta.see': 'Ver villas', 'cta.visitThis': 'Reservar visita',
  'hero.title': 'Villas sobre el mar de la Costa del Sol',
- 'hero.text': n => `Elegimos casas por cómo entra la luz: el café de la mañana en la terraza este, la cena junto a la piscina al atardecer. ${n} villas entre Mijas y Estepona.`,
+ 'hero.text': n => `Elegimos casas por cómo entra la luz: el café de la mañana en la terraza este, la cena junto a la piscina al atardecer. ${n} villas entre Sotogrande y Málaga.`,
  'dial.label': 'Hora del día', 'dial.hint': 'Mueve el sol o simplemente desliza hacia abajo: en una página pasa un día entero en la costa.',
  'ph.dawn': 'Primera hora', 'ph.morning': 'Mañana', 'ph.noon': 'Mediodía', 'ph.afternoon': 'Tarde', 'ph.golden': 'Hora dorada', 'ph.dusk': 'Tras la puesta de sol',
  'villas.title': 'Casas donde vive la luz',
@@ -90,7 +84,7 @@ es: {
  'cmp.max': 'Puedes comparar hasta tres villas. Quita una para añadir otra.', 'cmp.title': 'Comparar villas', 'cmp.remove': 'Quitar de la comparación', 'cmp.need': 'Añade otra villa para comparar.',
  'share': 'Compartir', 'copied': 'Enlace de la villa copiado', 'favAdded': 'Añadida a favoritas', 'favRemoved': 'Quitada de favoritas',
  'coast.title': 'La costa en una hora', 'coast.lead': 'Del aeropuerto de Málaga a Estepona hay menos de una hora por la autopista junto al mar. Elige una zona: el mapa se acerca y muestra cada villa con su precio.',
- 'atlas.allTitle': 'Toda la costa', 'atlas.allText': 'Cuatro zonas, catorce villas. Cuanto más al oeste, más largos los atardeceres y más tranquilas las noches; cerca de Málaga, el aeropuerto queda a veinte minutos.', 'atlas.airport': n => `${n} min del aeropuerto`, 'atlas.from': p => `desde ${p}`, 'atlas.range': (a, b) => `de ${a} a ${b}`, 'atlas.show': n => `Ver ${n} villas en el catálogo`, 'atlas.scale': '10 km',
+ 'atlas.allTitle': 'Toda la costa', 'atlas.allText': (a, v) => `${a} zonas y ${v} villas de Gibraltar a Málaga. Cuanto más al oeste, más largos los atardeceres y más tranquilas las noches; cerca de Málaga, el aeropuerto queda a quince minutos.`, 'atlas.airport': n => `${n} min del aeropuerto`, 'atlas.from': p => `desde ${p}`, 'atlas.range': (a, b) => `de ${a} a ${b}`, 'atlas.show': n => `Ver ${n} villas en el catálogo`, 'atlas.scale': '10 km',
  'coast.map': 'Mapa de la costa de Gibraltar a Málaga', 'coast.sea': 'Mar Mediterráneo',
  'zone.villas': n => `${n} ${n === 1 ? 'villa' : 'villas'} en venta`,
  'buy.title': 'Cómo comprar una casa en España', 'buy.lead': 'Desde la primera visita hasta las llaves suelen pasar de seis a ocho semanas. Llevamos la operación en español, inglés y ruso.',
@@ -117,19 +111,13 @@ es: {
  'calc.mort': 'Hipoteca', 'calc.down': 'Entrada', 'calc.rate': 'Interés, % anual', 'calc.term': 'Plazo', 'calc.years': n => `${n} años`,
  'calc.loan': 'Préstamo', 'calc.monthly': 'Cuota mensual', 'calc.cash': 'Ahorros necesarios (entrada y gastos)',
  'calc.note': 'Cálculo orientativo. A no residentes los bancos españoles suelen financiar hasta el 60–70% del valor.',
- 'area': { marbella: 'Marbella', benahavis: 'Benahavís', estepona: 'Estepona', mijas: 'Mijas' },
- 'areaText': {
-   marbella: 'Ciudad, restaurantes y playas a diez minutos. Desde Sierra Blanca se ve el mar y África.',
-   benahavis: 'Pueblo tranquilo en la montaña sobre Marbella. Parcelas grandes, pinos y campos de golf.',
-   estepona: 'Casco antiguo blanco y paseo marítimo nuevo. Los atardeceres más largos: la costa mira al oeste.',
-   mijas: 'A veinte minutos del aeropuerto. Las colinas de Calahonda y las playas de La Cala.' },
  'title': 'villas en la Costa del Sol'
 },
 en: {
  'nav.villas': 'Villas', 'nav.coast': 'Areas', 'nav.buy': 'How to buy', 'nav.visit': 'Viewing', 'nav.menu': 'Menu',
  'cta.visit': 'Book a viewing', 'cta.see': 'See the villas', 'cta.visitThis': 'Book a viewing',
  'hero.title': 'Villas above the sea on the Costa del Sol',
- 'hero.text': n => `We choose homes by how the light falls: morning coffee on an east terrace, dinner by the pool at sunset. ${n} villas between Mijas and Estepona.`,
+ 'hero.text': n => `We choose homes by how the light falls: morning coffee on an east terrace, dinner by the pool at sunset. ${n} villas between Sotogrande and Málaga.`,
  'dial.label': 'Time of day', 'dial.hint': 'Move the sun or just scroll down: a whole day on the coast passes in one page.',
  'ph.dawn': 'Early morning', 'ph.morning': 'Morning', 'ph.noon': 'Midday', 'ph.afternoon': 'Afternoon', 'ph.golden': 'Golden hour', 'ph.dusk': 'After sunset',
  'villas.title': 'Houses that live in the light',
@@ -148,7 +136,7 @@ en: {
  'cmp.max': 'You can compare up to three villas. Remove one to add another.', 'cmp.title': 'Compare villas', 'cmp.remove': 'Remove from comparison', 'cmp.need': 'Add one more villa to compare.',
  'share': 'Share', 'copied': 'Villa link copied', 'favAdded': 'Added to favourites', 'favRemoved': 'Removed from favourites',
  'coast.title': 'The coast in one hour', 'coast.lead': 'From Málaga airport to Estepona is under an hour on the motorway along the sea. Pick an area: the map zooms in and shows every villa with its price.',
- 'atlas.allTitle': 'The whole coast', 'atlas.allText': 'Four areas, fourteen villas. The further west, the longer the sunsets and the quieter the evenings; near Málaga, the airport is twenty minutes away.', 'atlas.airport': n => `${n} min from the airport`, 'atlas.from': p => `from ${p}`, 'atlas.range': (a, b) => `${a} to ${b}`, 'atlas.show': n => `Show ${n} villas in the catalogue`, 'atlas.scale': '10 km',
+ 'atlas.allTitle': 'The whole coast', 'atlas.allText': (a, v) => `${a} areas and ${v} villas from Gibraltar to Málaga. The further west, the longer the sunsets and the quieter the evenings; near Málaga, the airport is fifteen minutes away.`, 'atlas.airport': n => `${n} min from the airport`, 'atlas.from': p => `from ${p}`, 'atlas.range': (a, b) => `${a} to ${b}`, 'atlas.show': n => `Show ${n} villas in the catalogue`, 'atlas.scale': '10 km',
  'coast.map': 'Map of the coast from Gibraltar to Málaga', 'coast.sea': 'Mediterranean Sea',
  'zone.villas': n => `${n} ${n === 1 ? 'villa' : 'villas'} for sale`,
  'buy.title': 'How to buy a home in Spain', 'buy.lead': 'From the first viewing to the keys usually takes six to eight weeks. We handle the purchase in English, Spanish and Russian.',
@@ -175,12 +163,6 @@ en: {
  'calc.mort': 'Mortgage', 'calc.down': 'Deposit', 'calc.rate': 'Interest, % a year', 'calc.term': 'Term', 'calc.years': n => `${n} years`,
  'calc.loan': 'Loan', 'calc.monthly': 'Monthly payment', 'calc.cash': 'Own funds needed (deposit and costs)',
  'calc.note': 'An estimate. Spanish banks usually lend non-residents up to 60–70% of the property value.',
- 'area': { marbella: 'Marbella', benahavis: 'Benahavís', estepona: 'Estepona', mijas: 'Mijas' },
- 'areaText': {
-   marbella: 'Town, restaurants and beaches ten minutes away. The slopes of Sierra Blanca look over the sea to Africa.',
-   benahavis: 'A quiet mountain village above Marbella. Large plots, pine trees and golf courses.',
-   estepona: 'A white old town and a new seafront. The longest sunsets: the coast here faces west.',
-   mijas: 'Twenty minutes from the airport. The hills of Calahonda and the beaches of La Cala.' },
  'title': 'villas on the Costa del Sol'
 }};
 
@@ -200,6 +182,8 @@ const money = n => new Intl.NumberFormat(LOCALE[lang], { style: 'currency', curr
 const num = n => new Intl.NumberFormat(LOCALE[lang]).format(n);
 const hm = (h, m) => `${h}:${String(m).padStart(2, '0')}`;
 const L = v => v[lang] || v.en;
+const areaName = a => AREAS[a].name[lang] || AREAS[a].name.en;
+const areaText = a => AREAS[a].text[lang] || AREAS[a].text.en;
 const sunText = v => t('sun', hm(v.sun[0], v.sun[1]), hm(v.sun[2], v.sun[3]));
 const img = (name, w) => `img/${name}-${w}.webp`;
 const srcset = name => `${img(name, 800)} 800w, ${img(name, 1600)} 1600w`;
@@ -338,7 +322,7 @@ function renderChips() {
   const el = $('#areaChips'); el.innerHTML = '';
   ['all', ...Object.keys(AREAS)].forEach(a => {
     const b = document.createElement('button'); b.type = 'button'; b.className = 'chip';
-    b.textContent = a === 'all' ? t('filter.all') : t('area')[a]; b.setAttribute('aria-pressed', String(F.area === a));
+    b.textContent = a === 'all' ? t('filter.all') : areaName(a); b.setAttribute('aria-pressed', String(F.area === a));
     b.addEventListener('click', () => { F.area = a; renderChips(); renderGrid(); }); el.appendChild(b);
   });
 }
@@ -397,7 +381,8 @@ const COAST = [[36.11,-5.345],[36.16,-5.35],[36.23,-5.31],[36.29,-5.27],[36.355,
   [36.46,-5.04],[36.475,-5.01],[36.48,-4.99],[36.485,-4.95],[36.495,-4.915],[36.505,-4.885],[36.503,-4.855],[36.50,-4.83],[36.495,-4.80],[36.49,-4.77],[36.486,-4.74],
   [36.487,-4.71],[36.495,-4.69],[36.505,-4.68],[36.52,-4.65],[36.54,-4.62],[36.565,-4.575],[36.59,-4.53],[36.62,-4.495],[36.65,-4.47],[36.685,-4.445],[36.715,-4.42],[36.72,-4.38],[36.725,-4.30],[36.73,-4.15]].map(([a, b]) => proj(a, b));
 const TOWNS = [['Málaga', 36.721, -4.421], ['Torremolinos', 36.622, -4.500], ['Fuengirola', 36.540, -4.625], ['Marbella', 36.510, -4.883], ['San Pedro', 36.487, -4.992],
-  ['Estepona', 36.427, -5.146], ['Sotogrande', 36.29, -5.27], ['Benahavís', 36.523, -5.046], ['Mijas', 36.596, -4.637]];
+  ['Estepona', 36.427, -5.146], ['Sotogrande', 36.29, -5.27], ['Benahavís', 36.523, -5.046], ['Mijas', 36.596, -4.637],
+  ['Benalmádena', 36.598, -4.517], ['Casares', 36.444, -5.274], ['Puerto Banús', 36.485, -4.952], ['Gibraltar', 36.14, -5.353]];
 const SIERRAS = [[36.53, -5.20, 95, 70], [36.575, -4.92, 85, 45], [36.61, -4.66, 90, 48], [36.64, -5.05, 120, 62], [36.70, -4.78, 110, 50]];
 const smooth = (pts, dy = 0) => {                                  // плавная линия через точки (Catmull-Rom → кривые Безье)
   const p = pts.map(([x, y]) => [x, y + dy]);
@@ -447,7 +432,7 @@ function applyVb(b) {
     el.hidden = x < -40 || x > W + 40 || y < -20 || y > H + 20;
   });
   // ценники вилл не должны налезать друг на друга: сдвигаем мешающий вверх
-  const tags = $$('.vpin', atlasPins).map(el => ({ el, x: parseFloat(el.style.left), y: parseFloat(el.style.top), w: el.offsetWidth + 6, h: el.offsetHeight + 6 }))
+  const tags = $$('.vpin, .apin', atlasPins).map(el => ({ el, x: parseFloat(el.style.left), y: parseFloat(el.style.top), w: el.offsetWidth + 6, h: el.offsetHeight + 6 }))
     .sort((p, q) => q.y - p.y);
   tags.forEach((p, i) => {
     for (let k = 0; k < 6; k++) {
@@ -456,6 +441,9 @@ function applyVb(b) {
       p.y = hit.y - (p.h + hit.h) / 2;
     }
     p.el.style.top = p.y + 'px';
+    // не выходить за края карты
+    const W2 = atlasMap.clientWidth, half = (p.w - 6) / 2 + 6;
+    if (p.x - half < 0 || p.x + half > W2) p.el.style.left = Math.min(W2 - half, Math.max(half, p.x)) + 'px';
     p.el.classList.toggle('below', p.y < 190);
   });
   $('#scaleBar').style.width = Math.round(KM10 / b[2] * W) + 'px';
@@ -492,8 +480,8 @@ function renderPins() {
   if (A === 'all') {
     VILLAS.forEach(v => { const [x, y] = villaXY(v); html.push(`<span class="vdot" data-x="${x}" data-y="${y}"></span>`); });
     Object.keys(AREAS).forEach(a => { const vs = areaVillas(a), pts = vs.map(villaXY);
-      const x = pts.reduce((s, p) => s + p[0], 0) / pts.length, y = Math.min(...pts.map(p => p[1])) - (a === 'benahavis' ? 70 : 30);
-      html.push(`<button type="button" class="apin" data-area="${a}" data-x="${x}" data-y="${y}">${t('area')[a]} <b>${vs.length}</b></button>`); });
+      const x = pts.reduce((s, p) => s + p[0], 0) / pts.length, y = Math.min(...pts.map(p => p[1])) - (a === 'benahavis' ? 70 : a === 'casares' || a === 'nuevaandalucia' ? 50 : 30);
+      html.push(`<button type="button" class="apin" data-area="${a}" data-x="${x}" data-y="${y}" aria-label="${areaName(a)}: ${t('zone.villas', vs.length)}"><span class="an">${areaName(a)}</span> <b>${vs.length}</b></button>`); });
   } else {
     areaVillas(A).forEach(v => { const [x, y] = villaXY(v);
       html.push(`<button type="button" class="vpin" data-vid="${v.id}" data-x="${x}" data-y="${y - 14}" aria-label="${L(v).name}, ${money(v.price)}">${compact(v.price)}<span class="vcard" aria-hidden="true"><img src="${img(v.gallery[0], 800)}" alt=""><span>${L(v).name}</span></span></button>`); });
@@ -507,15 +495,15 @@ function hot(id, on) { $$(`[data-vid="${id}"]`, $('#coast')).forEach(el => el.cl
 function renderAtlasInfo() {
   const A = atlasArea, box = $('#atlasInfo');
   if (A === 'all') {
-    box.innerHTML = `<h3>${t('atlas.allTitle')}</h3><p>${t('atlas.allText')}</p>
+    box.innerHTML = `<h3>${t('atlas.allTitle')}</h3><p>${t('atlas.allText', Object.keys(AREAS).length, VILLAS.length)}</p>
       <ul class="ai-list">${Object.keys(AREAS).map(a => { const vs = areaVillas(a);
-        return `<li><button type="button" data-area="${a}"><span><span class="an">${t('area')[a]}</span><br><span class="muted">${t('atlas.airport', AREAS[a].airport)}</span></span><span>${t('atlas.from', compact(vs[vs.length - 1].price))}</span></button></li>`; }).join('')}</ul>`;
+        return `<li><button type="button" data-area="${a}"><span><span class="an">${areaName(a)}</span><br><span class="muted">${t('atlas.airport', AREAS[a].airport)}</span></span><span>${t('atlas.from', compact(vs[vs.length - 1].price))}</span></button></li>`; }).join('')}</ul>`;
     $$('[data-area]', box).forEach(b => b.addEventListener('click', () => selectArea(b.dataset.area)));
     return;
   }
   const vs = areaVillas(A);
   box.innerHTML = `<img class="ai-photo" src="${img(vs[0].gallery[0], 800)}" alt="">
-    <h3>${t('area')[A]}</h3><p>${t('areaText')[A]}</p>
+    <h3>${areaName(A)}</h3><p>${areaText(A)}</p>
     <div class="ai-facts"><span>✈ ${t('atlas.airport', AREAS[A].airport)}</span><span>${t('atlas.range', compact(vs[vs.length - 1].price), compact(vs[0].price))}</span></div>
     <ul class="ai-list">${vs.map(v => `<li><button type="button" data-vid="${v.id}"><span>${L(v).name}</span><span>${money(v.price)}</span></button></li>`).join('')}</ul>
     <button type="button" class="btn" id="aiShow">${t('atlas.show', vs.length)}</button>`;
@@ -524,7 +512,7 @@ function renderAtlasInfo() {
 }
 function renderAtlasTabs() {
   const el = $('#atlasTabs');
-  el.innerHTML = ['all', ...Object.keys(AREAS)].map(a => `<button type="button" class="chip" data-tab="${a}" aria-pressed="${atlasArea === a}">${a === 'all' ? t('atlas.allTitle') : t('area')[a]}</button>`).join('');
+  el.innerHTML = ['all', ...Object.keys(AREAS)].map(a => `<button type="button" class="chip" data-tab="${a}" aria-pressed="${atlasArea === a}">${a === 'all' ? t('atlas.allTitle') : areaName(a)}</button>`).join('');
   $$('[data-tab]', el).forEach(b => b.addEventListener('click', () => selectArea(b.dataset.tab)));
 }
 // Смена района: метки и панель гаснут, камера летит, новые метки проявляются по прилёте

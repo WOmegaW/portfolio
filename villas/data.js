@@ -17,12 +17,54 @@ window.SITE = {
   demo: true                          // true — форма заявки ничего не отправляет
 };
 
-/* Районы: время на машине из аэропорта Малаги (минуты) */
+/* Районы (порядок — с запада на восток, так же они идут во вкладках).
+   airport — минут на машине из аэропорта Малаги; name/text — название и описание на трёх языках. */
 window.AREAS = {
-  marbella:  { airport: 40 },
-  benahavis: { airport: 50 },
-  estepona:  { airport: 55 },
-  mijas:     { airport: 25 }
+  sotogrande: { airport: 75,
+    name: { ru: 'Сотогранде', es: 'Sotogrande', en: 'Sotogrande' },
+    text: { ru: 'Яхтенный порт, поло и гольф мирового уровня. Самое закрытое и зелёное место побережья, большие участки у моря.',
+            es: 'Puerto deportivo, polo y golf de primer nivel. El rincón más reservado y verde de la costa, con grandes parcelas junto al mar.',
+            en: 'A yacht harbour, polo and world-class golf. The most private and green corner of the coast, with large plots by the sea.' } },
+  casares: { airport: 60,
+    name: { ru: 'Касарес', es: 'Casares', en: 'Casares' },
+    text: { ru: 'Белая деревня на скале и тихий берег под ней. Виды на Гибралтар и Африку, цены ниже, чем в Марбелье.',
+            es: 'Un pueblo blanco sobre la roca y una costa tranquila a sus pies. Vistas a Gibraltar y África, precios por debajo de Marbella.',
+            en: 'A white village on the rock and a quiet coast below it. Views of Gibraltar and Africa, prices below Marbella.' } },
+  estepona: { airport: 55,
+    name: { ru: 'Эстепона', es: 'Estepona', en: 'Estepona' },
+    text: { ru: 'Белый старый город и новая набережная. Самые длинные закаты: побережье здесь смотрит на запад.',
+            es: 'Casco antiguo blanco y paseo marítimo nuevo. Los atardeceres más largos: la costa mira al oeste.',
+            en: 'A white old town and a new seafront. The longest sunsets: the coast here faces west.' } },
+  benahavis: { airport: 50,
+    name: { ru: 'Бенаавис', es: 'Benahavís', en: 'Benahavís' },
+    text: { ru: 'Тихая деревня в горах над Марбельей. Большие участки, сосны, гольф-поля.',
+            es: 'Pueblo tranquilo en la montaña sobre Marbella. Parcelas grandes, pinos y campos de golf.',
+            en: 'A quiet mountain village above Marbella. Large plots, pine trees and golf courses.' } },
+  nuevaandalucia: { airport: 45,
+    name: { ru: 'Нуэва-Андалусия', es: 'Nueva Andalucía', en: 'Nueva Andalucía' },
+    text: { ru: '«Долина гольфа» над Пуэрто-Банусом: шесть полей, рестораны и яхты в пяти минутах. Любимый район семей.',
+            es: 'El «valle del golf» sobre Puerto Banús: seis campos, restaurantes y yates a cinco minutos. El barrio favorito de las familias.',
+            en: 'The “golf valley” above Puerto Banús: six courses, with restaurants and yachts five minutes away. A favourite with families.' } },
+  marbella: { airport: 40,
+    name: { ru: 'Марбелья', es: 'Marbella', en: 'Marbella' },
+    text: { ru: 'Город, рестораны и пляжи в десяти минутах. Склоны Сьерра-Бланки дают вид сразу на море и Африку.',
+            es: 'Ciudad, restaurantes y playas a diez minutos. Desde Sierra Blanca se ve el mar y África.',
+            en: 'Town, restaurants and beaches ten minutes away. The slopes of Sierra Blanca look over the sea to Africa.' } },
+  mijas: { airport: 25,
+    name: { ru: 'Михас', es: 'Mijas', en: 'Mijas' },
+    text: { ru: 'Двадцать пять минут до аэропорта. Холмы Каласонды и пляжи Ла-Калы, вид на всё побережье.',
+            es: 'A veinticinco minutos del aeropuerto. Las colinas de Calahonda y las playas de La Cala, con vistas a toda la costa.',
+            en: 'Twenty-five minutes from the airport. The hills of Calahonda and the beaches of La Cala, with views along the whole coast.' } },
+  benalmadena: { airport: 15,
+    name: { ru: 'Бенальмадена', es: 'Benalmádena', en: 'Benalmádena' },
+    text: { ru: 'Пятнадцать минут до аэропорта. Холмы Торрекебрады над морем, гольф и пляжи рядом, круглый год живой город.',
+            es: 'A quince minutos del aeropuerto. Las colinas de Torrequebrada sobre el mar, golf y playas cerca, una ciudad viva todo el año.',
+            en: 'Fifteen minutes from the airport. The Torrequebrada hills above the sea, golf and beaches nearby, a town that is lively all year.' } },
+  malaga: { airport: 20,
+    name: { ru: 'Малага Восток', es: 'Málaga Este', en: 'Málaga East' },
+    text: { ru: 'Эль-Лимонар и Серрадо-де-Кальдерон: старые виллы в садах, десять минут до музеев, порта и центра Малаги.',
+            es: 'El Limonar y Cerrado de Calderón: villas señoriales entre jardines, a diez minutos de los museos, el puerto y el centro de Málaga.',
+            en: 'El Limonar and Cerrado de Calderón: grand villas among gardens, ten minutes from the museums, harbour and centre of Málaga.' } }
 };
 
 /* Виллы. Поля:
@@ -74,7 +116,7 @@ window.VILLAS = [
     es: { name: 'Villa Azul', where: 'Río Real, Marbella', desc: 'Casa contemporánea con la piscina a lo largo de todo el salón: las paredes correderas se abren y la casa se convierte en terraza. Sol de mañana en la cocina y sombra junto al agua a mediodía.' },
     en: { name: 'Villa Azul', where: 'Río Real, Marbella', desc: 'A contemporary house with the pool running the length of the living room: the sliding walls open and the house becomes a terrace. Morning sun in the kitchen, shade by the water at midday.' } },
 
-  { id: 'patio', ref: 'VT-1031', area: 'marbella', lat: 36.5, lng: -4.96, gallery: ['patio', 'in-living-12', 'in-kitchen-2', 'in-bed-1', 'in-bath-4'],
+  { id: 'patio', ref: 'VT-1031', area: 'nuevaandalucia', lat: 36.5, lng: -4.96, gallery: ['patio', 'in-living-12', 'in-kitchen-2', 'in-bed-1', 'in-bath-4'],
     price: 2750000, beds: 4, baths: 4, built: 360, plot: 1200, sun: [8, 30, 20, 15], face: 's', sea: false, newBuild: false, beach: 10, year: 2009, energy: 'D',
     ru: { name: 'Каса Патио', where: 'Нуэва-Андалусия, Марбелья', desc: 'Одноэтажный дом вокруг бассейна: каждая комната открывается на воду. Летняя кухня под навесом и гольф в пяти минутах.' },
     es: { name: 'Casa Patio', where: 'Nueva Andalucía, Marbella', desc: 'Casa de una planta alrededor de la piscina: cada estancia se abre al agua. Cocina de verano bajo pérgola y golf a cinco minutos.' },
@@ -114,5 +156,58 @@ window.VILLAS = [
     price: 1450000, beds: 3, baths: 3, built: 245, plot: 780, sun: [7, 50, 19, 40], face: 'se', sea: true, newBuild: false, beach: 8, year: 2011, energy: 'D',
     ru: { name: 'Вилла Бриса', where: 'Каласонда, Михас-Коста', desc: 'Компактная вилла с садом и бассейном. Утреннее солнце на кухне, вечером терраса в тени, это удобно жарким летом.' },
     es: { name: 'Villa Brisa', where: 'Calahonda, Mijas Costa', desc: 'Villa compacta con jardín y piscina. Sol de mañana en la cocina y terraza en sombra por la tarde, cómoda en pleno verano.' },
-    en: { name: 'Villa Brisa', where: 'Calahonda, Mijas Costa', desc: 'A compact villa with garden and pool. Morning sun in the kitchen and a shaded terrace in the evening, easy living in high summer.' } }
+    en: { name: 'Villa Brisa', where: 'Calahonda, Mijas Costa', desc: 'A compact villa with garden and pool. Morning sun in the kitchen and a shaded terrace in the evening, easy living in high summer.' } },
+  { id: 'palmera', ref: 'VT-1141', area: 'sotogrande', lat: 36.30, lng: -5.285, gallery: ['palmera', 'in-living-15', 'in-kitchen-4', 'in-bed-5', 'in-bath-5'],
+    price: 6200000, beds: 6, baths: 6, built: 690, plot: 4200, sun: [8, 50, 21, 35], face: 's', sea: true, newBuild: false, beach: 3, year: 2015, energy: 'B',
+    ru: { name: 'Вилла Пальмера', where: 'Сотогранде-Коста', desc: 'Пальмовая аллея ведёт к бассейну, за которым только пляж. Шесть спален, гостевой дом, теннисный корт. До яхтенного порта и поло-клуба пять минут.' },
+    es: { name: 'Villa Palmera', where: 'Sotogrande Costa', desc: 'Un paseo de palmeras lleva a la piscina, y detrás solo queda la playa. Seis dormitorios, casa de invitados y pista de tenis. A cinco minutos del puerto y del club de polo.' },
+    en: { name: 'Villa Palmera', where: 'Sotogrande Costa', desc: 'A palm-lined walk leads to the pool, with only the beach beyond it. Six bedrooms, a guest house and a tennis court. Five minutes from the harbour and polo club.' } },
+
+  { id: 'marina', ref: 'VT-1143', area: 'sotogrande', lat: 36.31, lng: -5.265, gallery: ['marina', 'in-living-13', 'in-dining-1', 'in-bed-2', 'ext-pool'],
+    price: 3900000, beds: 5, baths: 5, built: 450, plot: 1500, sun: [9, 10, 21, 20], face: 'sw', sea: true, newBuild: false, beach: 6, year: 2019, energy: 'B',
+    ru: { name: 'Каса Марина', where: 'Ла-Марина, Сотогранде', desc: 'Белый дом с длинным бассейном и ночной подсветкой фасада. Пешком до ресторанов порта, рядом гольф Вальдеррама.' },
+    es: { name: 'Casa Marina', where: 'La Marina, Sotogrande', desc: 'Casa blanca con piscina larga y fachada iluminada por la noche. A pie de los restaurantes del puerto y cerca del golf de Valderrama.' },
+    en: { name: 'Casa Marina', where: 'La Marina, Sotogrande', desc: 'A white house with a long pool and a façade lit at night. Walk to the harbour restaurants, with Valderrama golf close by.' } },
+
+  { id: 'cortijo', ref: 'VT-1136', area: 'casares', lat: 36.44, lng: -5.255, gallery: ['cortijo', 'in-living-5', 'in-kitchen-1', 'in-bed-3', 'in-bath-2'],
+    price: 2100000, beds: 4, baths: 4, built: 380, plot: 5200, sun: [8, 0, 21, 15], face: 'sw', sea: true, newBuild: false, beach: 12, year: 2008, energy: 'C',
+    ru: { name: 'Кортихо-дель-Соль', where: 'Касарес', desc: 'Андалусская усадьба из тёплого камня: круглый бассейн с подогревом, оливковая роща и вид на Гибралтар. На закате фасад светится золотом.' },
+    es: { name: 'Cortijo del Sol', where: 'Casares', desc: 'Cortijo andaluz de piedra cálida: piscina redonda climatizada, olivar y vistas a Gibraltar. Al atardecer la fachada brilla dorada.' },
+    en: { name: 'Cortijo del Sol', where: 'Casares', desc: 'An Andalusian farmhouse in warm stone: a heated round pool, an olive grove and views of Gibraltar. At sunset the façade glows gold.' } },
+
+  { id: 'mirlo', ref: 'VT-1138', area: 'casares', lat: 36.39, lng: -5.235, gallery: ['mirlo', 'in-living-17', 'in-dining-2', 'in-bed-4', 'in-bath-3'],
+    price: 1350000, beds: 3, baths: 3, built: 230, plot: 900, sun: [9, 30, 21, 10], face: 'w', sea: true, newBuild: true, beach: 8, year: 2025, energy: 'A',
+    ru: { name: 'Каса Мирло', where: 'Касарес-Коста', desc: 'Новый дом на склоне: тёмное дерево, тёплый свет в окнах, терраса над долиной. Самая доступная вилла каталога с видом на море.' },
+    es: { name: 'Casa Mirlo', where: 'Casares Costa', desc: 'Obra nueva en la ladera: madera oscura, luz cálida en las ventanas y una terraza sobre el valle. La villa más asequible del catálogo con vistas al mar.' },
+    en: { name: 'Casa Mirlo', where: 'Casares Costa', desc: 'A new house on the hillside: dark timber, warm light in the windows and a terrace over the valley. The most affordable sea-view villa in the catalogue.' } },
+
+  { id: 'lago', ref: 'VT-1133', area: 'nuevaandalucia', lat: 36.515, lng: -4.975, gallery: ['lago', 'in-living-14', 'in-kitchen-3', 'in-bed-5', 'in-bath-5'],
+    price: 3600000, beds: 5, baths: 5, built: 470, plot: 1300, sun: [9, 0, 20, 50], face: 's', sea: false, newBuild: true, beach: 9, year: 2024, energy: 'A',
+    ru: { name: 'Вилла Лаго', where: 'Лос-Наранхос, Нуэва-Андалусия', desc: 'Новый дом у поля Лос-Наранхос: бассейн подходит к самой гостиной, вечером подсвечен изнутри. Пять минут до Пуэрто-Бануса.' },
+    es: { name: 'Villa Lago', where: 'Los Naranjos, Nueva Andalucía', desc: 'Obra nueva junto al campo de Los Naranjos: la piscina llega hasta el salón y por la noche se ilumina desde dentro. A cinco minutos de Puerto Banús.' },
+    en: { name: 'Villa Lago', where: 'Los Naranjos, Nueva Andalucía', desc: 'A new build by the Los Naranjos course: the pool runs right up to the living room and glows from within at night. Five minutes from Puerto Banús.' } },
+
+  { id: 'quebrada', ref: 'VT-1146', area: 'benalmadena', lat: 36.595, lng: -4.555, gallery: ['quebrada', 'in-living-18', 'in-kitchen-4', 'in-bed-1', 'in-bath-1'],
+    price: 1950000, beds: 4, baths: 4, built: 320, plot: 1100, sun: [8, 20, 21, 0], face: 'se', sea: true, newBuild: false, beach: 7, year: 2013, energy: 'C',
+    ru: { name: 'Вилла Кебрада', where: 'Торрекебрада, Бенальмадена', desc: 'Деревянная палуба с шезлонгами и столовая под стеклянным навесом. Над гольф-полем Торрекебрады, пятнадцать минут до аэропорта.' },
+    es: { name: 'Villa Quebrada', where: 'Torrequebrada, Benalmádena', desc: 'Cubierta de madera con tumbonas y comedor bajo un porche acristalado. Sobre el golf de Torrequebrada, a quince minutos del aeropuerto.' },
+    en: { name: 'Villa Quebrada', where: 'Torrequebrada, Benalmádena', desc: 'A timber deck with loungers and a dining room under a glass canopy. Above Torrequebrada golf, fifteen minutes from the airport.' } },
+
+  { id: 'ola', ref: 'VT-1149', area: 'benalmadena', lat: 36.606, lng: -4.522, gallery: ['ola', 'in-living-16', 'in-dining-2', 'in-bed-2', 'sea'],
+    price: 1250000, beds: 3, baths: 2, built: 190, plot: 520, sun: [7, 45, 20, 30], face: 'se', sea: true, newBuild: false, beach: 1, year: 2006, energy: 'D',
+    ru: { name: 'Каса Ола', where: 'Бенальмадена-Коста', desc: 'Дом прямо над пляжем: слышно волны из спальни. Небольшой, но с террасой над водой, которая есть не у каждой виллы за десять миллионов.' },
+    es: { name: 'Casa Ola', where: 'Benalmádena Costa', desc: 'Una casa justo sobre la playa: las olas se oyen desde el dormitorio. Pequeña, pero con una terraza sobre el agua que no tienen ni villas de diez millones.' },
+    en: { name: 'Casa Ola', where: 'Benalmádena Costa', desc: 'A house right above the beach: you can hear the waves from the bedroom. Small, but with a terrace over the water that ten-million villas lack.' } },
+
+  { id: 'limonar', ref: 'VT-1152', area: 'malaga', lat: 36.728, lng: -4.392, gallery: ['limonar', 'in-living-15', 'in-dining-1', 'in-bed-5', 'in-bath-3'],
+    price: 4100000, beds: 5, baths: 5, built: 540, plot: 1900, sun: [8, 15, 21, 0], face: 's', sea: true, newBuild: false, beach: 5, year: 2017, energy: 'B',
+    ru: { name: 'Вилла Лимонар', where: 'Эль-Лимонар, Малага', desc: 'Бассейн на крыше с видом на порт и собор Малаги, на закате всё побережье в огнях. Десять минут до центра и музея Пикассо.' },
+    es: { name: 'Villa Limonar', where: 'El Limonar, Málaga', desc: 'Piscina en la azotea con vistas al puerto y a la catedral de Málaga; al atardecer toda la costa se enciende. A diez minutos del centro y del Museo Picasso.' },
+    en: { name: 'Villa Limonar', where: 'El Limonar, Málaga', desc: 'A rooftop pool overlooking Málaga’s harbour and cathedral; at sunset the whole coast lights up. Ten minutes from the centre and the Picasso Museum.' } },
+
+  { id: 'calderon', ref: 'VT-1155', area: 'malaga', lat: 36.736, lng: -4.372, gallery: ['calderon', 'in-living-13', 'in-kitchen-3', 'in-bed-4', 'ext-cube'],
+    price: 2400000, beds: 4, baths: 4, built: 350, plot: 1000, sun: [9, 0, 20, 45], face: 'sw', sea: false, newBuild: true, beach: 8, year: 2025, energy: 'A',
+    ru: { name: 'Каса Кальдерон', where: 'Серрадо-де-Кальдерон, Малага', desc: 'Новостройка в закрытом посёлке на холме: стекло, тёмное дерево и бассейн с ночной подсветкой. Город рядом, а вокруг тишина и сады.' },
+    es: { name: 'Casa Calderón', where: 'Cerrado de Calderón, Málaga', desc: 'Obra nueva en una urbanización cerrada en la colina: cristal, madera oscura y piscina iluminada. La ciudad al lado y alrededor, silencio y jardines.' },
+    en: { name: 'Casa Calderón', where: 'Cerrado de Calderón, Málaga', desc: 'A new build in a gated hillside estate: glass, dark timber and a lit pool. The city close by, silence and gardens all around.' } }
 ];
