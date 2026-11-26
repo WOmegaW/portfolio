@@ -228,9 +228,8 @@ matchMedia('(min-width: 961px)').addEventListener('change', e => { if (e.matches
 $('#favBtn').addEventListener('click', () => { F.fav = true; $('#fFav').checked = true; renderGrid(); $('#villas').scrollIntoView(); });
 
 /* ===================== Солнце: время суток = положение на странице ===================== */
-// Время суток задаёт только прокрутка: вверху утро, внизу вечер. Часы в углу показывают его всегда.
-const layersEl = $('#layers'), tint = $('#tint'), glow = $('#glow'),
-      clock = $('#clock'), clockTime = $('#clockTime'), clockPhase = $('#clockPhase'), clockSun = $('#clockSun');
+// Время суток задаёт только прокрутка: вверху утро, внизу вечер — меняется свет фона.
+const layersEl = $('#layers'), tint = $('#tint'), glow = $('#glow');
 const DAY_START = 420, DAY_END = 1290, MORNING = 560;
 const KEYS = [
   [420, [150, 172, 205, .55], [255, 190, 150, .10], .78, .80],
@@ -252,14 +251,11 @@ const phaseKey = m => m < 500 ? 'ph.dawn' : m < 690 ? 'ph.morning' : m < 870 ? '
 let minutes = MORNING, base = MORNING, introRaf = 0, raf = 0;
 function updateSun(m) {
   minutes = m;
-  const p = (m - DAY_START) / (DAY_END - DAY_START), ang = Math.PI * (1 - p);
-  clockSun.setAttribute('cx', (18 + 16 * Math.cos(ang)).toFixed(1)); clockSun.setAttribute('cy', (18 - 15 * Math.sin(ang)).toFixed(1));
+  const p = (m - DAY_START) / (DAY_END - DAY_START);
   const s = lightAt(m), rgba = c => `rgba(${c[0] | 0},${c[1] | 0},${c[2] | 0},${c[3].toFixed(3)})`;
   tint.style.background = `linear-gradient(${lerp(200, 250, p)}deg, ${rgba(s.sh)} 0%, ${rgba([s.sh[0], s.sh[1], s.sh[2], s.sh[3] * .55])} 100%)`;
   glow.style.background = `radial-gradient(circle at ${lerp(15, 92, p)}% ${lerp(30, 8, Math.sin(Math.PI * p))}%, ${rgba(s.li)} 0%, rgba(0,0,0,0) 60%)`;
   layersEl.style.filter = `brightness(${s.br.toFixed(3)}) saturate(${s.sa.toFixed(3)})`;
-  const r = Math.round(m), label = hm(Math.floor(r / 60), r % 60), ph = t(phaseKey(m));
-  clockTime.textContent = label; clockPhase.textContent = ph;
 }
 const progress = () => { const h = document.documentElement.scrollHeight - innerHeight; return h > 0 ? Math.min(1, Math.max(0, scrollY / h)) : 0; };
 const timeFromScroll = () => base + (DAY_END - base) * progress();
@@ -267,23 +263,11 @@ function onScrollLight() {
   if (raf) return;
   raf = requestAnimationFrame(() => {
     raf = 0; if (!introRaf) updateSun(timeFromScroll());
-    if (scrollY > 120) maybeDayHint();      // подсказка — при первой прокрутке
     $('#toTop').classList.toggle('on', scrollY > innerHeight * 1.4);
   });
 }
 addEventListener('scroll', onScrollLight, { passive: true });
 addEventListener('resize', onScrollLight);
-clock.classList.add('on');
-
-/* Подсказка: пока листаете — на побережье проходит день */
-const dayHint = $('#dayHint'); let hintTimer = 0;
-function showDayHint() {
-  $('#dayHintText').innerHTML = t('dayhint.text');
-  dayHint.classList.add('on'); clearTimeout(hintTimer); hintTimer = setTimeout(() => dayHint.classList.remove('on'), 9000);
-}
-function maybeDayHint() { if (store.get('vt-dayhint', false)) return; store.set('vt-dayhint', true); setTimeout(showDayHint, 700); }
-clock.addEventListener('click', () => dayHint.classList.contains('on') ? dayHint.classList.remove('on') : showDayHint());
-$('#dayHintClose').addEventListener('click', () => dayHint.classList.remove('on'));
 
 /* Кнопка «Наверх» — день плавно перематывается к утру */
 $('#toTop').addEventListener('click', () => scrollTo({ top: 0, behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' }));
