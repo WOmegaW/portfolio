@@ -563,8 +563,9 @@ function renderPins() {
 // наведение: подсветить ценник и строку, а фото справа сменить на фото этой виллы
 function hot(id, on) {
   $$(`[data-vid="${id}"]`, $('#coast')).forEach(el => el.classList.toggle('hot', on));
+  // фото остаётся на последней вилле, на которую навели (не возвращается к первой)
   const ph = $('#atlasInfo .ai-photo[data-preview]');
-  if (ph) { const v = on ? byId(id) : byId(ph.dataset.preview); ph.src = img(v.gallery[0], 800); ph.alt = L(v).name; }
+  if (ph && on && ph.dataset.preview !== id) { const v = byId(id); ph.dataset.preview = id; ph.src = img(v.gallery[0], 800); ph.alt = L(v).name; }
 }
 const markSelected = () => $$('.vpin', atlasPins).forEach(b => b.classList.toggle('sel', b.dataset.vid === atlasVilla));
 function renderAtlasInfo() {
