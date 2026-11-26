@@ -463,7 +463,7 @@ addEventListener('hashchange', () => {
   const m = location.hash.match(/^#villa\/([\w-]+)$/);
   if (m) openVilla(m[1], true); else if (dlg.open) { pushedHash = false; dlg.close(); }
 });
-swipe($('#dGallery'), d => setGal(galIdx + d));
+swipe($('#dGallery .gal-main'), d => setGal(galIdx + d));
 
 /* ===================== Калькулятор покупки ===================== */
 function renderCalc() {
