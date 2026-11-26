@@ -11,6 +11,8 @@ function plural(n, one, few, many) { const a = n % 10, b = n % 100; if (a === 1 
 const T = {
 ru: {
  'nav.villas': 'Виллы', 'nav.coast': 'Районы', 'nav.buy': 'Как купить', 'nav.visit': 'Просмотр', 'nav.menu': 'Меню', 'nav.sell': 'Продать', 'pdf': 'Буклет PDF', 'cur.label': 'Валюта',
+ 'near.title': 'Что рядом', 'near.note': 'Минуты на машине, до пляжа — пешком или на машине.',
+ 'near': { beach: 'Пляж', golf: 'Гольф', school: 'Международная школа', hospital: 'Больница', shops: 'Магазины', town: 'Центр города', airport: 'Аэропорт Малаги' },
  'st.new': 'Новое', 'st.reduced': 'Цена снижена', 'st.reserved': 'Зарезервирована', 'st.sold': 'Продана', 'st.was': 'Прежняя цена',
  'cur.note': d => `Пересчёт по курсу Европейского ЦБ${d ? ' на ' + d : ''}. Сделка проводится в евро.`,
  'sell.title': 'Продаёте виллу?', 'sell.lead': 'Оценим ваш дом бесплатно за 48 часов: по реальным сделкам в вашем районе, с учётом вида, террасы и солнца. Наши покупатели из Великобритании, Скандинавии, Германии и Бельгии уже ищут дома на этом побережье.',
@@ -75,6 +77,8 @@ ru: {
 },
 es: {
  'nav.villas': 'Villas', 'nav.coast': 'Zonas', 'nav.buy': 'Cómo comprar', 'nav.visit': 'Visita', 'nav.menu': 'Menú', 'nav.sell': 'Vender', 'pdf': 'Ficha PDF', 'cur.label': 'Moneda',
+ 'near.title': 'Qué hay cerca', 'near.note': 'Minutos en coche; a la playa, a pie o en coche.',
+ 'near': { beach: 'Playa', golf: 'Golf', school: 'Colegio internacional', hospital: 'Hospital', shops: 'Tiendas', town: 'Centro', airport: 'Aeropuerto de Málaga' },
  'st.new': 'Novedad', 'st.reduced': 'Precio rebajado', 'st.reserved': 'Reservada', 'st.sold': 'Vendida', 'st.was': 'Precio anterior',
  'cur.note': d => `Conversión al cambio del Banco Central Europeo${d ? ' del ' + d : ''}. La compraventa se realiza en euros.`,
  'sell.title': '¿Vendes tu villa?', 'sell.lead': 'Valoramos tu casa gratis en 48 horas, según operaciones reales en tu zona y teniendo en cuenta las vistas, la terraza y el sol. Nuestros compradores del Reino Unido, Escandinavia, Alemania y Bélgica ya buscan casa en esta costa.',
@@ -139,6 +143,8 @@ es: {
 },
 en: {
  'nav.villas': 'Villas', 'nav.coast': 'Areas', 'nav.buy': 'How to buy', 'nav.visit': 'Viewing', 'nav.menu': 'Menu', 'nav.sell': 'Sell', 'pdf': 'PDF brochure', 'cur.label': 'Currency',
+ 'near.title': 'What’s nearby', 'near.note': 'Minutes by car; to the beach on foot or by car.',
+ 'near': { beach: 'Beach', golf: 'Golf', school: 'International school', hospital: 'Hospital', shops: 'Shops', town: 'Town centre', airport: 'Málaga airport' },
  'st.new': 'New listing', 'st.reduced': 'Price reduced', 'st.reserved': 'Reserved', 'st.sold': 'Sold', 'st.was': 'Previous price',
  'cur.note': d => `Converted at the European Central Bank rate${d ? ' of ' + d : ''}. The purchase is completed in euros.`,
  'sell.title': 'Selling your villa?', 'sell.lead': 'We value your home for free within 48 hours, based on real sales in your area and taking the views, terrace and sun into account. Our buyers from the UK, Scandinavia, Germany and Belgium are already looking for homes on this coast.',
@@ -402,6 +408,21 @@ function filtered() {
 const taken = v => v.status === 'sold' ? 2 : v.status === 'reserved' ? 1 : 0;
 const statusTag = v => v.status ? `<span class="st st-${v.status}">${t('st.' + v.status)}</span>` : '';
 const oldPrice = v => v.status === 'reduced' && v.oldPrice ? `<s class="old" aria-label="${t('st.was')}">${money(v.oldPrice)}</s>` : '';
+/* «Что рядом»: минуты на машине (пляж — из beach, аэропорт — из района) */
+const NEAR_ICON = {
+  beach: '<path d="M3 18c2 1.5 4 1.5 6 0s4-1.5 6 0 4 1.5 6 0M12 4a8 8 0 0 1 8 8H4a8 8 0 0 1 8-8zM12 12v6"/>',
+  golf: '<path d="M6 21V3l10 4-10 4M3 21h10"/>',
+  school: '<path d="M3 9l9-5 9 5-9 5-9-5zM7 11v5c3 2 7 2 10 0v-5"/>',
+  hospital: '<path d="M4 4h16v16H4zM12 8v8M8 12h8"/>',
+  shops: '<path d="M5 8h14l-1 12H6L5 8zM9 8V6a3 3 0 0 1 6 0v2"/>',
+  town: '<path d="M4 21V9l6-4v16M10 21V3h10v18M3 21h18M14 7h2M14 11h2M14 15h2"/>',
+  airport: '<path d="M21 15l-8-5V4a1 1 0 0 0-2 0v6l-8 5v2l8-2.5V19l-2 1.5V22l3-1 3 1v-1.5L13 19v-4.5l8 2.5z"/>'
+};
+function nearHTML(v) {
+  const n = { beach: v.beach, ...(v.near || {}), airport: (AREAS[v.area] || {}).airport };
+  return Object.keys(NEAR_ICON).filter(k => n[k]).map(k =>
+    `<li><svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true">${NEAR_ICON[k]}</svg><span>${t('near')[k]}</span><b>${t('min', n[k])}</b></li>`).join('');
+}
 const pinLabel = v => v.status === 'sold' ? t('st.sold') : v.status === 'reserved' ? t('st.reserved') : compact(v.price);
 const heart = '<svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 20.5s-7.5-4.6-9.3-9.4C1.4 7.6 3.6 4 7.1 4c2 0 3.6 1.1 4.9 2.8C13.3 5.1 14.9 4 16.9 4c3.5 0 5.7 3.6 4.4 7.1-1.8 4.8-9.3 9.4-9.3 9.4z"/></svg>';
 const sunIcon = '<svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="9" r="3.2" fill="#E3A33B"/><path d="M1 13h14" stroke="#10242E" stroke-width="1.2"/></svg>';
@@ -613,6 +634,7 @@ function renderAtlasVilla(box) {
     <div><p class="ref">${t('d.ref')} ${v.ref}</p><h3>${l.name}</h3><p class="muted">${l.where}</p></div>
     <div class="price-row">${statusTag(v)}<span class="price">${oldPrice(v)}${money(v.price)}</span><span class="ppm">${money(Math.round(v.price / v.built))} / ${t('m2')}</span></div>
     <dl class="ai-specs">${specs.map(([k, x]) => `<div><dt>${k}</dt><dd>${x}</dd></div>`).join('')}</dl>
+    <div><h4 class="near-h">${t('near.title')}</h4><ul class="near">${nearHTML(v)}</ul></div>
     <p>${l.desc}</p>
     <div class="ai-calc">
       <h4>${t('calc.title')}</h4>
@@ -703,6 +725,7 @@ function renderVilla() {
   $('#dName').textContent = l.name; $('#dWhere').textContent = l.where;
   $('#dPrice').innerHTML = `${statusTag(v)}${oldPrice(v)}${money(v.price)}`; $('#dPpm').textContent = `${money(Math.round(v.price / v.built))} / ${t('m2')}`;
   $('#dCurNote').textContent = cur === 'EUR' ? '' : t('cur.note', ratesDate);
+  $('#dNear').innerHTML = nearHTML(v);
   $('#dDesc').textContent = l.desc;
   const rows = [[t('d.beds'), v.beds], [t('d.baths'), v.baths], [t('d.built'), `${num(v.built)} ${t('m2')}`], [t('d.plot'), `${num(v.plot)} ${t('m2')}`],
     [t('d.face'), t('face')[v.face]], [t('d.sun'), `${hm(v.sun[0], v.sun[1])}–${hm(v.sun[2], v.sun[3])}`], [t('d.beach'), t('min', v.beach)], [t('d.year'), v.year], [t('d.energy'), v.energy]];
@@ -969,6 +992,7 @@ function rowsToVillas(rows) {
       price: toNum(g('price')), beds: toNum(g('beds')), baths: toNum(g('baths')), built: toNum(g('built')), plot: toNum(g('plot')),
       sun: [sun[0], sun[1] || 0, sun[2] || 21, sun[3] || 0], face: g('face') || 's', sea: yes(g('sea')), newBuild: yes(g('newbuild')),
       beach: toNum(g('beach')), year: toNum(g('year')), energy: g('energy') || '—',
+      near: Object.fromEntries(['golf', 'school', 'hospital', 'shops', 'town'].map(k => [k, toNum(g(k))]).filter(([, x]) => x)),
       status: ['new', 'reduced', 'reserved', 'sold'].includes(g('status').toLowerCase()) ? g('status').toLowerCase() : '', oldPrice: toNum(g('oldprice')),
       gallery: g('photos').split(/[|\n]|,\s*(?=https?:|[a-z])/).map(s => s.trim()).filter(Boolean) };
     ['ru', 'es', 'en'].forEach(l => { v[l] = { name: g('name_' + l), where: g('where_' + l), desc: g('desc_' + l) }; });

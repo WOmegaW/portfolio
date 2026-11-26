@@ -40,6 +40,12 @@ const T = {
 const ST = { es: { new: 'Novedad', reduced: 'Precio rebajado', reserved: 'Reservada', sold: 'Vendida' },
   en: { new: 'New listing', reduced: 'Price reduced', reserved: 'Reserved', sold: 'Sold' },
   ru: { new: 'Новое', reduced: 'Цена снижена', reserved: 'Зарезервирована', sold: 'Продана' } };
+// «Что рядом»
+const NEAR = { es: { t: 'Qué hay cerca', beach: 'Playa', golf: 'Golf', school: 'Colegio internacional', hospital: 'Hospital', shops: 'Tiendas', town: 'Centro', airport: 'Aeropuerto de Málaga' },
+  en: { t: 'What’s nearby', beach: 'Beach', golf: 'Golf', school: 'International school', hospital: 'Hospital', shops: 'Shops', town: 'Town centre', airport: 'Málaga airport' },
+  ru: { t: 'Что рядом', beach: 'Пляж', golf: 'Гольф', school: 'Международная школа', hospital: 'Больница', shops: 'Магазины', town: 'Центр города', airport: 'Аэропорт Малаги' } };
+const nearList = (v, l) => { const n = { beach: v.beach, ...(v.near || {}), airport: AREAS[v.area].airport };
+  return ['beach', 'golf', 'school', 'hospital', 'shops', 'town', 'airport'].filter(k => n[k]).map(k => [NEAR[l][k], `${n[k]} ${T[l].min}`]); };
 const AVAIL = { sold: 'https://schema.org/SoldOut', reserved: 'https://schema.org/Reserved' };
 const esc = s => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 const money = (n, L) => new Intl.NumberFormat(T[L].locale, { style: 'currency', currency: 'EUR', maximumFractionDigits: 0 }).format(n);
@@ -123,6 +129,8 @@ ${LANGS.map(x => `<link rel="alternate" hreflang="${x}" href="${SITE.url}/${x}/$
     <div class="v-gal">${v.gallery.map((g, i) => `<a href="${rel(g, 1600)}"><img src="${rel(g, 800)}" alt="${esc(d.name)}, ${i + 1}" loading="${i ? 'lazy' : 'eager'}"></a>`).join('')}</div>
     <h2>${t.facts}</h2>
     <dl class="facts">${facts.map(([k, x]) => `<div><dt>${k}</dt><dd>${esc(x)}</dd></div>`).join('')}</dl>
+    <h2 style="margin-top:36px">${NEAR[l].t}</h2>
+    <dl class="facts">${nearList(v, l).map(([k, x]) => `<div><dt>${k}</dt><dd>${x}</dd></div>`).join('')}</dl>
   </div>
   <aside class="side">
     <div class="box">
@@ -209,7 +217,9 @@ function brochure(v, l) {
 <section class="sheet">
   <div class="b-grid">${more.map(g => `<img src="${photo(g, 800)}" alt="">`).join('')}</div>
   <div class="b-two">
-    <div><h2>${b.desc}</h2><p>${esc(d.desc)}</p></div>
+    <div><h2>${b.desc}</h2><p>${esc(d.desc)}</p>
+      <h2 style="margin-top:6mm">${NEAR[l].t}</h2>
+      <dl class="b-costs">${nearList(v, l).map(([k, x]) => `<div><dt>${k}</dt><dd>${x}</dd></div>`).join('')}</dl></div>
     <div><h2>${b.costs}</h2>
       <dl class="b-costs">
         <div><dt>${v.newBuild ? t.iva : t.itp}</dt><dd>${money(c.tax, l)}</dd></div>
@@ -258,11 +268,11 @@ ${urls.map(u => `  <url><loc>${u}</loc><lastmod>${TODAY}</lastmod></url>`).join(
 `);
 fs.writeFileSync(path.join(ROOT, 'robots.txt'), `User-agent: *\nAllow: /\n\nSitemap: ${SITE.url}/sitemap.xml\n`);
 // шаблон Google Таблицы из текущих вилл
-const cols = ['id', 'ref', 'area', 'lat', 'lng', 'price', 'status', 'oldprice', 'beds', 'baths', 'built', 'plot', 'sun', 'face', 'sea', 'newbuild', 'beach', 'year', 'energy', 'photos',
+const cols = ['id', 'ref', 'area', 'lat', 'lng', 'price', 'status', 'oldprice', 'beds', 'baths', 'built', 'plot', 'sun', 'face', 'sea', 'newbuild', 'beach', 'golf', 'school', 'hospital', 'shops', 'town', 'year', 'energy', 'photos',
   'name_es', 'where_es', 'desc_es', 'name_en', 'where_en', 'desc_en', 'name_ru', 'where_ru', 'desc_ru'];
 const cell = x => /[",\n]/.test(String(x)) ? `"${String(x).replace(/"/g, '""')}"` : String(x);
 const csv = [cols.join(','), ...VILLAS.map(v => [v.id, v.ref, v.area, v.lat, v.lng, v.price, v.status || '', v.oldPrice || '', v.beds, v.baths, v.built, v.plot,
-  `${hm(v.sun[0], v.sun[1])}-${hm(v.sun[2], v.sun[3])}`, v.face, v.sea ? 'si' : 'no', v.newBuild ? 'si' : 'no', v.beach, v.year, v.energy, v.gallery.join(' | '),
+  `${hm(v.sun[0], v.sun[1])}-${hm(v.sun[2], v.sun[3])}`, v.face, v.sea ? 'si' : 'no', v.newBuild ? 'si' : 'no', v.beach, ...['golf', 'school', 'hospital', 'shops', 'town'].map(k => (v.near || {})[k] || ''), v.year, v.energy, v.gallery.join(' | '),
   v.es.name, v.es.where, v.es.desc, v.en.name, v.en.where, v.en.desc, v.ru.name, v.ru.where, v.ru.desc].map(cell).join(','))].join('\n');
 fs.writeFileSync(path.join(ROOT, 'plantilla-villas.csv'), '﻿' + csv + '\n');
 console.log(`Готово: ${pages} страниц вилл, sitemap.xml (${urls.length} адресов), robots.txt, plantilla-villas.csv`);
