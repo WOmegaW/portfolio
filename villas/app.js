@@ -31,7 +31,8 @@ ru: {
  'cmp.add': 'Сравнить', 'cmp.added': 'В сравнении', 'cmp.tray': n => `В сравнении ${n} из 3`, 'cmp.open': 'Сравнить', 'cmp.clear': 'Очистить сравнение',
  'cmp.max': 'Сравнить можно до трёх вилл. Уберите одну, чтобы добавить новую.', 'cmp.title': 'Сравнение вилл', 'cmp.remove': 'Убрать из сравнения', 'cmp.need': 'Добавьте ещё одну виллу, чтобы сравнить.',
  'share': 'Поделиться', 'copied': 'Ссылка на виллу скопирована', 'favAdded': 'Добавлено в избранное', 'favRemoved': 'Убрано из избранного',
- 'coast.title': 'Сорок минут побережья', 'coast.lead': 'От аэропорта Малаги до Эстепоны — одна трасса вдоль моря. Нажмите на район, и мы покажем виллы только там.',
+ 'coast.title': 'Побережье за один час', 'coast.lead': 'От аэропорта Малаги до Эстепоны меньше часа по трассе вдоль моря. Выберите район: карта приблизится и покажет каждую виллу с ценой.',
+ 'atlas.allTitle': 'Всё побережье', 'atlas.allText': 'Четыре района, четырнадцать вилл. Чем западнее, тем длиннее закаты и тише вечера; ближе к Малаге — аэропорт в двадцати минутах.', 'atlas.airport': n => `${n} мин из аэропорта`, 'atlas.from': p => `от ${p}`, 'atlas.range': (a, b) => `от ${a} до ${b}`, 'atlas.show': n => `Показать ${n} ${plural(n, 'виллу', 'виллы', 'вилл')} в каталоге`, 'atlas.scale': '10 км',
  'coast.map': 'Карта побережья от Гибралтара до Малаги', 'coast.sea': 'Средиземное море',
  'zone.villas': n => `${n} ${plural(n, 'вилла', 'виллы', 'вилл')} в продаже`,
  'buy.title': 'Как купить дом в Испании', 'buy.lead': 'Обычно от первого просмотра до ключей проходит шесть–восемь недель. Мы ведём сделку на русском, испанском и английском.',
@@ -88,7 +89,8 @@ es: {
  'cmp.add': 'Comparar', 'cmp.added': 'Comparando', 'cmp.tray': n => `Comparando ${n} de 3`, 'cmp.open': 'Comparar', 'cmp.clear': 'Vaciar comparación',
  'cmp.max': 'Puedes comparar hasta tres villas. Quita una para añadir otra.', 'cmp.title': 'Comparar villas', 'cmp.remove': 'Quitar de la comparación', 'cmp.need': 'Añade otra villa para comparar.',
  'share': 'Compartir', 'copied': 'Enlace de la villa copiado', 'favAdded': 'Añadida a favoritas', 'favRemoved': 'Quitada de favoritas',
- 'coast.title': 'Cuarenta minutos de costa', 'coast.lead': 'Del aeropuerto de Málaga a Estepona, una sola carretera junto al mar. Pulsa una zona y te mostramos solo sus villas.',
+ 'coast.title': 'La costa en una hora', 'coast.lead': 'Del aeropuerto de Málaga a Estepona hay menos de una hora por la autopista junto al mar. Elige una zona: el mapa se acerca y muestra cada villa con su precio.',
+ 'atlas.allTitle': 'Toda la costa', 'atlas.allText': 'Cuatro zonas, catorce villas. Cuanto más al oeste, más largos los atardeceres y más tranquilas las noches; cerca de Málaga, el aeropuerto queda a veinte minutos.', 'atlas.airport': n => `${n} min del aeropuerto`, 'atlas.from': p => `desde ${p}`, 'atlas.range': (a, b) => `de ${a} a ${b}`, 'atlas.show': n => `Ver ${n} villas en el catálogo`, 'atlas.scale': '10 km',
  'coast.map': 'Mapa de la costa de Gibraltar a Málaga', 'coast.sea': 'Mar Mediterráneo',
  'zone.villas': n => `${n} ${n === 1 ? 'villa' : 'villas'} en venta`,
  'buy.title': 'Cómo comprar una casa en España', 'buy.lead': 'Desde la primera visita hasta las llaves suelen pasar de seis a ocho semanas. Llevamos la operación en español, inglés y ruso.',
@@ -145,7 +147,8 @@ en: {
  'cmp.add': 'Compare', 'cmp.added': 'Comparing', 'cmp.tray': n => `Comparing ${n} of 3`, 'cmp.open': 'Compare', 'cmp.clear': 'Clear comparison',
  'cmp.max': 'You can compare up to three villas. Remove one to add another.', 'cmp.title': 'Compare villas', 'cmp.remove': 'Remove from comparison', 'cmp.need': 'Add one more villa to compare.',
  'share': 'Share', 'copied': 'Villa link copied', 'favAdded': 'Added to favourites', 'favRemoved': 'Removed from favourites',
- 'coast.title': 'Forty minutes of coastline', 'coast.lead': 'From Málaga airport to Estepona it is one road along the sea. Tap an area to see only the villas there.',
+ 'coast.title': 'The coast in one hour', 'coast.lead': 'From Málaga airport to Estepona is under an hour on the motorway along the sea. Pick an area: the map zooms in and shows every villa with its price.',
+ 'atlas.allTitle': 'The whole coast', 'atlas.allText': 'Four areas, fourteen villas. The further west, the longer the sunsets and the quieter the evenings; near Málaga, the airport is twenty minutes away.', 'atlas.airport': n => `${n} min from the airport`, 'atlas.from': p => `from ${p}`, 'atlas.range': (a, b) => `${a} to ${b}`, 'atlas.show': n => `Show ${n} villas in the catalogue`, 'atlas.scale': '10 km',
  'coast.map': 'Map of the coast from Gibraltar to Málaga', 'coast.sea': 'Mediterranean Sea',
  'zone.villas': n => `${n} ${n === 1 ? 'villa' : 'villas'} for sale`,
  'buy.title': 'How to buy a home in Spain', 'buy.lead': 'From the first viewing to the keys usually takes six to eight weeks. We handle the purchase in English, Spanish and Russian.',
@@ -386,24 +389,136 @@ $('#price').addEventListener('change', e => { F.price = +e.target.value; renderG
 $('#sort').addEventListener('change', e => { F.sort = e.target.value; renderGrid(); });
 [['fSea', 'sea'], ['fNew', 'newBuild'], ['fBeach', 'beach'], ['fFav', 'fav']].forEach(([id, k]) => $('#' + id).addEventListener('change', e => { F[k] = e.target.checked; renderGrid(); }));
 
-/* ===================== Карта ===================== */
-function pickArea(a) { F.area = a; renderChips(); renderGrid(); $('#villas').scrollIntoView(); }
-function renderMap() {
-  const pins = $('#pins'), zones = $('#zones'), NS = 'http://www.w3.org/2000/svg';
-  pins.innerHTML = ''; zones.innerHTML = '';
-  Object.entries(AREAS).forEach(([a, p]) => {
-    const n = VILLAS.filter(v => v.area === a).length;
-    const g = document.createElementNS(NS, 'g'); g.setAttribute('class', 'pin'); g.setAttribute('tabindex', '0'); g.setAttribute('role', 'button');
-    g.setAttribute('aria-label', `${t('area')[a]}: ${t('zone.villas', n)}`);
-    g.innerHTML = `<circle class="halo" cx="${p.x}" cy="${p.y}" r="22"/><circle class="dot" cx="${p.x}" cy="${p.y}" r="8"/><text x="${p.x + p.lx}" y="${p.y + p.ly}" text-anchor="${p.anchor || 'middle'}">${t('area')[a]}</text>`;
-    g.addEventListener('click', () => pickArea(a));
-    g.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); pickArea(a); } });
-    pins.appendChild(g);
-    const z = document.createElement('button'); z.type = 'button'; z.className = 'zone panel';
-    z.innerHTML = `<h3>${t('area')[a]}</h3><p>${t('areaText')[a]}</p><small>${t('zone.villas', n)}</small>`;
-    z.addEventListener('click', () => pickArea(a)); zones.appendChild(z);
-  });
+/* ===================== Карта побережья ===================== */
+const LNG0 = -5.42, LAT0 = 36.80, KX = 952, KY = 1182;          // равнопромежуточная проекция для широты ~36.5°
+const proj = (lat, lng) => [(lng - LNG0) * KX, (LAT0 - lat) * KY];
+const KM10 = 0.1118 * KX;                                          // 10 км по долготе в единицах карты
+const COAST = [[36.11,-5.345],[36.16,-5.35],[36.23,-5.31],[36.29,-5.27],[36.355,-5.23],[36.39,-5.19],[36.415,-5.16],[36.425,-5.145],[36.445,-5.10],[36.452,-5.07],
+  [36.46,-5.04],[36.475,-5.01],[36.48,-4.99],[36.485,-4.95],[36.495,-4.915],[36.505,-4.885],[36.503,-4.855],[36.50,-4.83],[36.495,-4.80],[36.49,-4.77],[36.486,-4.74],
+  [36.487,-4.71],[36.495,-4.69],[36.505,-4.68],[36.52,-4.65],[36.54,-4.62],[36.565,-4.575],[36.59,-4.53],[36.62,-4.495],[36.65,-4.47],[36.685,-4.445],[36.715,-4.42],[36.72,-4.38],[36.725,-4.30],[36.73,-4.15]].map(([a, b]) => proj(a, b));
+const TOWNS = [['Málaga', 36.721, -4.421], ['Torremolinos', 36.622, -4.500], ['Fuengirola', 36.540, -4.625], ['Marbella', 36.510, -4.883], ['San Pedro', 36.487, -4.992],
+  ['Estepona', 36.427, -5.146], ['Sotogrande', 36.29, -5.27], ['Benahavís', 36.523, -5.046], ['Mijas', 36.596, -4.637]];
+const SIERRAS = [[36.53, -5.20, 95, 70], [36.575, -4.92, 85, 45], [36.61, -4.66, 90, 48], [36.64, -5.05, 120, 62], [36.70, -4.78, 110, 50]];
+const smooth = (pts, dy = 0) => {                                  // плавная линия через точки (Catmull-Rom → кривые Безье)
+  const p = pts.map(([x, y]) => [x, y + dy]);
+  let d = `M${p[0][0].toFixed(1)} ${p[0][1].toFixed(1)}`;
+  for (let i = 0; i < p.length - 1; i++) {
+    const a = p[i - 1] || p[i], b = p[i], c = p[i + 1], e = p[i + 2] || c;
+    d += ` C${(b[0] + (c[0] - a[0]) / 6).toFixed(1)} ${(b[1] + (c[1] - a[1]) / 6).toFixed(1)} ${(c[0] - (e[0] - b[0]) / 6).toFixed(1)} ${(c[1] - (e[1] - b[1]) / 6).toFixed(1)} ${c[0].toFixed(1)} ${c[1].toFixed(1)}`;
+  }
+  return d;
+};
+function drawGeography() {
+  const coast = smooth(COAST), last = COAST[COAST.length - 1], first = COAST[0];
+  const land = `M-600 ${first[1] - 140} L${first[0] - 10} ${first[1] - 4} L${first[0]} ${first[1]} ` + coast.slice(coast.indexOf('C')) + ` L1600 ${last[1]} L1600 -800 L-600 -800 Z`;
+  $('#land').setAttribute('d', land); $('#landClip').setAttribute('d', land); $('#shore').setAttribute('d', coast);
+  const roadPts = COAST.filter(p => p[0] > 170 && p[0] < 960);
+  $('#road').setAttribute('d', smooth(roadPts, -16));
+  $('#waves').innerHTML = [18, 46, 90].map(d => `<path d="${smooth(COAST, d)}"/>`).join('');
+  const ring = (cx, cy, rx, ry, k, seed) => {
+    let d = ''; for (let i = 0; i <= 64; i++) {
+      const th = i / 64 * Math.PI * 2, w = 1 + .09 * Math.sin(3 * th + seed) + .05 * Math.sin(5 * th + seed * 2);
+      d += `${i ? 'L' : 'M'}${(cx + Math.cos(th) * rx * k * w).toFixed(1)} ${(cy + Math.sin(th) * ry * k * w).toFixed(1)}`;
+    } return d + 'Z';
+  };
+  $('#relief').innerHTML = SIERRAS.map(([la, ln, rx, ry], si) => { const [cx, cy] = proj(la, ln);
+    return [1, .82, .64, .47, .31, .16].map((k, ki) => `<path d="${ring(cx, cy, rx, ry, k, si * 1.7)}" opacity="${(.22 + ki * .09).toFixed(2)}"/>`).join(''); }).join('');
 }
+const atlasMap = $('#atlasMap'), mapSvg = $('#mapSvg'), atlasPins = $('#atlasPins');
+let atlasArea = 'all', vb = null, vbAnim = 0;
+const villaXY = v => proj(v.lat, v.lng);
+function targetBox(area) {
+  const pts = area === 'all' ? [...VILLAS.map(villaXY), proj(36.675, -4.499), proj(36.29, -5.27)] : VILLAS.filter(v => v.area === area).map(villaXY);
+  const pad = area === 'all' ? 40 : 55;
+  let x0 = Math.min(...pts.map(p => p[0])) - pad, x1 = Math.max(...pts.map(p => p[0])) + pad;
+  let y0 = Math.min(...pts.map(p => p[1])) - pad, y1 = Math.max(...pts.map(p => p[1])) + pad;
+  const r = atlasMap.clientWidth / Math.max(1, atlasMap.clientHeight), cx = (x0 + x1) / 2, cy = (y0 + y1) / 2;
+  let w = Math.max(x1 - x0, area === 'all' ? 0 : 230), h = y1 - y0;
+  if (w / h > r) h = w / r; else w = h * r;
+  return [cx - w / 2, cy - h / 2, w, h];
+}
+function applyVb(b) {
+  vb = b; mapSvg.setAttribute('viewBox', b.map(n => n.toFixed(2)).join(' '));
+  const W = atlasMap.clientWidth, H = atlasMap.clientHeight;
+  $$('[data-x]', atlasPins).forEach(el => {
+    const x = (+el.dataset.x - b[0]) / b[2] * W, y = (+el.dataset.y - b[1]) / b[3] * H;
+    el.style.left = x + 'px'; el.style.top = y + 'px';
+    el.hidden = x < -40 || x > W + 40 || y < -20 || y > H + 20;
+  });
+  // ценники вилл не должны налезать друг на друга: сдвигаем мешающий вверх
+  const tags = $$('.vpin', atlasPins).map(el => ({ el, x: parseFloat(el.style.left), y: parseFloat(el.style.top), w: el.offsetWidth + 6, h: el.offsetHeight + 6 }))
+    .sort((p, q) => q.y - p.y);
+  tags.forEach((p, i) => {
+    for (let k = 0; k < 6; k++) {
+      const hit = tags.slice(0, i).find(q => Math.abs(p.x - q.x) < (p.w + q.w) / 2 && Math.abs(p.y - q.y) < (p.h + q.h) / 2);
+      if (!hit) break;
+      p.y = hit.y - (p.h + hit.h) / 2;
+    }
+    p.el.style.top = p.y + 'px';
+    p.el.classList.toggle('below', p.y < 190);
+  });
+  $('#scaleBar').style.width = Math.round(KM10 / b[2] * W) + 'px';
+}
+function flyTo(area, instant) {
+  const to = targetBox(area), from = vb || to;
+  cancelAnimationFrame(vbAnim);
+  if (instant || matchMedia('(prefers-reduced-motion: reduce)').matches) { applyVb(to); return; }
+  const t0 = performance.now(), dur = 750;
+  const step = now => { const k = Math.min(1, (now - t0) / dur), e = k < .5 ? 4 * k * k * k : 1 - Math.pow(-2 * k + 2, 3) / 2;
+    applyVb(from.map((v, i) => lerp(v, to[i], e))); if (k < 1) vbAnim = requestAnimationFrame(step); };
+  vbAnim = requestAnimationFrame(step);
+}
+const compact = n => new Intl.NumberFormat(LOCALE[lang], { notation: 'compact', style: 'currency', currency: 'EUR', maximumFractionDigits: 2 }).format(n);
+const areaVillas = a => VILLAS.filter(v => v.area === a).sort((x, y) => y.price - x.price);
+function renderPins() {
+  const A = atlasArea, html = [];
+  TOWNS.forEach(([n, la, ln]) => { const [x, y] = proj(la, ln); html.push(`<span class="mtown" data-x="${x}" data-y="${y}">${n}</span>`); });
+  { const [x, y] = proj(36.675, -4.499); html.push(`<span class="mtown airport" data-x="${x}" data-y="${y}">✈ AGP</span>`); }
+  { const [x, y] = proj(36.555, -4.76); html.push(`<span class="mtown road-l" data-x="${x}" data-y="${y}">AP-7</span>`); }
+  { const [x, y] = proj(36.36, -4.86); html.push(`<span class="mtown sea" data-x="${x}" data-y="${y}">${t('coast.sea')}</span>`); }
+  if (A === 'all') {
+    VILLAS.forEach(v => { const [x, y] = villaXY(v); html.push(`<span class="vdot" data-x="${x}" data-y="${y}"></span>`); });
+    Object.keys(AREAS).forEach(a => { const vs = areaVillas(a), pts = vs.map(villaXY);
+      const x = pts.reduce((s, p) => s + p[0], 0) / pts.length, y = Math.min(...pts.map(p => p[1])) - (a === 'benahavis' ? 70 : 30);
+      html.push(`<button type="button" class="apin" data-area="${a}" data-x="${x}" data-y="${y}">${t('area')[a]} <b>${vs.length}</b></button>`); });
+  } else {
+    areaVillas(A).forEach(v => { const [x, y] = villaXY(v);
+      html.push(`<button type="button" class="vpin" data-vid="${v.id}" data-x="${x}" data-y="${y - 14}" aria-label="${L(v).name}, ${money(v.price)}">${compact(v.price)}<span class="vcard" aria-hidden="true"><img src="${img(v.gallery[0], 800)}" alt=""><span>${L(v).name}</span></span></button>`); });
+  }
+  atlasPins.innerHTML = html.join('');
+  $$('.apin', atlasPins).forEach(b => b.addEventListener('click', () => selectArea(b.dataset.area)));
+  $$('.vpin', atlasPins).forEach(b => { b.addEventListener('click', () => openVilla(b.dataset.vid)); b.addEventListener('mouseenter', () => hot(b.dataset.vid, true)); b.addEventListener('mouseleave', () => hot(b.dataset.vid, false)); });
+  if (vb) applyVb(vb);
+}
+function hot(id, on) { $$(`[data-vid="${id}"]`, $('#coast')).forEach(el => el.classList.toggle('hot', on)); }
+function renderAtlasInfo() {
+  const A = atlasArea, box = $('#atlasInfo');
+  if (A === 'all') {
+    box.innerHTML = `<h3>${t('atlas.allTitle')}</h3><p>${t('atlas.allText')}</p>
+      <ul class="ai-list">${Object.keys(AREAS).map(a => { const vs = areaVillas(a);
+        return `<li><button type="button" data-area="${a}"><span><span class="an">${t('area')[a]}</span><br><span class="muted">${t('atlas.airport', AREAS[a].airport)}</span></span><span>${t('atlas.from', compact(vs[vs.length - 1].price))}</span></button></li>`; }).join('')}</ul>`;
+    $$('[data-area]', box).forEach(b => b.addEventListener('click', () => selectArea(b.dataset.area)));
+    return;
+  }
+  const vs = areaVillas(A);
+  box.innerHTML = `<img class="ai-photo" src="${img(vs[0].gallery[0], 800)}" alt="">
+    <h3>${t('area')[A]}</h3><p>${t('areaText')[A]}</p>
+    <div class="ai-facts"><span>✈ ${t('atlas.airport', AREAS[A].airport)}</span><span>${t('atlas.range', compact(vs[vs.length - 1].price), compact(vs[0].price))}</span></div>
+    <ul class="ai-list">${vs.map(v => `<li><button type="button" data-vid="${v.id}"><span>${L(v).name}</span><span>${money(v.price)}</span></button></li>`).join('')}</ul>
+    <button type="button" class="btn" id="aiShow">${t('atlas.show', vs.length)}</button>`;
+  $$('[data-vid]', box).forEach(b => { b.addEventListener('click', () => openVilla(b.dataset.vid)); b.addEventListener('mouseenter', () => hot(b.dataset.vid, true)); b.addEventListener('mouseleave', () => hot(b.dataset.vid, false)); });
+  $('#aiShow').addEventListener('click', () => pickArea(A));
+}
+function renderAtlasTabs() {
+  const el = $('#atlasTabs');
+  el.innerHTML = ['all', ...Object.keys(AREAS)].map(a => `<button type="button" class="chip" data-tab="${a}" aria-pressed="${atlasArea === a}">${a === 'all' ? t('atlas.allTitle') : t('area')[a]}</button>`).join('');
+  $$('[data-tab]', el).forEach(b => b.addEventListener('click', () => selectArea(b.dataset.tab)));
+}
+function selectArea(a) { atlasArea = a; renderAtlasTabs(); renderPins(); renderAtlasInfo(); flyTo(a); }
+function renderAtlas() { renderAtlasTabs(); renderPins(); renderAtlasInfo(); if (!vb) flyTo(atlasArea, true); else applyVb(vb); }
+function pickArea(a) { F.area = a; renderChips(); renderGrid(); $('#villas').scrollIntoView(); }
+drawGeography();
+new ResizeObserver(() => { if (vb) flyTo(atlasArea, true); }).observe(atlasMap);
 
 /* ===================== Карточка виллы ===================== */
 const dlg = $('#dlg'); let current = null, galIdx = 0, pushedHash = false;
@@ -548,7 +663,7 @@ function applyLang() {
   document.title = `${SITE.brand} — ${t('title')}`;
   $('#waFab').href = waLink(''); $('#waFab').setAttribute('aria-label', t('wa'));
   $('#footPhone').textContent = SITE.phone; $('#footAddr').textContent = SITE.address;
-  renderChips(); renderGrid(); renderMap(); renderVillaSelect(); updateSun(minutes);
+  renderChips(); renderGrid(); renderAtlas(); renderVillaSelect(); updateSun(minutes);
   if (dlg.open && current) renderVilla();
   if ($('#cmpDlg').open) renderCompare();
 }

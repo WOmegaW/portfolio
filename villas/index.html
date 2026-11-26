@@ -175,30 +175,57 @@ h3{font-size:clamp(22px,2.2vw,28px);line-height:1.15}
 .empty p{font-family:var(--display);font-size:28px;margin:0 0 16px}
 
 /* ---------- Карта побережья ---------- */
-.map{position:relative;border-radius:14px;overflow:hidden;background:rgba(23,53,66,.75);border:1px solid var(--line)}
-.map svg{display:block;width:100%;height:auto}
-.map .land{fill:var(--sand)}
-.map .shore{fill:none;stroke:#fff;stroke-width:1.4;opacity:.7}
-.map .town{font:500 13px var(--text);fill:#33505C}
-.map .seaname{font:italic 22px var(--display);fill:rgba(255,255,255,.6);letter-spacing:.04em}
-.pin{cursor:pointer}
-.pin circle.dot{fill:var(--cobalt);stroke:#fff;stroke-width:2;transition:r .2s}
-.pin circle.halo{fill:var(--cobalt);opacity:.2}
-.pin text{font:600 15px var(--text);fill:var(--sea)}
-.pin:hover circle.dot,.pin:focus-visible circle.dot{r:10}
-.pin:focus{outline:none}
-.pin:focus-visible text{text-decoration:underline}
-.zones{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px;margin-top:20px}
-.zone{all:unset;cursor:pointer;display:block;padding:18px 18px 20px}
-.zone:focus-visible{outline:2px solid #fff;outline-offset:4px}
-.zone h3{font-size:26px}
-.zone p{margin:8px 0 0;color:var(--ink-2);font-size:15px}
-.zone small{display:block;margin-top:12px;font-size:14px;color:var(--seaglass)}
-.zone:hover{background:rgba(12,28,36,.66)}
-.zone:hover h3{text-decoration:underline;text-underline-offset:6px;text-decoration-thickness:1px}
-@media (max-width:860px){.zones{grid-template-columns:repeat(2,minmax(0,1fr))}}
-@media (max-width:480px){.zones{grid-template-columns:1fr}}
-
+.atlas{padding:10px;overflow:hidden}
+.atlas-tabs{display:flex;gap:6px;flex-wrap:wrap;padding:4px 4px 12px}
+.atlas-body{display:grid;grid-template-columns:minmax(0,1.9fr) minmax(280px,1fr);gap:10px}
+@media (max-width:960px){.atlas-body{grid-template-columns:1fr}}
+.atlas-map{position:relative;min-height:520px;border-radius:12px;overflow:hidden;background:#1A3F4C}
+@media (max-width:960px){.atlas-map{min-height:0;aspect-ratio:16/11}}
+@media (max-width:640px){.atlas-map{aspect-ratio:4/3.4}}
+.atlas-map svg{position:absolute;inset:0;width:100%;height:100%;display:block}
+.shore{fill:none;stroke:rgba(255,255,255,.75);stroke-width:1.2;vector-effect:non-scaling-stroke}
+.road{fill:none;stroke:#C9773B;stroke-width:2;stroke-dasharray:7 5;vector-effect:non-scaling-stroke;opacity:.85}
+.relief path{fill:none;stroke:#8F8371;stroke-width:1;vector-effect:non-scaling-stroke}
+.waves path{fill:none;stroke:rgba(255,255,255,.13);stroke-width:1;vector-effect:non-scaling-stroke;stroke-dasharray:40 26;animation:waves 14s linear infinite}
+.waves path:nth-child(2n){animation-duration:13s;stroke-dasharray:8 30}
+@keyframes waves{to{stroke-dashoffset:-144}}
+@media (prefers-reduced-motion:reduce){.waves path{animation:none}}
+.atlas-pins{position:absolute;inset:0}
+.atlas-pins > *{position:absolute;transform:translate(-50%,-50%)}
+.mtown{font-size:12px;color:#4A5A5F;white-space:nowrap;pointer-events:none;display:flex;align-items:center;gap:5px;transform:translate(-4px,-50%)}
+.mtown::before{content:"";width:5px;height:5px;border-radius:50%;background:#4A5A5F;flex:none}
+.mtown.airport::before{display:none}
+.mtown.sea{color:rgba(255,255,255,.55);font:italic 20px var(--display);transform:translate(-50%,-50%)}
+.mtown.sea::before{display:none}
+.mtown.road-l{color:#A55F2C;font-weight:600;font-size:11px}
+.mtown.road-l::before{display:none}
+.apin{border:0;cursor:pointer;display:flex;align-items:center;gap:8px;padding:6px 6px 6px 14px;border-radius:999px;background:var(--sea);color:#fff;font:500 14px var(--text);box-shadow:0 6px 18px rgba(9,22,29,.35);white-space:nowrap;transition:transform .2s}
+.apin b{display:inline-flex;align-items:center;justify-content:center;min-width:24px;height:24px;border-radius:50%;background:#fff;color:var(--sea);font-size:13px}
+.apin:hover{transform:translate(-50%,-50%) scale(1.06)}
+.vdot{width:9px;height:9px;border-radius:50%;background:var(--cobalt);border:2px solid #fff;pointer-events:none}
+.vpin{border:0;cursor:pointer;padding:5px 10px;border-radius:999px;background:#fff;color:var(--sea);font:600 13px var(--text);white-space:nowrap;box-shadow:0 4px 14px rgba(9,22,29,.35);transition:background .2s,color .2s}
+.vpin::after{content:"";position:absolute;left:50%;bottom:-5px;width:10px;height:10px;background:inherit;transform:translateX(-50%) rotate(45deg);z-index:-1}
+.vpin:hover,.vpin:focus-visible,.vpin.hot{background:var(--cobalt);color:#fff;z-index:3}
+.vpin .vcard{position:absolute;left:50%;bottom:calc(100% + 12px);transform:translateX(-50%);width:190px;background:#fff;color:var(--sea);border-radius:10px;overflow:hidden;box-shadow:0 10px 30px rgba(0,0,0,.35);opacity:0;pointer-events:none;transition:opacity .2s;text-align:left;font-weight:400}
+.vpin .vcard img{width:100%;aspect-ratio:16/10;object-fit:cover;display:block}
+.vpin .vcard span{display:block;padding:8px 10px;font:400 16px var(--display)}
+.vpin:hover .vcard,.vpin:focus-visible .vcard,.vpin.hot .vcard{opacity:1}
+.vpin.below .vcard{bottom:auto;top:calc(100% + 12px)}
+.atlas-legend{position:absolute;left:12px;bottom:10px;display:flex;align-items:center;gap:12px;font-size:12px;color:rgba(255,255,255,.8)}
+.atlas-legend .scale{display:flex;align-items:center;gap:6px}
+.atlas-legend .scale i{display:block;height:4px;border:1.5px solid rgba(255,255,255,.8);border-top:0;transition:width .3s}
+.compass{width:26px;height:26px;border-radius:50%;border:1px solid rgba(255,255,255,.6);display:flex;align-items:center;justify-content:center;font-weight:600}
+.atlas-info{padding:18px 18px 20px;display:flex;flex-direction:column;gap:14px;min-width:0}
+.atlas-info .ai-photo{width:100%;aspect-ratio:16/9;object-fit:cover;border-radius:10px}
+.atlas-info h3{font-size:30px}
+.atlas-info p{margin:0;color:var(--ink-2);font-size:15px}
+.ai-facts{display:flex;flex-wrap:wrap;gap:8px}
+.ai-facts span{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--line);border-radius:999px;padding:5px 12px;font-size:14px;color:var(--ink-2)}
+.ai-list{list-style:none;margin:0;padding:0;display:grid;gap:2px}
+.ai-list button{all:unset;cursor:pointer;display:flex;justify-content:space-between;align-items:baseline;gap:12px;width:100%;box-sizing:border-box;padding:9px 10px;border-radius:8px;font-size:15px}
+.ai-list button:hover,.ai-list button:focus-visible,.ai-list button.hot{background:rgba(255,255,255,.1)}
+.ai-list button span:last-child{color:var(--muted);white-space:nowrap;font-variant-numeric:tabular-nums}
+.ai-list .an{font-family:var(--display);font-size:20px}
 /* ---------- Как купить ---------- */
 .steps{list-style:none;margin:0;padding:32px 28px;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:0;counter-reset:s}
 .steps li{counter-increment:s;padding:0 28px 0 0;position:relative}
@@ -517,22 +544,32 @@ footer p{margin:0 0 6px}
 <section class="section" id="coast" data-bg="sea" aria-labelledby="coastTitle">
   <div class="wrap">
     <div class="section-head">
-      <h2 id="coastTitle" data-i="coast.title">Сорок минут побережья</h2>
-      <p class="lead" data-i="coast.lead">От аэропорта Малаги до Эстепоны — одна трасса вдоль моря. Нажмите на район, и мы покажем виллы только там.</p>
+      <h2 id="coastTitle" data-i="coast.title">Побережье за один час</h2>
+      <p class="lead" data-i="coast.lead">От аэропорта Малаги до Эстепоны меньше часа по трассе вдоль моря. Выберите район: карта приблизится и покажет каждую виллу с ценой.</p>
     </div>
-    <div class="map">
-      <svg viewBox="0 0 1000 400" role="img" aria-labelledby="mapTitle">
-        <title id="mapTitle" data-i="coast.map">Карта побережья от Гибралтара до Малаги</title>
-        <path class="land" d="M0 0 H1000 V10 L980 18 L940 50 L900 80 L880 92 L830 112 L780 129 L740 146 L700 160 L630 160 L570 152 L520 148 L470 156 L410 166 L330 184 L250 203 L190 238 L130 283 L90 330 L60 362 L50 375 L30 400 H0 Z"/>
-        <path class="shore" d="M980 18 L940 50 L900 80 L880 92 L830 112 L780 129 L740 146 L700 160 L630 160 L570 152 L520 148 L470 156 L410 166 L330 184 L250 203 L190 238 L130 283 L90 330 L60 362 L50 375 L30 400"/>
-        <text class="seaname" x="560" y="300" data-i="coast.sea">Mar Mediterráneo</text>
-        <text class="town" x="962" y="22" text-anchor="end">Málaga ✈</text>
-        <text class="town" x="852" y="84" text-anchor="end">Torremolinos</text>
-        <text class="town" x="70" y="350" text-anchor="end" dx="-4">Gibraltar</text>
-        <g id="pins"></g>
-      </svg>
+    <div class="atlas panel">
+      <div class="atlas-tabs" id="atlasTabs" role="group" data-i-label="filter.area" aria-label="Район"></div>
+      <div class="atlas-body">
+        <div class="atlas-map" id="atlasMap">
+          <svg id="mapSvg" viewBox="0 0 1000 500" preserveAspectRatio="none" aria-hidden="true">
+            <defs>
+              <linearGradient id="gSea" gradientUnits="userSpaceOnUse" x1="0" y1="250" x2="0" y2="900"><stop offset="0" stop-color="#2E6170"/><stop offset=".45" stop-color="#1A3F4C"/><stop offset="1" stop-color="#0E2630"/></linearGradient>
+              <linearGradient id="gLand" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#D9D1C1"/><stop offset="1" stop-color="#EEE8DC"/></linearGradient>
+              <clipPath id="clipLand"><path id="landClip"/></clipPath>
+            </defs>
+            <rect x="-3000" y="-3000" width="7000" height="7000" fill="url(#gSea)"/>
+            <g id="waves" class="waves"></g>
+            <path id="land" fill="url(#gLand)"/>
+            <g clip-path="url(#clipLand)"><g id="relief" class="relief"></g></g>
+            <path id="shore" class="shore"/>
+            <path id="road" class="road"/>
+          </svg>
+          <div class="atlas-pins" id="atlasPins"></div>
+          <div class="atlas-legend"><span class="scale"><i id="scaleBar"></i><span data-i="atlas.scale">10 км</span></span><span class="compass" aria-hidden="true">N</span></div>
+        </div>
+        <aside class="atlas-info" id="atlasInfo" aria-live="polite"></aside>
+      </div>
     </div>
-    <div class="zones" id="zones"></div>
   </div>
 </section>
 
