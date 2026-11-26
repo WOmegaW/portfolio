@@ -15,7 +15,7 @@ ru: {
  'hero.title': 'Виллы над морем Коста-дель-Соль',
  'hero.text': n => `Подбираем дом по тому, как в нём падает свет: утренний кофе на восточной террасе, ужин у бассейна на закате. ${n} ${plural(n, 'вилла', 'виллы', 'вилл')} от Сотогранде до Малаги.`,
  'dial.label': 'Время суток', 'dial.hint': 'Потяните солнце по небу или просто листайте вниз: за одну страницу на побережье пройдёт целый день.',
- 'dayhint.text': '<b>Пока вы листаете, на побережье проходит день.</b> Вверху утро, внизу вечерние огни. Солнце можно потянуть рукой на первом экране.', 'dayhint.btn': 'Время дня на сайте', 'toTop': 'Наверх',
+ 'dayhint.text': '<b>Пока вы листаете, на побережье проходит день.</b> Вверху утро, внизу вечерние огни. Часы в углу показывают, который час на побережье.', 'dayhint.btn': 'Время дня на сайте', 'toTop': 'Наверх',
  'ph.dawn': 'Раннее утро', 'ph.morning': 'Утро', 'ph.noon': 'Полдень', 'ph.afternoon': 'После обеда', 'ph.golden': 'Золотой час', 'ph.dusk': 'После заката',
  'villas.title': 'Дома, в которых живёт свет',
  'villas.lead': 'У каждой виллы указано, куда смотрит терраса и сколько часов на ней солнце летом. Это первое, о чём спрашивают наши покупатели.',
@@ -68,7 +68,7 @@ es: {
  'hero.title': 'Villas sobre el mar de la Costa del Sol',
  'hero.text': n => `Elegimos casas por cómo entra la luz: el café de la mañana en la terraza este, la cena junto a la piscina al atardecer. ${n} villas entre Sotogrande y Málaga.`,
  'dial.label': 'Hora del día', 'dial.hint': 'Arrastra el sol por el cielo o simplemente desliza hacia abajo: en una página pasa un día entero en la costa.',
- 'dayhint.text': '<b>Mientras te desplazas, en la costa pasa un día.</b> Arriba es por la mañana, abajo, las luces de la noche. En la primera pantalla puedes arrastrar el sol.', 'dayhint.btn': 'Hora del día en la web', 'toTop': 'Volver arriba',
+ 'dayhint.text': '<b>Mientras te desplazas, en la costa pasa un día.</b> Arriba es por la mañana, abajo, las luces de la noche. El reloj de la esquina marca la hora en la costa.', 'dayhint.btn': 'Hora del día en la web', 'toTop': 'Volver arriba',
  'ph.dawn': 'Primera hora', 'ph.morning': 'Mañana', 'ph.noon': 'Mediodía', 'ph.afternoon': 'Tarde', 'ph.golden': 'Hora dorada', 'ph.dusk': 'Tras la puesta de sol',
  'villas.title': 'Casas donde vive la luz',
  'villas.lead': 'En cada villa indicamos hacia dónde mira la terraza y cuántas horas de sol tiene en verano. Es lo primero que preguntan nuestros clientes.',
@@ -121,7 +121,7 @@ en: {
  'hero.title': 'Villas above the sea on the Costa del Sol',
  'hero.text': n => `We choose homes by how the light falls: morning coffee on an east terrace, dinner by the pool at sunset. ${n} villas between Sotogrande and Málaga.`,
  'dial.label': 'Time of day', 'dial.hint': 'Drag the sun across the sky or just scroll down: a whole day on the coast passes in one page.',
- 'dayhint.text': '<b>As you scroll, a day passes on the coast.</b> Morning at the top, evening lights at the bottom. On the first screen you can drag the sun yourself.', 'dayhint.btn': 'Time of day on the site', 'toTop': 'Back to top',
+ 'dayhint.text': '<b>As you scroll, a day passes on the coast.</b> Morning at the top, evening lights at the bottom. The clock in the corner shows the time on the coast.', 'dayhint.btn': 'Time of day on the site', 'toTop': 'Back to top',
  'ph.dawn': 'Early morning', 'ph.morning': 'Morning', 'ph.noon': 'Midday', 'ph.afternoon': 'Afternoon', 'ph.golden': 'Golden hour', 'ph.dusk': 'After sunset',
  'villas.title': 'Houses that live in the light',
  'villas.lead': 'For every villa we show which way the terrace faces and how many hours of summer sun it gets. It is the first thing our buyers ask.',
@@ -213,9 +213,9 @@ matchMedia('(min-width: 961px)').addEventListener('change', e => { if (e.matches
 $('#favBtn').addEventListener('click', () => { F.fav = true; $('#fFav').checked = true; renderGrid(); $('#villas').scrollIntoView(); });
 
 /* ===================== Солнце: время суток = положение на странице ===================== */
-const sun = $('#sun'), dot = $('#sunDot'), layersEl = $('#layers'), tint = $('#tint'), glow = $('#glow'),
-      timeOut = $('#dialTime'), phase = $('#dialPhase'), clock = $('#clock'), clockTime = $('#clockTime'), clockPhase = $('#clockPhase'),
-      sunRing = $('#sunRing'), sunHit = $('#sunHit'), clockSun = $('#clockSun'), dialSvg = $('#dialSvg');
+// Время суток задаёт только прокрутка: вверху утро, внизу вечер. Часы в углу показывают его всегда.
+const layersEl = $('#layers'), tint = $('#tint'), glow = $('#glow'),
+      clock = $('#clock'), clockTime = $('#clockTime'), clockPhase = $('#clockPhase'), clockSun = $('#clockSun');
 const DAY_START = 420, DAY_END = 1290, MORNING = 560;
 const KEYS = [
   [420, [150, 172, 205, .55], [255, 190, 150, .10], .78, .80],
@@ -238,16 +238,13 @@ let minutes = MORNING, base = MORNING, introRaf = 0, raf = 0;
 function updateSun(m) {
   minutes = m;
   const p = (m - DAY_START) / (DAY_END - DAY_START), ang = Math.PI * (1 - p);
-  const sx = (150 + 140 * Math.cos(ang)).toFixed(1), sy = (86 - 78 * Math.sin(ang)).toFixed(1);
-  [dot, sunRing, sunHit].forEach(c => { c.setAttribute('cx', sx); c.setAttribute('cy', sy); });
   clockSun.setAttribute('cx', (18 + 16 * Math.cos(ang)).toFixed(1)); clockSun.setAttribute('cy', (18 - 15 * Math.sin(ang)).toFixed(1));
   const s = lightAt(m), rgba = c => `rgba(${c[0] | 0},${c[1] | 0},${c[2] | 0},${c[3].toFixed(3)})`;
   tint.style.background = `linear-gradient(${lerp(200, 250, p)}deg, ${rgba(s.sh)} 0%, ${rgba([s.sh[0], s.sh[1], s.sh[2], s.sh[3] * .55])} 100%)`;
   glow.style.background = `radial-gradient(circle at ${lerp(15, 92, p)}% ${lerp(30, 8, Math.sin(Math.PI * p))}%, ${rgba(s.li)} 0%, rgba(0,0,0,0) 60%)`;
   layersEl.style.filter = `brightness(${s.br.toFixed(3)}) saturate(${s.sa.toFixed(3)})`;
   const r = Math.round(m), label = hm(Math.floor(r / 60), r % 60), ph = t(phaseKey(m));
-  timeOut.textContent = label; clockTime.textContent = label; phase.textContent = ph; clockPhase.textContent = ph;
-  sun.value = r; sun.setAttribute('aria-valuetext', label);
+  clockTime.textContent = label; clockPhase.textContent = ph;
 }
 const progress = () => { const h = document.documentElement.scrollHeight - innerHeight; return h > 0 ? Math.min(1, Math.max(0, scrollY / h)) : 0; };
 const timeFromScroll = () => base + (DAY_END - base) * progress();
@@ -255,35 +252,13 @@ function onScrollLight() {
   if (raf) return;
   raf = requestAnimationFrame(() => {
     raf = 0; if (!introRaf) updateSun(timeFromScroll());
-    const on = scrollY > innerHeight * .6;
-    clock.classList.toggle('on', on);
-    if (on) maybeDayHint();
+    if (scrollY > 120) maybeDayHint();      // подсказка — при первой прокрутке
     $('#toTop').classList.toggle('on', scrollY > innerHeight * 1.4);
   });
 }
 addEventListener('scroll', onScrollLight, { passive: true });
 addEventListener('resize', onScrollLight);
-// время задаёт посетитель: солнце встаёт туда, а дальше прокрутка ведёт день от этой точки
-function setTime(v) {
-  stopIntro(); const p = progress();
-  if (p < .98) base = Math.min(DAY_END, Math.max(DAY_START, (v - DAY_END * p) / (1 - p)));
-  updateSun(v);
-}
-sun.addEventListener('input', () => setTime(+sun.value));
-// солнце тянут пальцем или мышью прямо по дуге
-function timeAtPointer(e) {
-  const r = dialSvg.getBoundingClientRect(), x = (e.clientX - r.left) / r.width * 300, y = (e.clientY - r.top) / r.height * 96;
-  const ang = Math.min(Math.PI, Math.max(0, Math.atan2((86 - y) / 78, (x - 150) / 140)));
-  return DAY_START + (1 - ang / Math.PI) * (DAY_END - DAY_START);
-}
-let dragging = false;
-dialSvg.addEventListener('pointerdown', e => {
-  dragging = true; dialSvg.setPointerCapture(e.pointerId); dialSvg.classList.add('drag'); $('#dial').classList.add('touched');
-  setTime(timeAtPointer(e)); e.preventDefault();
-});
-dialSvg.addEventListener('pointermove', e => { if (dragging) setTime(timeAtPointer(e)); });
-const endDrag = () => { dragging = false; dialSvg.classList.remove('drag'); };
-dialSvg.addEventListener('pointerup', endDrag); dialSvg.addEventListener('pointercancel', endDrag);
+clock.classList.add('on');
 
 /* Подсказка: пока листаете — на побережье проходит день */
 const dayHint = $('#dayHint'); let hintTimer = 0;
