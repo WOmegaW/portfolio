@@ -45,7 +45,10 @@ ru: {
  'visit.q': 'Чаще всего просят показать дом на закате.', 'visit.qs': 'Мы подстраиваем просмотр под солнце: приезжайте за час до заката, и вы увидите дом в его лучшем свете.',
  'f.name': 'Имя', 'f.contact': 'Телефон или e-mail', 'f.villa': 'Вилла', 'f.any': 'Пока не выбрал(а) — помогите подобрать', 'f.light': 'Когда показать дом',
  'l.m': 'Утром', 'l.d': 'Днём', 'l.s': 'На закате', 'l.st': 'за час до заката',
- 'f.msg': 'Комментарий (необязательно)', 'f.send': 'Отправить заявку', 'f.note': 'Это демонстрационная форма: заявка никуда не отправляется.',
+ 'f.msg': 'Комментарий (необязательно)', 'f.send': 'Отправить заявку', 'f.note': 'Это демонстрационная форма: заявка никуда не отправляется.', 'f.privacy': 'Отправляя заявку, вы соглашаетесь с политикой конфиденциальности.',
+ 'f.sending': 'Отправляем…', 'e.send': 'Не получилось отправить заявку. Проверьте интернет и попробуйте ещё раз или напишите нам в WhatsApp.',
+ 'legal.raia': 'Номер в реестре агентов недвижимости Андалусии (RAIA)', 'openPage': 'Страница виллы',
+ 'cookie.text': 'Мы используем cookies статистики, чтобы понимать, какие виллы смотрят. Включить их?', 'cookie.yes': 'Принять', 'cookie.no': 'Отклонить', 'cookie.more': 'Подробнее',
  'e.name': 'Напишите, как к вам обращаться.', 'e.contact': 'Нужен телефон или e-mail, чтобы мы могли связаться.',
  'ok.t': 'Заявка отправлена', 'ok.p': (n, v) => `${n}, перезвоним в течение часа и предложим время просмотра${v ? ': ' + v : ''}.`, 'ok.again': 'Отправить ещё одну',
  'wa': 'Написать в WhatsApp', 'wa.text': v => v ? `Здравствуйте! Интересует ${v}. Когда можно посмотреть?` : 'Здравствуйте! Помогите подобрать виллу на Коста-дель-Соль.',
@@ -98,7 +101,10 @@ es: {
  'visit.q': 'Casi todos piden ver la casa al atardecer.', 'visit.qs': 'Ajustamos la visita al sol: ven una hora antes de la puesta y verás la casa con su mejor luz.',
  'f.name': 'Nombre', 'f.contact': 'Teléfono o e-mail', 'f.villa': 'Villa', 'f.any': 'Aún no lo sé, ayúdame a elegir', 'f.light': 'Cuándo ver la casa',
  'l.m': 'Por la mañana', 'l.d': 'A mediodía', 'l.s': 'Al atardecer', 'l.st': 'una hora antes de la puesta',
- 'f.msg': 'Comentario (opcional)', 'f.send': 'Enviar solicitud', 'f.note': 'Formulario de demostración: la solicitud no se envía a ningún sitio.',
+ 'f.msg': 'Comentario (opcional)', 'f.send': 'Enviar solicitud', 'f.note': 'Formulario de demostración: la solicitud no se envía a ningún sitio.', 'f.privacy': 'Al enviar la solicitud aceptas la política de privacidad.',
+ 'f.sending': 'Enviando…', 'e.send': 'No se ha podido enviar la solicitud. Revisa la conexión e inténtalo de nuevo o escríbenos por WhatsApp.',
+ 'legal.raia': 'Nº de inscripción en el Registro de Agentes Inmobiliarios de Andalucía (RAIA)', 'openPage': 'Página de la villa',
+ 'cookie.text': 'Usamos cookies de estadística para saber qué villas se ven más. ¿Las activamos?', 'cookie.yes': 'Aceptar', 'cookie.no': 'Rechazar', 'cookie.more': 'Más información',
  'e.name': 'Dinos cómo te llamas.', 'e.contact': 'Necesitamos un teléfono o un e-mail para contactarte.',
  'ok.t': 'Solicitud enviada', 'ok.p': (n, v) => `${n}, te llamamos en menos de una hora para proponerte la visita${v ? ': ' + v : ''}.`, 'ok.again': 'Enviar otra',
  'wa': 'Escribir por WhatsApp', 'wa.text': v => v ? `¡Hola! Me interesa ${v}. ¿Cuándo podría verla?` : '¡Hola! Me gustaría que me ayudarais a elegir una villa en la Costa del Sol.',
@@ -151,7 +157,10 @@ en: {
  'visit.q': 'Most people ask to see the house at sunset.', 'visit.qs': 'We time the viewing to the sun: come an hour before sunset and you will see the house in its best light.',
  'f.name': 'Name', 'f.contact': 'Phone or email', 'f.villa': 'Villa', 'f.any': 'Not sure yet, help me choose', 'f.light': 'When to see the house',
  'l.m': 'Morning', 'l.d': 'Midday', 'l.s': 'At sunset', 'l.st': 'an hour before sunset',
- 'f.msg': 'Comment (optional)', 'f.send': 'Send request', 'f.note': 'This is a demo form: the request is not sent anywhere.',
+ 'f.msg': 'Comment (optional)', 'f.send': 'Send request', 'f.note': 'This is a demo form: the request is not sent anywhere.', 'f.privacy': 'By sending the request you accept the privacy policy.',
+ 'f.sending': 'Sending…', 'e.send': 'The request could not be sent. Check your connection and try again, or message us on WhatsApp.',
+ 'legal.raia': 'Andalusian Real Estate Agents Register (RAIA) no.', 'openPage': 'Villa page',
+ 'cookie.text': 'We use analytics cookies to see which villas people look at. Turn them on?', 'cookie.yes': 'Accept', 'cookie.no': 'Decline', 'cookie.more': 'Learn more',
  'e.name': 'Tell us what to call you.', 'e.contact': 'We need a phone number or email to reach you.',
  'ok.t': 'Request sent', 'ok.p': (n, v) => `${n}, we will call within an hour to suggest a viewing time${v ? ': ' + v : ''}.`, 'ok.again': 'Send another',
  'wa': 'Message on WhatsApp', 'wa.text': v => v ? `Hello! I am interested in ${v}. When could I see it?` : 'Hello! Could you help me choose a villa on the Costa del Sol?',
@@ -187,9 +196,15 @@ const hm = (h, m) => `${h}:${String(m).padStart(2, '0')}`;
 const L = v => v[lang] || v.en;
 const areaName = a => AREAS[a].name[lang] || AREAS[a].name.en;
 const areaText = a => AREAS[a].text[lang] || AREAS[a].text.en;
+// районы, в которых сейчас есть виллы (пустые не показываем во вкладках, на карте и в фильтре)
+const liveAreas = () => Object.keys(AREAS).filter(a => VILLAS.some(v => v.area === a));
 const sunText = v => t('sun', hm(v.sun[0], v.sun[1]), hm(v.sun[2], v.sun[3]));
-const img = (name, w) => `img/${name}-${w}.webp`;
-const srcset = name => `${img(name, 800)} 800w, ${img(name, 1600)} 1600w`;
+// фото: имя из папки img/ (две версии 800/1600) или прямая ссылка https://… (например, из Google Таблицы)
+const isUrl = name => /^https?:\/\//.test(name);
+const img = (name, w) => isUrl(name) ? name : `img/${name}-${w}.webp`;
+const srcset = name => isUrl(name) ? name : `${img(name, 800)} 800w, ${img(name, 1600)} 1600w`;
+// отдельная страница виллы (для Google и превью ссылок): villas/<язык>/<id>/
+const pageUrl = (id, abs) => `${abs ? SITE.url + '/' : ''}${lang}/${id}/`;
 
 /* ===================== Состояние ===================== */
 const F = { area: 'all', beds: 0, price: 0, sea: false, newBuild: false, beach: false, fav: false, sort: 'rec' };
@@ -356,7 +371,7 @@ function reveal(els) {
 const grid = $('#grid'), count = $('#count');
 function renderChips() {
   const el = $('#areaChips'); el.innerHTML = '';
-  ['all', ...Object.keys(AREAS)].forEach(a => {
+  ['all', ...liveAreas()].forEach(a => {
     const b = document.createElement('button'); b.type = 'button'; b.className = 'chip';
     b.textContent = a === 'all' ? t('filter.all') : areaName(a); b.setAttribute('aria-pressed', String(F.area === a));
     b.addEventListener('click', () => { F.area = a; renderChips(); renderGrid(); }); el.appendChild(b);
@@ -378,7 +393,7 @@ function cardHTML(v, feature) {
       <span class="photos">${t('photos', v.gallery.length)}</span>
       <span class="sunline">${sunIcon}${sunText(v)}</span></div>
     <div class="body">
-      <div class="row"><h3><button type="button" class="open" data-open="${v.id}">${l.name}</button></h3><span class="price">${money(v.price)}</span></div>
+      <div class="row"><h3><a class="open" href="${pageUrl(v.id)}" data-open="${v.id}">${l.name}</a></h3><span class="price">${money(v.price)}</span></div>
       <div class="meta">${l.where}. ${t('beds', v.beds)}, ${num(v.built)} ${t('m2')}</div>
       <div class="actions">
         <button type="button" class="icon-btn fav" data-fav="${v.id}" aria-pressed="false">${heart}</button>
@@ -394,7 +409,11 @@ function renderGrid() {
     $('#resetBtn').addEventListener('click', resetFilters); return;
   }
   grid.innerHTML = list.map((v, i) => cardHTML(v, i === 0 && F.sort === 'rec' && list.length > 2)).join('');
-  $$('[data-open]', grid).forEach(b => b.addEventListener('click', () => flyOpen(b.dataset.open, b.closest('.card').querySelector('.ph img'))));
+  // название — настоящая ссылка на страницу виллы (её видит Google); обычный клик открывает окно на месте
+  $$('[data-open]', grid).forEach(b => b.addEventListener('click', e => {
+    if (e.metaKey || e.ctrlKey || e.shiftKey || e.button === 1) return;   // открыть в новой вкладке — как обычная ссылка
+    e.preventDefault(); flyOpen(b.dataset.open, b.closest('.card').querySelector('.ph img'));
+  }));
   $$('[data-fav]', grid).forEach(b => b.addEventListener('click', () => toggleFav(b.dataset.fav)));
   $$('[data-cmp]', grid).forEach(b => b.addEventListener('click', () => toggleCompare(b.dataset.cmp)));
   syncFavs(); syncCompare(); reveal($$('.card', grid));
@@ -522,7 +541,7 @@ function renderPins() {
   { const [x, y] = proj(36.36, -4.86); html.push(`<span class="mtown sea" data-x="${x}" data-y="${y}">${t('coast.sea')}</span>`); }
   if (A === 'all') {
     VILLAS.forEach(v => { const [x, y] = villaXY(v); html.push(`<span class="vdot" data-x="${x}" data-y="${y}"></span>`); });
-    Object.keys(AREAS).forEach(a => { const vs = areaVillas(a), pts = vs.map(villaXY);
+    liveAreas().forEach(a => { const vs = areaVillas(a), pts = vs.map(villaXY);
       const x = pts.reduce((s, p) => s + p[0], 0) / pts.length, y = Math.min(...pts.map(p => p[1])) - (a === 'benahavis' ? 70 : a === 'casares' || a === 'nuevaandalucia' ? 50 : 30);
       html.push(`<button type="button" class="apin" data-area="${a}" data-x="${x}" data-y="${y}" aria-label="${areaName(a)}: ${t('zone.villas', vs.length)}"><span class="an">${areaName(a)}</span> <b>${vs.length}</b></button>`); });
   } else {
@@ -546,8 +565,8 @@ const markSelected = () => $$('.vpin', atlasPins).forEach(b => b.classList.toggl
 function renderAtlasInfo() {
   const A = atlasArea, box = $('#atlasInfo');
   if (A === 'all') {
-    box.innerHTML = `<h3>${t('atlas.allTitle')}</h3><p>${t('atlas.allText', Object.keys(AREAS).length, VILLAS.length)}</p>
-      <ul class="ai-list">${Object.keys(AREAS).map(a => { const vs = areaVillas(a);
+    box.innerHTML = `<h3>${t('atlas.allTitle')}</h3><p>${t('atlas.allText', liveAreas().length, VILLAS.length)}</p>
+      <ul class="ai-list">${liveAreas().map(a => { const vs = areaVillas(a);
         return `<li><button type="button" data-area="${a}"><span><span class="an">${areaName(a)}</span><br><span class="muted">${t('atlas.airport', AREAS[a].airport)}</span></span><span>${t('atlas.from', compact(vs[vs.length - 1].price))}</span></button></li>`; }).join('')}</ul>`;
     $$('[data-area]', box).forEach(b => b.addEventListener('click', () => selectArea(b.dataset.area)));
     return;
@@ -629,7 +648,7 @@ function backToArea() {
 }
 function renderAtlasTabs() {
   const el = $('#atlasTabs');
-  el.innerHTML = ['all', ...Object.keys(AREAS)].map(a => `<button type="button" class="chip" data-tab="${a}" aria-pressed="${atlasArea === a}">${a === 'all' ? t('atlas.allTitle') : areaName(a)}</button>`).join('');
+  el.innerHTML = ['all', ...liveAreas()].map(a => `<button type="button" class="chip" data-tab="${a}" aria-pressed="${atlasArea === a}">${a === 'all' ? t('atlas.allTitle') : areaName(a)}</button>`).join('');
   $$('[data-tab]', el).forEach(b => b.addEventListener('click', () => selectArea(b.dataset.tab)));
 }
 // Смена района: метки и панель гаснут, камера летит, новые метки проявляются по прилёте
@@ -716,7 +735,8 @@ $('#dImg').addEventListener('click', () => openLightbox(galIdx));
 $('#dFav').addEventListener('click', e => toggleFav(e.currentTarget.dataset.fav));
 $('#dCmp').addEventListener('click', e => toggleCompare(e.currentTarget.dataset.cmp));
 $('#dShare').addEventListener('click', async () => {
-  const url = `${location.origin}${location.pathname}#villa/${current.id}`, title = `${L(current).name} — ${SITE.brand}`;
+  // делимся страницей виллы: у неё своё превью (фото, название, цена) в WhatsApp и соцсетях
+  const url = pageUrl(current.id, true), title = `${L(current).name} — ${SITE.brand}`;
   if (navigator.share) { try { await navigator.share({ title, url }); return; } catch (e) { if (e.name === 'AbortError') return; } }
   try { await navigator.clipboard.writeText(url); toast(t('copied')); } catch (e) { prompt(t('share'), url); }
 });
@@ -801,11 +821,27 @@ form.addEventListener('submit', e => {
   setErr(fN, $('#eName'), name ? '' : t('e.name')); setErr(fC, $('#eContact'), okContact ? '' : t('e.contact'));
   if (!name) { fN.focus(); return; }
   if (!okContact) { fC.focus(); return; }
+  if ($('#fTrap').value) return;                       // поле-ловушка: его заполняют только спам-боты
   const v = byId(fVilla.value), box = $('#formBox');
-  box.innerHTML = `<div class="done" tabindex="-1"><h3>${t('ok.t')}</h3><p></p><button class="btn ghost" type="button">${t('ok.again')}</button></div>`;
-  $('p', box).textContent = t('ok.p', name, v ? L(v).name : '');
-  $('.done', box).focus();
-  $('button', box).addEventListener('click', () => location.reload());
+  const done = () => {
+    box.innerHTML = `<div class="done" tabindex="-1"><h3>${t('ok.t')}</h3><p></p><button class="btn ghost" type="button">${t('ok.again')}</button></div>`;
+    $('p', box).textContent = t('ok.p', name, v ? L(v).name : '');
+    $('.done', box).focus();
+    $('button', box).addEventListener('click', () => location.reload());
+  };
+  if (!SITE.web3formsKey) { done(); return; }          // демо-режим: ничего не отправляем
+  const btn = $('button[type=submit]', form), err = $('#eSend');
+  btn.disabled = true; btn.textContent = t('f.sending'); err.textContent = '';
+  const light = (form.querySelector('input[name=light]:checked') || {}).value || '';
+  fetch('https://api.web3forms.com/submit', {
+    method: 'POST', headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+    body: JSON.stringify({
+      access_key: SITE.web3formsKey, subject: `${SITE.brand}: ${v ? L(v).name + ' (' + v.ref + ')' : t('f.any')}`, from_name: SITE.brand,
+      name, contact, villa: v ? `${L(v).name} — ${v.ref} — ${money(v.price)}` : '—', time: t({ morning: 'l.m', day: 'l.d', sunset: 'l.s' }[light] || 'l.s'),
+      message: $('#fMsg').value.trim() || '—', language: lang, page: location.href
+    })
+  }).then(r => r.json()).then(j => { if (!j.success) throw new Error(j.message || 'error'); done(); })
+    .catch(() => { btn.disabled = false; btn.textContent = t('f.send'); err.textContent = t('e.send'); });
 });
 ['fName', 'fContact'].forEach(id => $('#' + id).addEventListener('input', e => setErr(e.target, $(id === 'fName' ? '#eName' : '#eContact'), '')));
 
@@ -819,14 +855,87 @@ function applyLang() {
   document.title = `${SITE.brand} — ${t('title')}`;
   $('#waFab').href = waLink(''); $('#waFab').setAttribute('aria-label', t('wa'));
   $('#footPhone').textContent = SITE.phone; $('#footAddr').textContent = SITE.address;
+  $('#footEmail').textContent = SITE.email; $('#footEmail').href = `mailto:${SITE.email}`;
+  $('#footRaia').textContent = (SITE.legal || {}).raia || '—';
+  $('#fNote').textContent = SITE.web3formsKey ? t('f.privacy') : t('f.note');
   renderChips(); renderGrid(); renderAtlas(); renderVillaSelect(); updateSun(minutes);
   if (dlg.open && current) renderVilla();
   if ($('#cmpDlg').open) renderCompare();
 }
 $$('.lang button').forEach(b => b.addEventListener('click', () => { lang = b.dataset.lang; store.set('vt-lang', lang); applyLang(); }));
 
-applyLang(); intro();
-reveal($$('.steps li'));
-const startHash = location.hash.match(/^#villa\/([\w-]+)$/);
-if (startHash) openVilla(startHash[1], true);
+/* ===================== Виллы из Google Таблицы (необязательно) ===================== */
+// Таблица публикуется как CSV. Колонки — как в шаблоне plantilla-villas.csv.
+function parseCSV(text) {
+  const rows = []; let row = [], cell = '', q = false;
+  for (let i = 0; i < text.length; i++) {
+    const c = text[i];
+    if (q) { if (c === '"') { if (text[i + 1] === '"') { cell += '"'; i++; } else q = false; } else cell += c; continue; }
+    if (c === '"') q = true; else if (c === ',') { row.push(cell); cell = ''; }
+    else if (c === '\n' || c === '\r') { if (c === '\r' && text[i + 1] === '\n') i++; row.push(cell); rows.push(row); row = []; cell = ''; }
+    else cell += c;
+  }
+  if (cell || row.length) { row.push(cell); rows.push(row); }
+  return rows.filter(r => r.some(x => x.trim()));
+}
+const yes = s => /^(1|s[ií]|si|yes|y|да|true|x)$/i.test(String(s).trim());
+const toNum = s => +String(s).replace(/[^\d]/g, '') || 0;                    // цены, метры: «6 200 000 €» → 6200000
+const toFloat = s => parseFloat(String(s).replace(',', '.')) || 0;           // координаты: «36,515» или «36.515»
+function rowsToVillas(rows) {
+  const head = rows[0].map(h => h.trim().toLowerCase());
+  return rows.slice(1).map(r => {
+    const g = k => (r[head.indexOf(k)] || '').trim();
+    const sun = (g('sun').match(/\d+/g) || [9, 0, 21, 0]).map(Number);
+    const v = { id: g('id').toLowerCase().replace(/[^a-z0-9-]/g, '-'), ref: g('ref'), area: g('area'), lat: toFloat(g('lat')), lng: toFloat(g('lng')),
+      price: toNum(g('price')), beds: toNum(g('beds')), baths: toNum(g('baths')), built: toNum(g('built')), plot: toNum(g('plot')),
+      sun: [sun[0], sun[1] || 0, sun[2] || 21, sun[3] || 0], face: g('face') || 's', sea: yes(g('sea')), newBuild: yes(g('newbuild')),
+      beach: toNum(g('beach')), year: toNum(g('year')), energy: g('energy') || '—',
+      gallery: g('photos').split(/[|\n]|,\s*(?=https?:|[a-z])/).map(s => s.trim()).filter(Boolean) };
+    ['ru', 'es', 'en'].forEach(l => { v[l] = { name: g('name_' + l), where: g('where_' + l), desc: g('desc_' + l) }; });
+    return v;
+  }).filter(v => v.id && AREAS[v.area] && v.price && v.gallery.length && (v.es.name || v.en.name || v.ru.name));
+}
+async function loadSheet() {
+  if (!SITE.sheetUrl) return;
+  try {
+    const r = await fetch(SITE.sheetUrl, { cache: 'no-store' });
+    if (!r.ok) return;
+    const vs = rowsToVillas(parseCSV(await r.text()));
+    if (vs.length) { VILLAS.splice(0, VILLAS.length, ...vs); favs = favs.filter(byId); }
+  } catch (e) { /* таблица недоступна — остаются виллы из data.js */ }
+}
+
+/* ===================== Статистика посещений ===================== */
+function loadGA() {
+  const s = document.createElement('script'); s.async = true; s.src = `https://www.googletagmanager.com/gtag/js?id=${encodeURIComponent(SITE.gaId)}`;
+  document.head.appendChild(s);
+  window.dataLayer = window.dataLayer || []; window.gtag = function () { window.dataLayer.push(arguments); };
+  window.gtag('js', new Date()); window.gtag('config', SITE.gaId, { anonymize_ip: true });
+}
+function analytics() {
+  if (SITE.plausible) {                                  // Plausible — без cookies, согласие не нужно
+    const s = document.createElement('script'); s.defer = true; s.dataset.domain = SITE.plausible; s.src = 'https://plausible.io/js/script.js';
+    document.head.appendChild(s);
+  }
+  if (!SITE.gaId) return;                                 // Google Analytics — только после согласия
+  const c = store.get('vt-cookies', null);
+  if (c === 'yes') { loadGA(); return; }
+  if (c === 'no') return;
+  const d = document.createElement('div'); d.className = 'cookie'; d.setAttribute('role', 'dialog'); d.setAttribute('aria-label', 'Cookies');
+  d.innerHTML = `<p>${t('cookie.text')} <a href="cookies.html">${t('cookie.more')}</a></p><button class="btn ghost" type="button" data-c="no">${t('cookie.no')}</button><button class="btn" type="button" data-c="yes">${t('cookie.yes')}</button>`;
+  document.body.appendChild(d);
+  d.querySelectorAll('[data-c]').forEach(b => b.addEventListener('click', () => { store.set('vt-cookies', b.dataset.c); if (b.dataset.c === 'yes') loadGA(); d.remove(); }));
+}
+
+/* ===================== Запуск ===================== */
+loadSheet().finally(() => {
+  applyLang(); intro();
+  reveal($$('.steps li'));
+  const startHash = location.hash.match(/^#villa\/([\w-]+)$/);
+  if (startHash) openVilla(startHash[1], true);
+  // пришли со страницы виллы по кнопке «Записаться» (?villa=id#visit): вилла уже выбрана в форме
+  const pre = new URLSearchParams(location.search).get('villa');
+  if (pre && byId(pre)) fVilla.value = pre;
+  analytics();
+});
 })();

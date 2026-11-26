@@ -3,12 +3,19 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Vertiente — виллы на Коста-дель-Соль</title>
-<meta name="description" content="Виллы над морем от Михаса до Эстепоны. Подбираем дом по тому, как в нём падает свет.">
+<title>Vertiente — villas en la Costa del Sol</title>
+<meta name="description" content="Villas sobre el mar entre Sotogrande y Málaga: 23 casas con fotos, mapa, calculadora de compra e hipoteca. Villas on the Costa del Sol. Виллы на Коста-дель-Соль.">
 <meta name="theme-color" content="#10242E">
-<meta property="og:title" content="Vertiente — виллы на Коста-дель-Соль">
-<meta property="og:description" content="Шесть вилл над морем. Посмотрите, как свет проходит через дом от утра до заката.">
-<meta property="og:image" content="img/hero-1600.webp">
+<link rel="canonical" href="https://womegaw.github.io/portfolio/villas/">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Vertiente">
+<meta property="og:title" content="Vertiente — villas en la Costa del Sol">
+<meta property="og:description" content="23 villas entre Sotogrande y Málaga: mapa interactivo, fotos, calculadora de compra e hipoteca.">
+<meta property="og:image" content="https://womegaw.github.io/portfolio/villas/img/og/horizonte.jpg">
+<meta property="og:url" content="https://womegaw.github.io/portfolio/villas/">
+<meta name="twitter:card" content="summary_large_image">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"RealEstateAgent","name":"Vertiente","url":"https://womegaw.github.io/portfolio/villas/","image":"https://womegaw.github.io/portfolio/villas/img/og/horizonte.jpg","address":{"@type":"PostalAddress","streetAddress":"Avenida del Mar 14","addressLocality":"Marbella","addressRegion":"Málaga","addressCountry":"ES"},"areaServed":"Costa del Sol"}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Prata&family=Onest:wght@400;500;600&display=swap" rel="stylesheet">
@@ -399,6 +406,19 @@ footer .brand{color:#fff;font-size:34px;display:block;margin-bottom:10px}
 footer a{text-decoration:none}
 footer a:hover{text-decoration:underline}
 footer p{margin:0 0 6px}
+.legal-row{grid-column:1/-1;display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px 24px;border-top:1px solid var(--line);padding-top:18px;font-size:14px}
+.legal-row p{margin:0}
+.legal-row nav{display:flex;flex-wrap:wrap;gap:8px 20px}
+.trap{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
+.err{color:#FFB4A8;font-size:15px;margin:0}
+.err:empty{display:none}
+.form-note a{color:inherit}
+/* баннер согласия на cookies статистики */
+.cookie{position:fixed;left:50%;bottom:calc(16px + env(safe-area-inset-bottom));transform:translateX(-50%);z-index:70;width:min(560px,calc(100vw - 24px));display:flex;flex-wrap:wrap;align-items:center;gap:10px 14px;padding:14px 16px;border-radius:16px;background:#fff;color:var(--sea);box-shadow:0 12px 36px rgba(0,0,0,.35);font-size:15px}
+.cookie p{margin:0;flex:1 1 260px}
+.cookie a{color:var(--cobalt)}
+.cookie .btn{min-height:40px}
+.cookie .btn.ghost{color:var(--sea)}
 .demo{grid-column:1/-1;border-top:1px solid var(--line);padding-top:20px;color:var(--muted);font-size:14px}
 @media (max-width:760px){footer .wrap{grid-template-columns:1fr}}
 
@@ -697,8 +717,10 @@ footer p{margin:0 0 6px}
             </div>
           </fieldset>
           <div class="field"><label for="fMsg" data-i="f.msg">Комментарий (необязательно)</label><textarea id="fMsg" name="msg"></textarea></div>
+          <div class="trap" aria-hidden="true"><label for="fTrap">Website</label><input id="fTrap" name="website" tabindex="-1" autocomplete="off"></div>
           <div><button class="btn" type="submit" data-i="f.send">Отправить заявку</button></div>
-          <p class="form-note" data-i="f.note">Это демонстрационная форма: заявка никуда не отправляется.</p>
+          <p class="err" id="eSend" role="alert"></p>
+          <p class="form-note"><span id="fNote"></span> <a href="privacidad.html" id="fPrivacy">Política de privacidad</a></p>
         </form>
       </div>
     </div>
@@ -715,11 +737,16 @@ footer p{margin:0 0 6px}
     <div>
       <p id="footAddr"></p>
       <p><a href="#visit" id="footPhone"></a></p>
+      <p><a id="footEmail"></a></p>
     </div>
     <div>
       <p><a href="#villas" data-i="nav.villas">Виллы</a></p>
       <p><a href="#coast" data-i="nav.coast">Районы</a></p>
       <p><a href="#buy" data-i="nav.buy">Как купить</a></p>
+    </div>
+    <div class="legal-row">
+      <p><span data-i="legal.raia">RAIA</span>: <b id="footRaia"></b></p>
+      <nav aria-label="Legal"><a href="aviso-legal.html">Aviso legal</a><a href="privacidad.html">Privacidad</a><a href="cookies.html">Cookies</a><a href="sitemap.xml">Sitemap</a></nav>
     </div>
     <p class="demo" data-i="foot.demo">Концепт-проект для портфолио. Агентство Vertiente, виллы, цены и контакты вымышлены. Фото: Unsplash.</p>
   </div>
@@ -802,7 +829,7 @@ footer p{margin:0 0 6px}
 <a class="wa-fab" id="waFab" href="#" target="_blank" rel="noopener" aria-label="WhatsApp"><svg width="26" height="26" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 11.8 11.8 0 0 0 4.5 4c1.7.7 2.3.8 3.2.6.5-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.2-1.2-.1-.1-.3-.2-.5-.3z"/></svg></a>
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
-<script src="data.js?v=2026-11-26-11"></script>
-<script src="app.js?v=2026-11-26-11"></script>
+<script src="data.js?v=2026-11-26-13"></script>
+<script src="app.js?v=2026-11-26-13"></script>
 </body>
 </html>

@@ -14,7 +14,32 @@ window.SITE = {
   whatsapp: '34000000000',            // номер для WhatsApp без «+» и пробелов (демо)
   email: 'hola@vertiente.example',
   address: 'Avenida del Mar 14, Marbella',
-  demo: true                          // true — форма заявки ничего не отправляет
+
+  // Адрес сайта агентства (для страниц вилл, карты сайта и превью ссылок). Без «/» в конце.
+  url: 'https://womegaw.github.io/portfolio/villas',
+
+  // Заявки на почту: бесплатный ключ с https://web3forms.com (вводите e-mail — ключ придёт письмом).
+  // Пусто — форма демонстрационная и ничего не отправляет.
+  web3formsKey: '',
+
+  // Виллы из Google Таблицы: Файл → Поделиться → Опубликовать в интернете → CSV, ссылку — сюда.
+  // Пусто — виллы берутся из списка VILLAS ниже. Шаблон таблицы: plantilla-villas.csv
+  sheetUrl: '',
+
+  // Юридические данные для страниц Aviso legal / Privacidad / Cookies и подвала
+  legal: {
+    company: 'Vertiente Real Estate S.L. (empresa ficticia)',
+    nif: 'B-00000000',
+    registry: 'Registro Mercantil de Málaga, tomo 0000, folio 00, hoja MA-000000',
+    raia: 'AT/MA/00000',              // номер в реестре агентов недвижимости Андалусии (RAIA)
+    dpoEmail: 'privacidad@vertiente.example'
+  },
+
+  // Статистика посещений (необязательно).
+  // plausible: домен сайта в Plausible — без cookies, баннер не нужен.
+  // gaId: Google Analytics (G-XXXX) — включится только после согласия посетителя в баннере.
+  plausible: '',
+  gaId: ''
 };
 
 /* Районы (порядок — с запада на восток, так же они идут во вкладках).
