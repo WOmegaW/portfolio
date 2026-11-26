@@ -98,12 +98,27 @@ h3{font-size:clamp(22px,2.2vw,28px);line-height:1.15}
 @media (max-width:960px){
   .nav,.top .btn{display:none}
   .menu-btn{display:block}
-  .top.open{background:var(--sea)}
-  .top.open .nav{display:flex;position:absolute;top:68px;left:0;right:0;flex-direction:column;gap:0;background:var(--sea);padding:8px var(--gutter) 24px}
-  .top.open .nav a{padding:14px 0;font-size:22px;font-family:var(--display);border-bottom:1px solid var(--line)}
+  /* меню на телефоне: то же синее стекло, что и шапка, на весь экран; пункты проявляются по очереди */
+  .top.open{background:rgba(14,38,62,.8);backdrop-filter:none;-webkit-backdrop-filter:none}
+  .top.open .nav{display:flex;position:fixed;top:68px;left:0;right:0;bottom:0;flex-direction:column;gap:0;
+    padding:12px var(--gutter) calc(28px + env(safe-area-inset-bottom));overflow-y:auto;
+    background:linear-gradient(180deg,rgba(14,38,62,.72),rgba(10,28,46,.84));
+    backdrop-filter:blur(22px) saturate(1.3);-webkit-backdrop-filter:blur(22px) saturate(1.3);
+    animation:menuIn .35s ease}
+  .top.open .nav a{padding:18px 2px;font-size:30px;line-height:1.1;font-family:var(--display);opacity:1;border-bottom:1px solid rgba(255,255,255,.14);
+    display:flex;justify-content:space-between;align-items:center;text-decoration:none;animation:linkIn .55s var(--ease) both}
+  .top.open .nav a:not(.nav-cta)::after{content:"";width:9px;height:9px;border-top:1.5px solid rgba(255,255,255,.6);border-right:1.5px solid rgba(255,255,255,.6);transform:rotate(45deg);margin-right:6px}
+  .top.open .nav a:nth-child(2){animation-delay:.05s}.top.open .nav a:nth-child(3){animation-delay:.1s}
+  .top.open .nav a:nth-child(4){animation-delay:.15s}.top.open .nav a:nth-child(5){animation-delay:.2s}
+  .top.open .nav .nav-cta{display:flex;justify-content:center;margin-top:auto;min-height:54px;padding:0 22px;font:500 17px var(--text);border:0;border-radius:999px}
   .top.open .menu-btn i:first-child{transform:translateY(3.75px) rotate(45deg)}
   .top.open .menu-btn i:last-child{transform:translateY(-3.75px) rotate(-45deg)}
 }
+.nav-cta{display:none}
+html.menu-lock{overflow:hidden}
+@keyframes menuIn{from{opacity:0}}
+@keyframes linkIn{from{opacity:0;transform:translateY(14px)}}
+@media (prefers-reduced-motion:reduce){.top.open .nav,.top.open .nav a{animation:none}}
 
 /* ---------- Первый экран ---------- */
 .hero{position:relative;min-height:100svh;display:flex;align-items:flex-end}
@@ -551,6 +566,7 @@ footer p{margin:0 0 6px}
       <a href="#coast" data-i="nav.coast">Районы</a>
       <a href="#buy" data-i="nav.buy">Как купить</a>
       <a href="#visit" data-i="nav.visit">Просмотр</a>
+      <a href="#visit" class="btn nav-cta" data-i="cta.visit">Записаться на просмотр</a>
     </nav>
     <button class="fav-head" id="favBtn" type="button" data-i-label="fav.header" aria-label="Избранное"><svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 20.5s-7.5-4.6-9.3-9.4C1.4 7.6 3.6 4 7.1 4c2 0 3.6 1.1 4.9 2.8C13.3 5.1 14.9 4 16.9 4c3.5 0 5.7 3.6 4.4 7.1-1.8 4.8-9.3 9.4-9.3 9.4z"/></svg><span id="favCount">0</span></button>
     <div class="lang" role="group" aria-label="Language">
@@ -804,7 +820,7 @@ footer p{margin:0 0 6px}
 <a class="wa-fab" id="waFab" href="#" target="_blank" rel="noopener" aria-label="WhatsApp"><svg width="26" height="26" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 11.8 11.8 0 0 0 4.5 4c1.7.7 2.3.8 3.2.6.5-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.2-1.2-.1-.1-.3-.2-.5-.3z"/></svg></a>
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
-<script src="data.js?v=2026-11-26-8"></script>
-<script src="app.js?v=2026-11-26-8"></script>
+<script src="data.js?v=2026-11-26-9"></script>
+<script src="app.js?v=2026-11-26-9"></script>
 </body>
 </html>

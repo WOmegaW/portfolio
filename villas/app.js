@@ -204,8 +204,12 @@ function toast(msg) { toastEl.textContent = msg; toastEl.classList.add('on'); cl
 const top_ = $('#top'), menuBtn = $('.menu-btn');
 const onScrollHeader = () => top_.classList.toggle('solid', scrollY > innerHeight * .75);
 addEventListener('scroll', onScrollHeader, { passive: true }); onScrollHeader();
-menuBtn.addEventListener('click', () => { const o = top_.classList.toggle('open'); menuBtn.setAttribute('aria-expanded', o); });
-$$('#nav a').forEach(a => a.addEventListener('click', () => { top_.classList.remove('open'); menuBtn.setAttribute('aria-expanded', 'false'); }));
+// меню на телефоне: пока открыто, страница под ним не листается
+const setMenu = o => { top_.classList.toggle('open', o); menuBtn.setAttribute('aria-expanded', String(o)); document.documentElement.classList.toggle('menu-lock', o); };
+menuBtn.addEventListener('click', () => setMenu(!top_.classList.contains('open')));
+$$('#nav a').forEach(a => a.addEventListener('click', () => setMenu(false)));
+addEventListener('keydown', e => { if (e.key === 'Escape' && top_.classList.contains('open')) setMenu(false); });
+matchMedia('(min-width: 961px)').addEventListener('change', e => { if (e.matches) setMenu(false); });
 $('#favBtn').addEventListener('click', () => { F.fav = true; $('#fFav').checked = true; renderGrid(); $('#villas').scrollIntoView(); });
 
 /* ===================== Солнце: время суток = положение на странице ===================== */
