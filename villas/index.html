@@ -19,7 +19,8 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Prata&family=Onest:wght@400;500;600&display=swap" rel="stylesheet">
-<link href="tour.css?v=2026-11-28-1" rel="stylesheet">
+<link href="vendor/maplibre-gl.css?v=4.7.1" rel="stylesheet">
+<link href="tour.css?v=2026-11-28-3" rel="stylesheet">
 <link rel="preload" as="image" href="img/hero-1600.webp" imagesrcset="img/hero-800.webp 800w, img/hero-1600.webp 1600w" imagesizes="100vw">
 <style>
 :root{
@@ -643,6 +644,39 @@ s.old{font:400 .62em var(--text);color:var(--muted);margin-right:8px;text-decora
 .band .cap{display:none}
 .band.words b{color:rgba(255,255,255,.62)}.band.words .slide.text b{color:rgba(230,225,215,.6)}.band.words span{color:rgba(230,225,215,.7)}
 @media (prefers-reduced-motion:reduce){.slide,.slide img,.band.words b{transition:none}.slide.on img{transform:scale(1.04)}}
+
+/* Настоящая карта (MapLibre): нарисованная карта и её подписи прячутся */
+.geo{position:absolute;inset:0;opacity:0;transition:opacity .6s}
+.atlas-map.geo-ready .geo{opacity:1}
+.atlas-map.geo-on > svg,.atlas-map.geo-on .mtown,.atlas-map.geo-on .mpoi,.atlas-map.geo-on .atlas-legend,.atlas-map.geo-on .map-hint{display:none}
+.atlas-map.geo-on{cursor:auto;background:#E9E5DC}
+.atlas-map.geo-on .atlas-pins{pointer-events:none;z-index:2}
+.atlas-map.geo-on .atlas-pins > *{pointer-events:auto}
+.atlas-map.geo-on .vdot{pointer-events:none}
+.atlas-map.geo-on .map-zoom{z-index:3}
+.atlas-map .maplibregl-ctrl-bottom-left{z-index:3}
+.atlas-map .maplibregl-ctrl-scale{background:rgba(255,255,255,.85);border-color:#10242E;color:#10242E;font:500 11px var(--text)}
+.atlas-map .maplibregl-ctrl-attrib{font:11px var(--text)}
+.atlas-map .maplibregl-cooperative-gesture-screen{font:500 15px var(--text);z-index:4}
+.atlas-map.street .vpin{box-shadow:0 4px 14px rgba(9,22,29,.5)}
+
+/* Фон «о фирме» — три вертикальные колонки */
+.wall{grid-template-rows:none;grid-template-columns:1fr 1fr 1fr}
+.band.words .slide{flex-direction:column;justify-content:center;align-items:center;text-align:center;gap:10px;padding:0 24px}
+.band.words b{font-size:clamp(34px,4.2vw,72px)}
+.band.words .slide.text b{font-size:clamp(26px,3vw,48px);line-height:1.15}
+.band.words span{text-align:center;max-width:12em}
+@media (max-width:700px){.band.words b{font-size:30px}.band.words .slide.text b{font-size:22px}.band.words span{display:block;font-size:13px}}
+
+/* кнопки тура в карточке на карте — обычной строкой, не поверх карты */
+.tour-btns.tour-row{position:static}
+.tour-row button{border-color:var(--line)}
+/* карточки: фото растягивается на всю высоту карточки — без пустоты под ним */
+.grid{align-items:stretch}
+.card{height:100%}
+.card .ph{flex:1 0 auto;aspect-ratio:4/3;min-height:0}
+.card .ph img{position:absolute;inset:0}
+.card .body{flex:none}
 </style>
 </head>
 <body>
@@ -732,6 +766,7 @@ s.old{font:400 .62em var(--text);color:var(--muted);margin-right:8px;text-decora
       <div class="atlas-tabs" id="atlasTabs" role="group" data-i-label="filter.area" aria-label="Район"></div>
       <div class="atlas-body">
         <div class="atlas-map" id="atlasMap">
+          <div class="geo" id="geoMap"></div>
           <svg id="mapSvg" viewBox="0 0 1000 500" preserveAspectRatio="none" aria-hidden="true">
             <defs>
               <linearGradient id="gSea" gradientUnits="userSpaceOnUse" x1="0" y1="250" x2="0" y2="900"><stop offset="0" stop-color="#2E6170"/><stop offset=".45" stop-color="#1A3F4C"/><stop offset="1" stop-color="#0E2630"/></linearGradient>
@@ -955,8 +990,9 @@ s.old{font:400 .62em var(--text);color:var(--muted);margin-right:8px;text-decora
 <a class="wa-fab" id="waFab" href="#" target="_blank" rel="noopener" aria-label="WhatsApp"><svg width="26" height="26" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 11.8 11.8 0 0 0 4.5 4c1.7.7 2.3.8 3.2.6.5-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.2-1.2-.1-.1-.3-.2-.5-.3z"/></svg></a>
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
-<script src="data.js?v=2026-11-28-1"></script>
-<script src="tour.js?v=2026-11-28-1"></script>
-<script src="app.js?v=2026-11-28-1"></script>
+<script src="data.js?v=2026-11-28-3"></script>
+<script src="vendor/maplibre-gl.js?v=4.7.1"></script>
+<script src="tour.js?v=2026-11-28-3"></script>
+<script src="app.js?v=2026-11-28-3"></script>
 </body>
 </html>

@@ -572,6 +572,44 @@ function drawGeography() {
 }
 const atlasMap = $('#atlasMap'), mapSvg = $('#mapSvg'), atlasPins = $('#atlasPins');
 let atlasArea = 'all', atlasVilla = null, vb = null, vbAnim = 0;
+/* Настоящая карта с улицами и домами: MapLibre (vendor/) + бесплатные карты OpenFreeMap (без ключа).
+   Если библиотека или карты недоступны — остаётся нарисованная карта (SVG). */
+const unproj = (x, y) => [x / KX + LNG0, LAT0 - y / KY];
+const MAP_STYLE = 'https://tiles.openfreemap.org/styles/liberty';
+const GEO_TXT = {
+  ru: ['Двигайте карту двумя пальцами', 'Ctrl + колесо — масштаб', '⌘ + колесо — масштаб'],
+  es: ['Usa dos dedos para mover el mapa', 'Ctrl + rueda para el zoom', '⌘ + rueda para el zoom'],
+  en: ['Use two fingers to move the map', 'Ctrl + scroll to zoom', '⌘ + scroll to zoom']
+};
+let GEO = null;
+function initGeo() {
+  const gl = (() => { try { return !!document.createElement('canvas').getContext('webgl'); } catch (e) { return false; } })();
+  if (!window.maplibregl || !gl || !$('#geoMap')) return null;
+  const touch = matchMedia('(pointer: coarse)').matches, tx = GEO_TXT[lang] || GEO_TXT.en;
+  let m;
+  try {
+    m = new maplibregl.Map({
+      container: 'geoMap', style: MAP_STYLE, center: [-4.85, 36.48], zoom: 8.6, minZoom: 7.5, maxZoom: 18,
+      maxBounds: [[-6.2, 35.8], [-3.6, 37.2]], dragRotate: false, pitchWithRotate: false, touchPitch: false,
+      cooperativeGestures: touch, attributionControl: { compact: true },
+      locale: { 'CooperativeGesturesHandler.MobileHelpText': tx[0], 'CooperativeGesturesHandler.WindowsHelpText': tx[1], 'CooperativeGesturesHandler.MacHelpText': tx[2] }
+    });
+  } catch (e) { return null; }
+  m.touchZoomRotate.disableRotation();
+  m.addControl(new maplibregl.ScaleControl({ maxWidth: 110, unit: 'metric' }), 'bottom-left');
+  m.on('move', () => applyVb());
+  m.on('moveend', () => { atlasPins.classList.remove('fade'); atlasMap.classList.remove('flying'); });
+  m.on('zoom', () => atlasMap.classList.toggle('street', m.getZoom() > 13.5));
+  // карты не загрузились (нет интернета, сервис недоступен) — возвращаемся к нарисованной карте
+  const fail = setTimeout(() => { if (!m.isStyleLoaded()) dropGeo(); }, 9000);
+  m.once('load', () => { clearTimeout(fail); atlasMap.classList.add('geo-ready'); applyVb(); });
+  atlasMap.classList.add('geo-on');
+  return m;
+}
+function dropGeo() {
+  if (!GEO) return; try { GEO.remove(); } catch (e) { /* уже удалена */ }
+  GEO = null; atlasMap.classList.remove('geo-on', 'geo-ready'); flyTo(atlasArea, true);
+}
 const atlasCalc = { down: 40, years: 20, rate: 3.4 };
 const villaXY = v => proj(v.lat, v.lng);
 function targetBox(area) {
@@ -586,10 +624,14 @@ function targetBox(area) {
   return [cx - w / 2, cy - h / 2, w, h];
 }
 function applyVb(b) {
-  vb = b; mapSvg.setAttribute('viewBox', b.map(n => n.toFixed(2)).join(' '));
   const W = atlasMap.clientWidth, H = atlasMap.clientHeight;
+  if (GEO) b = vb || [0, 0, 1, 1]; else { vb = b; mapSvg.setAttribute('viewBox', b.map(n => n.toFixed(2)).join(' ')); }
   $$('[data-x]', atlasPins).forEach(el => {
-    const x = (+el.dataset.x - b[0]) / b[2] * W, y = (+el.dataset.y - b[1]) / b[3] * H;
+    let x, y;
+    if (GEO) {                                                      // на настоящей карте: широта/долгота → пиксели
+      const pt = GEO.project(unproj(+el.dataset.x, +(el.dataset.oy || el.dataset.y)));
+      x = pt.x; y = pt.y - (el.dataset.oy ? (el.classList.contains('apin') ? 26 : 22) : 0);
+    } else { x = (+el.dataset.x - b[0]) / b[2] * W; y = (+el.dataset.y - b[1]) / b[3] * H; }
     el.style.left = x + 'px'; el.style.top = y + 'px';
     el.hidden = x < -40 || x > W + 40 || y < -20 || y > H + 20;
   });
@@ -608,6 +650,7 @@ function applyVb(b) {
     if (p.x - half < 0 || p.x + half > W2) p.el.style.left = Math.min(W2 - half, Math.max(half, p.x)) + 'px';
     p.el.classList.toggle('below', p.y < 190);
   });
+  if (GEO) return;
   $('#scaleBar').style.width = Math.round(KM10 / b[2] * W) + 'px';
   atlasMap.classList.toggle('near', b[2] < 520); atlasMap.classList.toggle('closer', b[2] < 260);
 }
@@ -617,7 +660,21 @@ function villaBox(id) {
   let w = 150, h = w / r; if (h < 110) { h = 110; w = h * r; }
   return [x - w / 2, y - h * .45, w, h];
 }
+function geoFly(area, instant) {
+  const dur = instant || matchMedia('(prefers-reduced-motion: reduce)').matches ? 0 : 1800;
+  if (dur) atlasMap.classList.add('flying');
+  if (atlasVilla && area !== 'all') {
+    const v = byId(atlasVilla);
+    GEO.flyTo({ center: [v.lng, v.lat], zoom: 15, duration: dur, curve: 1.6, offset: [0, 40], essential: true });
+  } else {
+    const pts = area === 'all' ? [...VILLAS.map(v => [v.lng, v.lat]), [-5.35, 36.14], [-4.42, 36.72]] : VILLAS.filter(v => v.area === area).map(v => [v.lng, v.lat]);
+    const lo = [Math.min(...pts.map(p => p[0])), Math.min(...pts.map(p => p[1]))], hi = [Math.max(...pts.map(p => p[0])), Math.max(...pts.map(p => p[1]))];
+    GEO.fitBounds([lo, hi], { padding: { top: 70, bottom: 40, left: 50, right: 90 }, maxZoom: 13.2, duration: dur, essential: true });
+  }
+  if (!dur) setTimeout(() => atlasPins.classList.remove('fade'), 280);
+}
 function flyTo(area, instant) {
+  if (GEO) { geoFly(area, instant); return; }
   const to = atlasVilla && area !== 'all' ? villaBox(atlasVilla) : targetBox(area), from = vb || to;
   cancelAnimationFrame(vbAnim);
   if (instant || matchMedia('(prefers-reduced-motion: reduce)').matches) { applyVb(to); setTimeout(() => atlasPins.classList.remove('fade'), 280); return; }
@@ -656,14 +713,14 @@ function zoomMap(f, px, py) {                                      // f < 1 — 
   const pts = new Map(); let last = null, pinch = 0, moved = 0;
   const onPin = e => e.target.closest('button, a, .atlas-legend, .map-zoom');
   atlasMap.addEventListener('pointerdown', e => {
-    if (onPin(e) || e.button) return;
+    if (GEO || onPin(e) || e.button) return;
     pts.set(e.pointerId, [e.clientX, e.clientY]); moved = 0;
     if (pts.size === 1) last = [e.clientX, e.clientY];
     if (pts.size === 2) { const [a, b] = [...pts.values()]; pinch = Math.hypot(a[0] - b[0], a[1] - b[1]); }
     cancelAnimationFrame(vbAnim); atlasMap.classList.remove('flying');
   });
   atlasMap.addEventListener('pointermove', e => {
-    if (!pts.has(e.pointerId) || !vb) return;
+    if (GEO || !pts.has(e.pointerId) || !vb) return;
     pts.set(e.pointerId, [e.clientX, e.clientY]);
     const W = atlasMap.clientWidth, H = atlasMap.clientHeight, r = atlasMap.getBoundingClientRect();
     if (pts.size === 2) {
@@ -681,12 +738,15 @@ function zoomMap(f, px, py) {                                      // f < 1 — 
   atlasMap.addEventListener('pointerup', up); atlasMap.addEventListener('pointercancel', up);
   let hintT = 0;
   atlasMap.addEventListener('wheel', e => {
+    if (GEO) return;
     if (e.ctrlKey || e.metaKey) { e.preventDefault(); const r = atlasMap.getBoundingClientRect(); zoomMap(Math.exp(e.deltaY * .0025), e.clientX - r.left, e.clientY - r.top); return; }
     atlasMap.classList.add('hint'); clearTimeout(hintT); hintT = setTimeout(() => atlasMap.classList.remove('hint'), 1400);
   }, { passive: false });
-  atlasMap.addEventListener('dblclick', e => { if (onPin(e)) return; const r = atlasMap.getBoundingClientRect(); zoomMap(.6, e.clientX - r.left, e.clientY - r.top); });
+  atlasMap.addEventListener('dblclick', e => { if (GEO || onPin(e)) return; const r = atlasMap.getBoundingClientRect(); zoomMap(.6, e.clientX - r.left, e.clientY - r.top); });
   $$('[data-mz]', atlasMap).forEach(b => b.addEventListener('click', () => {
-    const z = +b.dataset.mz; if (z) zoomMap(z > 0 ? 1 / 1.45 : 1.45); else flyTo(atlasArea);
+    const z = +b.dataset.mz;
+    if (GEO) { if (z > 0) GEO.zoomIn(); else if (z < 0) GEO.zoomOut(); else flyTo(atlasArea); return; }
+    if (z) zoomMap(z > 0 ? 1 / 1.45 : 1.45); else flyTo(atlasArea);
   }));
 }
 const compact = n => new Intl.NumberFormat(LOCALE[lang], { notation: 'compact', style: 'currency', currency: cur, maximumFractionDigits: 2 }).format(conv(n));
@@ -704,10 +764,11 @@ function renderPins() {
     VILLAS.forEach(v => { const [x, y] = villaXY(v); html.push(`<span class="vdot" data-x="${x}" data-y="${y}"></span>`); });
     liveAreas().forEach(a => { const vs = areaVillas(a), pts = vs.map(villaXY);
       const x = pts.reduce((s, p) => s + p[0], 0) / pts.length, y = Math.min(...pts.map(p => p[1])) - (a === 'benahavis' ? 70 : a === 'casares' || a === 'nuevaandalucia' ? 50 : 30);
-      html.push(`<button type="button" class="apin" data-area="${a}" data-x="${x}" data-y="${y}" aria-label="${areaName(a)}: ${t('zone.villas', vs.length)}"><span class="an">${areaName(a)}</span> <b>${vs.length}</b></button>`); });
+      const top = pts.reduce((q, p) => p[1] < q[1] ? p : q);
+      html.push(`<button type="button" class="apin" data-area="${a}" data-x="${GEO ? top[0] : x}" data-y="${y}"${GEO ? ` data-oy="${top[1]}"` : ''} aria-label="${areaName(a)}: ${t('zone.villas', vs.length)}"><span class="an">${areaName(a)}</span> <b>${vs.length}</b></button>`); });
   } else {
     areaVillas(A).forEach(v => { const [x, y] = villaXY(v);
-      html.push(`<button type="button" class="vpin${v.status === 'sold' || v.status === 'reserved' ? ' taken' : ''}" data-vid="${v.id}" data-x="${x}" data-y="${y - 14}" aria-label="${L(v).name}, ${v.status ? t('st.' + v.status) + ', ' : ''}${money(v.price)}">${pinLabel(v)}<span class="vcard" aria-hidden="true"><img src="${img(v.gallery[0], 800)}" alt=""><span>${L(v).name}</span></span></button>`); });
+      html.push(`<button type="button" class="vpin${v.status === 'sold' || v.status === 'reserved' ? ' taken' : ''}" data-vid="${v.id}" data-x="${x}" data-y="${y - 14}" data-oy="${y}" aria-label="${L(v).name}, ${v.status ? t('st.' + v.status) + ', ' : ''}${money(v.price)}">${pinLabel(v)}<span class="vcard" aria-hidden="true"><img src="${img(v.gallery[0], 800)}" alt=""><span>${L(v).name}</span></span></button>`); });
   }
   atlasPins.innerHTML = html.join('');
   $$('.apin', atlasPins).forEach(b => b.addEventListener('click', () => selectArea(b.dataset.area)));
@@ -831,11 +892,12 @@ function selectArea(a) {
   swapTimer = setTimeout(() => { renderPins(); renderAtlasInfo(); info.classList.remove('fade'); }, 260);
   flyTo(a);
 }
-function renderAtlas() { renderAtlasTabs(); renderPins(); renderAtlasInfo(); if (!vb) flyTo(atlasArea, true); else applyVb(vb); }
+function renderAtlas() { renderAtlasTabs(); renderPins(); renderAtlasInfo(); if (GEO) { if (!renderAtlas.done) flyTo(atlasArea, true); renderAtlas.done = 1; applyVb(); } else if (!vb) flyTo(atlasArea, true); else applyVb(vb); }
 function pickArea(a) { F.area = a; renderChips(); renderGrid(); $('#villas').scrollIntoView(); }
 drawGeography();
 // Размер карты поменялся (поворот телефона, окно): подогнать вид, не обрывая полёт
-new ResizeObserver(() => { if (vb && !vbAnim) flyTo(atlasArea, true); }).observe(atlasMap);
+GEO = initGeo();
+new ResizeObserver(() => { if (GEO) { GEO.resize(); applyVb(); } else if (vb && !vbAnim) flyTo(atlasArea, true); }).observe(atlasMap);
 
 /* ===================== Карточка виллы ===================== */
 /* Плавная смена фото: старое уезжает и тает, новое въезжает с лёгким приближением */
