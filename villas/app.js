@@ -349,13 +349,13 @@ function showBg(key) { const k = hasWall && key !== 'hero' ? 'brand' : key; laye
 const WALL_STEP = 6500;                                             // каждая полоса меняет кадр раз в 6,5 с, полосы — со сдвигом
 let wallTimers = [], wallOn = false;
 function renderWall() {
+  const txt = o => (o && (o[lang] || o.en)) || '';
+  const st = $('#heroStats');
+  if (st) st.innerHTML = (SITE.stats || []).map(o => `<li><b>${typeof o.big === 'object' ? txt(o.big) : o.big}</b><span>${txt(o)}</span></li>`).join('');
   if (!hasWall) return;
-  const w = SITE.wall, txt = o => (o && (o[lang] || o.en)) || '';
-  const photo = (o, i) => `<div class="slide${i ? '' : ' on'}" style="--pan:${i % 2 ? -1.5 : 1.5}%"><img src="img/brand/${o.photo}.webp" alt="" loading="${i ? 'lazy' : 'eager'}" decoding="async"><p class="cap">${txt(o)}</p></div>`;
-  const word = (o, i) => typeof o.big === 'object'
-    ? `<div class="slide text${i ? '' : ' on'}"><b>${txt(o.big)}</b></div>`
-    : `<div class="slide${i ? '' : ' on'}"><b>${o.big}</b><span>${txt(o)}</span></div>`;
-  wallEl.innerHTML = `<div class="band">${(w.team || []).map(photo).join('')}</div><div class="band words">${(w.words || []).map(word).join('')}</div><div class="band">${(w.firm || []).map(photo).join('')}</div>`;
+  const w = SITE.wall;
+  const photo = (o, i) => `<div class="slide${i ? '' : ' on'}" style="--pan:${i % 2 ? -1.5 : 1.5}%"><img src="img/brand/${o.photo}.webp" alt="" loading="${i ? 'lazy' : 'eager'}" decoding="async"></div>`;
+  wallEl.innerHTML = ['team', 'place', 'firm'].map(k => `<div class="band">${(w[k] || []).map(photo).join('')}</div>`).join('');
   if (wallOn) runWall(true, true);                                  // после смены языка — заново запустить смену кадров
 }
 function runWall(on, force) {
@@ -585,12 +585,14 @@ let GEO = null;
 function initGeo() {
   const gl = (() => { try { return !!document.createElement('canvas').getContext('webgl'); } catch (e) { return false; } })();
   if (!window.maplibregl || !gl || !$('#geoMap')) return null;
-  const touch = matchMedia('(pointer: coarse)').matches, tx = GEO_TXT[lang] || GEO_TXT.en;
-  let m;
+  const tx = GEO_TXT[lang] || GEO_TXT.en;
+  let m, touch;
   try {
+    // «два пальца» — только на телефонах и планшетах без мыши; на компьютере колесо сразу приближает карту
+    touch = matchMedia('(hover: none) and (pointer: coarse)').matches;
     m = new maplibregl.Map({
-      container: 'geoMap', style: MAP_STYLE, center: [-4.85, 36.48], zoom: 8.6, minZoom: 7.5, maxZoom: 18,
-      maxBounds: [[-6.2, 35.8], [-3.6, 37.2]], dragRotate: false, pitchWithRotate: false, touchPitch: false,
+      container: 'geoMap', style: MAP_STYLE, center: [-4.85, 36.48], zoom: 8.6, minZoom: 8, maxZoom: 18,
+      maxBounds: [[-7.6, 35.1], [-2.4, 38.0]], dragRotate: false, pitchWithRotate: false, touchPitch: false,
       cooperativeGestures: touch, attributionControl: { compact: true },
       locale: { 'CooperativeGesturesHandler.MobileHelpText': tx[0], 'CooperativeGesturesHandler.WindowsHelpText': tx[1], 'CooperativeGesturesHandler.MacHelpText': tx[2] }
     });
@@ -600,6 +602,21 @@ function initGeo() {
   m.on('move', () => applyVb());
   m.on('moveend', () => { atlasPins.classList.remove('fade'); atlasMap.classList.remove('flying'); });
   m.on('zoom', () => atlasMap.classList.toggle('street', m.getZoom() > 13.5));
+  // Метки (ценники, районы) пропускают мышь к карте: тянуть можно откуда угодно, а нажатие и наведение ловим сами
+  const pinAt = (x, y) => [...atlasPins.querySelectorAll('.vpin, .apin')].reverse().find(el => {
+    if (el.hidden) return false; const r = el.getBoundingClientRect(); return x >= r.left && x <= r.right && y >= r.top && y <= r.bottom;
+  });
+  let over = null;
+  const setOver = el => {
+    if (el === over) return;
+    if (over) { over.classList.remove('hover'); if (over.dataset.vid) hot(over.dataset.vid, false); }
+    over = el || null;
+    if (over) { over.classList.add('hover'); if (over.dataset.vid) hot(over.dataset.vid, true); }
+    m.getCanvas().style.cursor = over ? 'pointer' : '';
+  };
+  m.on('mousemove', e => setOver(pinAt(e.originalEvent.clientX, e.originalEvent.clientY)));
+  m.on('mouseout', () => setOver(null));
+  m.on('click', e => { const el = pinAt(e.originalEvent.clientX, e.originalEvent.clientY); if (el) { setOver(null); el.click(); } });
   // карты не загрузились (нет интернета, сервис недоступен) — возвращаемся к нарисованной карте
   const fail = setTimeout(() => { if (!m.isStyleLoaded()) dropGeo(); }, 9000);
   m.once('load', () => { clearTimeout(fail); atlasMap.classList.add('geo-ready'); applyVb(); });
@@ -633,7 +650,7 @@ function applyVb(b) {
       x = pt.x; y = pt.y - (el.dataset.oy ? (el.classList.contains('apin') ? 26 : 22) : 0);
     } else { x = (+el.dataset.x - b[0]) / b[2] * W; y = (+el.dataset.y - b[1]) / b[3] * H; }
     el.style.left = x + 'px'; el.style.top = y + 'px';
-    el.hidden = x < -40 || x > W + 40 || y < -20 || y > H + 20;
+    el.hidden = GEO ? x < 0 || x > W || y < 0 || y > H : x < -40 || x > W + 40 || y < -20 || y > H + 20;
   });
   // ценники вилл не должны налезать друг на друга: сдвигаем мешающий вверх
   const tags = $$('.vpin, .apin', atlasPins).map(el => ({ el, x: parseFloat(el.style.left), y: parseFloat(el.style.top), w: el.offsetWidth + 6, h: el.offsetHeight + 6 }))
