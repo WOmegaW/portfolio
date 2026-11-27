@@ -57,6 +57,13 @@ window.SITE = {
       { photo: 'office-2' }, { photo: 'team-4' }, { photo: 'office-1' }, { photo: 'team-5' }
     ]
   },
+  // Агенты: у каждого свои районы — в окне виллы показывается агент её района (фото в img/brand/)
+  agents: [
+    { photo: 'agent-marcos', name: 'Marcos Ruiz', areas: ['sotogrande', 'casares', 'estepona'], langs: 'ES · EN · FR', phone: '+34 000 000 001', whatsapp: '34000000001' },
+    { photo: 'agent-laura', name: 'Laura Martín', areas: ['benahavis', 'nuevaandalucia', 'marbella'], langs: 'ES · EN · RU · DE', phone: '+34 000 000 002', whatsapp: '34000000002' },
+    { photo: 'agent-javier', name: 'Javier Soler', areas: ['mijas', 'benalmadena', 'malaga'], langs: 'ES · EN · SV · NL', phone: '+34 000 000 003', whatsapp: '34000000003' }
+  ],
+
   // Цифры агентства — строкой под заголовком на первом экране
   stats: [
     { big: '480+', ru: 'сделок с 2012 года', es: 'operaciones desde 2012', en: 'deals since 2012' },

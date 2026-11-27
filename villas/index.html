@@ -20,7 +20,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Prata&family=Onest:wght@400;500;600&display=swap" rel="stylesheet">
 <link href="vendor/maplibre-gl.css?v=4.7.1" rel="stylesheet">
-<link href="tour.css?v=2026-11-28-7" rel="stylesheet">
+<link href="tour.css?v=2026-11-28-9" rel="stylesheet">
 <link rel="preload" as="image" href="img/hero-1600.webp" imagesrcset="img/hero-800.webp 800w, img/hero-1600.webp 1600w" imagesizes="100vw">
 <style>
 :root{
@@ -751,6 +751,34 @@ s.old{font:400 .62em var(--text);color:var(--muted);margin-right:8px;text-decora
   .steps p{font-size:15px}
   .steps .term{margin-top:6px;font-size:13px}
 }
+
+/* Под фото в окне виллы: «Где находится» (маленькая карта) и агент района */
+.d-side{display:flex;flex-direction:column;gap:10px}
+.d-loc{border:1px solid var(--line);border-radius:var(--r-md,14px);overflow:hidden;background:rgba(255,255,255,.04)}
+.d-loc-h{display:flex;justify-content:space-between;align-items:baseline;gap:12px;padding:10px 14px 8px}
+.d-loc-h h3{margin:0;font-size:19px}
+.d-loc-h a{font-size:13px;color:var(--ink-2);text-underline-offset:3px;white-space:nowrap}
+.d-map{height:150px;background:#E9E5DC}
+.d-loc-note{margin:0;padding:7px 14px 9px;font-size:12px;color:var(--muted)}
+.d-agent{display:grid;grid-template-columns:56px 1fr auto;align-items:center;gap:12px;padding:10px 12px;border:1px solid var(--line);border-radius:var(--r-md,14px);background:rgba(255,255,255,.04)}
+.d-agent img{width:56px;height:56px;border-radius:50%;object-fit:cover}
+.d-agent p{margin:0;font-size:12px;color:var(--muted)}
+.d-agent b{display:block;font:400 20px/1.2 var(--display)}
+.d-agent span{font-size:13px;color:var(--ink-2)}
+.d-agent-btns{display:flex;gap:8px}
+.d-agent-btns .btn{min-height:42px;padding:0 16px;font-size:14px}
+.d-agent-btns .icon-btn{width:42px;height:42px}
+@media (min-width:821px){.dlg .gallery .gal-main > img{aspect-ratio:16/10}}
+@media (max-width:820px){.d-side{display:none}}
+@media (max-height:860px){.dlg .gallery{position:static}}
+
+/* окно виллы на компьютере: калькулятор — в правой колонке, левая (фото, карта, агент) не наезжает на него */
+@media (min-width:821px){
+  .dlg .gallery{grid-row:1 / span 2}
+  .dlg .calc-wide{grid-column:2;margin:0 clamp(24px,3vw,40px) clamp(24px,3vw,40px)}
+  .dlg .calc-wide .calc-cols{grid-template-columns:1fr}
+  .dlg .calc-wide .calc-cols .mort-h{margin-top:18px}
+}
 </style>
 </head>
 <body>
@@ -998,6 +1026,14 @@ s.old{font:400 .62em var(--text);color:var(--muted);margin-right:8px;text-decora
       <div class="tour-btns" id="dTour"></div>
       </div>
       <div class="thumbs" id="dThumbs"></div>
+      <div class="d-side">
+        <div class="d-loc" id="dLoc">
+          <div class="d-loc-h"><h3 data-i="loc.title">Где находится</h3><a id="dGmaps" href="#" target="_blank" rel="noopener" data-i="loc.gmaps">Открыть в Google Картах</a></div>
+          <div class="d-map" id="dMap"></div>
+          <p class="d-loc-note" data-i="loc.note">Показан примерный район. Точный адрес — при записи на просмотр.</p>
+        </div>
+        <div class="d-agent" id="dAgent"></div>
+      </div>
     </div>
     <div class="dlg-body">
       <div>
@@ -1065,9 +1101,9 @@ s.old{font:400 .62em var(--text);color:var(--muted);margin-right:8px;text-decora
 <a class="wa-fab" id="waFab" href="#" target="_blank" rel="noopener" aria-label="WhatsApp"><svg width="26" height="26" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 11.8 11.8 0 0 0 4.5 4c1.7.7 2.3.8 3.2.6.5-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.2-1.2-.1-.1-.3-.2-.5-.3z"/></svg></a>
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
-<script src="data.js?v=2026-11-28-7"></script>
+<script src="data.js?v=2026-11-28-9"></script>
 <script src="vendor/maplibre-gl.js?v=4.7.1"></script>
-<script src="tour.js?v=2026-11-28-7"></script>
-<script src="app.js?v=2026-11-28-7"></script>
+<script src="tour.js?v=2026-11-28-9"></script>
+<script src="app.js?v=2026-11-28-9"></script>
 </body>
 </html>

@@ -62,6 +62,8 @@ ru: {
  'ph.name': 'Например, Анна', 'ph.phone': '+34 600 123 456', 'ph.email': 'anna@gmail.com', 'ph.msg': 'Например: хочу посмотреть ещё пару вилл рядом',
  'ph.addr': 'Например: Nueva Andalucía, La Cerquilla', 'ph.sellMsg': 'Когда удобно встретиться, есть ли ремонт, бассейн…',
  'map.in': 'Приблизить', 'map.out': 'Отдалить', 'map.reset': 'Показать весь район', 'map.hint': 'Ctrl + колесо — масштаб. Карту можно двигать мышью.',
+ 'loc.title': 'Где находится', 'loc.gmaps': 'Открыть в Google Картах', 'loc.note': 'Показан примерный район. Точный адрес — при записи на просмотр.',
+ 'agent.title': 'Ваш агент по этой вилле', 'agent.call': 'Позвонить', 'agent.wa': 'Здравствуйте! Интересует {0}.',
  'f.name': 'Имя', 'f.contact': 'Телефон или e-mail', 'f.villa': 'Вилла', 'f.any': 'Пока не выбрал(а) — помогите подобрать', 'f.light': 'Когда показать дом',
  'l.m': 'Утром', 'l.d': 'Днём', 'l.s': 'На закате', 'l.st': 'за час до заката',
  'f.msg': 'Комментарий (необязательно)', 'f.send': 'Отправить заявку', 'f.note': 'Это демонстрационная форма: заявка никуда не отправляется.', 'f.privacy': 'Отправляя заявку, вы соглашаетесь с политикой конфиденциальности.',
@@ -137,6 +139,8 @@ es: {
  'ph.name': 'Por ejemplo, Ana', 'ph.phone': '+34 600 123 456', 'ph.email': 'ana@gmail.com', 'ph.msg': 'Por ejemplo: me gustaría ver un par de villas más en la zona',
  'ph.addr': 'Por ejemplo: Nueva Andalucía, La Cerquilla', 'ph.sellMsg': 'Cuándo te viene bien la visita, reformas, piscina…',
  'map.in': 'Acercar', 'map.out': 'Alejar', 'map.reset': 'Ver toda la zona', 'map.hint': 'Ctrl + rueda para el zoom. Arrastra el mapa con el ratón.',
+ 'loc.title': 'Ubicación', 'loc.gmaps': 'Abrir en Google Maps', 'loc.note': 'Zona aproximada. La dirección exacta, al reservar la visita.',
+ 'agent.title': 'Tu agente para esta villa', 'agent.call': 'Llamar', 'agent.wa': '¡Hola! Me interesa {0}.',
  'f.name': 'Nombre', 'f.contact': 'Teléfono o e-mail', 'f.villa': 'Villa', 'f.any': 'Aún no lo sé, ayúdame a elegir', 'f.light': 'Cuándo ver la casa',
  'l.m': 'Por la mañana', 'l.d': 'A mediodía', 'l.s': 'Al atardecer', 'l.st': 'una hora antes de la puesta',
  'f.msg': 'Comentario (opcional)', 'f.send': 'Enviar solicitud', 'f.note': 'Formulario de demostración: la solicitud no se envía a ningún sitio.', 'f.privacy': 'Al enviar la solicitud aceptas la política de privacidad.',
@@ -212,6 +216,8 @@ en: {
  'ph.name': 'e.g. Anna', 'ph.phone': '+34 600 123 456', 'ph.email': 'anna@gmail.com', 'ph.msg': 'e.g. I would like to see a couple more villas nearby',
  'ph.addr': 'e.g. Nueva Andalucía, La Cerquilla', 'ph.sellMsg': 'When suits you for a visit, renovations, pool…',
  'map.in': 'Zoom in', 'map.out': 'Zoom out', 'map.reset': 'Show the whole area', 'map.hint': 'Ctrl + scroll to zoom. Drag the map with the mouse.',
+ 'loc.title': 'Location', 'loc.gmaps': 'Open in Google Maps', 'loc.note': 'Approximate area shown. Exact address when you book a viewing.',
+ 'agent.title': 'Your agent for this villa', 'agent.call': 'Call', 'agent.wa': 'Hello! I am interested in {0}.',
  'f.name': 'Name', 'f.contact': 'Phone or email', 'f.villa': 'Villa', 'f.any': 'Not sure yet, help me choose', 'f.light': 'When to see the house',
  'l.m': 'Morning', 'l.d': 'Midday', 'l.s': 'At sunset', 'l.st': 'an hour before sunset',
  'f.msg': 'Comment (optional)', 'f.send': 'Send request', 'f.note': 'This is a demo form: the request is not sent anywhere.', 'f.privacy': 'By sending the request you accept the privacy policy.',
@@ -983,13 +989,57 @@ function renderVilla() {
   $('#dWa').href = waLink(l.name);
   $('#dPdf').href = `${lang}/${v.id}/brochure.html`;
   $('#dTour').innerHTML = tourBtns(v);
+  renderAgent(v); $('#dGmaps').href = `https://www.google.com/maps/search/?api=1&query=${v.lat},${v.lng}`;
+  requestAnimationFrame(() => miniMap(v));
   setGal(galIdx); renderCalc(); syncFavs(); syncCompare();
+}
+/* Агент района виллы: фото, языки, звонок и WhatsApp с названием виллы в сообщении */
+const agentFor = v => (SITE.agents || []).find(a => a.areas.includes(v.area)) || (SITE.agents || [])[0];
+function renderAgent(v) {
+  const a = agentFor(v), box = $('#dAgent'); if (!box) return;
+  if (!a) { box.hidden = true; return; }
+  box.hidden = false;
+  const wa = `https://wa.me/${a.whatsapp}?text=${encodeURIComponent(t('agent.wa').replace('{0}', `${L(v).name} (${v.ref})`))}`;
+  box.innerHTML = `<img src="img/brand/${a.photo}.webp" alt="${a.name}" loading="lazy"><div><p>${t('agent.title')}</p><b>${a.name}</b><span>${a.langs}</span></div>
+    <div class="d-agent-btns"><a class="icon-btn" href="tel:${a.phone.replace(/\s/g, '')}" aria-label="${t('agent.call')}: ${a.name}"><svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/></svg></a>
+    <a class="btn wa" href="${wa}" target="_blank" rel="noopener">WhatsApp</a></div>`;
+}
+/* Маленькая карта «Где находится»: улицы вокруг и круг ~350 м — примерный район, без точного адреса */
+let mini = null;
+function spotCircle(v, r = 350) {
+  const pts = [], dLat = r / 111320, dLng = r / (111320 * Math.cos(v.lat * Math.PI / 180));
+  for (let i = 0; i <= 64; i++) { const a = i / 64 * Math.PI * 2; pts.push([v.lng + Math.cos(a) * dLng, v.lat + Math.sin(a) * dLat]); }
+  return { type: 'Feature', geometry: { type: 'Polygon', coordinates: [pts] }, properties: {} };
+}
+function miniMap(v) {
+  const box = $('#dLoc'), el = $('#dMap');
+  if (!el || !dlg.open || !el.offsetWidth) return;
+  const gl = !!window.maplibregl && (() => { try { return !!document.createElement('canvas').getContext('webgl'); } catch (e) { return false; } })();
+  if (!gl) { box.hidden = true; return; }
+  box.hidden = false;
+  const put = () => {
+    const src = mini.getSource('spot'); if (src) src.setData(spotCircle(v));
+    mini.jumpTo({ center: [v.lng, v.lat], zoom: 14 }); mini.resize();
+  };
+  if (mini) { if (mini.loaded()) put(); else mini.once('load', put); return; }
+  try {
+    mini = new maplibregl.Map({ container: el, style: MAP_STYLE, center: [v.lng, v.lat], zoom: 14, minZoom: 10, maxZoom: 17,
+      dragRotate: false, pitchWithRotate: false, touchPitch: false, attributionControl: { compact: true } });
+  } catch (e) { box.hidden = true; return; }
+  mini.touchZoomRotate.disableRotation();
+  mini.on('load', () => {
+    mini.addSource('spot', { type: 'geojson', data: spotCircle(current || v) });
+    mini.addLayer({ id: 'spot-fill', type: 'fill', source: 'spot', paint: { 'fill-color': '#3557B8', 'fill-opacity': .18 } });
+    mini.addLayer({ id: 'spot-line', type: 'line', source: 'spot', paint: { 'line-color': '#3557B8', 'line-width': 2 } });
+    const at = el.querySelector('.maplibregl-ctrl-attrib'); if (at) at.classList.remove('maplibregl-compact-show');   // подпись карты — свёрнутым значком «i»
+    put();
+  });
 }
 function openVilla(id, fromHash) {
   const v = byId(id); if (!v) return;
   current = v; galIdx = 0; renderVilla();
   if (!dlg.open) dlg.showModal();
-  dlg.scrollTop = 0;
+  dlg.scrollTop = 0; miniMap(v);
   if (!fromHash && location.hash !== `#villa/${id}`) { history.pushState(null, '', `#villa/${id}`); pushedHash = true; }
 }
 /* Перелёт фото: из карточки раскрывается в окно виллы и при закрытии улетает обратно (View Transitions) */
