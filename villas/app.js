@@ -13,7 +13,6 @@ ru: {
  'nav.villas': 'Виллы', 'nav.coast': 'Районы', 'nav.buy': 'Как купить', 'nav.visit': 'Просмотр', 'nav.menu': 'Меню', 'nav.sell': 'Продать', 'pdf': 'Буклет PDF', 'cur.label': 'Валюта',
  'tour.video': 'Видео-тур', 'tour.360': '3D-тур 360°', 'tour.badge': '3D-тур', 'tour.hint': 'Тяните, чтобы осмотреться', 'tour.rooms': 'Комнаты', 'tour.zoomIn': 'Приблизить', 'tour.zoomOut': 'Отдалить',
  'tour.pause': 'Пауза', 'tour.play': 'Продолжить', 'tour.replay': 'Смотреть ещё раз', 'tour.beds': 'спальни', 'tour.endText': 'Понравилось? Покажем виллу вживую — или проведём видеопросмотр по WhatsApp.',
- 'tour.demo': 'Демо-панорамы: Poly Haven (CC0). Агентство ставит сюда свои 360° фото или ссылку Matterport.',
  'room.living': 'Гостиная', 'room.kitchen': 'Кухня', 'room.dining': 'Столовая', 'room.bed': 'Спальня', 'room.bath': 'Ванная', 'room.pool': 'Бассейн', 'room.view': 'Вид с террасы', 'room.terrace': 'Терраса', 'room.garden': 'Сад', 'room.inside': 'Интерьер', 'room.outside': 'Вилла снаружи',
  
  'near.title': 'Что рядом', 'near.note': 'Минуты на машине, до пляжа — пешком или на машине.',
@@ -84,7 +83,6 @@ es: {
  'nav.villas': 'Villas', 'nav.coast': 'Zonas', 'nav.buy': 'Cómo comprar', 'nav.visit': 'Visita', 'nav.menu': 'Menú', 'nav.sell': 'Vender', 'pdf': 'Ficha PDF', 'cur.label': 'Moneda',
  'tour.video': 'Vídeo tour', 'tour.360': 'Tour 3D 360°', 'tour.badge': 'Tour 3D', 'tour.hint': 'Arrastra para mirar alrededor', 'tour.rooms': 'Estancias', 'tour.zoomIn': 'Acercar', 'tour.zoomOut': 'Alejar',
  'tour.pause': 'Pausa', 'tour.play': 'Continuar', 'tour.replay': 'Ver otra vez', 'tour.beds': 'dormitorios', 'tour.endText': '¿Te gusta? Te la enseñamos en persona o por videollamada de WhatsApp.',
- 'tour.demo': 'Panorámicas de demostración: Poly Haven (CC0). La agencia pone aquí sus fotos 360° o un enlace de Matterport.',
  'room.living': 'Salón', 'room.kitchen': 'Cocina', 'room.dining': 'Comedor', 'room.bed': 'Dormitorio', 'room.bath': 'Baño', 'room.pool': 'Piscina', 'room.view': 'Vistas desde la terraza', 'room.terrace': 'Terraza', 'room.garden': 'Jardín', 'room.inside': 'Interior', 'room.outside': 'Exterior',
  
  'near.title': 'Qué hay cerca', 'near.note': 'Minutos en coche; a la playa, a pie o en coche.',
@@ -155,7 +153,6 @@ en: {
  'nav.villas': 'Villas', 'nav.coast': 'Areas', 'nav.buy': 'How to buy', 'nav.visit': 'Viewing', 'nav.menu': 'Menu', 'nav.sell': 'Sell', 'pdf': 'PDF brochure', 'cur.label': 'Currency',
  'tour.video': 'Video tour', 'tour.360': '3D tour 360°', 'tour.badge': '3D tour', 'tour.hint': 'Drag to look around', 'tour.rooms': 'Rooms', 'tour.zoomIn': 'Zoom in', 'tour.zoomOut': 'Zoom out',
  'tour.pause': 'Pause', 'tour.play': 'Play', 'tour.replay': 'Watch again', 'tour.beds': 'bedrooms', 'tour.endText': 'Like it? We will show it to you in person — or on a WhatsApp video call.',
- 'tour.demo': 'Demo panoramas: Poly Haven (CC0). The agency puts its own 360° photos or a Matterport link here.',
  'room.living': 'Living room', 'room.kitchen': 'Kitchen', 'room.dining': 'Dining room', 'room.bed': 'Bedroom', 'room.bath': 'Bathroom', 'room.pool': 'Pool', 'room.view': 'Terrace view', 'room.terrace': 'Terrace', 'room.garden': 'Garden', 'room.inside': 'Interior', 'room.outside': 'Exterior',
  
  'near.title': 'What’s nearby', 'near.note': 'Minutes by car; to the beach on foot or by car.',
@@ -669,7 +666,8 @@ function renderAtlasVilla(box) {
     </div>`;
   $('#aiBack').addEventListener('click', () => backToArea());
   $$('[data-g]', box).forEach(b => b.addEventListener('click', () => {
-    $('#aiImg').src = img(v.gallery[+b.dataset.g], 800);
+    const n = +b.dataset.g, was = +($('[data-g][aria-current=true]', box) || b).dataset.g;
+    swapImg($('#aiImg'), img(v.gallery[n], 800), n < was ? -1 : 1);
     $$('[data-g]', box).forEach(x => x.setAttribute('aria-current', String(x === b)));
   }));
   $('#aiOpen').addEventListener('click', () => flyOpen(v.id, $('#aiImg')));
@@ -728,6 +726,26 @@ drawGeography();
 new ResizeObserver(() => { if (vb && !vbAnim) flyTo(atlasArea, true); }).observe(atlasMap);
 
 /* ===================== Карточка виллы ===================== */
+/* Плавная смена фото: старое уезжает и тает, новое въезжает с лёгким приближением */
+const calm = () => matchMedia('(prefers-reduced-motion: reduce)').matches;
+function swapImg(el, src, dir = 1) {
+  if (!el) return;
+  if (el.getAttribute('src') === src) return;
+  if (!el.getAttribute('src') || !el.animate || calm() || !el.offsetWidth) { el.src = src; return; }
+  const token = el.swapToken = (el.swapToken || 0) + 1;
+  const pre = new Image(); pre.src = src;
+  (pre.decode ? pre.decode() : Promise.resolve()).catch(() => {}).then(() => {
+    if (el.swapToken !== token) return;                         // пока грузилось, уже листнули дальше
+    el.parentNode.querySelectorAll('.img-ghost').forEach(g => g.remove());
+    const ghost = el.cloneNode(); ghost.removeAttribute('id'); ghost.classList.add('img-ghost'); ghost.style.viewTransitionName = '';
+    Object.assign(ghost.style, { left: el.offsetLeft + 'px', top: el.offsetTop + 'px', width: el.offsetWidth + 'px', height: el.offsetHeight + 'px' });
+    el.after(ghost); el.src = src;
+    const ease = 'cubic-bezier(.2,.7,.1,1)', d = 560, shift = 7 * dir;
+    el.animate([{ opacity: 0, transform: `translateX(${shift}%) scale(1.06)` }, { opacity: 1, transform: 'none' }], { duration: d, easing: ease });
+    ghost.animate([{ opacity: 1, transform: 'none' }, { opacity: 0, transform: `translateX(${-shift}%) scale(.97)` }], { duration: d, easing: ease, fill: 'forwards' })
+      .finished.then(() => ghost.remove(), () => ghost.remove());
+  });
+}
 /* Кнопки «Видео-тур» и «3D-тур 360°» (сам тур — в tour.js) */
 const PLAY_ICO = '<svg width="12" height="12" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 4v16l13-8z" fill="currentColor"/></svg>';
 const tourBtns = v => `<button type="button" data-tour="video" data-vid="${v.id}"><span class="ico">${PLAY_ICO}</span>${t('tour.video')}</button>`
@@ -745,8 +763,8 @@ const bookVilla = v => {
 
 const dlg = $('#dlg'); let current = null, galIdx = 0, pushedHash = false;
 function setGal(i) {
-  const g = current.gallery; galIdx = (i + g.length) % g.length;
-  const main = $('#dImg'); main.src = img(g[galIdx], 1600); main.alt = `${L(current).name}, ${t('gal.of', galIdx + 1, g.length)}`;
+  const g = current.gallery, dir = i < galIdx ? -1 : 1; galIdx = (i + g.length) % g.length;
+  const main = $('#dImg'); swapImg(main, img(g[galIdx], 1600), dir); main.alt = `${L(current).name}, ${t('gal.of', galIdx + 1, g.length)}`;
   $('#dCount').textContent = t('gal.of', galIdx + 1, g.length);
   $$('#dThumbs button').forEach((b, j) => b.setAttribute('aria-current', String(j === galIdx)));
 }
@@ -856,8 +874,8 @@ function renderCalc() {
 /* ===================== Фото на весь экран ===================== */
 const lb = $('#lb'); let lbIdx = 0;
 function setLb(i) {
-  const g = current.gallery; lbIdx = (i + g.length) % g.length;
-  $('#lbImg').src = img(g[lbIdx], 1600); $('#lbImg').alt = `${L(current).name}, ${t('gal.of', lbIdx + 1, g.length)}`;
+  const g = current.gallery, dir = i < lbIdx ? -1 : 1; lbIdx = (i + g.length) % g.length;
+  swapImg($('#lbImg'), img(g[lbIdx], 1600), dir); $('#lbImg').alt = `${L(current).name}, ${t('gal.of', lbIdx + 1, g.length)}`;
   $('#lbCount').textContent = t('gal.of', lbIdx + 1, g.length);
 }
 function openLightbox(i) { setLb(i); lb.showModal(); }

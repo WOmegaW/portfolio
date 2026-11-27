@@ -144,7 +144,7 @@ function cinema(v) {
 const hasPano = v => !!v.tour;
 const isUrl = s => typeof s === 'string' && /^https?:\/\//.test(s);
 function scenesOf(v) {
-  const list = Array.isArray(v.tour) ? v.tour : (window.TOURS && window.TOURS[v.tour]) || [];
+  const list = Array.isArray(v.tour) ? v.tour : [];
   return list.map(s => ({ src: isUrl(s.pano) ? s.pano : `img/pano/${s.pano}`, name: ctx.L(s.name || {}) || '' }));
 }
 const panoSrc = (s, size) => isUrl(s.src) ? s.src : `${s.src}${size}.webp`;
@@ -199,7 +199,6 @@ function pano(v) {
         <button type="button" data-fs aria-label="${esc(ctx.t('gal.full'))}">${ICON.full}</button>
       </div>
       <nav class="t-scenes" aria-label="${esc(ctx.t('tour.rooms'))}">${scenes.map((s, j) => `<button type="button" data-s="${j}"><img src="${esc(isUrl(s.src) ? s.src : s.src + '-t.webp')}" alt=""><span>${esc(s.name)}</span></button>`).join('')}</nav>
-      <p class="t-note">${esc(ctx.t('tour.demo'))}</p>
     </div>${X_BTN}`;
   if (!dlg.open) dlg.showModal();
   const wrap = q('.t-pano'), canvas = q('canvas'), title = q('.t-scene'), hint = q('.t-hint');

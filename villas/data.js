@@ -47,21 +47,11 @@ window.SITE = {
   fallbackRates: { GBP: 0.85, USD: 1.08, SEK: 11.3, NOK: 11.7 }
 };
 
-/* 3D-туры 360°. Панорама — фото 360° (равнопромежуточное, 2:1), кладётся в img/pano/ в трёх размерах:
-   имя.webp (4096×2048), имя-s.webp (2048×1024) и имя-t.webp (маленькая картинка для кнопки).
-   У виллы: tour: 'demo' (набор ниже), свой список [{ pano, name }] или ссылка Matterport ('https://my.matterport.com/show/?m=…').
-   video: ссылка YouTube или .mp4 — тогда «Видео-тур» показывает это видео; пусто — фильм собирается из фото виллы.
-   Демо-панорамы: Poly Haven (polyhaven.com), лицензия CC0 — можно использовать свободно. */
-window.TOURS = {
-  demo: [
-    { pano: 'terrace', name: { ru: 'Терраса с видом на море', es: 'Terraza con vistas al mar', en: 'Sea-view terrace' } },
-    { pano: 'living', name: { ru: 'Гостиная', es: 'Salón', en: 'Living room' } },
-    { pano: 'bedroom', name: { ru: 'Главная спальня', es: 'Dormitorio principal', en: 'Main bedroom' } },
-    { pano: 'bath', name: { ru: 'Ванная', es: 'Baño', en: 'Bathroom' } },
-    { pano: 'pool', name: { ru: 'Сад и бассейн', es: 'Jardín y piscina', en: 'Garden and pool' } },
-    { pano: 'patio', name: { ru: 'Патио с барбекю', es: 'Porche con barbacoa', en: 'Patio with barbecue' } }
-  ]
-};
+/* Видео-тур и 3D-тур (необязательно, поля у виллы):
+   video: ссылка YouTube или .mp4 — «Видео-тур» покажет это видео; пусто — фильм собирается из фото виллы.
+   tour: ссылка на готовый 3D-тур (Matterport и т.п.: 'https://my.matterport.com/show/?m=…') — появится кнопка «3D-тур».
+   Или свой набор панорам 360° (фото 2:1 в img/pano/: имя.webp 4096×2048, имя-s.webp 2048×1024, имя-t.webp маленькая):
+   tour: [{ pano: 'living', name: { ru: 'Гостиная', es: 'Salón', en: 'Living room' } }, …] */
 
 /* Районы (порядок — с запада на восток, так же они идут во вкладках).
    airport — минут на машине из аэропорта Малаги; name/text — название и описание на трёх языках. */
@@ -122,19 +112,19 @@ window.AREAS = {
    near — минуты на машине до гольфа, международной школы, больницы, магазинов и центра города;
    status — метка: 'new' (новое), 'reduced' (цена снижена, тогда oldPrice — прежняя цена), 'reserved' (зарезервирована), 'sold' (продана). */
 window.VILLAS = [
-  { id: 'horizonte', ref: 'VT-1101', area: 'marbella', lat: 36.515, lng: -4.915, near: { golf: 8, school: 10, hospital: 7, shops: 5, town: 6 }, tour: 'demo', gallery: ['hero', 'in-living-8', 'in-kitchen-2', 'in-bed-2', 'in-bath-3'],
+  { id: 'horizonte', ref: 'VT-1101', area: 'marbella', lat: 36.515, lng: -4.915, near: { golf: 8, school: 10, hospital: 7, shops: 5, town: 6 }, gallery: ['hero', 'in-living-8', 'in-kitchen-2', 'in-bed-2', 'in-bath-3'],
     price: 8900000, beds: 6, baths: 7, built: 820, plot: 3100, sun: [9, 0, 21, 25], face: 's', sea: true, newBuild: false, beach: 6, year: 2019, energy: 'A',
     ru: { name: 'Вилла Горизонте', where: 'Золотая миля, Марбелья', desc: 'Флагман нашего каталога. Терраса под деревянным навесом во всю ширину дома, бассейн с подсветкой и сад с пальмами. Шесть спален с ванными, кинозал, винный погреб и квартира для персонала.' },
     es: { name: 'Villa Horizonte', where: 'Milla de Oro, Marbella', desc: 'La joya de nuestro catálogo. Terraza bajo pérgola de madera a lo ancho de la casa, piscina iluminada y jardín con palmeras. Seis dormitorios en suite, sala de cine, bodega y apartamento de servicio.' },
     en: { name: 'Villa Horizonte', where: 'Golden Mile, Marbella', desc: 'The flagship of our portfolio. A terrace under a timber canopy across the full width of the house, a lit pool and a palm garden. Six en-suite bedrooms, cinema, wine cellar and staff apartment.' } },
 
-  { id: 'mirador', ref: 'VT-1088', status: 'reduced', oldPrice: 6900000, area: 'marbella', lat: 36.53, lng: -4.89, near: { golf: 10, school: 12, hospital: 8, shops: 6, town: 5 }, tour: 'demo', gallery: ['mirador', 'mirador-in', 'in-living-9', 'in-bed-4', 'sea'],
+  { id: 'mirador', ref: 'VT-1088', status: 'reduced', oldPrice: 6900000, area: 'marbella', lat: 36.53, lng: -4.89, near: { golf: 10, school: 12, hospital: 8, shops: 6, town: 5 }, gallery: ['mirador', 'mirador-in', 'in-living-9', 'in-bed-4', 'sea'],
     price: 6400000, beds: 5, baths: 6, built: 610, plot: 2300, sun: [9, 30, 21, 20], face: 'sw', sea: true, newBuild: false, beach: 12, year: 2018, energy: 'B',
     ru: { name: 'Вилла Мирадор', where: 'Сьерра-Бланка, Марбелья', desc: 'Три уровня над морем, стеклянные стены в гостиной и бассейн-инфинити, который на закате сливается с горизонтом. В ясный день видно Гибралтар и горы Марокко.' },
     es: { name: 'Villa Mirador', where: 'Sierra Blanca, Marbella', desc: 'Tres niveles sobre el mar, salón con paredes de cristal y piscina infinita que al atardecer se funde con el horizonte. En días claros se ven Gibraltar y las montañas de Marruecos.' },
     en: { name: 'Villa Mirador', where: 'Sierra Blanca, Marbella', desc: 'Three levels above the sea, a glass-walled living room and an infinity pool that merges with the horizon at sunset. On clear days you can see Gibraltar and the mountains of Morocco.' } },
 
-  { id: 'blanca', ref: 'VT-1124', status: 'new', area: 'marbella', lat: 36.512, lng: -4.825, near: { golf: 5, school: 10, hospital: 8, shops: 4, town: 8 }, tour: 'demo', gallery: ['blanca', 'blanca-2', 'in-living-10', 'in-kitchen-3', 'in-bath-4'],
+  { id: 'blanca', ref: 'VT-1124', status: 'new', area: 'marbella', lat: 36.512, lng: -4.825, near: { golf: 5, school: 10, hospital: 8, shops: 4, town: 8 }, gallery: ['blanca', 'blanca-2', 'in-living-10', 'in-kitchen-3', 'in-bath-4'],
     price: 4750000, beds: 5, baths: 5, built: 520, plot: 1400, sun: [8, 40, 20, 55], face: 's', sea: true, newBuild: true, beach: 4, year: 2025, energy: 'A',
     ru: { name: 'Вилла Бланка', where: 'Лос-Монтерос, Марбелья', desc: 'Новый дом 2025 года: белый камень, большой бассейн с пляжной зоной и летняя гостиная под навесом. Четыре минуты пешком до моря, умный дом, аэротермия и солнечные панели.' },
     es: { name: 'Villa Blanca', where: 'Los Monteros, Marbella', desc: 'Obra nueva de 2025: piedra blanca, gran piscina con zona de playa y salón de verano bajo porche. A cuatro minutos a pie del mar, domótica, aerotermia y placas solares.' },
@@ -170,7 +160,7 @@ window.VILLAS = [
     es: { name: 'Casa Patio', where: 'Nueva Andalucía, Marbella', desc: 'Casa de una planta alrededor de la piscina: cada estancia se abre al agua. Cocina de verano bajo pérgola y golf a cinco minutos.' },
     en: { name: 'Casa Patio', where: 'Nueva Andalucía, Marbella', desc: 'A single-storey house around the pool: every room opens onto the water. Summer kitchen under a pergola, golf five minutes away.' } },
 
-  { id: 'cubo', ref: 'VT-1130', area: 'estepona', lat: 36.45, lng: -5.12, near: { golf: 10, school: 12, hospital: 6, shops: 5, town: 5 }, tour: 'demo', gallery: ['cubo', 'in-living-2', 'in-kitchen-3', 'in-bed-3', 'in-bath-3'],
+  { id: 'cubo', ref: 'VT-1130', area: 'estepona', lat: 36.45, lng: -5.12, near: { golf: 10, school: 12, hospital: 6, shops: 5, town: 5 }, gallery: ['cubo', 'in-living-2', 'in-kitchen-3', 'in-bed-3', 'in-bath-3'],
     price: 2350000, beds: 4, baths: 3, built: 310, plot: 820, sun: [9, 0, 21, 0], face: 'sw', sea: false, newBuild: true, beach: 7, year: 2025, energy: 'A',
     ru: { name: 'Каса Кубо', where: 'Эль-Пресидио, Эстепона', desc: 'Новостройка 2025 года: белый объём с тёплым деревом, гараж на две машины, солярий на крыше. Готова к заселению, мебель по желанию покупателя.' },
     es: { name: 'Casa Cubo', where: 'El Presidio, Estepona', desc: 'Obra nueva de 2025: volumen blanco con madera cálida, garaje para dos coches y solárium en la cubierta. Lista para entrar a vivir, amueblada a elección del comprador.' },
@@ -188,13 +178,13 @@ window.VILLAS = [
     es: { name: 'Villa Pinar', where: 'El Madroñal, Benahavís', desc: 'La casa se construyó alrededor de un viejo eucalipto que da sombra a toda la terraza. Parcela grande, silencio y sol de mañana en el salón. Ideal para trabajar desde casa.' },
     en: { name: 'Villa Pinar', where: 'El Madroñal, Benahavís', desc: 'The house was built around an old eucalyptus that shades the whole terrace. A large plot, silence and morning sun in the living room. Made for working from home.' } },
 
-  { id: 'cala', ref: 'VT-1103', area: 'mijas', lat: 36.51, lng: -4.68, near: { golf: 8, school: 10, hospital: 12, shops: 3, town: 3 }, tour: 'demo', gallery: ['cala', 'in-living-11', 'in-dining-2', 'in-bed-4', 'resort'],
+  { id: 'cala', ref: 'VT-1103', area: 'mijas', lat: 36.51, lng: -4.68, near: { golf: 8, school: 10, hospital: 12, shops: 3, town: 3 }, gallery: ['cala', 'in-living-11', 'in-dining-2', 'in-bed-4', 'resort'],
     price: 2150000, beds: 3, baths: 3, built: 260, plot: 700, sun: [8, 10, 21, 15], face: 's', sea: true, newBuild: false, beach: 2, year: 2017, energy: 'B',
     ru: { name: 'Каса Кала', where: 'Ла-Кала-де-Михас', desc: 'Две минуты до пляжа. Деревянная палуба с шезлонгами и бассейн, за которым сразу море. Рестораны и набережная Ла-Калы в пешей доступности.' },
     es: { name: 'Casa Cala', where: 'La Cala de Mijas', desc: 'A dos minutos de la playa. Cubierta de madera con tumbonas y una piscina con el mar justo detrás. Restaurantes y paseo marítimo de La Cala a pie.' },
     en: { name: 'Casa Cala', where: 'La Cala de Mijas', desc: 'Two minutes to the beach. A timber deck with loungers and a pool with the sea right behind it. La Cala’s restaurants and promenade within walking distance.' } },
 
-  { id: 'ocaso', ref: 'VT-1127', area: 'mijas', lat: 36.505, lng: -4.72, near: { golf: 5, school: 12, hospital: 10, shops: 6, town: 10 }, tour: 'demo', gallery: ['ocaso', 'in-living-3', 'in-kitchen-2', 'in-bed-1', 'in-bath-1'],
+  { id: 'ocaso', ref: 'VT-1127', area: 'mijas', lat: 36.505, lng: -4.72, near: { golf: 5, school: 12, hospital: 10, shops: 6, town: 10 }, gallery: ['ocaso', 'in-living-3', 'in-kitchen-2', 'in-bed-1', 'in-bath-1'],
     price: 1690000, beds: 4, baths: 3, built: 270, plot: 850, sun: [9, 40, 21, 25], face: 'w', sea: true, newBuild: true, beach: 9, year: 2025, energy: 'A',
     ru: { name: 'Вилла Окасо', where: 'Ривьера-дель-Соль, Михас', desc: 'Тёмный фасад и высокие окна: вечером дом светится изнутри. Новостройка 2025 года, терраса на запад и сад, готовый к первому лету.' },
     es: { name: 'Villa Ocaso', where: 'Riviera del Sol, Mijas', desc: 'Fachada oscura y ventanales altos: al anochecer la casa brilla desde dentro. Obra nueva de 2025, terraza orientada al oeste y jardín listo para el primer verano.' },
@@ -205,13 +195,13 @@ window.VILLAS = [
     ru: { name: 'Вилла Бриса', where: 'Каласонда, Михас-Коста', desc: 'Компактная вилла с садом и бассейном. Утреннее солнце на кухне, вечером терраса в тени, это удобно жарким летом.' },
     es: { name: 'Villa Brisa', where: 'Calahonda, Mijas Costa', desc: 'Villa compacta con jardín y piscina. Sol de mañana en la cocina y terraza en sombra por la tarde, cómoda en pleno verano.' },
     en: { name: 'Villa Brisa', where: 'Calahonda, Mijas Costa', desc: 'A compact villa with garden and pool. Morning sun in the kitchen and a shaded terrace in the evening, easy living in high summer.' } },
-  { id: 'palmera', ref: 'VT-1141', area: 'sotogrande', lat: 36.30, lng: -5.285, near: { golf: 5, school: 6, hospital: 15, shops: 5, town: 7 }, tour: 'demo', gallery: ['palmera', 'in-living-15', 'in-kitchen-4', 'in-bed-5', 'in-bath-5'],
+  { id: 'palmera', ref: 'VT-1141', area: 'sotogrande', lat: 36.30, lng: -5.285, near: { golf: 5, school: 6, hospital: 15, shops: 5, town: 7 }, gallery: ['palmera', 'in-living-15', 'in-kitchen-4', 'in-bed-5', 'in-bath-5'],
     price: 6200000, beds: 6, baths: 6, built: 690, plot: 4200, sun: [8, 50, 21, 35], face: 's', sea: true, newBuild: false, beach: 3, year: 2015, energy: 'B',
     ru: { name: 'Вилла Пальмера', where: 'Сотогранде-Коста', desc: 'Пальмовая аллея ведёт к бассейну, за которым только пляж. Шесть спален, гостевой дом, теннисный корт. До яхтенного порта и поло-клуба пять минут.' },
     es: { name: 'Villa Palmera', where: 'Sotogrande Costa', desc: 'Un paseo de palmeras lleva a la piscina, y detrás solo queda la playa. Seis dormitorios, casa de invitados y pista de tenis. A cinco minutos del puerto y del club de polo.' },
     en: { name: 'Villa Palmera', where: 'Sotogrande Costa', desc: 'A palm-lined walk leads to the pool, with only the beach beyond it. Six bedrooms, a guest house and a tennis court. Five minutes from the harbour and polo club.' } },
 
-  { id: 'marina', ref: 'VT-1143', area: 'sotogrande', lat: 36.31, lng: -5.265, near: { golf: 3, school: 5, hospital: 15, shops: 3, town: 4 }, tour: 'demo', gallery: ['marina', 'in-living-13', 'in-dining-1', 'in-bed-2', 'ext-pool'],
+  { id: 'marina', ref: 'VT-1143', area: 'sotogrande', lat: 36.31, lng: -5.265, near: { golf: 3, school: 5, hospital: 15, shops: 3, town: 4 }, gallery: ['marina', 'in-living-13', 'in-dining-1', 'in-bed-2', 'ext-pool'],
     price: 3900000, beds: 5, baths: 5, built: 450, plot: 1500, sun: [9, 10, 21, 20], face: 'sw', sea: true, newBuild: false, beach: 6, year: 2019, energy: 'B',
     ru: { name: 'Каса Марина', where: 'Ла-Марина, Сотогранде', desc: 'Белый дом с длинным бассейном и ночной подсветкой фасада. Пешком до ресторанов порта, рядом гольф Вальдеррама.' },
     es: { name: 'Casa Marina', where: 'La Marina, Sotogrande', desc: 'Casa blanca con piscina larga y fachada iluminada por la noche. A pie de los restaurantes del puerto y cerca del golf de Valderrama.' },
@@ -229,7 +219,7 @@ window.VILLAS = [
     es: { name: 'Casa Mirlo', where: 'Casares Costa', desc: 'Obra nueva en la ladera: madera oscura, luz cálida en las ventanas y una terraza sobre el valle. La villa más asequible del catálogo con vistas al mar.' },
     en: { name: 'Casa Mirlo', where: 'Casares Costa', desc: 'A new house on the hillside: dark timber, warm light in the windows and a terrace over the valley. The most affordable sea-view villa in the catalogue.' } },
 
-  { id: 'lago', ref: 'VT-1133', status: 'new', area: 'nuevaandalucia', lat: 36.515, lng: -4.975, near: { golf: 1, school: 8, hospital: 12, shops: 5, town: 10 }, tour: 'demo', gallery: ['lago', 'in-living-14', 'in-kitchen-3', 'in-bed-5', 'in-bath-5'],
+  { id: 'lago', ref: 'VT-1133', status: 'new', area: 'nuevaandalucia', lat: 36.515, lng: -4.975, near: { golf: 1, school: 8, hospital: 12, shops: 5, town: 10 }, gallery: ['lago', 'in-living-14', 'in-kitchen-3', 'in-bed-5', 'in-bath-5'],
     price: 3600000, beds: 5, baths: 5, built: 470, plot: 1300, sun: [9, 0, 20, 50], face: 's', sea: false, newBuild: true, beach: 9, year: 2024, energy: 'A',
     ru: { name: 'Вилла Лаго', where: 'Лос-Наранхос, Нуэва-Андалусия', desc: 'Новый дом у поля Лос-Наранхос: бассейн подходит к самой гостиной, вечером подсвечен изнутри. Пять минут до Пуэрто-Бануса.' },
     es: { name: 'Villa Lago', where: 'Los Naranjos, Nueva Andalucía', desc: 'Obra nueva junto al campo de Los Naranjos: la piscina llega hasta el salón y por la noche se ilumina desde dentro. A cinco minutos de Puerto Banús.' },
@@ -253,7 +243,7 @@ window.VILLAS = [
     es: { name: 'Villa Limonar', where: 'El Limonar, Málaga', desc: 'Piscina en la azotea con vistas al puerto y a la catedral de Málaga; al atardecer toda la costa se enciende. A diez minutos del centro y del Museo Picasso.' },
     en: { name: 'Villa Limonar', where: 'El Limonar, Málaga', desc: 'A rooftop pool overlooking Málaga’s harbour and cathedral; at sunset the whole coast lights up. Ten minutes from the centre and the Picasso Museum.' } },
 
-  { id: 'calderon', ref: 'VT-1155', status: 'new', area: 'malaga', lat: 36.736, lng: -4.372, near: { golf: 15, school: 5, hospital: 10, shops: 6, town: 12 }, tour: 'demo', gallery: ['calderon', 'in-living-13', 'in-kitchen-3', 'in-bed-4', 'ext-cube'],
+  { id: 'calderon', ref: 'VT-1155', status: 'new', area: 'malaga', lat: 36.736, lng: -4.372, near: { golf: 15, school: 5, hospital: 10, shops: 6, town: 12 }, gallery: ['calderon', 'in-living-13', 'in-kitchen-3', 'in-bed-4', 'ext-cube'],
     price: 2400000, beds: 4, baths: 4, built: 350, plot: 1000, sun: [9, 0, 20, 45], face: 'sw', sea: false, newBuild: true, beach: 8, year: 2025, energy: 'A',
     ru: { name: 'Каса Кальдерон', where: 'Серрадо-де-Кальдерон, Малага', desc: 'Новостройка в закрытом посёлке на холме: стекло, тёмное дерево и бассейн с ночной подсветкой. Город рядом, а вокруг тишина и сады.' },
     es: { name: 'Casa Calderón', where: 'Cerrado de Calderón, Málaga', desc: 'Obra nueva en una urbanización cerrada en la colina: cristal, madera oscura y piscina iluminada. La ciudad al lado y alrededor, silencio y jardines.' },

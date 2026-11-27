@@ -74,3 +74,7 @@ dialog.tour[open]{animation:t-in .45s ease}
 .tour-row{display:flex;gap:8px;flex-wrap:wrap}
 .tour-row button{display:inline-flex;align-items:center;gap:8px}
 .badge-360{background:#fff!important;color:var(--sea)!important;font-weight:700}
+
+/* Призрак старого фото при плавной смене (swapImg в app.js) */
+.img-ghost{position:absolute!important;margin:0!important;max-width:none!important;max-height:none!important;pointer-events:none;z-index:1;object-fit:cover}
+.lb-stage .img-ghost{object-fit:contain}
