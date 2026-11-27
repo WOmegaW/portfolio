@@ -346,16 +346,23 @@ const layerEls = $$('.layer'), scrim = $('#scrim');
 const wallEl = document.getElementById('wall'), hasWall = !!(SITE.wall && wallEl);
 // Под всеми разделами, кроме первого экрана, — фон «о фирме» (если он заполнен в data.js)
 function showBg(key) { const k = hasWall && key !== 'hero' ? 'brand' : key; layerEls.forEach(l => l.classList.toggle('on', l.dataset.bg === k)); scrim.classList.toggle('on', key !== 'hero'); runWall(k === 'brand'); }
-const WALL_STEP = 6500;                                             // каждая полоса меняет кадр раз в 6,5 с, полосы — со сдвигом
+const WALL_STEP = 6500;
+const wallOne = matchMedia('(max-width: 700px), (max-height: 520px)');
+wallOne.addEventListener('change', () => renderWall());                                             // каждая полоса меняет кадр раз в 6,5 с, полосы — со сдвигом
 let wallTimers = [], wallOn = false;
 function renderWall() {
   const txt = o => (o && (o[lang] || o.en)) || '';
   const st = $('#heroStats');
   if (st) st.innerHTML = (SITE.stats || []).map(o => `<li><b>${typeof o.big === 'object' ? txt(o.big) : o.big}</b><span>${txt(o)}</span></li>`).join('');
   if (!hasWall) return;
-  const w = SITE.wall;
+  const w = SITE.wall, one = wallOne.matches;
   const photo = (o, i) => `<div class="slide${i ? '' : ' on'}" style="--pan:${i % 2 ? -1.5 : 1.5}%"><img src="img/brand/${o.photo}.webp" alt="" loading="${i ? 'lazy' : 'eager'}" decoding="async"></div>`;
-  wallEl.innerHTML = ['team', 'place', 'firm'].map(k => `<div class="band">${(w[k] || []).map(photo).join('')}</div>`).join('');
+  // на узком или низком экране три колонки слишком мелкие — показываем одно фото на весь экран, по очереди из всех колонок
+  const groups = ['team', 'place', 'firm'].map(k => w[k] || []), mixed = [];
+  for (let i = 0; i < Math.max(...groups.map(g => g.length)); i++) groups.forEach(g => g[i] && mixed.push(g[i]));   // команда, место, офис, команда…
+  const cols = one ? [mixed] : groups;
+  wallEl.classList.toggle('one', one);
+  wallEl.innerHTML = cols.map(c => `<div class="band">${c.map(photo).join('')}</div>`).join('');
   if (wallOn) runWall(true, true);                                  // после смены языка — заново запустить смену кадров
 }
 function runWall(on, force) {
