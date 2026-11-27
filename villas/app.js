@@ -1019,9 +1019,10 @@ function miniMap(v) {
   box.hidden = false;
   const put = () => {
     const src = mini.getSource('spot'); if (src) src.setData(spotCircle(v));
-    mini.jumpTo({ center: [v.lng, v.lat], zoom: 14 }); mini.resize();
+    mini.resize(); mini.jumpTo({ center: [v.lng, v.lat], zoom: 14 });
   };
   if (mini) { if (mini.loaded()) put(); else mini.once('load', put); return; }
+  addEventListener('resize', () => { if (mini && dlg.open) mini.resize(); });
   try {
     mini = new maplibregl.Map({ container: el, style: MAP_STYLE, center: [v.lng, v.lat], zoom: 14, minZoom: 10, maxZoom: 17,
       dragRotate: false, pitchWithRotate: false, touchPitch: false, attributionControl: { compact: true } });
