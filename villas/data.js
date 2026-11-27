@@ -43,6 +43,33 @@ window.SITE = {
 
   // Валюты для переключателя в шапке. Курсы сайт берёт у Европейского ЦБ (сервис frankfurter);
   // если он недоступен — использует запасные курсы ниже (сколько единиц валюты за 1 €).
+  // Фон сайта под разделами: три полосы, в каждой сменяются фото и надписи.
+  // Фото — в img/brand/ (имя без .webp). Подписи и цифры — на трёх языках.
+  wall: {
+    team: [
+      { photo: 'team-1', ru: 'Лаура — отдел продаж, говорит на 4 языках', es: 'Laura, ventas · habla 4 idiomas', en: 'Laura, sales · speaks 4 languages' },
+      { photo: 'team-3', ru: 'Команда Vertiente: 12 агентов, 6 языков', es: 'Equipo Vertiente: 12 agentes, 6 idiomas', en: 'The Vertiente team: 12 agents, 6 languages' },
+      { photo: 'team-2', ru: 'Юрист и агент — на каждой сделке', es: 'Abogado y agente en cada operación', en: 'A lawyer and an agent on every deal' },
+      { photo: 'team-4', ru: 'Каждый понедельник разбираем новые виллы', es: 'Cada lunes revisamos las villas nuevas', en: 'Every Monday we review new villas' },
+      { photo: 'team-5', ru: 'Подбор под ваш запрос — за 48 часов', es: 'Selección a tu medida en 48 horas', en: 'A shortlist for you within 48 hours' }
+    ],
+    words: [
+      { big: { ru: 'Дома, в которых живёт свет', es: 'Casas donde vive la luz', en: 'Homes where the light lives' } },
+      { big: '480+', ru: 'сделок с 2012 года', es: 'operaciones desde 2012', en: 'deals since 2012' },
+      { big: '4,9 ★', ru: 'в Google — 230 отзывов', es: 'en Google · 230 reseñas', en: 'on Google · 230 reviews' },
+      { big: { ru: 'Показываем дом на закате', es: 'Te enseñamos la casa al atardecer', en: 'We show the house at sunset' } },
+      { big: '6', ru: 'языков в команде', es: 'idiomas en el equipo', en: 'languages in the team' },
+      { big: '€ 1,2 млрд', ru: 'продано недвижимости', es: 'en propiedades vendidas', en: 'in property sold' }
+    ],
+    firm: [
+      { photo: 'office-2', ru: 'Офис на Avenida del Mar, Марбелья', es: 'Oficina en Avenida del Mar, Marbella', en: 'Our office on Avenida del Mar, Marbella' },
+      { photo: 'keys', ru: 'Ключи — в день подписания у нотариуса', es: 'Las llaves, el día de la firma', en: 'Keys on the day you sign' },
+      { photo: 'coast-1', ru: 'От Сотогранде до Малаги — 120 км побережья', es: 'De Sotogrande a Málaga: 120 km de costa', en: 'Sotogrande to Málaga: 120 km of coast' },
+      { photo: 'office-1', ru: 'Кофе и честный разговор о цене', es: 'Café y una conversación honesta sobre el precio', en: 'Coffee and an honest talk about price' },
+      { photo: 'coast-2', ru: 'Знаем каждую урбанизацию', es: 'Conocemos cada urbanización', en: 'We know every urbanización' }
+    ]
+  },
+
   currencies: ['EUR', 'GBP', 'USD', 'SEK', 'NOK'],
   fallbackRates: { GBP: 0.85, USD: 1.08, SEK: 11.3, NOK: 11.7 }
 };

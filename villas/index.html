@@ -19,7 +19,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Prata&family=Onest:wght@400;500;600&display=swap" rel="stylesheet">
-<link href="tour.css?v=2026-11-27-7" rel="stylesheet">
+<link href="tour.css?v=2026-11-28-1" rel="stylesheet">
 <link rel="preload" as="image" href="img/hero-1600.webp" imagesrcset="img/hero-800.webp 800w, img/hero-1600.webp 1600w" imagesizes="100vw">
 <style>
 :root{
@@ -226,7 +226,7 @@ dialog.vt[open]{animation:none}
 .atlas-map{position:relative;height:100%;border-radius:12px;overflow:hidden;background:#1A3F4C}
 @media (max-width:960px){.atlas-map{height:auto;aspect-ratio:16/11}}
 @media (max-width:640px){.atlas-map{aspect-ratio:4/3.4}}
-.atlas-map svg{position:absolute;inset:0;width:100%;height:100%;display:block}
+.atlas-map > svg{position:absolute;inset:0;width:100%;height:100%;display:block}
 .shore{fill:none;stroke:rgba(255,255,255,.75);stroke-width:1.2;vector-effect:non-scaling-stroke}
 .road{fill:none;stroke:#C9773B;stroke-width:2;stroke-dasharray:7 5;vector-effect:non-scaling-stroke;opacity:.85}
 .relief path{fill:none;stroke:#8F8371;stroke-width:1;vector-effect:non-scaling-stroke}
@@ -322,7 +322,8 @@ dialog.vt[open]{animation:none}
 .form-panel h2{font-size:clamp(30px,3.4vw,44px)}
 .form-panel .lead{font-size:17px;margin:10px 0 24px}
 form{display:grid;gap:18px}
-.field{display:grid;gap:6px}
+.field{display:grid;gap:6px;align-content:start}
+.field-hint{margin:-6px 0 0;font-size:14px;color:var(--muted)}
 .field label,.field legend{font-size:15px;font-weight:500}
 .field input,.field select,.field textarea{width:100%;border:1px solid var(--line);background:rgba(255,255,255,.08);border-radius:10px;padding:12px 14px;min-height:50px;color:#fff}
 .field input::placeholder,.field textarea::placeholder{color:var(--muted)}
@@ -562,11 +563,91 @@ s.old{font:400 .62em var(--text);color:var(--muted);margin-right:8px;text-decora
 .toast.on{opacity:1;transform:translate(-50%,0)}
 @media (max-width:960px){.fav-head{height:36px;padding:0 10px}}
 @media (max-width:420px){.lang button{padding:5px 7px}.top .wrap{gap:12px}}
+
+/* ===== Правки: единые скругления, плотнее разделы, быстрее появление, ровная галерея ===== */
+:root{--r-lg:20px;--r-md:14px;--r-sm:10px}
+/* 9. скругления в одном стиле: крупные блоки 20, вложенные 14, мелкие 10, метки — «пилюли» */
+.panel,.card,dialog:not(.lb):not(.tour),.atlas{border-radius:var(--r-lg)}
+.atlas-map,.calc,.ai-calc,.light label,.cookie{border-radius:var(--r-md)}
+.field input,.field select,.field textarea,.selects select{border-radius:var(--r-sm)}
+.atlas-info .ai-photo,.ai-thumbs button,.dlg .thumbs button,.thumbs button,.vpin .vcard{border-radius:var(--r-sm)}
+.card .badges span,.card .photos,.gal-count,.st,.ai-calc input[type=number]{border-radius:999px}
+.card .badges span,.card .photos{padding:4px 10px}
+/* 5. разделы ближе друг к другу и разделены тонкой светящейся линией */
+.section{padding:clamp(56px,7vw,104px) 0;position:relative}
+.section + .section::before{content:"";position:absolute;top:0;left:50%;transform:translateX(-50%);width:min(var(--max),calc(100% - 2 * var(--gutter)));height:1px;background:linear-gradient(90deg,transparent,rgba(255,255,255,.4) 20%,rgba(230,225,215,.75) 50%,rgba(255,255,255,.4) 80%,transparent)}
+.section + .section::after{content:"";position:absolute;top:-4px;left:50%;width:8px;height:8px;margin-left:-4px;transform:rotate(45deg);background:var(--sand);box-shadow:0 0 14px rgba(230,225,215,.6)}
+.section-head{margin-bottom:clamp(24px,3.5vw,44px)}
+/* 6. виллы появляются быстрее */
+.card.reveal{transform:translateY(24px) scale(.985)}
+.card.reveal .ph img{transform:scale(1.08)}
+.card.reveal.in{transition:opacity .45s ease var(--d,0s),transform .55s var(--ease) var(--d,0s)}
+.card.reveal.in .ph img{transition:transform .9s var(--ease) var(--d,0s)}
+.steps li.reveal{transform:translateY(16px)}
+.steps li.reveal.in{transition:opacity .45s ease var(--d,0s),transform .55s var(--ease) var(--d,0s)}
+/* 7. галерея в окне виллы: главное фото и плитки — одинаковые рамки и отступы */
+.dlg .gallery{padding:10px;display:flex;flex-direction:column;gap:10px;align-self:start;position:sticky;top:0;border-right:0;background:transparent}
+.gal-main{border-radius:var(--r-md);overflow:hidden}
+.dlg .thumbs{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px;padding:0;flex:none;grid-auto-rows:auto}
+.dlg .thumbs button,.dlg .thumbs button:nth-child(4):nth-last-child(2),.dlg .thumbs button:nth-child(5):last-child{grid-column:auto;aspect-ratio:4/3;height:auto;position:relative}
+.dlg .thumbs img{position:absolute;inset:0;width:100%;height:100%}
+.calc-wide{margin-top:clamp(8px,1.5vw,16px)}
+@media (max-width:820px){
+  .dlg .gallery{position:relative;padding:8px 8px 0}
+  .dlg .thumbs{display:flex;overflow-x:auto;gap:8px;padding-bottom:4px}
+  .dlg .thumbs button,.dlg .thumbs button:nth-child(4):nth-last-child(2),.dlg .thumbs button:nth-child(5):last-child{flex:none;width:84px;height:63px;aspect-ratio:auto}
+}
+/* 2. листание мышью: фото тянется за курсором */
+.gal-main,.lb-stage,.ai-gal{touch-action:pan-y}
+.dragging,.dragging img{cursor:grabbing!important}
+.gal-main img,.lb-stage img,.ai-gal img{user-select:none;-webkit-user-drag:none}
+
+/* 1. Интерактивная карта: двигать, приближать, больше деталей */
+.atlas-map{cursor:grab;touch-action:pan-y;user-select:none}
+.atlas-map.dragging{cursor:grabbing}
+.atlas-map.dragging .vpin,.atlas-map.dragging .apin{pointer-events:none}
+.rivers path{fill:none;stroke:#7FB2C0;stroke-width:1.6;vector-effect:non-scaling-stroke;opacity:.85}
+.mpoi{position:absolute;display:none;align-items:center;gap:4px;font-size:11px;color:#3E4E53;white-space:nowrap;pointer-events:none;transform:translate(-50%,-50%);background:rgba(238,232,220,.85);padding:2px 7px 2px 5px;border-radius:999px}
+.mpoi i{font-style:normal;font-size:11px}
+.mpoi small{font-size:10px;color:#7A6E5E}
+.mpoi.peak{background:none;color:#6E604D;font-weight:500}
+.mpoi.peak i{color:#8F8371;font-size:9px}
+.mpoi.marina{background:rgba(26,63,76,.85);color:#fff}
+.atlas-map.near .mpoi.peak,.atlas-map.closer .mpoi{display:flex}
+.atlas-map.near .mpoi.marina{display:flex}
+.map-zoom{position:absolute;right:12px;top:12px;z-index:3;display:flex;flex-direction:column;border-radius:var(--r-sm,10px);overflow:hidden;box-shadow:0 6px 18px rgba(9,22,29,.35)}
+.map-zoom button{width:38px;height:38px;border:0;background:rgba(255,255,255,.94);color:var(--sea);font:500 20px/1 var(--text);cursor:pointer;display:flex;align-items:center;justify-content:center}
+.map-zoom button + button{border-top:1px solid rgba(16,36,46,.12)}
+.map-zoom button:hover{background:#fff}
+.map-hint{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);margin:0;z-index:4;padding:10px 16px;border-radius:999px;background:rgba(9,22,29,.75);color:#fff;font-size:14px;pointer-events:none;opacity:0;transition:opacity .3s;white-space:nowrap}
+.atlas-map.hint .map-hint{opacity:1}
+
+/* 8. Фон «о фирме»: три горизонтальные полосы — команда, слоганы и цифры, офис и побережье */
+.wall img{animation:none}
+.wall{inset:0;display:grid;grid-template-rows:1fr 1fr 1fr;gap:3px;background:#081419}
+.band{position:relative;overflow:hidden}
+.slide{position:absolute;inset:0;opacity:0;transition:opacity 1.6s ease}
+.slide.on{opacity:1}
+.slide img{width:100%;height:100%;object-fit:cover;transform:scale(1.04);transition:transform 9s linear}
+.slide.on img{transform:scale(1.14) translateX(var(--pan,1.5%))}
+.band .cap{position:absolute;right:var(--gutter);bottom:14px;margin:0;padding:6px 14px;border-radius:999px;background:rgba(9,22,29,.55);color:rgba(255,255,255,.92);font-size:13px;letter-spacing:.02em;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);opacity:0;transform:translateY(8px);transition:opacity .8s .5s,transform .8s .5s var(--ease)}
+.slide.on .cap{opacity:1;transform:none}
+.band.words{background:radial-gradient(120% 160% at 20% 50%,#1F4A5A,#0B1D24 70%)}
+.band.words::before{content:"";position:absolute;inset:0;background:url(img/brand/coast-1.webp) center/cover;opacity:.18;filter:blur(2px) saturate(.8)}
+.band.words .slide{display:flex;align-items:center;justify-content:flex-end;gap:18px;padding:0 var(--gutter);text-align:right}
+.band.words b{font:400 clamp(40px,7vw,110px)/1 var(--display);color:rgba(255,255,255,.9);transform:translateY(20px);transition:transform 1.4s var(--ease)}
+.band.words .slide.on b{transform:none}
+.band.words span{max-width:14em;font-size:clamp(15px,1.6vw,22px);color:var(--sand);text-align:left}
+.band.words .slide.text b{font-size:clamp(30px,5vw,76px);font-style:italic;color:rgba(230,225,215,.85)}
+@media (max-width:700px){.band.words .slide{flex-direction:column;justify-content:center;align-items:flex-end;gap:4px}.band.words span{display:none}}
+.band .cap{display:none}
+.band.words b{color:rgba(255,255,255,.62)}.band.words .slide.text b{color:rgba(230,225,215,.6)}.band.words span{color:rgba(230,225,215,.7)}
+@media (prefers-reduced-motion:reduce){.slide,.slide img,.band.words b{transition:none}.slide.on img{transform:scale(1.04)}}
 </style>
 </head>
 <body>
 <div class="stage" aria-hidden="true">
-  <div class="layers" id="layers"><div class="layer" data-bg="hero"><img src="img/hero-1600.webp" srcset="img/hero-800.webp 800w, img/hero-1600.webp 1600w" sizes="108vw" alt="" decoding="async" fetchpriority="high"></div><div class="layer" data-bg="patio"><img src="img/patio-1600.webp" srcset="img/patio-800.webp 800w, img/patio-1600.webp 1600w" sizes="108vw" alt="" decoding="async"></div><div class="layer" data-bg="sea"><img src="img/sea-1600.webp" srcset="img/sea-800.webp 800w, img/sea-1600.webp 1600w" sizes="108vw" alt="" decoding="async"></div><div class="layer" data-bg="mirador-in"><img src="img/mirador-in-1600.webp" srcset="img/mirador-in-800.webp 800w, img/mirador-in-1600.webp 1600w" sizes="108vw" alt="" decoding="async"></div><div class="layer" data-bg="dusk"><img src="img/dusk-1600.webp" srcset="img/dusk-800.webp 800w, img/dusk-1600.webp 1600w" sizes="108vw" alt="" decoding="async"></div><div class="layer" data-bg="cortijo"><img src="img/cortijo-1600.webp" srcset="img/cortijo-800.webp 800w, img/cortijo-1600.webp 1600w" sizes="108vw" alt="" decoding="async"></div></div>
+  <div class="layers" id="layers"><div class="layer" data-bg="hero"><img src="img/hero-1600.webp" srcset="img/hero-800.webp 800w, img/hero-1600.webp 1600w" sizes="108vw" alt="" decoding="async" fetchpriority="high"></div><div class="layer" data-bg="patio"><img src="img/patio-1600.webp" srcset="img/patio-800.webp 800w, img/patio-1600.webp 1600w" sizes="108vw" alt="" decoding="async"></div><div class="layer" data-bg="sea"><img src="img/sea-1600.webp" srcset="img/sea-800.webp 800w, img/sea-1600.webp 1600w" sizes="108vw" alt="" decoding="async"></div><div class="layer" data-bg="mirador-in"><img src="img/mirador-in-1600.webp" srcset="img/mirador-in-800.webp 800w, img/mirador-in-1600.webp 1600w" sizes="108vw" alt="" decoding="async"></div><div class="layer" data-bg="dusk"><img src="img/dusk-1600.webp" srcset="img/dusk-800.webp 800w, img/dusk-1600.webp 1600w" sizes="108vw" alt="" decoding="async"></div><div class="layer" data-bg="cortijo"><img src="img/cortijo-1600.webp" srcset="img/cortijo-800.webp 800w, img/cortijo-1600.webp 1600w" sizes="108vw" alt="" decoding="async"></div><div class="layer wall" data-bg="brand" id="wall"></div></div>
   <div class="tint" id="tint"></div><div class="glow" id="glow"></div><div class="scrim" id="scrim"></div>
 </div>
 <button type="button" class="to-top" id="toTop" data-i-label="toTop" aria-label="Наверх"><svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 19V5M5 12l7-7 7 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
@@ -660,11 +741,17 @@ s.old{font:400 .62em var(--text);color:var(--muted);margin-right:8px;text-decora
             <rect x="-3000" y="-3000" width="7000" height="7000" fill="url(#gSea)"/>
             <g id="waves" class="waves"></g>
             <path id="land" fill="url(#gLand)"/>
-            <g clip-path="url(#clipLand)"><g id="relief" class="relief"></g></g>
+            <g clip-path="url(#clipLand)"><g id="relief" class="relief"></g><g id="rivers" class="rivers"></g></g>
             <path id="shore" class="shore"/>
             <path id="road" class="road"/>
           </svg>
           <div class="atlas-pins" id="atlasPins"></div>
+          <div class="map-zoom">
+            <button type="button" data-mz="1" data-i-label="map.in" aria-label="Приблизить">+</button>
+            <button type="button" data-mz="-1" data-i-label="map.out" aria-label="Отдалить">−</button>
+            <button type="button" data-mz="0" data-i-label="map.reset" aria-label="Показать весь район"><svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5" fill="none" stroke="currentColor" stroke-width="2"/></svg></button>
+          </div>
+          <p class="map-hint" data-i="map.hint">Ctrl + колесо — масштаб. Карту можно двигать мышью.</p>
           <div class="atlas-legend"><span class="scale"><i id="scaleBar"></i><span data-i="atlas.scale">10 км</span></span><span class="compass" aria-hidden="true">N</span></div>
         </div>
         <aside class="atlas-info" id="atlasInfo" aria-live="polite"></aside>
@@ -699,10 +786,12 @@ s.old{font:400 .62em var(--text);color:var(--muted);margin-right:8px;text-decora
       <p class="lead" data-i="visit.lead">Оставьте контакт — перезвоним в течение часа в рабочее время и предложим время.</p>
       <div id="formBox">
         <form id="form" novalidate>
+          <div class="field"><label for="fName" data-i="f.name">Имя</label><input id="fName" name="name" autocomplete="name" data-i-ph="ph.name" required><span class="err" id="eName"></span></div>
           <div class="two">
-            <div class="field"><label for="fName" data-i="f.name">Имя</label><input id="fName" name="name" autocomplete="name" required><span class="err" id="eName"></span></div>
-            <div class="field"><label for="fContact" data-i="f.contact">Телефон или e-mail</label><input id="fContact" name="contact" autocomplete="email" inputmode="email" required><span class="err" id="eContact"></span></div>
+            <div class="field"><label for="fPhone" data-i="f.phone">Телефон</label><input id="fPhone" name="phone" type="tel" autocomplete="tel" inputmode="tel" data-i-ph="ph.phone" required><span class="err" id="ePhone"></span></div>
+            <div class="field"><label for="fEmail" data-i="f.email">E-mail</label><input id="fEmail" name="email" type="email" autocomplete="email" inputmode="email" data-i-ph="ph.email" required><span class="err" id="eEmail"></span></div>
           </div>
+          <p class="field-hint" data-i="f.both">Оставьте и телефон, и e-mail: если в одном будет опечатка, свяжемся по другому.</p>
           <div class="field"><label for="fVilla" data-i="f.villa">Вилла</label><select id="fVilla" name="villa"></select></div>
           <fieldset class="field">
             <legend data-i="f.light">Когда показать дом</legend>
@@ -712,7 +801,7 @@ s.old{font:400 .62em var(--text);color:var(--muted);margin-right:8px;text-decora
               <input type="radio" name="light" id="l3" value="sunset" checked><label for="l3"><b data-i="l.s">На закате</b><span data-i="l.st">за час до заката</span></label>
             </div>
           </fieldset>
-          <div class="field"><label for="fMsg" data-i="f.msg">Комментарий (необязательно)</label><textarea id="fMsg" name="msg"></textarea></div>
+          <div class="field"><label for="fMsg" data-i="f.msg">Комментарий (необязательно)</label><textarea id="fMsg" name="msg" data-i-ph="ph.msg"></textarea></div>
           <div class="trap" aria-hidden="true"><label for="fTrap">Website</label><input id="fTrap" name="website" tabindex="-1" autocomplete="off"></div>
           <div><button class="btn" type="submit" data-i="f.send">Отправить заявку</button></div>
           <p class="err" id="eSend" role="alert"></p>
@@ -735,20 +824,22 @@ s.old{font:400 .62em var(--text);color:var(--muted);margin-right:8px;text-decora
       <h3 class="form-h" data-i="sell.form">Бесплатная оценка</h3>
       <div id="sellBox">
         <form id="sellForm" novalidate>
+          <div class="field"><label for="sName" data-i="f.name">Имя</label><input id="sName" autocomplete="name" data-i-ph="ph.name" required><span class="err" id="esName"></span></div>
           <div class="two">
-            <div class="field"><label for="sName" data-i="f.name">Имя</label><input id="sName" autocomplete="name" required><span class="err" id="esName"></span></div>
-            <div class="field"><label for="sContact" data-i="f.contact">Телефон или e-mail</label><input id="sContact" autocomplete="email" required><span class="err" id="esContact"></span></div>
+            <div class="field"><label for="sPhone" data-i="f.phone">Телефон</label><input id="sPhone" type="tel" autocomplete="tel" inputmode="tel" data-i-ph="ph.phone" required><span class="err" id="esPhone"></span></div>
+            <div class="field"><label for="sEmail" data-i="f.email">E-mail</label><input id="sEmail" type="email" autocomplete="email" inputmode="email" data-i-ph="ph.email" required><span class="err" id="esEmail"></span></div>
           </div>
+          <p class="field-hint" data-i="f.both">Оставьте и телефон, и e-mail: если в одном будет опечатка, свяжемся по другому.</p>
           <div class="two">
             <div class="field"><label for="sArea" data-i="sell.area">Район</label><select id="sArea"></select></div>
             <div class="field"><label for="sType" data-i="sell.type">Тип</label><select id="sType"></select></div>
           </div>
           <div class="two">
-            <div class="field"><label for="sBeds" data-i="sell.beds">Спальни</label><input id="sBeds" type="number" min="0" max="20" inputmode="numeric"></div>
-            <div class="field"><label for="sBuilt" data-i="sell.built">Площадь, м²</label><input id="sBuilt" type="number" min="0" max="10000" inputmode="numeric"></div>
+            <div class="field"><label for="sBeds" data-i="sell.beds">Спальни</label><input id="sBeds" type="number" min="0" max="20" inputmode="numeric" placeholder="4"></div>
+            <div class="field"><label for="sBuilt" data-i="sell.built">Площадь, м²</label><input id="sBuilt" type="number" min="0" max="10000" inputmode="numeric" placeholder="350"></div>
           </div>
-          <div class="field"><label for="sAddr" data-i="sell.addr">Адрес или урбанизация</label><input id="sAddr"></div>
-          <div class="field"><label for="sMsg" data-i="f.msg">Комментарий</label><textarea id="sMsg"></textarea></div>
+          <div class="field"><label for="sAddr" data-i="sell.addr">Адрес или урбанизация</label><input id="sAddr" data-i-ph="ph.addr"></div>
+          <div class="field"><label for="sMsg" data-i="f.msg">Комментарий</label><textarea id="sMsg" data-i-ph="ph.sellMsg"></textarea></div>
           <div class="trap" aria-hidden="true"><label for="sTrap">Website</label><input id="sTrap" tabindex="-1" autocomplete="off"></div>
           <div><button class="btn" type="submit" data-i="sell.send">Получить оценку</button></div>
           <p class="err" id="esSend" role="alert"></p>
@@ -780,7 +871,7 @@ s.old{font:400 .62em var(--text);color:var(--muted);margin-right:8px;text-decora
       <p><span data-i="legal.raia">RAIA</span>: <b id="footRaia"></b></p>
       <nav aria-label="Legal"><a href="aviso-legal.html">Aviso legal</a><a href="privacidad.html">Privacidad</a><a href="cookies.html">Cookies</a><a href="sitemap.xml">Sitemap</a></nav>
     </div>
-    <p class="demo" data-i="foot.demo">Концепт-проект для портфолио. Агентство Vertiente, виллы, цены и контакты вымышлены. Фото: Unsplash.</p>
+    <p class="demo" data-i="foot.demo">Концепт-проект для портфолио. Агентство Vertiente, виллы, цены и контакты вымышлены, люди на фото — не сотрудники. Фото: Unsplash, StockSnap (CC0).</p>
   </div>
 </footer>
 
@@ -864,8 +955,8 @@ s.old{font:400 .62em var(--text);color:var(--muted);margin-right:8px;text-decora
 <a class="wa-fab" id="waFab" href="#" target="_blank" rel="noopener" aria-label="WhatsApp"><svg width="26" height="26" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 11.8 11.8 0 0 0 4.5 4c1.7.7 2.3.8 3.2.6.5-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.2-1.2-.1-.1-.3-.2-.5-.3z"/></svg></a>
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
-<script src="data.js?v=2026-11-27-7"></script>
-<script src="tour.js?v=2026-11-27-7"></script>
-<script src="app.js?v=2026-11-27-7"></script>
+<script src="data.js?v=2026-11-28-1"></script>
+<script src="tour.js?v=2026-11-28-1"></script>
+<script src="app.js?v=2026-11-28-1"></script>
 </body>
 </html>

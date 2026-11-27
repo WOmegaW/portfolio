@@ -57,6 +57,11 @@ ru: {
  's4.t': 'Нотариус и ключи', 's4.p': 'Подписание у нотариуса. Налог на покупку вторичного жилья в Андалусии — 7%, на новостройку — НДС 10%. Ключи в тот же день.', 's4.d': '1 день',
  'visit.title': 'Записаться на просмотр', 'visit.lead': 'Оставьте контакт — перезвоним в течение часа в рабочее время и предложим время.',
  'visit.q': 'Чаще всего просят показать дом на закате.', 'visit.qs': 'Мы подстраиваем просмотр под солнце: приезжайте за час до заката, и вы увидите дом в его лучшем свете.',
+ 'f.phone': 'Телефон', 'f.email': 'E-mail', 'f.both': 'Оставьте и телефон, и e-mail: если в одном будет опечатка, свяжемся по другому.',
+ 'e.phone': 'Проверьте номер: нужно минимум 9 цифр.', 'e.email': 'Проверьте e-mail: например, anna@gmail.com',
+ 'ph.name': 'Например, Анна', 'ph.phone': '+34 600 123 456', 'ph.email': 'anna@gmail.com', 'ph.msg': 'Например: хочу посмотреть ещё пару вилл рядом',
+ 'ph.addr': 'Например: Nueva Andalucía, La Cerquilla', 'ph.sellMsg': 'Когда удобно встретиться, есть ли ремонт, бассейн…',
+ 'map.in': 'Приблизить', 'map.out': 'Отдалить', 'map.reset': 'Показать весь район', 'map.hint': 'Ctrl + колесо — масштаб. Карту можно двигать мышью.',
  'f.name': 'Имя', 'f.contact': 'Телефон или e-mail', 'f.villa': 'Вилла', 'f.any': 'Пока не выбрал(а) — помогите подобрать', 'f.light': 'Когда показать дом',
  'l.m': 'Утром', 'l.d': 'Днём', 'l.s': 'На закате', 'l.st': 'за час до заката',
  'f.msg': 'Комментарий (необязательно)', 'f.send': 'Отправить заявку', 'f.note': 'Это демонстрационная форма: заявка никуда не отправляется.', 'f.privacy': 'Отправляя заявку, вы соглашаетесь с политикой конфиденциальности.',
@@ -66,7 +71,7 @@ ru: {
  'e.name': 'Напишите, как к вам обращаться.', 'e.contact': 'Нужен телефон или e-mail, чтобы мы могли связаться.',
  'ok.t': 'Заявка отправлена', 'ok.p': (n, v) => `${n}, перезвоним в течение часа и предложим время просмотра${v ? ': ' + v : ''}.`, 'ok.again': 'Отправить ещё одну',
  'wa': 'Написать в WhatsApp', 'wa.text': v => v ? `Здравствуйте! Интересует ${v}. Когда можно посмотреть?` : 'Здравствуйте! Помогите подобрать виллу на Коста-дель-Соль.',
- 'foot.tag': 'Виллы на склонах Коста-дель-Соль.', 'foot.demo': 'Концепт-проект для портфолио. Агентство Vertiente, виллы, цены и контакты вымышлены. Фото: Unsplash.',
+ 'foot.tag': 'Виллы на склонах Коста-дель-Соль.', 'foot.demo': 'Концепт-проект для портфолио. Агентство Vertiente, виллы, цены и контакты вымышлены, люди на фото — не сотрудники. Фото: Unsplash, StockSnap (CC0).',
  'd.close': 'Закрыть', 'd.ref': 'Объект', 'd.beds': 'Спальни', 'd.baths': 'Ванные', 'd.built': 'Площадь дома', 'd.plot': 'Участок', 'd.face': 'Терраса смотрит',
  'd.sun': 'Солнце на террасе летом', 'd.year': 'Год постройки', 'd.energy': 'Энергосертификат', 'd.beach': 'До пляжа', 'd.ppm': 'Цена за м²', 'd.sea': 'Вид на море',
  'min': n => `${n} мин`, 'yes': 'Да', 'no': 'Нет',
@@ -127,6 +132,11 @@ es: {
  's4.t': 'Notaría y llaves', 's4.p': 'Firma ante notario. El ITP de vivienda usada en Andalucía es del 7%; en obra nueva, IVA del 10%. Llaves el mismo día.', 's4.d': '1 día',
  'visit.title': 'Reservar una visita', 'visit.lead': 'Déjanos tu contacto: te llamamos en menos de una hora en horario laboral para proponerte una hora.',
  'visit.q': 'Casi todos piden ver la casa al atardecer.', 'visit.qs': 'Ajustamos la visita al sol: ven una hora antes de la puesta y verás la casa con su mejor luz.',
+ 'f.phone': 'Teléfono', 'f.email': 'E-mail', 'f.both': 'Déjanos teléfono y e-mail: si uno tiene una errata, te contactamos por el otro.',
+ 'e.phone': 'Revisa el número: al menos 9 dígitos.', 'e.email': 'Revisa el e-mail: por ejemplo, ana@gmail.com',
+ 'ph.name': 'Por ejemplo, Ana', 'ph.phone': '+34 600 123 456', 'ph.email': 'ana@gmail.com', 'ph.msg': 'Por ejemplo: me gustaría ver un par de villas más en la zona',
+ 'ph.addr': 'Por ejemplo: Nueva Andalucía, La Cerquilla', 'ph.sellMsg': 'Cuándo te viene bien la visita, reformas, piscina…',
+ 'map.in': 'Acercar', 'map.out': 'Alejar', 'map.reset': 'Ver toda la zona', 'map.hint': 'Ctrl + rueda para el zoom. Arrastra el mapa con el ratón.',
  'f.name': 'Nombre', 'f.contact': 'Teléfono o e-mail', 'f.villa': 'Villa', 'f.any': 'Aún no lo sé, ayúdame a elegir', 'f.light': 'Cuándo ver la casa',
  'l.m': 'Por la mañana', 'l.d': 'A mediodía', 'l.s': 'Al atardecer', 'l.st': 'una hora antes de la puesta',
  'f.msg': 'Comentario (opcional)', 'f.send': 'Enviar solicitud', 'f.note': 'Formulario de demostración: la solicitud no se envía a ningún sitio.', 'f.privacy': 'Al enviar la solicitud aceptas la política de privacidad.',
@@ -136,7 +146,7 @@ es: {
  'e.name': 'Dinos cómo te llamas.', 'e.contact': 'Necesitamos un teléfono o un e-mail para contactarte.',
  'ok.t': 'Solicitud enviada', 'ok.p': (n, v) => `${n}, te llamamos en menos de una hora para proponerte la visita${v ? ': ' + v : ''}.`, 'ok.again': 'Enviar otra',
  'wa': 'Escribir por WhatsApp', 'wa.text': v => v ? `¡Hola! Me interesa ${v}. ¿Cuándo podría verla?` : '¡Hola! Me gustaría que me ayudarais a elegir una villa en la Costa del Sol.',
- 'foot.tag': 'Villas en las laderas de la Costa del Sol.', 'foot.demo': 'Proyecto conceptual para portafolio. La agencia Vertiente, las villas, los precios y los contactos son ficticios. Fotos: Unsplash.',
+ 'foot.tag': 'Villas en las laderas de la Costa del Sol.', 'foot.demo': 'Proyecto conceptual para portafolio. La agencia Vertiente, las villas, los precios y los contactos son ficticios; las personas de las fotos no son empleados. Fotos: Unsplash, StockSnap (CC0).',
  'd.close': 'Cerrar', 'd.ref': 'Referencia', 'd.beds': 'Dormitorios', 'd.baths': 'Baños', 'd.built': 'Construidos', 'd.plot': 'Parcela', 'd.face': 'Orientación de la terraza',
  'd.sun': 'Sol en la terraza en verano', 'd.year': 'Año', 'd.energy': 'Certificado energético', 'd.beach': 'A la playa', 'd.ppm': 'Precio por m²', 'd.sea': 'Vistas al mar',
  'min': n => `${n} min`, 'yes': 'Sí', 'no': 'No',
@@ -197,6 +207,11 @@ en: {
  's4.t': 'Notary and keys', 's4.p': 'Signing at the notary. Transfer tax on resale homes in Andalusia is 7%; new builds pay 10% VAT. Keys the same day.', 's4.d': '1 day',
  'visit.title': 'Book a viewing', 'visit.lead': 'Leave your contact and we will call back within an hour during office hours to suggest a time.',
  'visit.q': 'Most people ask to see the house at sunset.', 'visit.qs': 'We time the viewing to the sun: come an hour before sunset and you will see the house in its best light.',
+ 'f.phone': 'Phone', 'f.email': 'Email', 'f.both': 'Leave both phone and email: if one has a typo, we will reach you on the other.',
+ 'e.phone': 'Check the number: at least 9 digits.', 'e.email': 'Check the email, e.g. anna@gmail.com',
+ 'ph.name': 'e.g. Anna', 'ph.phone': '+34 600 123 456', 'ph.email': 'anna@gmail.com', 'ph.msg': 'e.g. I would like to see a couple more villas nearby',
+ 'ph.addr': 'e.g. Nueva Andalucía, La Cerquilla', 'ph.sellMsg': 'When suits you for a visit, renovations, pool…',
+ 'map.in': 'Zoom in', 'map.out': 'Zoom out', 'map.reset': 'Show the whole area', 'map.hint': 'Ctrl + scroll to zoom. Drag the map with the mouse.',
  'f.name': 'Name', 'f.contact': 'Phone or email', 'f.villa': 'Villa', 'f.any': 'Not sure yet, help me choose', 'f.light': 'When to see the house',
  'l.m': 'Morning', 'l.d': 'Midday', 'l.s': 'At sunset', 'l.st': 'an hour before sunset',
  'f.msg': 'Comment (optional)', 'f.send': 'Send request', 'f.note': 'This is a demo form: the request is not sent anywhere.', 'f.privacy': 'By sending the request you accept the privacy policy.',
@@ -206,7 +221,7 @@ en: {
  'e.name': 'Tell us what to call you.', 'e.contact': 'We need a phone number or email to reach you.',
  'ok.t': 'Request sent', 'ok.p': (n, v) => `${n}, we will call within an hour to suggest a viewing time${v ? ': ' + v : ''}.`, 'ok.again': 'Send another',
  'wa': 'Message on WhatsApp', 'wa.text': v => v ? `Hello! I am interested in ${v}. When could I see it?` : 'Hello! Could you help me choose a villa on the Costa del Sol?',
- 'foot.tag': 'Villas on the hillsides of the Costa del Sol.', 'foot.demo': 'Portfolio concept project. The Vertiente agency, villas, prices and contacts are fictional. Photos: Unsplash.',
+ 'foot.tag': 'Villas on the hillsides of the Costa del Sol.', 'foot.demo': 'Portfolio concept project. The Vertiente agency, villas, prices and contacts are fictional; the people pictured are not employees. Photos: Unsplash, StockSnap (CC0).',
  'd.close': 'Close', 'd.ref': 'Reference', 'd.beds': 'Bedrooms', 'd.baths': 'Bathrooms', 'd.built': 'Built area', 'd.plot': 'Plot', 'd.face': 'Terrace faces',
  'd.sun': 'Summer sun on the terrace', 'd.year': 'Year built', 'd.energy': 'Energy rating', 'd.beach': 'To the beach', 'd.ppm': 'Price per m²', 'd.sea': 'Sea views',
  'min': n => `${n} min`, 'yes': 'Yes', 'no': 'No',
@@ -328,7 +343,34 @@ function intro() {
 
 /* Фото разделов сменяют друг друга */
 const layerEls = $$('.layer'), scrim = $('#scrim');
-function showBg(key) { layerEls.forEach(l => l.classList.toggle('on', l.dataset.bg === key)); scrim.classList.toggle('on', key !== 'hero'); }
+const wallEl = document.getElementById('wall'), hasWall = !!(SITE.wall && wallEl);
+// Под всеми разделами, кроме первого экрана, — фон «о фирме» (если он заполнен в data.js)
+function showBg(key) { const k = hasWall && key !== 'hero' ? 'brand' : key; layerEls.forEach(l => l.classList.toggle('on', l.dataset.bg === k)); scrim.classList.toggle('on', key !== 'hero'); runWall(k === 'brand'); }
+const WALL_STEP = 6500;                                             // каждая полоса меняет кадр раз в 6,5 с, полосы — со сдвигом
+let wallTimers = [], wallOn = false;
+function renderWall() {
+  if (!hasWall) return;
+  const w = SITE.wall, txt = o => (o && (o[lang] || o.en)) || '';
+  const photo = (o, i) => `<div class="slide${i ? '' : ' on'}" style="--pan:${i % 2 ? -1.5 : 1.5}%"><img src="img/brand/${o.photo}.webp" alt="" loading="${i ? 'lazy' : 'eager'}" decoding="async"><p class="cap">${txt(o)}</p></div>`;
+  const word = (o, i) => typeof o.big === 'object'
+    ? `<div class="slide text${i ? '' : ' on'}"><b>${txt(o.big)}</b></div>`
+    : `<div class="slide${i ? '' : ' on'}"><b>${o.big}</b><span>${txt(o)}</span></div>`;
+  wallEl.innerHTML = `<div class="band">${(w.team || []).map(photo).join('')}</div><div class="band words">${(w.words || []).map(word).join('')}</div><div class="band">${(w.firm || []).map(photo).join('')}</div>`;
+  if (wallOn) runWall(true, true);                                  // после смены языка — заново запустить смену кадров
+}
+function runWall(on, force) {
+  if (on === wallOn && !force) return; wallOn = on;
+  wallTimers.forEach(clearInterval); wallTimers = [];
+  if (!on || !hasWall || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  wallEl.querySelectorAll('.band').forEach((band, bi) => {
+    const slides = band.querySelectorAll('.slide'); if (slides.length < 2) return;
+    const tick = () => {
+      const cur = [...slides].findIndex(x => x.classList.contains('on'));
+      slides[cur].classList.remove('on'); slides[(cur + 1) % slides.length].classList.add('on');
+    };
+    wallTimers.push(setTimeout(() => { tick(); wallTimers.push(setInterval(tick, WALL_STEP)); }, 1800 + bi * 2200));
+  });
+}
 showBg('hero');
 const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) showBg(e.target.dataset.bg); }), { rootMargin: '-45% 0px -45% 0px' });
 $$('section[data-bg]').forEach(sec => io.observe(sec));
@@ -395,7 +437,7 @@ const revealIO = 'IntersectionObserver' in window ? new IntersectionObserver(es 
 function reveal(els) {
   if (!revealIO || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
   const cols = el => getComputedStyle(el.parentElement).gridTemplateColumns.split(' ').length || 1;
-  els.forEach((el, i) => { el.classList.add('reveal'); el.style.setProperty('--d', `${(i % cols(el)) * .12}s`); revealIO.observe(el); });
+  els.forEach((el, i) => { el.classList.add('reveal'); el.style.setProperty('--d', `${(i % cols(el)) * .06}s`); revealIO.observe(el); });
 }
 
 /* ===================== Каталог ===================== */
@@ -490,7 +532,17 @@ const COAST = [[36.11,-5.345],[36.16,-5.35],[36.23,-5.31],[36.29,-5.27],[36.355,
   [36.487,-4.71],[36.495,-4.69],[36.505,-4.68],[36.52,-4.65],[36.54,-4.62],[36.565,-4.575],[36.59,-4.53],[36.62,-4.495],[36.65,-4.47],[36.685,-4.445],[36.715,-4.42],[36.72,-4.38],[36.725,-4.30],[36.73,-4.15]].map(([a, b]) => proj(a, b));
 const TOWNS = [['Málaga', 36.721, -4.421], ['Torremolinos', 36.622, -4.500], ['Fuengirola', 36.540, -4.625], ['Marbella', 36.510, -4.883], ['San Pedro', 36.487, -4.992],
   ['Estepona', 36.427, -5.146], ['Sotogrande', 36.29, -5.27], ['Benahavís', 36.523, -5.046], ['Mijas', 36.596, -4.637],
-  ['Benalmádena', 36.598, -4.517], ['Casares', 36.444, -5.274], ['Puerto Banús', 36.485, -4.952], ['Gibraltar', 36.14, -5.353]];
+  ['Benalmádena', 36.598, -4.517], ['Casares', 36.444, -5.274], ['Gibraltar', 36.14, -5.353]];
+// Подробности карты: гольф-поля, марины, вершины (видны при приближении) и реки
+const GOLF = [['Valderrama', 36.284, -5.318], ['Finca Cortesín', 36.405, -5.214], ['Los Arqueros', 36.532, -5.032], ['Golf Valley', 36.513, -4.975],
+  ['Santa Clara', 36.513, -4.838], ['Mijas Golf', 36.556, -4.683], ['Torrequebrada', 36.588, -4.540], ['La Cala Golf', 36.548, -4.737], ['Guadalmina', 36.474, -5.002]];
+const MARINAS = [['Puerto de Sotogrande', 36.286, -5.262], ['La Duquesa', 36.356, -5.228], ['Puerto de Estepona', 36.418, -5.160],
+  ['Puerto Banús', 36.483, -4.953], ['Puerto Deportivo', 36.506, -4.889], ['Puerto de Fuengirola', 36.535, -4.620], ['Puerto Marina', 36.597, -4.512]];
+const PEAKS = [['Los Reales', 36.485, -5.235, 1452], ['La Concha', 36.546, -4.930, 1215], ['Pico de Mijas', 36.619, -4.662, 1150], ['Cerro Torrecilla', 36.68, -5.02, 1919]];
+const RIVERS = [[[36.669, -4.447], [36.685, -4.48], [36.70, -4.52], [36.715, -4.57], [36.74, -4.62]],
+  [[36.29, -5.275], [36.32, -5.29], [36.35, -5.31], [36.39, -5.33]],
+  [[36.497, -4.925], [36.52, -4.94], [36.55, -4.96], [36.58, -4.985]],
+  [[36.506, -4.775], [36.53, -4.79], [36.56, -4.80]]];
 const SIERRAS = [[36.53, -5.20, 95, 70], [36.575, -4.92, 85, 45], [36.61, -4.66, 90, 48], [36.64, -5.05, 120, 62], [36.70, -4.78, 110, 50]];
 const smooth = (pts, dy = 0) => {                                  // плавная линия через точки (Catmull-Rom → кривые Безье)
   const p = pts.map(([x, y]) => [x, y + dy]);
@@ -508,6 +560,7 @@ function drawGeography() {
   const roadPts = COAST.filter(p => p[0] > 170 && p[0] < 960);
   $('#road').setAttribute('d', smooth(roadPts, -16));
   $('#waves').innerHTML = [18, 46, 90].map(d => `<path d="${smooth(COAST, d)}"/>`).join('');
+  $('#rivers').innerHTML = RIVERS.map(r => `<path d="${smooth(r.map(([a, b]) => proj(a, b)))}"/>`).join('');
   const ring = (cx, cy, rx, ry, k, seed) => {
     let d = ''; for (let i = 0; i <= 64; i++) {
       const th = i / 64 * Math.PI * 2, w = 1 + .09 * Math.sin(3 * th + seed) + .05 * Math.sin(5 * th + seed * 2);
@@ -556,6 +609,7 @@ function applyVb(b) {
     p.el.classList.toggle('below', p.y < 190);
   });
   $('#scaleBar').style.width = Math.round(KM10 / b[2] * W) + 'px';
+  atlasMap.classList.toggle('near', b[2] < 520); atlasMap.classList.toggle('closer', b[2] < 260);
 }
 // Вид вокруг выбранной виллы: камера подлетает ближе, вилла чуть ниже центра (над ней — ценник)
 function villaBox(id) {
@@ -584,6 +638,57 @@ function flyTo(area, instant) {
   atlasMap.classList.add('flying');
   vbAnim = requestAnimationFrame(step);
 }
+/* Карту можно двигать мышью и пальцем, приближать щипком, Ctrl + колесом и кнопками */
+const MAP_W = [45, 1500];                                          // пределы масштаба (ширина видимой области)
+function clampVb(b) {
+  const w = Math.min(MAP_W[1], Math.max(MAP_W[0], b[2])), h = w * b[3] / b[2];
+  const cx = Math.min(1260, Math.max(20, b[0] + b[2] / 2)), cy = Math.min(860, Math.max(20, b[1] + b[3] / 2));
+  return [cx - w / 2, cy - h / 2, w, h];
+}
+function zoomMap(f, px, py) {                                      // f < 1 — приблизить; точка (px, py) под курсором стоит на месте
+  if (!vb) return; cancelAnimationFrame(vbAnim); atlasMap.classList.remove('flying');
+  const W = atlasMap.clientWidth, H = atlasMap.clientHeight; px = px == null ? W / 2 : px; py = py == null ? H / 2 : py;
+  const mx = vb[0] + px / W * vb[2], my = vb[1] + py / H * vb[3];
+  const w = Math.min(MAP_W[1], Math.max(MAP_W[0], vb[2] * f)), h = w * vb[3] / vb[2];
+  applyVb(clampVb([mx - px / W * w, my - py / H * h, w, h]));
+}
+{
+  const pts = new Map(); let last = null, pinch = 0, moved = 0;
+  const onPin = e => e.target.closest('button, a, .atlas-legend, .map-zoom');
+  atlasMap.addEventListener('pointerdown', e => {
+    if (onPin(e) || e.button) return;
+    pts.set(e.pointerId, [e.clientX, e.clientY]); moved = 0;
+    if (pts.size === 1) last = [e.clientX, e.clientY];
+    if (pts.size === 2) { const [a, b] = [...pts.values()]; pinch = Math.hypot(a[0] - b[0], a[1] - b[1]); }
+    cancelAnimationFrame(vbAnim); atlasMap.classList.remove('flying');
+  });
+  atlasMap.addEventListener('pointermove', e => {
+    if (!pts.has(e.pointerId) || !vb) return;
+    pts.set(e.pointerId, [e.clientX, e.clientY]);
+    const W = atlasMap.clientWidth, H = atlasMap.clientHeight, r = atlasMap.getBoundingClientRect();
+    if (pts.size === 2) {
+      const [a, b] = [...pts.values()], d = Math.hypot(a[0] - b[0], a[1] - b[1]);
+      if (pinch) zoomMap(pinch / d, (a[0] + b[0]) / 2 - r.left, (a[1] + b[1]) / 2 - r.top);
+      pinch = d; return;
+    }
+    const dx = e.clientX - last[0], dy = e.clientY - last[1]; last = [e.clientX, e.clientY];
+    moved += Math.abs(dx) + Math.abs(dy);
+    if (moved < 4) return;
+    if (!atlasMap.classList.contains('dragging')) { atlasMap.classList.add('dragging'); try { atlasMap.setPointerCapture(e.pointerId); } catch (_) { /* старые браузеры */ } }
+    applyVb(clampVb([vb[0] - dx / W * vb[2], vb[1] - dy / H * vb[3], vb[2], vb[3]]));
+  });
+  const up = e => { pts.delete(e.pointerId); if (pts.size < 2) pinch = 0; if (!pts.size) atlasMap.classList.remove('dragging'); else last = [...pts.values()][0]; };
+  atlasMap.addEventListener('pointerup', up); atlasMap.addEventListener('pointercancel', up);
+  let hintT = 0;
+  atlasMap.addEventListener('wheel', e => {
+    if (e.ctrlKey || e.metaKey) { e.preventDefault(); const r = atlasMap.getBoundingClientRect(); zoomMap(Math.exp(e.deltaY * .0025), e.clientX - r.left, e.clientY - r.top); return; }
+    atlasMap.classList.add('hint'); clearTimeout(hintT); hintT = setTimeout(() => atlasMap.classList.remove('hint'), 1400);
+  }, { passive: false });
+  atlasMap.addEventListener('dblclick', e => { if (onPin(e)) return; const r = atlasMap.getBoundingClientRect(); zoomMap(.6, e.clientX - r.left, e.clientY - r.top); });
+  $$('[data-mz]', atlasMap).forEach(b => b.addEventListener('click', () => {
+    const z = +b.dataset.mz; if (z) zoomMap(z > 0 ? 1 / 1.45 : 1.45); else flyTo(atlasArea);
+  }));
+}
 const compact = n => new Intl.NumberFormat(LOCALE[lang], { notation: 'compact', style: 'currency', currency: cur, maximumFractionDigits: 2 }).format(conv(n));
 const areaVillas = a => VILLAS.filter(v => v.area === a).sort((x, y) => y.price - x.price);
 function renderPins() {
@@ -592,6 +697,9 @@ function renderPins() {
   { const [x, y] = proj(36.675, -4.499); html.push(`<span class="mtown airport" data-x="${x}" data-y="${y}">✈ AGP</span>`); }
   { const [x, y] = proj(36.555, -4.76); html.push(`<span class="mtown road-l" data-x="${x}" data-y="${y}">AP-7</span>`); }
   { const [x, y] = proj(36.36, -4.86); html.push(`<span class="mtown sea" data-x="${x}" data-y="${y}">${t('coast.sea')}</span>`); }
+  GOLF.forEach(([n, la, ln]) => { const [x, y] = proj(la, ln); html.push(`<span class="mpoi golf" data-x="${x}" data-y="${y}"><i aria-hidden="true">⛳</i>${n}</span>`); });
+  MARINAS.forEach(([n, la, ln]) => { const [x, y] = proj(la, ln); html.push(`<span class="mpoi marina" data-x="${x}" data-y="${y}"><i aria-hidden="true">⚓</i>${n}</span>`); });
+  PEAKS.forEach(([n, la, ln, h]) => { const [x, y] = proj(la, ln); html.push(`<span class="mpoi peak" data-x="${x}" data-y="${y}"><i aria-hidden="true">▲</i>${n} <small>${h} m</small></span>`); });
   if (A === 'all') {
     VILLAS.forEach(v => { const [x, y] = villaXY(v); html.push(`<span class="vdot" data-x="${x}" data-y="${y}"></span>`); });
     liveAreas().forEach(a => { const vs = areaVillas(a), pts = vs.map(villaXY);
@@ -670,6 +778,10 @@ function renderAtlasVilla(box) {
     swapImg($('#aiImg'), img(v.gallery[n], 800), n < was ? -1 : 1);
     $$('[data-g]', box).forEach(x => x.setAttribute('aria-current', String(x === b)));
   }));
+  swipe($('.ai-gal', box), d => {
+    const cur = +($('[data-g][aria-current=true]', box) || { dataset: { g: 0 } }).dataset.g, n = (cur + d + v.gallery.length) % v.gallery.length;
+    $(`[data-g="${n}"]`, box).click();
+  });
   $('#aiOpen').addEventListener('click', () => flyOpen(v.id, $('#aiImg')));
   $('#aiImg').addEventListener('click', () => flyOpen(v.id, $('#aiImg')));
   $('[data-fav]', box).addEventListener('click', e => toggleFav(e.currentTarget.dataset.fav));
@@ -891,13 +1003,32 @@ addEventListener('keydown', e => {
   if (lb.open) setLb(lbIdx + d); else if (dlg.open && !/INPUT|SELECT|TEXTAREA/.test(document.activeElement.tagName)) setGal(galIdx + d);
 });
 function swipe(el, cb) {
-  let x0 = null, y0 = 0;
-  el.addEventListener('pointerdown', e => { x0 = e.clientX; y0 = e.clientY; });
-  el.addEventListener('pointerup', e => {
-    if (x0 === null) return; const dx = e.clientX - x0, dy = e.clientY - y0; x0 = null;
-    if (Math.abs(dx) > 40 && Math.abs(dx) > Math.abs(dy)) { cb(dx < 0 ? 1 : -1); el.dataset.swiped = '1'; setTimeout(() => delete el.dataset.swiped, 0); }
+  // Листание пальцем и мышью: фото тянется за курсором, отпустили — следующее/предыдущее
+  let x0 = null, y0 = 0, pid = null, drag = false;
+  const pic = () => el.querySelector('img:not(.img-ghost)');
+  const back = p => { p.style.transition = 'transform .35s cubic-bezier(.2,.7,.1,1)'; p.style.transform = ''; setTimeout(() => { p.style.transition = ''; }, 360); };
+  el.addEventListener('dragstart', e => e.preventDefault());
+  el.addEventListener('pointerdown', e => {
+    if (e.button || e.target.closest('button,a')) return;
+    x0 = e.clientX; y0 = e.clientY; pid = e.pointerId; drag = false;
   });
-  el.addEventListener('click', e => { if (el.dataset.swiped) e.stopPropagation(); }, true);
+  el.addEventListener('pointermove', e => {
+    if (x0 === null || e.pointerId !== pid) return;
+    const dx = e.clientX - x0, dy = e.clientY - y0;
+    if (!drag && Math.abs(dx) > 8 && Math.abs(dx) > Math.abs(dy)) { drag = true; el.classList.add('dragging'); try { el.setPointerCapture(pid); } catch (_) { /* старые браузеры */ } }
+    const p = pic(); if (drag && p) p.style.transform = `translateX(${dx * .4}px)`;
+  });
+  const end = e => {
+    if (x0 === null || e.pointerId !== pid) return;
+    const dx = e.clientX - x0, dy = e.clientY - y0, p = pic(); x0 = null; el.classList.remove('dragging');
+    if (drag && Math.abs(dx) > 40 && Math.abs(dx) > Math.abs(dy) && e.type === 'pointerup') {
+      if (p) p.style.transform = '';
+      cb(dx < 0 ? 1 : -1); el.dataset.swiped = '1'; setTimeout(() => delete el.dataset.swiped, 0);
+    } else if (p) back(p);
+    drag = false;
+  };
+  el.addEventListener('pointerup', end); el.addEventListener('pointercancel', end);
+  el.addEventListener('click', e => { if (el.dataset.swiped) { e.stopPropagation(); e.preventDefault(); } }, true);
 }
 
 /* ===================== WhatsApp ===================== */
@@ -911,13 +1042,22 @@ function renderVillaSelect() {
   fVilla.value = keep || '';
 }
 function setErr(input, box, msg) { const f = input.closest('.field'); box.textContent = msg || ''; if (msg) f.setAttribute('data-invalid', ''); else f.removeAttribute('data-invalid'); }
+// Имя, телефон и e-mail: проверяем все три, ошибку показываем у каждого поля, курсор — в первое неверное
+const okPhone = s => s.replace(/[^\d]/g, '').length >= 9;
+const okEmail = s => /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(s);
+function checkContacts(ids) {
+  const [n, p, m] = ids.map(([id]) => $('#' + id));
+  const res = [[n, ids[0][1], n.value.trim() ? '' : t('e.name')], [p, ids[1][1], okPhone(p.value) ? '' : t('e.phone')], [m, ids[2][1], okEmail(m.value.trim()) ? '' : t('e.email')]];
+  res.forEach(([el, err, msg]) => setErr(el, $('#' + err), msg));
+  const first = res.find(r => r[2]); if (first) { first[0].focus(); return null; }
+  return { name: n.value.trim(), phone: p.value.trim(), email: m.value.trim() };
+}
+const VISIT_IDS = [['fName', 'eName'], ['fPhone', 'ePhone'], ['fEmail', 'eEmail']], SELL_IDS = [['sName', 'esName'], ['sPhone', 'esPhone'], ['sEmail', 'esEmail']];
+[...VISIT_IDS, ...SELL_IDS].forEach(([id, err]) => $('#' + id).addEventListener('input', e => setErr(e.target, $('#' + err), '')));
 form.addEventListener('submit', e => {
   e.preventDefault();
-  const fN = $('#fName'), fC = $('#fContact'), name = fN.value.trim(), contact = fC.value.trim();
-  const okContact = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(contact) || contact.replace(/[^\d]/g, '').length >= 9;
-  setErr(fN, $('#eName'), name ? '' : t('e.name')); setErr(fC, $('#eContact'), okContact ? '' : t('e.contact'));
-  if (!name) { fN.focus(); return; }
-  if (!okContact) { fC.focus(); return; }
+  const c = checkContacts(VISIT_IDS); if (!c) return;
+  const { name, phone, email } = c;
   if ($('#fTrap').value) return;                       // поле-ловушка: его заполняют только спам-боты
   const v = byId(fVilla.value), box = $('#formBox');
   const done = () => {
@@ -928,7 +1068,7 @@ form.addEventListener('submit', e => {
   };
   const light = (form.querySelector('input[name=light]:checked') || {}).value || '';
   postLead({ subject: `${SITE.brand}: ${v ? L(v).name + ' (' + v.ref + ')' : t('f.any')}`,
-    name, contact, villa: v ? `${L(v).name} — ${v.ref} — ${money(v.price)}` : '—', time: t({ morning: 'l.m', day: 'l.d', sunset: 'l.s' }[light] || 'l.s'),
+    name, phone, email, villa: v ? `${L(v).name} — ${v.ref} — ${money(v.price)}` : '—', time: t({ morning: 'l.m', day: 'l.d', sunset: 'l.s' }[light] || 'l.s'),
     message: $('#fMsg').value.trim() || '—' }, $('button[type=submit]', form), $('#eSend'), 'f.send', done);
 });
 
@@ -977,30 +1117,26 @@ function renderSellSelects() {
 }
 sellForm.addEventListener('submit', e => {
   e.preventDefault();
-  const fN = $('#sName'), fC = $('#sContact'), name = fN.value.trim(), contact = fC.value.trim();
-  const okContact = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(contact) || contact.replace(/[^\d]/g, '').length >= 9;
-  setErr(fN, $('#esName'), name ? '' : t('e.name')); setErr(fC, $('#esContact'), okContact ? '' : t('e.contact'));
-  if (!name) { fN.focus(); return; }
-  if (!okContact) { fC.focus(); return; }
+  const c = checkContacts(SELL_IDS); if (!c) return;
+  const { name, phone, email } = c;
   if ($('#sTrap').value) return;
   const box = $('#sellBox'), area = $('#sArea').value;
   const done = () => {
     box.innerHTML = `<div class="done" tabindex="-1"><h3>${t('sell.ok.t')}</h3><p></p></div>`;
     $('p', box).textContent = t('sell.ok.p', name); $('.done', box).focus();
   };
-  postLead({ subject: `${SITE.brand}: ${t('sell.form')} — ${area === 'other' ? t('sell.other') : areaName(area)}`, name, contact,
+  postLead({ subject: `${SITE.brand}: ${t('sell.form')} — ${area === 'other' ? t('sell.other') : areaName(area)}`, name, phone, email,
     area: area === 'other' ? t('sell.other') : areaName(area), type: t('sell.types')[$('#sType').value],
     beds: $('#sBeds').value || '—', built_m2: $('#sBuilt').value || '—', address: $('#sAddr').value.trim() || '—',
     message: $('#sMsg').value.trim() || '—' }, $('button[type=submit]', sellForm), $('#esSend'), 'sell.send', done);
 });
-['sName', 'sContact'].forEach(id => $('#' + id).addEventListener('input', e => setErr(e.target, $(id === 'sName' ? '#esName' : '#esContact'), '')));
-['fName', 'fContact'].forEach(id => $('#' + id).addEventListener('input', e => setErr(e.target, $(id === 'fName' ? '#eName' : '#eContact'), '')));
 
 /* ===================== Язык: применить ко всей странице ===================== */
 function applyLang() {
   document.documentElement.lang = lang;
   $$('[data-i]').forEach(el => { const v = T[lang][el.dataset.i]; if (typeof v === 'string') el.textContent = v; });
   $$('[data-i-label]').forEach(el => el.setAttribute('aria-label', T[lang][el.dataset.iLabel]));
+  $$('[data-i-ph]').forEach(el => el.setAttribute('placeholder', T[lang][el.dataset.iPh]));
   $$('.lang button').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.lang === lang)));
   $('#heroText').textContent = t('hero.text', VILLAS.length);
   document.title = `${SITE.brand} — ${t('title')}`;
@@ -1010,7 +1146,7 @@ function applyLang() {
   $('#footRaia').textContent = (SITE.legal || {}).raia || '—';
   $('#fNote').textContent = SITE.web3formsKey ? t('f.privacy') : t('f.note');
   $$('.fNoteText').forEach(el => { el.textContent = SITE.web3formsKey ? t('f.privacy') : t('f.note'); });
-  renderSellSelects(); renderCur();
+  renderSellSelects(); renderCur(); renderWall();
   renderChips(); renderGrid(); renderAtlas(); renderVillaSelect(); updateSun(minutes);
   if (dlg.open && current) renderVilla();
   if ($('#cmpDlg').open) renderCompare();
