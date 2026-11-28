@@ -61,7 +61,7 @@ ru: {
   'wd': ['Вс', 'Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб'], 'today': 'Сегодня', 'tomorrow': 'Завтра', 'sending': 'Отправляем…', 'nail': n => `Ноготь ${n}`,
   'hero.kicker': 'Nácar представляет · Марбелья',
   'hero.scene': 'Сцена',
-  'inter.q': 'Каждая деталь — крупным планом.',
+  'inter.tag': 'Ваш дизайн · макро', 'inter.q': 'Каждая деталь — крупным планом.',
   'r.ticket': 'Билет',
   'fingers': ['Большой', 'Указательный', 'Средний', 'Безымянный', 'Мизинец']
 },
@@ -114,7 +114,7 @@ es: {
   'wd': ['Do', 'Lu', 'Ma', 'Mi', 'Ju', 'Vi', 'Sá'], 'today': 'Hoy', 'tomorrow': 'Mañana', 'sending': 'Enviando…', 'nail': n => `Uña ${n}`,
   'hero.kicker': 'Nácar presenta · Marbella',
   'hero.scene': 'Escena',
-  'inter.q': 'Cada detalle, en primer plano.',
+  'inter.tag': 'Tu diseño · macro', 'inter.q': 'Cada detalle, en primer plano.',
   'r.ticket': 'Entrada',
   'fingers': ['Pulgar', 'Índice', 'Corazón', 'Anular', 'Meñique']
 },
@@ -167,7 +167,7 @@ en: {
   'wd': ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'], 'today': 'Today', 'tomorrow': 'Tomorrow', 'sending': 'Sending…', 'nail': n => `Nail ${n}`,
   'hero.kicker': 'Nácar presents · Marbella',
   'hero.scene': 'Scene',
-  'inter.q': 'Every detail, in close-up.',
+  'inter.tag': 'Your design · macro', 'inter.q': 'Every detail, in close-up.',
   'r.ticket': 'Ticket',
   'fingers': ['Thumb', 'Index', 'Middle', 'Ring', 'Little']
 }};
@@ -292,6 +292,7 @@ function renderHand() {
     el.innerHTML = `<canvas role="img" aria-label="3D"></canvas>`;
     try { stage3d = Nail3D.stage(el.firstChild, { onPick: togglePick }); } catch (e) { stage3d = null; }
   }
+  if (macro3d) macro3d.set(look3(S));
   if (stage3d) { stage3d.set(look3(S)); stage3d.select(S.sel); }
   else {
     el.innerHTML = handSVG(S, { interactive: true, crop: phone.matches });
@@ -302,6 +303,7 @@ function renderHand() {
   }
   $('#picks').innerHTML = T[lang].fingers.map((f, i) => `<button type="button" class="nail" data-n="${i}" aria-pressed="${S.sel.includes(i)}" aria-label="${f}" title="${f}"><i style="background:${S.nails[i].c}"></i></button>`).join('');
   $('#stageLook').textContent = `${t('shape.' + S.shape)} · ${t('fin.' + S.finish)}`;
+  $('#macroName').textContent = `${t('shape.' + S.shape)} · ${t('fin.' + S.finish)} · ${colorName(S.nails[2].c)}`;
 }
 $('#picks').addEventListener('click', e => { const b = e.target.closest('[data-n]'); if (b) togglePick(+b.dataset.n); });
 function renderSummary() {
@@ -602,24 +604,26 @@ function heroFree() {
   $('#heroFreeT').textContent = today ? t('badge.t') : t('badge.t0');
   $('#heroFree').textContent = today ? t('badge.n', today) : next ? t('badge.next', next[0] === 1 ? t('tomorrow').toLowerCase() : ds[next[0]].toLocaleDateString(LOCALE[lang], { weekday: 'long', day: 'numeric' }), hm(next[1])) : '';
 }
-let hero3d = null, heroI = 0, heroT = 0;
+let hero3d = null, heroI = 0;
 function heroScene() {
   const l = LOOKS[heroI % LOOKS.length];
   $('#sceneNo').textContent = String(heroI % LOOKS.length + 1).padStart(2, '0');
   $('#sceneName').textContent = L(l);
-  if (hero3d) hero3d.set(look3(l));
+  const sc = $('.scene'); sc.classList.remove('cut'); void sc.offsetWidth; sc.classList.add('cut');
 }
+let macro3d = null;
 function initHero() {
   if (hero3d || !window.Nail3D) return;
-  try { hero3d = Nail3D.stage($('#heroCanvas'), { mode: 'hero', flip: true }); } catch (e) { return; }
+  try { hero3d = Nail3D.stage($('#heroCanvas'), { mode: 'hero', onScene: i => { heroI = i; heroScene(); } }); } catch (e) { return; }
   heroI = 2; heroScene();
-  clearInterval(heroT);
-  if (!matchMedia('(prefers-reduced-motion: reduce)').matches) heroT = setInterval(() => { if (!document.hidden && scrollY < innerHeight) { heroI++; heroScene(); } }, 5200);
+  hero3d.play(LOOKS.map(look3), heroI);
+  try { macro3d = Nail3D.stage($('#macroCanvas'), { mode: 'macro' }); macro3d.set(look3(S)); } catch (e) { macro3d = null; }
 }
 function applyLang() {
   document.documentElement.lang = lang;
   $$('[data-i]').forEach(el => { const v = T[lang][el.dataset.i]; if (typeof v === 'string') el.textContent = v; });
   $$('[data-i-ph]').forEach(el => el.setAttribute('placeholder', T[lang][el.dataset.iPh]));
+  $('#interQ').innerHTML = t('inter.q').split(' ').map((x, i) => `<span class="w" style="transition-delay:${i * .09}s">${x}</span>`).join(' ');
   $('#heroTitle').innerHTML = t('hero.title').split('|').map(x => `<span class="ln"><span>${x}</span></span>`).join('');
   $('#sceneName').textContent = L(LOOKS[heroI % LOOKS.length]);
   $$('.lang button').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.lang === lang)));
@@ -640,7 +644,8 @@ const on3d = () => { renderHand(); renderLooks(); renderBooking(); initHero(); }
 if (window.Nail3D) on3d(); else addEventListener('nail3d', on3d, { once: true });
 requestAnimationFrame(() => requestAnimationFrame(() => $('#hero').classList.add('open')));
 // шапка темнеет после первого экрана; кадр-интерлюдия и сцена героя двигаются при прокрутке
-const topBar = $('#top'), inter = $('#interImg');
+const topBar = $('#top'), heroCopy = $('.hero-copy');
+reveal([$('#interlude')]);
 let ticking = false;
 addEventListener('scroll', () => {
   if (ticking) return; ticking = true;
@@ -648,8 +653,7 @@ addEventListener('scroll', () => {
     ticking = false;
     topBar.classList.toggle('solid', scrollY > innerHeight * .6);
     if (hero3d && scrollY < innerHeight * 1.2) hero3d.scroll(Math.min(1, scrollY / innerHeight));
-    const r = inter.parentElement.getBoundingClientRect();
-    if (r.bottom > 0 && r.top < innerHeight) inter.style.transform = `translateY(${((r.top + r.height / 2) - innerHeight / 2) * -.12}px)`;
+    if (scrollY < innerHeight * 1.2) { const k = Math.min(1, scrollY / innerHeight); heroCopy.style.transform = `translateY(${-k * 90}px)`; heroCopy.style.opacity = String(1 - k * 1.1); }
   });
 }, { passive: true });
 })();
