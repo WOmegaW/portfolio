@@ -82,7 +82,13 @@ window.WORKS = [
     nes: 'Efecto carey, negro brillante y una uña con hilo dorado.', nen: 'Tortoiseshell effect, glossy black and one nail with a gold line.', nru: 'Эффект черепахи, чёрный глянец и ноготь с золотой линией.' },
   { id: 'rose', photo: 'rose', tech: 'extensions', price: 55, min: 120, master: 'amara', pos: '50% 40%',
     es: 'Nude rosado', en: 'Rosy nude', ru: 'Розовый нюд',
-    nes: 'Extensión en almendra larga, tono nude rosado.', nen: 'Long almond extensions in a rosy nude shade.', nru: 'Наращивание, длинный миндаль, розово-нюдовый оттенок.' }
+    nes: 'Extensión en almendra larga, tono nude rosado.', nen: 'Long almond extensions in a rosy nude shade.', nru: 'Наращивание, длинный миндаль, розово-нюдовый оттенок.' },
+  { id: 'noir', photo: 'noir', tech: 'gel', price: 50, min: 110, master: 'lucia', pos: '55% 45%',
+    es: 'Negro y oro', en: 'Black & gold', ru: 'Чёрное золото',
+    nes: 'Negro brillante, cromo dorado y una uña con línea fina.', nen: 'Glossy black, gold chrome and one nail with a fine line.', nru: 'Чёрный глянец, золотой хром и ноготь с тонкой линией.' },
+  { id: 'nude', photo: 'nude', tech: 'gel', price: 32, min: 70, master: 'elena', pos: '45% 50%',
+    es: 'Nude natural', en: 'Natural nude', ru: 'Естественный нюд',
+    nes: 'Manicura rusa y semipermanente transparente rosado: uñas cuidadas sin «efecto laca».', nen: 'Russian manicure and sheer pink gel: groomed nails without a “polished” look.', nru: 'Аппаратный маникюр и прозрачно-розовый гель-лак: ухоженные ногти без эффекта «накрашено».' }
 ];
 
 /* ПЕРВЫЙ ЭКРАН — слайд-шоу. Фото в img/hero/: <img>.webp (2400 px) и <img>-s.webp (1200 px, для телефона).
