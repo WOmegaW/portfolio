@@ -2,7 +2,7 @@
    Данные (цены, цвета, мастера) — в data.js. */
 (() => {
 'use strict';
-const { SITE, TECH, LENGTHS, FINISHES, DESIGNS, EXTRAS, MASTERS, LOOKS, WORKS, ADVICE } = window;
+const { SITE, TECH, LENGTHS, FINISHES, DESIGNS, EXTRAS, MASTERS, WORKS, ADVICE, SLIDES, CERTS } = window;
 const $ = (s, r = document) => r.querySelector(s);
 const $$ = (s, r = document) => [...r.querySelectorAll(s)];
 const store = {
@@ -37,8 +37,8 @@ ru: {
   'm.eyebrow': 'В ролях', 'm.title': 'Кто будет делать ваш маникюр', 'm.days': 'Работает', 'any': 'Любой мастер', 'm.cant': 'не делает эту технику',
   'b.eyebrow': 'Запись', 'b.title': 'Выберите день и время', 'b.lead': 'В календаре — только окна, в которые ваша услуга помещается целиком.',
   'b.s1': 'Услуга', 'b.s2': 'Мастер', 'b.s3': 'День и время', 'b.s4': 'Контакты', 'b.edit': 'Изменить дизайн',
-  'slots': n => `${n} ${plural(n, 'окно', 'окна', 'окон')}`, 'nofree': 'нет мест', 'closed': 'выходной', 'morning': 'Утро', 'day': 'День', 'evening': 'Вечер',
-  'pickday': 'Выберите день', 'noslots': 'В этот день окон под вашу длительность нет — выберите другой день или мастера.', 'fit': d => `Показаны окна, куда помещается ${d} подряд.`,
+  'slots': n => `${n} ${plural(n, 'окно', 'окна', 'окон')}`, 'nofree': 'всё занято', 'closed': 'выходной', 'morning': 'Утро', 'day': 'День', 'evening': 'Вечер',
+  'taken': 'занято', 'legend': 'Зачёркнутое время уже занято другими клиентами. Выходной — салон или мастер в этот день не работает.', 'pickday': 'Выберите день', 'noslots': 'В этот день окон под вашу длительность нет — выберите другой день или мастера.', 'fit': d => `Показаны окна, куда помещается ${d} подряд.`,
   'f.name': 'Имя', 'f.phone': 'Телефон', 'f.email': 'E-mail', 'ph.name': 'Например, Анна', 'ph.phone': '+34 600 123 456', 'ph.email': 'anna@gmail.com',
   'e.name': 'Напишите, как к вам обращаться.', 'e.phone': 'Проверьте номер: нужно минимум 9 цифр.', 'e.email': 'Проверьте e-mail: например, anna@gmail.com', 'e.policy': 'Отметьте, что согласны с правилом опозданий.', 'e.slot': 'Выберите день и время.',
   'policy': (m, d) => `Понимаю: если опоздаю больше чем на ${m} минут, запись отменится, время отдадут другим клиентам, а предоплата ${d} € вернётся на карту.`,
@@ -57,7 +57,7 @@ ru: {
   'a3': (m, d) => `Если опоздание больше ${m} минут, запись отменяется автоматически: время отдаём другим клиентам, а предоплату ${d} € возвращаем на карту. Опаздываете — нажмите «Я опаздываю» в «Моих записях».`,
   'q4': 'Снимаете чужое покрытие?', 'a4': 'Да — отметьте «Снятие старого покрытия» при записи, чтобы мы заложили на это время.', 'q5': 'Как оплатить?', 'a5': 'Предоплата при записи, остальное — картой или наличными в салоне.',
   'ct.title': 'Как нас найти', 'ct.route': 'Маршрут', 'ct.hours': (a, b, c, d) => `Пн–Пт ${a}:00–${b}:00 · Сб ${c}:00–${d}:00 · Вс — выходной`,
-  'foot.demo': 'Концепт-проект для портфолио: салон, мастера, цены и отзывы вымышлены. Фото: StockSnap (CC0). 3D: three.js (MIT). Карта: OpenFreeMap © OpenStreetMap.',
+  'foot.demo': 'Концепт-проект для портфолио: салон, мастера, цены и отзывы вымышлены. Фото: Unsplash. Карта: OpenFreeMap © OpenStreetMap.',
   'wd': ['Вс', 'Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб'], 'today': 'Сегодня', 'tomorrow': 'Завтра', 'sending': 'Отправляем…', 'nail': n => `Ноготь ${n}`,
   'hero.kicker': 'Nácar представляет · Марбелья',
   'hero.scene': 'Сцена',
@@ -122,7 +122,7 @@ es: {
   'b.eyebrow': 'Reserva', 'b.title': 'Elige día y hora', 'b.lead': 'El calendario solo muestra huecos donde cabe tu servicio entero.',
   'b.s1': 'Servicio', 'b.s2': 'Manicurista', 'b.s3': 'Día y hora', 'b.s4': 'Contacto', 'b.edit': 'Cambiar diseño',
   'slots': n => `${n} ${n === 1 ? 'hueco' : 'huecos'}`, 'nofree': 'completo', 'closed': 'cerrado', 'morning': 'Mañana', 'day': 'Mediodía', 'evening': 'Tarde',
-  'pickday': 'Elige un día', 'noslots': 'Ese día no hay huecos para tu duración: prueba otro día u otra manicurista.', 'fit': d => `Solo huecos donde caben ${d} seguidos.`,
+  'taken': 'ocupado', 'legend': 'Las horas tachadas ya están reservadas. «Cerrado»: ese día el salón o la manicurista no trabaja.', 'pickday': 'Elige un día', 'noslots': 'Ese día no hay huecos para tu duración: prueba otro día u otra manicurista.', 'fit': d => `Solo huecos donde caben ${d} seguidos.`,
   'f.name': 'Nombre', 'f.phone': 'Teléfono', 'f.email': 'E-mail', 'ph.name': 'Por ejemplo, Ana', 'ph.phone': '+34 600 123 456', 'ph.email': 'ana@gmail.com',
   'e.name': 'Dinos cómo te llamas.', 'e.phone': 'Revisa el número: al menos 9 dígitos.', 'e.email': 'Revisa el e-mail: por ejemplo, ana@gmail.com', 'e.policy': 'Acepta la norma de retrasos.', 'e.slot': 'Elige día y hora.',
   'policy': (m, d) => `Entiendo que si llego más de ${m} minutos tarde, la cita se anula, el hueco pasa a otra clienta y la señal de ${d} € se devuelve a mi tarjeta.`,
@@ -141,7 +141,7 @@ es: {
   'a3': (m, d) => `Si el retraso supera ${m} minutos, la cita se anula automáticamente: el hueco pasa a otra clienta y te devolvemos la señal de ${d} €. Si vas tarde, pulsa «Llego tarde» en «Mis citas».`,
   'q4': '¿Retiráis esmalte de otro salón?', 'a4': 'Sí: marca «Retirada de esmalte anterior» al reservar para que reservemos el tiempo.', 'q5': '¿Cómo se paga?', 'a5': 'Señal al reservar; el resto con tarjeta o en efectivo en el salón.',
   'ct.title': 'Dónde estamos', 'ct.route': 'Cómo llegar', 'ct.hours': (a, b, c, d) => `L–V ${a}:00–${b}:00 · S ${c}:00–${d}:00 · D cerrado`,
-  'foot.demo': 'Proyecto conceptual para portafolio: el salón, el equipo, los precios y las opiniones son ficticios. Fotos: StockSnap (CC0). 3D: three.js (MIT). Mapa: OpenFreeMap © OpenStreetMap.',
+  'foot.demo': 'Proyecto conceptual para portafolio: el salón, el equipo, los precios y las opiniones son ficticios. Fotos: Unsplash. Mapa: OpenFreeMap © OpenStreetMap.',
   'wd': ['Do', 'Lu', 'Ma', 'Mi', 'Ju', 'Vi', 'Sá'], 'today': 'Hoy', 'tomorrow': 'Mañana', 'sending': 'Enviando…', 'nail': n => `Uña ${n}`,
   'hero.kicker': 'Nácar presenta · Marbella',
   'hero.scene': 'Escena',
@@ -206,7 +206,7 @@ en: {
   'b.eyebrow': 'Booking', 'b.title': 'Pick a day and time', 'b.lead': 'The calendar only shows slots where your whole service fits.',
   'b.s1': 'Service', 'b.s2': 'Nail artist', 'b.s3': 'Day and time', 'b.s4': 'Contact', 'b.edit': 'Change design',
   'slots': n => `${n} ${n === 1 ? 'slot' : 'slots'}`, 'nofree': 'full', 'closed': 'closed', 'morning': 'Morning', 'day': 'Midday', 'evening': 'Evening',
-  'pickday': 'Pick a day', 'noslots': 'No slots long enough on this day — try another day or artist.', 'fit': d => `Only slots with ${d} in a row are shown.`,
+  'taken': 'taken', 'legend': 'Crossed-out times are already booked. “Closed”: the salon or artist is off that day.', 'pickday': 'Pick a day', 'noslots': 'No slots long enough on this day — try another day or artist.', 'fit': d => `Only slots with ${d} in a row are shown.`,
   'f.name': 'Name', 'f.phone': 'Phone', 'f.email': 'Email', 'ph.name': 'e.g. Anna', 'ph.phone': '+34 600 123 456', 'ph.email': 'anna@gmail.com',
   'e.name': 'Tell us your name.', 'e.phone': 'Check the number: at least 9 digits.', 'e.email': 'Check the email, e.g. anna@gmail.com', 'e.policy': 'Please accept the late-arrival rule.', 'e.slot': 'Pick a day and time.',
   'policy': (m, d) => `I understand that if I am more than ${m} minutes late, the booking is cancelled, the slot goes to another client and my €${d} deposit is refunded to my card.`,
@@ -225,7 +225,7 @@ en: {
   'a3': (m, d) => `If you are more than ${m} minutes late, the booking is cancelled automatically: the slot goes to another client and we refund your €${d} deposit. Running late? Tap "I am running late" in "My bookings".`,
   'q4': 'Do you remove polish from other salons?', 'a4': 'Yes — tick "Removal of old coating" when booking so we plan the time.', 'q5': 'How do I pay?', 'a5': 'A deposit when booking; the rest by card or cash at the salon.',
   'ct.title': 'Find us', 'ct.route': 'Directions', 'ct.hours': (a, b, c, d) => `Mon–Fri ${a}:00–${b}:00 · Sat ${c}:00–${d}:00 · Sun closed`,
-  'foot.demo': 'Portfolio concept project: the salon, artists, prices and reviews are fictional. Photos: StockSnap (CC0). 3D: three.js (MIT). Map: OpenFreeMap © OpenStreetMap.',
+  'foot.demo': 'Portfolio concept project: the salon, artists, prices and reviews are fictional. Photos: Unsplash. Map: OpenFreeMap © OpenStreetMap.',
   'wd': ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'], 'today': 'Today', 'tomorrow': 'Tomorrow', 'sending': 'Sending…', 'nail': n => `Nail ${n}`,
   'hero.kicker': 'Nácar presents · Marbella',
   'hero.scene': 'Scene',
@@ -281,6 +281,8 @@ const waLink = text => `https://wa.me/${SITE.whatsapp}?text=${encodeURIComponent
 const masterName = id => (MASTERS.find(m => m.id === id) || {}).name || '';
 const workById = id => WORKS.find(w => w.id === id);
 const photo = w => `img/works/${w.photo}.webp`;
+const photoL = w => `img/works/${w.photo}-l.webp`;
+const srcset = w => `${photo(w)} 800w, ${photoL(w)} 1600w`;
 
 /* ===================== Выбор: работа из галереи или «пусть решит мастер» ===================== */
 const B = { work: null, master: 'any', day: null, start: null, who: null };   // work: id работы | 'advice' | null
@@ -308,7 +310,7 @@ function renderWorks() {
   $('#workFilter').innerHTML = techs.map(k => `<button type="button" class="pill" data-f="${k}" aria-pressed="${filter === k}">${k === 'all' ? t('f.all') : L(TECH[k])}</button>`).join('');
   const list = WORKS.filter(w => filter === 'all' || w.tech === filter);
   $('#worksGrid').innerHTML = list.map((w, i) => `<button type="button" class="work reveal" data-work="${w.id}" style="transition-delay:${(i % 3) * .08}s">
-      <span class="ph"><img src="${photo(w)}" alt="${esc(L(w))}" loading="lazy"${w.pos ? ` style="object-position:${w.pos}"` : ''}></span>
+      <span class="ph"><img src="${photo(w)}" srcset="${srcset(w)}" sizes="(max-width:900px) 50vw, 33vw" alt="${esc(L(w))}" loading="lazy"${w.pos ? ` style="object-position:${w.pos}"` : ''}></span>
       <span class="cap"><b>${esc(L(w))}</b><small>${L(TECH[w.tech])} · ${dur(w.min)}</small></span>
       <span class="price">${eur(w.price)}</span>
     </button>`).join('');
@@ -321,7 +323,7 @@ $('#worksGrid').addEventListener('click', e => { const b = e.target.closest('[da
 function openWork(id, fromHash) {
   const w = workById(id); if (!w) return;
   const m = MASTERS.find(x => x.id === w.master);
-  $('#workBox').innerHTML = `<div class="wk-ph"><img src="${photo(w)}" alt="${esc(L(w))}"></div>
+  $('#workBox').innerHTML = `<div class="wk-ph"><img src="${photoL(w)}" alt="${esc(L(w))}"${w.pos ? ` style="object-position:${w.pos}"` : ''}></div>
     <div class="wk-in">
       <p class="eyebrow">${L(TECH[w.tech])}</p>
       <h3>${esc(L(w))}</h3>
@@ -366,21 +368,23 @@ const hoursOf = d => d.getDay() === 0 ? null : d.getDay() === 6 ? SITE.hours.sat
 const bookings = () => store.get('nc-bookings', []);
 function busyOf(master, d) {
   const r = rng(dayKey(d) + master.id), h = hoursOf(d), busy = [];
-  for (let s = h[0] * 60; s < h[1] * 60; s += 30) if (r() < .42) busy.push([s, s + 30 + Math.floor(r() * 3) * 30]);
-  bookings().filter(b => b.status !== 'cancel' && b.master === master.id && b.date === dayKey(d)).forEach(b => busy.push([b.start, b.start + b.min]));
+  for (let s = h[0] * 60; s < h[1] * 60; s += 60) if (r() < .22) busy.push([s, s + 60]);   // демо-занятость: примерно каждый пятый час занят
+  bookings().filter(b => b.status !== 'cancel' && b.master === master.id && b.date === dayKey(d)).forEach(b => busy.push([b.start, b.start + b.min]));   // уже записанные клиенты
   return busy;
 }
-function freeStarts(master, d, need) {
+const STEP = 30;
+function startsOf(master, d, need) {              // { 600: true (свободно) | false (занято) } или null — мастер не работает
   const h = hoursOf(d); if (!h || !master.days.includes(d.getDay())) return null;
-  const busy = busyOf(master, d), now = new Date(), today = dayKey(d) === dayKey(now), nowMin = now.getHours() * 60 + now.getMinutes() + 30, out = [];
-  for (let s = h[0] * 60; s + need <= h[1] * 60; s += 15) { if (today && s < nowMin) continue; if (!busy.some(([a, b]) => s < b && s + need > a)) out.push(s); }
+  const busy = busyOf(master, d), now = new Date(), today = dayKey(d) === dayKey(now), nowMin = now.getHours() * 60 + now.getMinutes() + 30, out = {};
+  for (let s = h[0] * 60; s + need <= h[1] * 60; s += STEP) { if (today && s < nowMin) continue; out[s] = !busy.some(([a, b]) => s < b && s + need > a); }
   return out;
 }
+const freeStarts = (master, d, need) => { const o = startsOf(master, d, need); return o && Object.keys(o).filter(k => o[k]).map(Number); };
 const canDo = (m, tech) => !tech || m.techs.includes(tech);
-function slotsFor(d, need, tech) {                    // { 600: 'lucia', … } — время → кто свободен
+function slotsFor(d, need, tech) {                    // { 600: 'lucia' | null } — время → кто свободен (null — всё занято)
   const list = MASTERS.filter(m => canDo(m, tech) && (B.master === 'any' || B.master === m.id)), map = {};
   let open = false;
-  list.forEach(m => { const fs = freeStarts(m, d, need); if (fs) { open = true; fs.forEach(s => { if (!map[s]) map[s] = m.id; }); } });
+  list.forEach(m => { const o = startsOf(m, d, need); if (o) { open = true; Object.keys(o).forEach(s => { if (o[s] && !map[s]) map[s] = m.id; else if (!(s in map)) map[s] = null; }); } });
   return open ? map : null;
 }
 const days14 = () => Array.from({ length: 14 }, (_, i) => { const d = new Date(); d.setHours(12, 0, 0, 0); d.setDate(d.getDate() + i); return d; });
@@ -401,17 +405,17 @@ function renderBooking() {
   // 3. день и время — окна, куда услуга помещается целиком
   const ds = days14(), need = q.min || ADVICE.min;
   $('#days').innerHTML = ds.map((d, i) => {
-    const map = slotsFor(d, need, q.tech), n = map ? Object.keys(map).length : 0, k = dayKey(d);
+    const map = slotsFor(d, need, q.tech), n = map ? Object.values(map).filter(Boolean).length : 0, k = dayKey(d);
     const label = i === 0 ? t('today') : i === 1 ? t('tomorrow') : T[lang].wd[d.getDay()];
     return `<button type="button" class="day${n ? '' : ' full'}" data-day="${k}" aria-pressed="${B.day === k}"><small>${label}</small><b>${d.getDate()}</b><em>${map ? (n ? t('slots', n) : t('nofree')) : t('closed')}</em></button>`;
   }).join('');
-  if (!B.day) { const first = ds.find(d => { const m = slotsFor(d, need, q.tech); return m && Object.keys(m).length; }); if (first) B.day = dayKey(first); $$('#days .day').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.day === B.day))); }
-  const d = ds.find(x => dayKey(x) === B.day), map = d ? slotsFor(d, need, q.tech) || {} : {}, starts = Object.keys(map).map(Number).sort((a, b) => a - b);
+  if (!B.day) { const first = ds.find(d => { const m = slotsFor(d, need, q.tech); return m && Object.values(m).some(Boolean); }); if (first) B.day = dayKey(first); $$('#days .day').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.day === B.day))); }
+  const d = ds.find(x => dayKey(x) === B.day), map = d ? slotsFor(d, need, q.tech) || {} : {}, starts = Object.keys(map).map(Number).sort((a, b) => a - b), freeN = starts.filter(x => map[x]).length;
   if (B.start !== null && !map[B.start]) { B.start = null; B.who = null; }
   const grp = [[t('morning'), x => x < 720], [t('day'), x => x >= 720 && x < 960], [t('evening'), x => x >= 960]];
-  $('#slots').innerHTML = !d ? `<p class="empty">${t('pickday')}</p>` : !starts.length ? `<p class="empty">${t('noslots')}</p>` :
-    grp.map(([h, f]) => { const xs = starts.filter(f); return xs.length ? `<h4>${h}</h4><div class="row">${xs.map(x => `<button type="button" class="slot" data-start="${x}" aria-pressed="${B.start === x}">${hm(x)}</button>`).join('')}</div>` : ''; }).join('');
-  $('#fit').textContent = t('fit', dur(need));
+  $('#slots').innerHTML = !d ? `<p class="empty">${t('pickday')}</p>` : !starts.length ? `<p class="empty">${t('noslots')}</p>` : (freeN ? '' : `<p class="empty">${t('noslots')}</p>`) +
+    grp.map(([h, f]) => { const xs = starts.filter(f); return xs.length ? `<h4>${h}</h4><div class="row">${xs.map(x => `${map[x] ? `<button type="button" class="slot" data-start="${x}" aria-pressed="${B.start === x}">${hm(x)}</button>` : `<span class="slot taken" title="${t('taken')}">${hm(x)}</span>`}`).join('')}</div>` : ''; }).join('');
+  $('#fit').textContent = `${t('fit', dur(need))} ${t('legend')}`;
   // билет
   $('#rMini').innerHTML = w ? `<img src="${photo(w)}" alt="">` : `<div class="mini-empty">${B.work === 'advice' ? '✦' : 'Nácar'}</div>`;
   $('#rList').innerHTML = q.items.length ? q.items.map(([k, p]) => `<div><dt>${esc(k)}</dt><dd>${q.from && p === ADVICE.price && k === t('adv.name') ? t('from', eur(p)) : eur(p)}</dd></div>`).join('') : `<div><dt>${t('b.pick')}</dt></div>`;
@@ -423,7 +427,7 @@ function renderBooking() {
 }
 $('#book').addEventListener('click', e => {
   if (e.target.closest('#advPick')) { choose('advice', false); return; }
-  const m = e.target.closest('[data-m]'); if (m) { B.master = m.dataset.m; B.start = null; renderBooking(); return; }
+  const m = e.target.closest('[data-m]'); if (m) { B.master = m.dataset.m; B.start = null; B.day = null; renderBooking(); return; }   // день — ближайший, где у мастера есть время
   const dd = e.target.closest('[data-day]'); if (dd) { B.day = dd.dataset.day; B.start = null; renderBooking(); return; }
   const s = e.target.closest('[data-start]');
   if (s) { const q = quote(), d = days14().find(x => dayKey(x) === B.day), map = slotsFor(d, q.min || ADVICE.min, q.tech); B.start = +s.dataset.start; B.who = map[B.start]; setErr('ePolicy', ''); renderBooking(); }
@@ -535,25 +539,28 @@ addEventListener('load', () => {
   } catch (e) { /* без карты — остаются адрес и кнопка «Маршрут» */ }
 });
 
-/* ===================== Первый экран: 3D-сцены ===================== */
-const look3 = st => ({ shape: st.shape, length: st.length, finish: st.finish, nails: st.nails.map(n => ({ c: n.c, d: n.d, t: n.t || '#FFFFFF' })) });
-let hero3d = null, macro3d = null, heroI = 2, macroI = 5, macroT = 0;
-function heroScene() {
-  const l = LOOKS[heroI % LOOKS.length];
-  $('#sceneNo').textContent = String(heroI % LOOKS.length + 1).padStart(2, '0');
-  $('#sceneName').textContent = L(l);
-  const sc = $('.scene'); sc.classList.remove('cut'); void sc.offsetWidth; sc.classList.add('cut');
+/* ===================== Первый экран: слайд-шоу ===================== */
+const SLIDE_MS = 7000;
+let slideI = 0, slideT = 0;
+function certHTML() {
+  return `<div class="cert-slide"><div class="certs">${CERTS.map(c => `<div class="cert"><small>Certificado · ${c.year}</small><b>${esc(L(c))}</b><span class="seal">N</span><span class="nm">${c.who}</span><span class="sch">${esc(c.school)}</span></div>`).join('')}</div></div>`;
 }
-function initHero() {
-  if (hero3d || !window.Nail3D) return;
-  try { hero3d = Nail3D.stage($('#heroCanvas'), { mode: 'hero', onScene: i => { heroI = i; heroScene(); } }); } catch (e) { return; }
-  heroScene(); hero3d.play(LOOKS.map(look3), heroI);
-  try {                                                   // интерлюдия: крупный план одного ногтя, образы медленно сменяются
-    macro3d = Nail3D.stage($('#macroCanvas'), { mode: 'macro' });
-    const show = () => { const l = LOOKS[macroI % LOOKS.length]; macro3d.set(look3(l)); $('#macroName').textContent = L(l); };
-    show();
-    if (!matchMedia('(prefers-reduced-motion: reduce)').matches) macroT = setInterval(() => { if (!document.hidden) { macroI++; show(); } }, 6500);
-  } catch (e) { macro3d = null; }
+function renderSlides() {
+  $('#slides').innerHTML = SLIDES.map((s, i) => `<div class="slide${i === slideI ? ' on' : ''}">${s.type === 'cert' ? certHTML() :
+    `<img src="img/hero/${s.img}-s.webp" srcset="img/hero/${s.img}-s.webp 1200w, img/hero/${s.img}.webp 2400w" sizes="100vw" alt="" style="object-position:${s.pos || '50% 50%'}"${i ? ' loading="lazy"' : ' fetchpriority="high"'}>`}</div>`).join('');
+  $('#progress').innerHTML = SLIDES.map(() => '<i><b></b></i>').join('');
+  showSlide(slideI, true);
+}
+function showSlide(i, first) {
+  slideI = (i + SLIDES.length) % SLIDES.length;
+  document.querySelectorAll('#slides .slide').forEach((el, k) => el.classList.toggle('on', k === slideI));
+  document.querySelectorAll('#progress i').forEach((el, k) => { el.className = k < slideI ? 'done' : ''; });
+  const bar = document.querySelectorAll('#progress i')[slideI]; void bar.offsetWidth; bar.className = 'run'; bar.style.setProperty('--dur', SLIDE_MS + 'ms');
+  $('#sceneNo').textContent = String(slideI + 1).padStart(2, '0');
+  $('#sceneName').textContent = L(SLIDES[slideI]);
+  if (!first) { const sc = $('.scene'); sc.classList.remove('cut'); void sc.offsetWidth; sc.classList.add('cut'); }
+  clearTimeout(slideT);
+  if (!matchMedia('(prefers-reduced-motion: reduce)').matches) slideT = setTimeout(() => { if (document.hidden || scrollY > innerHeight) { showSlide(slideI, true); return; } showSlide(slideI + 1); }, SLIDE_MS);
 }
 
 /* ===================== Язык, появление, мобильная плашка ===================== */
@@ -589,10 +596,8 @@ function applyLang() {
   $$('[data-i-ph]').forEach(el => el.setAttribute('placeholder', T[lang][el.dataset.iPh]));
   $('#interQ').innerHTML = t('inter.q').split(' ').map((x, i) => `<span class="w" style="transition-delay:${i * .09}s">${x}</span>`).join(' ');
   $('#heroTitle').innerHTML = t('hero.title').split('|').map(x => `<span class="ln"><span>${x}</span></span>`).join('');
-  $('#sceneName').textContent = L(LOOKS[heroI % LOOKS.length]);
-  if (macro3d) $('#macroName').textContent = L(LOOKS[macroI % LOOKS.length]);
   $$('.lang button').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.lang === lang)));
-  renderWorks(); renderPrices(); renderMasters(); renderBooking(); renderContact(); renderMine(); heroFree(); renderMbar();
+  renderSlides(); renderWorks(); renderPrices(); renderMasters(); renderBooking(); renderContact(); renderMine(); heroFree(); renderMbar();
 }
 $$('.lang button').forEach(b => b.addEventListener('click', () => { lang = b.dataset.lang; store.set('nc-lang', lang); applyLang(); }));
 
@@ -601,17 +606,17 @@ reveal($$('.reveal'));
 reveal([$('#interlude')]);
 const fromHash = () => { const m = location.hash.match(/^#work\/([\w-]+)/); if (m && workById(m[1]) && !$('#workDlg').open) openWork(m[1], true); };
 fromHash(); addEventListener('hashchange', fromHash);
-if (window.Nail3D) initHero(); else addEventListener('nail3d', initHero, { once: true });
 requestAnimationFrame(() => requestAnimationFrame(() => $('#hero').classList.add('open')));
-// шапка темнеет после первого экрана; заголовок героя уезжает при прокрутке
-const topBar = $('#top'), heroCopy = $('.hero-copy');
+// шапка темнеет после первого экрана; заголовок героя уезжает, кадр-интерлюдия двигается при прокрутке
+const topBar = $('#top'), heroCopy = $('.hero-copy'), inter = $('#interImg');
 let ticking = false;
 addEventListener('scroll', () => {
   if (ticking) return; ticking = true;
   requestAnimationFrame(() => {
     ticking = false;
     topBar.classList.toggle('solid', scrollY > innerHeight * .6);
-    if (hero3d && scrollY < innerHeight * 1.2) hero3d.scroll(Math.min(1, scrollY / innerHeight));
+    const r = inter.parentElement.getBoundingClientRect();
+    if (r.bottom > 0 && r.top < innerHeight) inter.style.transform = `translate3d(0,${((r.top + r.height / 2) - innerHeight / 2) * -.1}px,0)`;
     if (scrollY < innerHeight * 1.2) { const k = Math.min(1, scrollY / innerHeight); heroCopy.style.transform = `translateY(${-k * 90}px)`; heroCopy.style.opacity = String(1 - k * 1.1); }
   });
 }, { passive: true });

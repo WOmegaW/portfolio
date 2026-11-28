@@ -86,7 +86,6 @@ a{color:inherit}
 
 /* ===== I. Первый экран: титры ===== */
 .hero{position:relative;height:100svh;min-height:600px;overflow:hidden;background:radial-gradient(70% 60% at 62% 42%,#2A1B24 0%,#140E13 55%,#0B080A 100%)}
-.hero canvas{position:absolute;inset:0;width:100%;height:100%;display:block;touch-action:pan-y}
 .hero .spot{position:absolute;inset:0;pointer-events:none;background:radial-gradient(40% 50% at 64% 40%,rgba(217,185,140,.12),transparent 70%)}
 .hero .bars::before,.hero .bars::after{content:"";position:absolute;left:0;right:0;height:13svh;background:#000;z-index:3;transition:transform 1.6s var(--ease) .2s}
 .hero .bars::before{top:0}.hero .bars::after{bottom:0}
@@ -113,13 +112,11 @@ a{color:inherit}
 @keyframes pulse{70%{box-shadow:0 0 0 10px rgba(143,211,168,0)}100%{box-shadow:0 0 0 0 rgba(143,211,168,0)}}
 .cue{position:absolute;z-index:2;left:50%;bottom:18px;width:1px;height:44px;background:linear-gradient(var(--gold),transparent);transform-origin:top;animation:cue 2.4s var(--ease) infinite}
 @keyframes cue{0%{transform:scaleY(0)}50%{transform:scaleY(1)}100%{transform:scaleY(1);opacity:0}}
-.hero-fallback{position:absolute;right:4%;top:18%;width:min(56vw,760px);opacity:.95}
 @media (max-width:760px){
   .hero{min-height:620px}
-  .hero canvas{top:60px;height:calc(100% - 520px);min-height:220px}
   .free{display:none}
-  .hero .ctas{flex-wrap:nowrap;gap:8px;width:100%}
-  .hero .ctas .btn{flex:1;min-height:48px;padding:0 12px;font-size:11.5px;white-space:nowrap;letter-spacing:.04em}
+  .hero .ctas{flex-direction:column;gap:8px;width:100%}
+  .hero .ctas .btn{min-height:48px;padding:0 14px;font-size:12px;white-space:nowrap;letter-spacing:.04em}
   .hero h1{font-size:clamp(46px,13.5vw,80px)}
   .hero .lead{font-size:15px}
   .hero-row{margin-top:20px;gap:18px}
@@ -137,7 +134,6 @@ a{color:inherit}
 
 /* ===== Интерлюдия: макро вашего ногтя ===== */
 .interlude{position:relative;height:min(100svh,900px);min-height:520px;overflow:hidden;display:flex;align-items:flex-end;background:radial-gradient(60% 70% at 62% 45%,#2C1D26,#0E0A0D 70%)}
-.interlude canvas{position:absolute;inset:0;width:100%;height:100%;display:block}
 .interlude::before{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;background:linear-gradient(180deg,var(--bg-2) 0%,transparent 22%,transparent 62%,var(--bg) 100%),radial-gradient(120% 90% at 60% 45%,transparent 55%,rgba(0,0,0,.55))}
 .interlude blockquote{position:relative;z-index:2;margin:0 auto;padding:0 var(--gutter) clamp(48px,8vw,110px);max-width:calc(var(--max) + 2 * var(--gutter));width:100%}
 .interlude blockquote p{margin:0;font:italic 300 clamp(40px,6.4vw,100px)/.95 var(--display);letter-spacing:-.025em;max-width:9em}
@@ -234,6 +230,7 @@ a{color:inherit}
 .slots .row{display:flex;flex-wrap:wrap;gap:8px}
 .slot{min-width:78px;padding:10px 12px;border-radius:999px;border:1px solid var(--line);background:transparent;cursor:pointer;font-weight:500;font-size:14px;font-variant-numeric:tabular-nums}
 .slot:hover{border-color:var(--pearl)}
+.slot.taken{display:inline-flex;align-items:center;justify-content:center;cursor:default;color:var(--muted);opacity:.45;text-decoration:line-through;border-style:dashed}
 .slot[aria-pressed=true]{background:var(--gold);border-color:var(--gold);color:#1A1214}
 .slots .empty{font-size:14px;color:var(--muted)}
 .fit{font-size:12px;color:var(--muted);margin:14px 0 0}
@@ -293,6 +290,42 @@ footer .fin{font:italic 300 clamp(70px,14vw,220px)/.8 var(--display);letter-spac
 footer .cred{display:grid;gap:8px;margin-top:40px;font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--muted)}
 footer .cred span:last-child{max-width:60em;margin:12px auto 0;letter-spacing:.04em;text-transform:none;line-height:1.6}
 
+
+
+/* ===== Первый экран: слайд-шоу (как титры фильма) ===== */
+.slides{position:absolute;inset:0;overflow:hidden;background:#0B080A}
+.slide{position:absolute;inset:0;opacity:0;transition:opacity 1.8s var(--ease)}
+.slide.on{opacity:1}
+.slide img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transform:scale(1.12);filter:saturate(.9) contrast(1.04)}
+.slide.on img{animation:kb 9s linear forwards}
+.slide:nth-child(even).on img{animation-name:kb2}
+@keyframes kb{from{transform:scale(1.12) translate3d(-1.5%,0,0)}to{transform:scale(1.02) translate3d(1%,-1%,0)}}
+@keyframes kb2{from{transform:scale(1.02) translate3d(1%,1%,0)}to{transform:scale(1.13) translate3d(-1%,0,0)}}
+.shade{position:absolute;inset:0;pointer-events:none;background:linear-gradient(90deg,rgba(10,7,9,.86) 0%,rgba(10,7,9,.55) 38%,rgba(10,7,9,.1) 70%),linear-gradient(180deg,rgba(10,7,9,.5) 0%,transparent 25%,transparent 55%,rgba(10,7,9,.85) 100%)}
+.cert-slide{position:absolute;inset:0;display:flex;align-items:center;justify-content:flex-end;padding:0 var(--gutter);background:radial-gradient(60% 70% at 70% 45%,#2C1D26,#0E0A0D 75%)}
+.certs{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px;width:min(640px,44vw);perspective:1400px;margin-right:2vw}
+.cert{position:relative;aspect-ratio:1/1.38;padding:22px 18px;border-radius:6px;background:linear-gradient(160deg,#F7F0E8,#E9DCCF);color:#2A1E24;box-shadow:0 30px 60px rgba(0,0,0,.55);display:flex;flex-direction:column;align-items:center;text-align:center;gap:8px;transform:rotateY(-14deg) rotateZ(-2deg) translateY(20px);opacity:0;transition:transform 1.6s var(--ease),opacity 1.2s var(--ease)}
+.cert:nth-child(2){transform:rotateY(-6deg) translateY(36px);transition-delay:.15s}.cert:nth-child(3){transform:rotateY(4deg) rotateZ(2deg) translateY(20px);transition-delay:.3s}
+.slide.on .cert{opacity:1;transform:rotateY(-10deg) rotateZ(-2deg)}.slide.on .cert:nth-child(2){transform:rotateY(-4deg) translateY(14px)}.slide.on .cert:nth-child(3){transform:rotateY(3deg) rotateZ(2deg)}
+.cert::before{content:"";position:absolute;inset:8px;border:1px solid rgba(184,146,95,.6);border-radius:3px;pointer-events:none}
+.cert small{font:600 8px/1.2 var(--text);letter-spacing:.3em;text-transform:uppercase;color:#9C7A4E}
+.cert b{font:italic 400 clamp(15px,1.4vw,21px)/1.1 var(--display)}
+.cert .nm{font:400 clamp(22px,2.2vw,32px)/1 var(--display);margin-top:auto}
+.cert .sch{font-size:9px;letter-spacing:.06em;color:#6B5A60}
+.cert .seal{width:46px;height:46px;border-radius:50%;background:radial-gradient(circle at 35% 35%,#E7C98F,#B8925F 60%,#8C6A3E);box-shadow:0 2px 6px rgba(0,0,0,.3);display:flex;align-items:center;justify-content:center;font:italic 600 13px/1 var(--display);color:#FFF6E6;margin-top:6px}
+.progress{position:absolute;z-index:3;left:var(--gutter);right:var(--gutter);bottom:14px;display:flex;gap:6px}
+.progress i{flex:1;height:2px;background:rgba(243,235,228,.2);overflow:hidden;border-radius:2px}
+.progress i b{display:block;height:100%;width:0;background:var(--gold)}
+.progress i.done b{width:100%}
+.progress i.run b{animation:prog var(--dur,7s) linear forwards}
+@keyframes prog{to{width:100%}}
+@media (max-width:760px){
+  .shade{background:linear-gradient(180deg,rgba(10,7,9,.55) 0%,rgba(10,7,9,.15) 30%,rgba(10,7,9,.7) 55%,rgba(10,7,9,.95) 100%)}
+  .cert-slide{align-items:flex-start;justify-content:center;padding-top:82px}
+  .certs{width:78vw;gap:8px;margin:0}.cert{padding:10px 8px;aspect-ratio:1/1.3;gap:4px}.cert .seal{width:26px;height:26px;font-size:10px}.cert .sch{display:none}.cert small{font-size:6.5px}.cert b{font-size:12px}.cert .nm{font-size:18px}
+}
+.interlude img{position:absolute;left:0;top:-10%;width:100%;height:120%;object-fit:cover;will-change:transform;filter:saturate(.9)}
+@media (prefers-reduced-motion:reduce){.slide.on img{animation:none;transform:none}.progress{display:none}}
 
 /* ===== I. Работы с ценами ===== */
 .wfilter{display:flex;flex-wrap:wrap;gap:8px;margin:-12px 0 28px}
@@ -404,10 +437,12 @@ dialog[open]{animation:pop .45s var(--ease)}
 <main>
 <section class="hero" id="hero" aria-labelledby="heroTitle">
   <div class="spot" aria-hidden="true"></div>
-  <canvas id="heroCanvas" aria-hidden="true"></canvas>
+  <div class="slides" id="slides" aria-hidden="true"></div>
+  <div class="shade" aria-hidden="true"></div>
   <div class="bars" aria-hidden="true"></div>
   <p class="free"><i></i><b id="heroFreeT"></b> <span id="heroFree"></span></p>
   <p class="scene" aria-live="polite"><span data-i="hero.scene">Сцена</span> <span id="sceneNo">01</span><b id="sceneName"></b></p>
+  <div class="progress" id="progress" aria-hidden="true"></div>
   <div class="hero-copy">
     <p class="kicker" data-i="hero.kicker">Nácar представляет</p>
     <h1 id="heroTitle"></h1>
@@ -438,8 +473,7 @@ dialog[open]{animation:pop .45s var(--ease)}
 </section>
 
 <section class="interlude" id="interlude">
-  <canvas id="macroCanvas" aria-hidden="true"></canvas>
-  <div class="tag"><span data-i="inter.tag">Ваш дизайн · макро</span><b id="macroName"></b></div>
+  <img src="img/hero/drop.webp" srcset="img/hero/drop-s.webp 1200w, img/hero/drop.webp 2400w" sizes="100vw" alt="" loading="lazy" id="interImg">
   <blockquote><p id="interQ"></p><cite>Nácar · Marbella</cite></blockquote>
 </section>
 
@@ -455,7 +489,7 @@ dialog[open]{animation:pop .45s var(--ease)}
   <div class="wrap">
     <header class="chap reveal"><span class="no" aria-hidden="true">III</span><p class="eyebrow" data-i="hyg.eyebrow">Гигиена</p><h2 id="hygTitle" data-i="hyg.title">Чистота, которую видно</h2><p class="lead" data-i="hyg.lead"></p></header>
     <div class="hyg-grid">
-      <div class="hyg-photo reveal"><img src="img/process.webp" alt="" loading="lazy"></div>
+      <div class="hyg-photo reveal"><img src="img/hygiene.webp" alt="" loading="lazy"></div>
       <ol class="hyg-steps">
         <li class="reveal"><b data-i="h1.t">Автоклав 134 °C</b><span data-i="h1.p"></span></li>
         <li class="reveal"><b data-i="h2.t">Крафт-пакет при вас</b><span data-i="h2.p"></span></li>
@@ -575,10 +609,8 @@ dialog[open]{animation:pop .45s var(--ease)}
 <dialog id="workDlg" class="wdlg" aria-label="Nácar"><button class="x" type="button" data-close aria-label="×">×</button><div class="wk" id="workBox"></div></dialog>
 <dialog id="okDlg" aria-labelledby="okTitle"><button class="x" type="button" data-close aria-label="×">×</button><div class="dlg-in okbox" id="okBox"></div></dialog>
 
-<script type="importmap">{"imports":{"three":"./vendor/three.module.min.js"}}</script>
-<script src="data.js?v=2026-11-28-9"></script>
+<script src="data.js?v=2026-11-28-10"></script>
 <script src="../villas/vendor/maplibre-gl.js?v=4.7.1" defer></script>
-<script src="app.js?v=2026-11-28-9"></script>
-<script type="module" src="nails3d.js?v=2026-11-28-9"></script>
+<script src="app.js?v=2026-11-28-10"></script>
 </body>
 </html>

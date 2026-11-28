@@ -24,8 +24,7 @@ window.TECH = {
   extensions: { price: 45, min: 105, es: 'Uñas de gel (extensión)', en: 'Gel extensions', ru: 'Наращивание гелем' }
 };
 
-/* Форма — без доплаты; длина: для наращивания длинные +8 € */
-window.SHAPES = ['square', 'oval', 'almond', 'coffin', 'stiletto'];
+/* Длина: для наращивания длинные +8 € */
 window.LENGTHS = { short: { price: 0, min: 0 }, medium: { price: 0, min: 0 }, long: { price: 8, min: 15 } };
 
 /* Покрытие */
@@ -50,23 +49,6 @@ window.EXTRAS = {
   pedicure: { price: 35, min: 50, es: 'Pedicura spa', en: 'Spa pedicure', ru: 'Спа-педикюр' }
 };
 
-/* Палитра салона — своя коллекция оттенков (названия можно менять) */
-window.COLORS = [
-  { hex: '#F3DDD4', name: 'Nácar' },        { hex: '#EBC7BA', name: 'Arena' },        { hex: '#E2B3A3', name: 'Melocotón' },
-  { hex: '#D9A08E', name: 'Canela' },       { hex: '#C98A7C', name: 'Rosa viejo' },   { hex: '#B5735F', name: 'Caramelo' },
-  { hex: '#F7F3EE', name: 'Leche' },        { hex: '#FFFFFF', name: 'Blanco' },       { hex: '#E8DDF0', name: 'Lavanda' },
-  { hex: '#F4B6C2', name: 'Flamenco' },     { hex: '#EE8FA4', name: 'Chicle' },       { hex: '#E5677F', name: 'Fresa' },
-  { hex: '#FF7F6B', name: 'Coral' },        { hex: '#F25C47', name: 'Atardecer' },    { hex: '#D7263D', name: 'Rojo Málaga' },
-  { hex: '#A4161A', name: 'Cereza' },       { hex: '#6D1A36', name: 'Burdeos' },      { hex: '#4A1730', name: 'Vino' },
-  { hex: '#8E5A3C', name: 'Moca' },         { hex: '#5A3A2E', name: 'Chocolate' },    { hex: '#2B1D24', name: 'Noche' },
-  { hex: '#0F0F12', name: 'Negro' },        { hex: '#2F4B7C', name: 'Marino' },       { hex: '#3F7CAC', name: 'Mediterráneo' },
-  { hex: '#8FC1D4', name: 'Cielo' },        { hex: '#1E6F5C', name: 'Esmeralda' },    { hex: '#88A47C', name: 'Oliva' },
-  { hex: '#C9D8B6', name: 'Pistacho' },     { hex: '#F2C14E', name: 'Mimosa' },       { hex: '#C9A227', name: 'Oro' }
-];
-
-/* Тона кожи для примерки */
-window.SKINS = ['#F6D7C3', '#E9BC9C', '#C98F6A', '#9A6343', '#5E3A27'];
-
 /* Мастера: у кого какие дни (0 — вс … 6 — сб) и что умеют */
 window.MASTERS = [
   { id: 'lucia', photo: 'master-1', name: 'Lucía', days: [1, 2, 3, 4, 5, 6], techs: ['classic', 'gel', 'extensions'],
@@ -79,51 +61,46 @@ window.MASTERS = [
 
 /* ГАЛЕРЕЯ РАБОТ С ЦЕНАМИ — главное на сайте.
    Клиентка выбирает работу → видит цену и время → записывается.
-   photo — файл в img/works/ (WebP, вертикальное 4:5); pos — какую часть фото показывать в превью (необязательно). price — итоговая цена, €; min — время, минуты.
-   tech — техника (classic / gel / extensions): по ней подбираются мастера, которые это делают.
-   ВНИМАНИЕ: фото сейчас временные (StockSnap, CC0) — у салона будут фото своих работ. */
+   photo — файлы в img/works/: <photo>.webp (800 px) и <photo>-l.webp (1600 px). pos — какую часть фото показывать в превью.
+   price — итоговая цена, €; min — время, минуты. tech — техника (classic / gel / extensions): по ней подбираются мастера.
+   Фото — Unsplash (бесплатная лицензия). У салона здесь будут фото его работ. */
 window.WORKS = [
-  { id: 'milk', photo: 'milk', tech: 'gel', price: 35, min: 75, master: 'lucia',
-    es: 'Blanco leche', en: 'Milky white', ru: 'Молочный однотон',
-    nes: 'Semipermanente liso, forma oval, uña natural.', nen: 'Plain gel polish, oval shape, natural nails.', nru: 'Гель-лак в один цвет, форма овал, свои ногти.' },
-  { id: 'wine', photo: 'wine', pos: '50% 90%', tech: 'gel', price: 35, min: 75, master: 'elena',
-    es: 'Burdeos corto', en: 'Short burgundy', ru: 'Короткое бордо',
-    nes: 'Semipermanente burdeos, uñas cortas cuadradas suaves.', nen: 'Burgundy gel polish, short soft-square nails.', nru: 'Гель-лак бордо, короткие ногти, мягкий квадрат.' },
-  { id: 'cherry', photo: 'cherry', tech: 'gel', price: 40, min: 90, master: 'amara',
-    es: 'Cereza con brillo', en: 'Cherry with sparkle', ru: 'Вишня с блеском',
-    nes: 'Semipermanente cereza con acabado brillante y destellos.', nen: 'Cherry gel polish with a glossy, sparkly finish.', nru: 'Вишнёвый гель-лак, глянец с лёгким сиянием.' },
-  { id: 'fuchsia', photo: 'fuchsia', tech: 'classic', price: 22, min: 45, master: 'elena',
-    es: 'Fucsia clásico', en: 'Classic fuchsia', ru: 'Фуксия, обычный лак',
-    nes: 'Esmalte clásico, se seca en 15 minutos. Ideal para una ocasión.', nen: 'Classic polish, dries in 15 minutes. Perfect for one event.', nru: 'Обычный лак, сохнет 15 минут. Хорошо «на один выход».' },
-  { id: 'plum', photo: 'plum', tech: 'gel', price: 38, min: 80, master: 'lucia',
-    es: 'Ciruela almendra', en: 'Plum almond', ru: 'Слива, миндаль',
-    nes: 'Semipermanente ciruela, forma almendra, uña natural.', nen: 'Plum gel polish, almond shape, natural nails.', nru: 'Гель-лак сливового цвета, форма миндаль, свои ногти.' }
+  { id: 'lilac', photo: 'lilac', tech: 'gel', price: 42, min: 90, master: 'lucia',
+    es: 'Lavanda y brillo', en: 'Lavender & sparkle', ru: 'Лаванда и блеск',
+    nes: 'Semipermanente en tres tonos: lavanda, blanco y un acento con purpurina plata.', nen: 'Gel polish in three shades: lavender, white and a silver glitter accent.', nru: 'Гель-лак в трёх оттенках: лаванда, белый и акцентный ноготь с серебряными блёстками.' },
+  { id: 'love', photo: 'love', tech: 'extensions', price: 62, min: 135, master: 'amara', pos: '50% 60%',
+    es: 'Rojo «love»', en: 'Red “love”', ru: 'Красный «love»',
+    nes: 'Extensión en almendra, francesa roja y rotulado a mano en dos uñas.', nen: 'Almond extensions, red French and hand lettering on two nails.', nru: 'Наращивание, миндаль, красный френч и надпись от руки на двух ногтях.' },
+  { id: 'abstract', photo: 'abstract', tech: 'gel', price: 55, min: 120, master: 'lucia', pos: '50% 45%',
+    es: 'Abstracción de color', en: 'Colour abstraction', ru: 'Цветная абстракция',
+    nes: 'Pintura a mano: manchas de color sobre base nude, forma oval.', nen: 'Hand-painted colour blocks on a nude base, oval shape.', nru: 'Роспись от руки: цветные пятна на нюдовой базе, форма овал.' },
+  { id: 'blush', photo: 'blush', tech: 'gel', price: 38, min: 80, master: 'elena', pos: '50% 35%',
+    es: 'Rosa lechoso', en: 'Milky pink', ru: 'Молочно-розовый',
+    nes: 'Semipermanente rosa lechoso, almendra corta, uña natural.', nen: 'Milky pink gel polish, short almond, natural nails.', nru: 'Молочно-розовый гель-лак, короткий миндаль, свои ногти.' },
+  { id: 'mocha', photo: 'mocha', tech: 'gel', price: 48, min: 105, master: 'amara', pos: '60% 55%',
+    es: 'Carey y negro', en: 'Tortoiseshell & black', ru: 'Черепаха и чёрный',
+    nes: 'Efecto carey, negro brillante y una uña con hilo dorado.', nen: 'Tortoiseshell effect, glossy black and one nail with a gold line.', nru: 'Эффект черепахи, чёрный глянец и ноготь с золотой линией.' },
+  { id: 'rose', photo: 'rose', tech: 'extensions', price: 55, min: 120, master: 'amara', pos: '50% 40%',
+    es: 'Nude rosado', en: 'Rosy nude', ru: 'Розовый нюд',
+    nes: 'Extensión en almendra larga, tono nude rosado.', nen: 'Long almond extensions in a rosy nude shade.', nru: 'Наращивание, длинный миндаль, розово-нюдовый оттенок.' }
+];
+
+/* ПЕРВЫЙ ЭКРАН — слайд-шоу. Фото в img/hero/: <img>.webp (2400 px) и <img>-s.webp (1200 px, для телефона).
+   type: 'cert' — слайд с сертификатами мастеров (CERTS ниже), фото не нужно. */
+window.SLIDES = [
+  { img: 'master', pos: '50% 50%', es: 'Lucía, en plena faena', en: 'Lucía at work', ru: 'Lucía за работой' },
+  { img: 'nude', pos: '50% 50%', es: 'Natural, como tus uñas', en: 'Natural, like your own nails', ru: 'Естественно — как свои' },
+  { type: 'cert', es: 'Formación certificada', en: 'Certified training', ru: 'Подтверждённое обучение' },
+  { img: 'process', pos: '50% 40%', es: 'El ritual', en: 'The ritual', ru: 'Ритуал' },
+  { img: 'salon', pos: '50% 70%', es: 'Nuestro estudio', en: 'Our studio', ru: 'Наша студия' }
+];
+
+/* Сертификаты мастеров (демо: школы вымышленные — у салона будут его настоящие сертификаты, можно фото) */
+window.CERTS = [
+  { who: 'Lucía', year: 2023, es: 'Nail art y diseño a mano alzada', en: 'Freehand nail art', ru: 'Нейл-арт и роспись', school: 'Escuela Lumbre de Uñas · Madrid' },
+  { who: 'Amara', year: 2024, es: 'Extensiones de gel, nivel máster', en: 'Gel extensions, master level', ru: 'Наращивание гелем, мастер-уровень', school: 'Forma & Gel Atelier · Barcelona' },
+  { who: 'Elena', year: 2022, es: 'Manicura rusa y esterilización', en: 'Russian manicure & sterilisation', ru: 'Аппаратный маникюр и стерилизация', school: 'Instituto Albahaca · Málaga' }
 ];
 
 /* «Не знаю — пусть решит мастер»: цена «от», время закладываем с запасом */
 window.ADVICE = { price: 30, min: 90 };
-
-/* Галерея «Хочу так же»: готовые дизайны (открываются в конфигураторе).
-   nails — по одному на палец: [большой, указательный, средний, безымянный, мизинец] */
-window.LOOKS = [
-  { id: 'nude-french', es: 'Nude con francesa', en: 'Nude French', ru: 'Нюд с френчем',
-    tech: 'gel', shape: 'almond', length: 'medium', finish: 'gloss', nails: Array(5).fill({ c: '#F3DDD4', d: 'french', t: '#FFFFFF' }) },
-  { id: 'red-classic', es: 'Rojo Málaga', en: 'Málaga red', ru: 'Красный «Малага»',
-    tech: 'gel', shape: 'oval', length: 'short', finish: 'gloss', nails: Array(5).fill({ c: '#D7263D', d: 'none' }) },
-  { id: 'pearl-chrome', es: 'Perla cromada', en: 'Pearl chrome', ru: 'Жемчужный хром',
-    tech: 'extensions', shape: 'almond', length: 'long', finish: 'chrome', nails: Array(5).fill({ c: '#F7F3EE', d: 'none' }) },
-  { id: 'emerald-cat', es: 'Ojo de gato esmeralda', en: 'Emerald cat-eye', ru: 'Кошачий глаз «изумруд»',
-    tech: 'gel', shape: 'square', length: 'short', finish: 'cateye', nails: Array(5).fill({ c: '#1E6F5C', d: 'none' }) },
-  { id: 'peach-ombre', es: 'Degradado melocotón', en: 'Peach ombré', ru: 'Омбре «персик»',
-    tech: 'extensions', shape: 'coffin', length: 'medium', finish: 'gloss', nails: Array(5).fill({ c: '#FF7F6B', d: 'ombre' }) },
-  { id: 'burgundy-matte', es: 'Burdeos mate', en: 'Matte burgundy', ru: 'Матовое бордо',
-    tech: 'gel', shape: 'almond', length: 'medium', finish: 'matte', nails: Array(5).fill({ c: '#6D1A36', d: 'none' }) },
-  { id: 'coral-accent', es: 'Coral con brillo', en: 'Coral with sparkle', ru: 'Коралл с блёстками',
-    tech: 'gel', shape: 'oval', length: 'short', finish: 'gloss',
-    nails: [{ c: '#FF7F6B', d: 'none' }, { c: '#FF7F6B', d: 'none' }, { c: '#FF7F6B', d: 'none' }, { c: '#C9A227', d: 'glitter' }, { c: '#FF7F6B', d: 'none' }] },
-  { id: 'mocha-coffin', es: 'Moca', en: 'Mocha', ru: 'Мокко',
-    tech: 'extensions', shape: 'coffin', length: 'long', finish: 'gloss', nails: Array(5).fill({ c: '#8E5A3C', d: 'none' }) },
-  { id: 'milk-stiletto', es: 'Leche stiletto', en: 'Milky stiletto', ru: 'Молочный стилет',
-    tech: 'extensions', shape: 'stiletto', length: 'long', finish: 'gloss',
-    nails: [{ c: '#F7F3EE', d: 'none' }, { c: '#F7F3EE', d: 'none' }, { c: '#F7F3EE', d: 'none' }, { c: '#F7F3EE', d: 'glitter' }, { c: '#F7F3EE', d: 'none' }] }
-];
