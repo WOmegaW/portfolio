@@ -1,8 +1,8 @@
-/* Nácar Nail Studio — логика сайта: конфигуратор, цена и время, расписание и запись, «Мои записи».
+/* Nácar Nail Studio — логика сайта: галерея работ с ценами, запись по календарю, WhatsApp для своего дизайна, «Мои записи».
    Данные (цены, цвета, мастера) — в data.js. */
 (() => {
 'use strict';
-const { SITE, TECH, SHAPES, LENGTHS, FINISHES, DESIGNS, EXTRAS, COLORS, SKINS, MASTERS, LOOKS } = window;
+const { SITE, TECH, LENGTHS, FINISHES, DESIGNS, EXTRAS, MASTERS, LOOKS, WORKS, ADVICE } = window;
 const $ = (s, r = document) => r.querySelector(s);
 const $$ = (s, r = document) => [...r.querySelectorAll(s)];
 const store = {
@@ -15,8 +15,8 @@ const T = {
 ru: {
   'nav.studio': 'Конфигуратор', 'nav.looks': 'Дизайны', 'nav.prices': 'Цены', 'nav.hyg': 'Гигиена', 'nav.book': 'Запись', 'mine': 'Мои записи', 'cta.book': 'Записаться',
   'hero.eyebrow': 'Маникюр в Марбелье', 'hero.title': 'Маникюр,|достойный|<em>крупного плана</em>',
-  'hero.lead': 'Соберите маникюр в 3D: форма, длина, цвет, хром или кошачий глаз. Цена и время считаются сразу, а в календаре — только окна, куда ваш маникюр помещается целиком.',
-  'hero.cta1': 'Собрать дизайн', 'hero.cta2': 'Свободные окна', 'trust.1': 'Цена окончательная', 'trust.2': 'Стерилизация как в клинике', 'trust.3': 'ES · EN · RU',
+  'hero.lead': 'Выберите работу мастеров — цена и время указаны сразу. Свой дизайн? Пришлите фото мастеру в WhatsApp.',
+  'hero.cta1': 'Выбрать дизайн', 'hero.cta2': 'Свой дизайн — в WhatsApp', 'trust.1': 'Цена окончательная', 'trust.2': 'Стерилизация как в клинике', 'trust.3': 'ES · EN · RU',
   'badge.t': 'Сегодня есть свободные окна', 'badge.t0': 'На сегодня всё занято', 'badge.next': (d, h) => `Ближайшее окно: ${d}, ${h}`, 'badge.none': 'Сегодня всё занято — ближайшие окна завтра', 'badge.n': n => `${n} ${plural(n, 'окно', 'окна', 'окон')} для гель-лака сегодня`,
   'studio.eyebrow': 'Конфигуратор', 'studio.title': 'Соберите свой маникюр', 'studio.lead': 'Нажмите на ноготь, чтобы сделать его акцентным, или меняйте все сразу.',
   'skin': 'Тон кожи', 'reset': 'Сбросить', 'hint': 'Потяните, чтобы повернуть · нажмите на ноготь — он станет акцентным', 'disclaim': 'На экране цвет может немного отличаться — мастер покажет живую палитру.',
@@ -35,7 +35,7 @@ ru: {
   'h1.t': 'Автоклав 134 °C', 'h1.p': 'Инструмент стерилизуем паром под давлением — как в стоматологии.', 'h2.t': 'Крафт-пакет при вас', 'h2.p': 'Пакет с индикатором стерильности вскрываем на ваших глазах.',
   'h3.t': 'Одноразовые пилки', 'h3.p': 'Пилки и бафы — новые для каждого клиента, забираете с собой.', 'h4.t': 'Гель без HEMA', 'h4.p': 'Для чувствительной кожи и аллергиков; вытяжка над каждым столом.',
   'm.eyebrow': 'В ролях', 'm.title': 'Кто будет делать ваш маникюр', 'm.days': 'Работает', 'any': 'Любой мастер', 'm.cant': 'не делает эту технику',
-  'b.eyebrow': 'Запись', 'b.title': 'Выберите день и время', 'b.lead': 'В календаре — только окна, в которые ваш маникюр помещается целиком.',
+  'b.eyebrow': 'Запись', 'b.title': 'Выберите день и время', 'b.lead': 'В календаре — только окна, в которые ваша услуга помещается целиком.',
   'b.s1': 'Услуга', 'b.s2': 'Мастер', 'b.s3': 'День и время', 'b.s4': 'Контакты', 'b.edit': 'Изменить дизайн',
   'slots': n => `${n} ${plural(n, 'окно', 'окна', 'окон')}`, 'nofree': 'нет мест', 'closed': 'выходной', 'morning': 'Утро', 'day': 'День', 'evening': 'Вечер',
   'pickday': 'Выберите день', 'noslots': 'В этот день окон под вашу длительность нет — выберите другой день или мастера.', 'fit': d => `Показаны окна, куда помещается ${d} подряд.`,
@@ -61,15 +61,46 @@ ru: {
   'wd': ['Вс', 'Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб'], 'today': 'Сегодня', 'tomorrow': 'Завтра', 'sending': 'Отправляем…', 'nail': n => `Ноготь ${n}`,
   'hero.kicker': 'Nácar представляет · Марбелья',
   'hero.scene': 'Сцена',
-  'inter.tag': 'Ваш дизайн · макро', 'inter.q': 'Каждая деталь — крупным планом.',
+  'inter.tag': 'Крупный план', 'inter.q': 'Каждая деталь — крупным планом.',
   'r.ticket': 'Билет',
-  'fingers': ['Большой', 'Указательный', 'Средний', 'Безымянный', 'Мизинец']
+  'fingers': ['Большой', 'Указательный', 'Средний', 'Безымянный', 'Мизинец'],
+  'nav.works': 'Работы и цены',
+  'works.eyebrow': 'Работы и цены',
+  'works.title': 'Понравилось — записывайтесь',
+  'works.lead': 'Под каждой работой — окончательная цена и время. Нажмите на фото, чтобы рассмотреть и записаться.',
+  'f.all': 'Все',
+  'w.price': 'Цена',
+  'w.time': 'Время',
+  'w.master': 'Мастер',
+  'w.book': 'Записаться на этот дизайн',
+  'w.wa': 'Хочу похоже — спросить в WhatsApp',
+  'w.fixed': 'Цена окончательная: без доплат за форму или «сложность».',
+  'w.chosen': 'Дизайн выбран — осталось выбрать время',
+  'wa.like': (n, p) => `Здравствуйте! Хочу как «${n}» (${p}), но со своими изменениями — пришлю фото.`,
+  'own.title': 'Свой дизайн?',
+  'own.text': 'Пришлите фото мастеру в WhatsApp: посмотрит и скажет цену. Обычно отвечаем в течение часа.',
+  'own.btn': 'Отправить фото в WhatsApp',
+  'wa.own': 'Здравствуйте! Хочу маникюр по своему фото — сейчас пришлю. Сколько это будет стоить?',
+  'adv.title': 'Не знаете, что выбрать?',
+  'adv.text': 'Мастер подберёт форму и цвет на месте, цену скажет до начала работы.',
+  'adv.btn': 'Пусть решит мастер',
+  'adv.name': 'Мастер подберёт на месте',
+  'from': p => `от ${p}`,
+  'b.pick': 'Выберите дизайн в галерее или доверьтесь мастеру.',
+  'b.change': 'Выбрать другой дизайн',
+  'b.toWorks': 'Открыть галерею',
+  'f.note': 'Комментарий мастеру',
+  'ph.note': 'Например: хочу чуть короче',
+  'e.work': 'Выберите дизайн или «Пусть решит мастер».',
+  'r.depAdv': d => `Сейчас — предоплата ${d} €, остальное — в салоне, когда мастер назовёт цену. Демо: оплата не списывается.`,
+  'faq.q6': 'Можно прийти со своим фото?',
+  'faq.a6': 'Да. Пришлите его в WhatsApp заранее — мастер скажет цену и время, и мы подберём окно.'
 },
 es: {
   'nav.studio': 'Configurador', 'nav.looks': 'Diseños', 'nav.prices': 'Precios', 'nav.hyg': 'Higiene', 'nav.book': 'Reservar', 'mine': 'Mis citas', 'cta.book': 'Reservar',
   'hero.eyebrow': 'Manicura en Marbella', 'hero.title': 'Uñas que|merecen un|<em>primer plano</em>',
-  'hero.lead': 'Diseña tu manicura en 3D: forma, largo, color, cromado u ojo de gato. El precio y el tiempo se calculan al instante y el calendario solo muestra huecos donde cabe entera.',
-  'hero.cta1': 'Diseñar mis uñas', 'hero.cta2': 'Huecos libres', 'trust.1': 'Precio cerrado', 'trust.2': 'Esterilización de clínica', 'trust.3': 'ES · EN · RU',
+  'hero.lead': 'Elige un trabajo del equipo: precio y tiempo a la vista. ¿Tienes tu propio diseño? Envía la foto por WhatsApp.',
+  'hero.cta1': 'Elegir diseño', 'hero.cta2': 'Tu diseño — por WhatsApp', 'trust.1': 'Precio cerrado', 'trust.2': 'Esterilización de clínica', 'trust.3': 'ES · EN · RU',
   'badge.t': 'Hoy hay huecos libres', 'badge.t0': 'Hoy está completo', 'badge.next': (d, h) => `Próximo hueco: ${d}, ${h}`, 'badge.none': 'Hoy está completo — los próximos huecos, mañana', 'badge.n': n => `${n} ${n === 1 ? 'hueco' : 'huecos'} para semipermanente hoy`,
   'studio.eyebrow': 'Configurador', 'studio.title': 'Diseña tu manicura', 'studio.lead': 'Toca una uña para hacerla de acento o cambia todas a la vez.',
   'skin': 'Tono de piel', 'reset': 'Reiniciar', 'hint': 'Arrastra para girar · toca una uña para hacerla de acento', 'disclaim': 'El color en pantalla puede variar un poco: la manicurista te enseñará la carta real.',
@@ -88,7 +119,7 @@ es: {
   'h1.t': 'Autoclave a 134 °C', 'h1.p': 'Esterilizamos el instrumental con vapor a presión, como en una clínica dental.', 'h2.t': 'Bolsa abierta delante de ti', 'h2.p': 'La bolsa con indicador de esterilidad se abre ante tus ojos.',
   'h3.t': 'Limas de un solo uso', 'h3.p': 'Limas y bloques nuevos para cada clienta; te los llevas.', 'h4.t': 'Gel sin HEMA', 'h4.p': 'Para piel sensible y alergias; extracción en cada mesa.',
   'm.eyebrow': 'Reparto', 'm.title': 'Quién hará tu manicura', 'm.days': 'Trabaja', 'any': 'Cualquiera', 'm.cant': 'no hace esta técnica',
-  'b.eyebrow': 'Reserva', 'b.title': 'Elige día y hora', 'b.lead': 'El calendario solo muestra huecos donde cabe tu manicura entera.',
+  'b.eyebrow': 'Reserva', 'b.title': 'Elige día y hora', 'b.lead': 'El calendario solo muestra huecos donde cabe tu servicio entero.',
   'b.s1': 'Servicio', 'b.s2': 'Manicurista', 'b.s3': 'Día y hora', 'b.s4': 'Contacto', 'b.edit': 'Cambiar diseño',
   'slots': n => `${n} ${n === 1 ? 'hueco' : 'huecos'}`, 'nofree': 'completo', 'closed': 'cerrado', 'morning': 'Mañana', 'day': 'Mediodía', 'evening': 'Tarde',
   'pickday': 'Elige un día', 'noslots': 'Ese día no hay huecos para tu duración: prueba otro día u otra manicurista.', 'fit': d => `Solo huecos donde caben ${d} seguidos.`,
@@ -114,15 +145,46 @@ es: {
   'wd': ['Do', 'Lu', 'Ma', 'Mi', 'Ju', 'Vi', 'Sá'], 'today': 'Hoy', 'tomorrow': 'Mañana', 'sending': 'Enviando…', 'nail': n => `Uña ${n}`,
   'hero.kicker': 'Nácar presenta · Marbella',
   'hero.scene': 'Escena',
-  'inter.tag': 'Tu diseño · macro', 'inter.q': 'Cada detalle, en primer plano.',
+  'inter.tag': 'Primer plano', 'inter.q': 'Cada detalle, en primer plano.',
   'r.ticket': 'Entrada',
-  'fingers': ['Pulgar', 'Índice', 'Corazón', 'Anular', 'Meñique']
+  'fingers': ['Pulgar', 'Índice', 'Corazón', 'Anular', 'Meñique'],
+  'nav.works': 'Trabajos y precios',
+  'works.eyebrow': 'Trabajos y precios',
+  'works.title': '¿Te gusta? Reserva',
+  'works.lead': 'Bajo cada trabajo, el precio final y el tiempo. Toca la foto para verla de cerca y reservar.',
+  'f.all': 'Todo',
+  'w.price': 'Precio',
+  'w.time': 'Tiempo',
+  'w.master': 'Manicurista',
+  'w.book': 'Reservar este diseño',
+  'w.wa': 'Quiero algo parecido — WhatsApp',
+  'w.fixed': 'Precio final: sin suplementos por forma ni «dificultad».',
+  'w.chosen': 'Diseño elegido: ahora elige la hora',
+  'wa.like': (n, p) => `¡Hola! Quiero algo como «${n}» (${p}), con algunos cambios — te envío una foto.`,
+  'own.title': '¿Tu propio diseño?',
+  'own.text': 'Envía la foto por WhatsApp: la manicurista te dirá el precio. Solemos responder en menos de una hora.',
+  'own.btn': 'Enviar foto por WhatsApp',
+  'wa.own': '¡Hola! Quiero una manicura como en mi foto, ahora la envío. ¿Cuánto costaría?',
+  'adv.title': '¿No sabes qué elegir?',
+  'adv.text': 'La manicurista elegirá contigo forma y color; el precio, antes de empezar.',
+  'adv.btn': 'Que decida la manicurista',
+  'adv.name': 'Lo decidimos en el salón',
+  'from': p => `desde ${p}`,
+  'b.pick': 'Elige un diseño en la galería o deja que decida la manicurista.',
+  'b.change': 'Elegir otro diseño',
+  'b.toWorks': 'Abrir la galería',
+  'f.note': 'Comentario',
+  'ph.note': 'Por ejemplo: un poco más cortas',
+  'e.work': 'Elige un diseño o «Que decida la manicurista».',
+  'r.depAdv': d => `Ahora, señal de ${d} €; el resto en el salón cuando sepas el precio. Demo: no se cobra nada.`,
+  'faq.q6': '¿Puedo venir con mi propia foto?',
+  'faq.a6': 'Sí. Envíala antes por WhatsApp: te diremos precio y tiempo y buscamos el hueco.'
 },
 en: {
   'nav.studio': 'Configurator', 'nav.looks': 'Designs', 'nav.prices': 'Prices', 'nav.hyg': 'Hygiene', 'nav.book': 'Book', 'mine': 'My bookings', 'cta.book': 'Book now',
   'hero.eyebrow': 'Manicure in Marbella', 'hero.title': 'Nails that|deserve a|<em>close-up</em>',
-  'hero.lead': 'Design your manicure in 3D: shape, length, colour, chrome or cat-eye. Price and time update instantly, and the calendar only shows slots where it all fits.',
-  'hero.cta1': 'Design my nails', 'hero.cta2': 'Free slots', 'trust.1': 'Fixed price', 'trust.2': 'Clinic-grade sterilisation', 'trust.3': 'ES · EN · RU',
+  'hero.lead': 'Pick a design by our artists — price and time shown upfront. Have your own idea? Send the photo on WhatsApp.',
+  'hero.cta1': 'Choose a design', 'hero.cta2': 'Your design — on WhatsApp', 'trust.1': 'Fixed price', 'trust.2': 'Clinic-grade sterilisation', 'trust.3': 'ES · EN · RU',
   'badge.t': 'Free slots today', 'badge.t0': 'Fully booked today', 'badge.next': (d, h) => `Next free slot: ${d}, ${h}`, 'badge.none': 'Fully booked today — next slots tomorrow', 'badge.n': n => `${n} gel-polish ${n === 1 ? 'slot' : 'slots'} left today`,
   'studio.eyebrow': 'Configurator', 'studio.title': 'Design your manicure', 'studio.lead': 'Tap a nail to make it an accent, or change them all at once.',
   'skin': 'Skin tone', 'reset': 'Reset', 'hint': 'Drag to rotate · tap a nail to make it an accent', 'disclaim': 'Colours on screen may vary slightly — we will show you the real swatches.',
@@ -141,7 +203,7 @@ en: {
   'h1.t': 'Autoclave at 134 °C', 'h1.p': 'Tools are sterilised with pressurised steam, as in a dental clinic.', 'h2.t': 'Pouch opened in front of you', 'h2.p': 'The pouch with a sterility indicator is opened before your eyes.',
   'h3.t': 'Single-use files', 'h3.p': 'New files and buffers for every client — yours to take home.', 'h4.t': 'HEMA-free gel', 'h4.p': 'For sensitive skin and allergies; extraction at every desk.',
   'm.eyebrow': 'Cast', 'm.title': 'Who will do your nails', 'm.days': 'Works', 'any': 'Any artist', 'm.cant': 'does not do this technique',
-  'b.eyebrow': 'Booking', 'b.title': 'Pick a day and time', 'b.lead': 'The calendar only shows slots where your whole manicure fits.',
+  'b.eyebrow': 'Booking', 'b.title': 'Pick a day and time', 'b.lead': 'The calendar only shows slots where your whole service fits.',
   'b.s1': 'Service', 'b.s2': 'Nail artist', 'b.s3': 'Day and time', 'b.s4': 'Contact', 'b.edit': 'Change design',
   'slots': n => `${n} ${n === 1 ? 'slot' : 'slots'}`, 'nofree': 'full', 'closed': 'closed', 'morning': 'Morning', 'day': 'Midday', 'evening': 'Evening',
   'pickday': 'Pick a day', 'noslots': 'No slots long enough on this day — try another day or artist.', 'fit': d => `Only slots with ${d} in a row are shown.`,
@@ -167,238 +229,125 @@ en: {
   'wd': ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'], 'today': 'Today', 'tomorrow': 'Tomorrow', 'sending': 'Sending…', 'nail': n => `Nail ${n}`,
   'hero.kicker': 'Nácar presents · Marbella',
   'hero.scene': 'Scene',
-  'inter.tag': 'Your design · macro', 'inter.q': 'Every detail, in close-up.',
+  'inter.tag': 'Close-up', 'inter.q': 'Every detail, in close-up.',
   'r.ticket': 'Ticket',
-  'fingers': ['Thumb', 'Index', 'Middle', 'Ring', 'Little']
+  'fingers': ['Thumb', 'Index', 'Middle', 'Ring', 'Little'],
+  'nav.works': 'Work & prices',
+  'works.eyebrow': 'Work & prices',
+  'works.title': 'Love it? Book it',
+  'works.lead': 'Every design shows its final price and time. Tap a photo to see it close up and book.',
+  'f.all': 'All',
+  'w.price': 'Price',
+  'w.time': 'Time',
+  'w.master': 'Artist',
+  'w.book': 'Book this design',
+  'w.wa': 'Something similar — ask on WhatsApp',
+  'w.fixed': 'Final price: no extras for shape or “difficulty”.',
+  'w.chosen': 'Design chosen — now pick a time',
+  'wa.like': (n, p) => `Hello! I would like something like “${n}” (${p}) with a few changes — I will send a photo.`,
+  'own.title': 'Your own design?',
+  'own.text': 'Send the photo on WhatsApp: the artist will tell you the price. We usually reply within an hour.',
+  'own.btn': 'Send photo on WhatsApp',
+  'wa.own': 'Hello! I would like a manicure like my photo — sending it now. How much would it be?',
+  'adv.title': 'Not sure what to choose?',
+  'adv.text': 'Your artist will pick shape and colour with you and tell the price before starting.',
+  'adv.btn': 'Let the artist decide',
+  'adv.name': 'We decide at the salon',
+  'from': p => `from ${p}`,
+  'b.pick': 'Pick a design in the gallery or let the artist decide.',
+  'b.change': 'Choose another design',
+  'b.toWorks': 'Open the gallery',
+  'f.note': 'Note for the artist',
+  'ph.note': 'e.g. a bit shorter',
+  'e.work': 'Pick a design or “Let the artist decide”.',
+  'r.depAdv': d => `€${d} deposit now, the rest at the salon once you know the price. Demo: nothing is charged.`,
+  'faq.q6': 'Can I bring my own photo?',
+  'faq.a6': 'Yes. Send it on WhatsApp beforehand — we will tell you the price and time and find a slot.'
 }};
 function plural(n, one, few, many) { const a = n % 10, b = n % 100; if (a === 1 && b !== 11) return one; if (a >= 2 && a <= 4 && (b < 12 || b > 14)) return few; return many; }
 const nav = (navigator.language || '').slice(0, 2);
 let lang = store.get('nc-lang', ['ru', 'es', 'en'].includes(nav) ? nav : 'es');
 const t = (k, ...a) => { const v = (T[lang] || T.es)[k]; return typeof v === 'function' ? v(...a) : v; };
 const L = o => o[lang] || o.en;
+const N = o => o['n' + lang] || o.nen;
 const LOCALE = { ru: 'ru-RU', es: 'es-ES', en: 'en-GB' };
 const eur = n => new Intl.NumberFormat(LOCALE[lang], { style: 'currency', currency: 'EUR', maximumFractionDigits: 0 }).format(n);
 const dur = m => { const h = Math.floor(m / 60), r = m % 60; return h ? `${h} ${t('h')}${r ? ` ${r} ${t('min')}` : ''}` : `${r} ${t('min')}`; };
 const hm = m => `${Math.floor(m / 60)}:${String(m % 60).padStart(2, '0')}`;
 const toastEl = $('#toast'); let toastT = 0;
 const toast = msg => { toastEl.textContent = msg; toastEl.classList.add('on'); clearTimeout(toastT); toastT = setTimeout(() => toastEl.classList.remove('on'), 2600); };
+const esc = s => String(s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c]);
+const waLink = text => `https://wa.me/${SITE.whatsapp}?text=${encodeURIComponent(text)}`;
+const masterName = id => (MASTERS.find(m => m.id === id) || {}).name || '';
+const workById = id => WORKS.find(w => w.id === id);
+const photo = w => `img/works/${w.photo}.webp`;
 
-/* ===================== Цвета ===================== */
-const hex2rgb = h => { const n = parseInt(h.slice(1), 16); return [n >> 16, n >> 8 & 255, n & 255]; };
-const rgb2hex = (r, g, b) => '#' + [r, g, b].map(v => Math.max(0, Math.min(255, Math.round(v))).toString(16).padStart(2, '0')).join('');
-const mix = (a, b, k) => { const x = hex2rgb(a), y = hex2rgb(b); return rgb2hex(x[0] + (y[0] - x[0]) * k, x[1] + (y[1] - x[1]) * k, x[2] + (y[2] - x[2]) * k); };
-const light = (c, k) => mix(c, '#ffffff', k), dark = (c, k) => mix(c, '#000000', k);
-const colorName = hex => { const c = COLORS.find(x => x.hex.toLowerCase() === hex.toLowerCase()); return c ? c.name : hex.toUpperCase(); };
-
-/* ===================== Рисунок руки и ногтей (SVG) ===================== */
-// Пальцы: центр кончика (x, y), наклон и ширина — рука сверху, большой палец слева
-const FINGERS = [{ x: 96, y: 262, a: -32, w: 60 }, { x: 190, y: 120, a: -9, w: 54 }, { x: 270, y: 86, a: 0, w: 57 }, { x: 350, y: 114, a: 8, w: 53 }, { x: 426, y: 188, a: 18, w: 45 }];
-const EXT = { short: .06, medium: .42, long: .8 };
-function nailGeom(shape, w, len) {
-  const nw = w * .74, h = nw / 2, B = w * .98 + 6, T = 6 - EXT[len] * w, room = B - h * .55 - T - 4;
-  const k = Math.min(room, { square: nw * .14, oval: h, almond: h * 1.7, coffin: h * 1.5, stiletto: h * 2.4 }[shape]);
-  const base = `M${-h} ${B - h * .55} Q${-h} ${B} 0 ${B} Q${h} ${B} ${h} ${B - h * .55}`;
-  let top;
-  if (shape === 'square') top = `L${h} ${T + k} Q${h} ${T} ${h - k} ${T} L${-h + k} ${T} Q${-h} ${T} ${-h} ${T + k}`;
-  else if (shape === 'oval') top = `L${h} ${T + k} C${h} ${T + k * .35} ${h * .55} ${T} 0 ${T} C${-h * .55} ${T} ${-h} ${T + k * .35} ${-h} ${T + k}`;
-  else if (shape === 'almond') top = `L${h} ${T + k} C${h} ${T + k * .45} ${h * .3} ${T + 1} 0 ${T} C${-h * .3} ${T + 1} ${-h} ${T + k * .45} ${-h} ${T + k}`;
-  else if (shape === 'coffin') { const q = h * .5; top = `L${h} ${T + k} L${q} ${T + 1.5} Q${q} ${T} ${q - 2} ${T} L${-q + 2} ${T} Q${-q} ${T} ${-q} ${T + 1.5} L${-h} ${T + k}`; }
-  else top = `L${h} ${T + k} C${h} ${T + k * .4} ${h * .12} ${T + 6} 0 ${T} C${-h * .12} ${T + 6} ${-h} ${T + k * .4} ${-h} ${T + k}`;
-  return { d: `${base} ${top} Z`, h, B, T };
-}
-let uid = 0;
-function handSVG(s, opt = {}) {
-  const p = 'h' + (++uid), mini = !!opt.mini, skin = s.skin || SKINS[1];
-  const vb = mini ? '40 20 440 300' : opt.crop ? '10 30 490 280' : '0 0 520 420';   // crop — крупный план ногтей для телефона
-  let defs = `<linearGradient id="${p}sk" x1="0" x2="1"><stop offset="0" stop-color="${dark(skin, .16)}"/><stop offset=".35" stop-color="${skin}"/><stop offset=".7" stop-color="${light(skin, .08)}"/><stop offset="1" stop-color="${dark(skin, .12)}"/></linearGradient>
-    <pattern id="${p}gl" width="9" height="9" patternUnits="userSpaceOnUse"><circle cx="2" cy="2" r="1.1" fill="#fff" opacity=".9"/><circle cx="6.5" cy="5" r=".9" fill="#F7E3A1"/><circle cx="4" cy="7.6" r=".7" fill="#fff" opacity=".7"/></pattern>`;
-  let body = '';
-  FINGERS.forEach((f, i) => {
-    const n = s.nails[i], g = nailGeom(s.shape, f.w, s.length), w = f.w, c = n.c;
-    // заливка ногтя: покрытие и дизайн
-    let fill = c;
-    if (n.d === 'ombre') { defs += `<linearGradient id="${p}om${i}" gradientUnits="userSpaceOnUse" x1="0" y1="${g.B}" x2="0" y2="${g.T}"><stop offset=".05" stop-color="#F3DDD4"/><stop offset=".95" stop-color="${c}"/></linearGradient>`; fill = `url(#${p}om${i})`; }
-    else if (s.finish === 'chrome') { defs += `<linearGradient id="${p}ch${i}" x1="0" y1="1" x2="1" y2="0"><stop offset="0" stop-color="${dark(c, .25)}"/><stop offset=".3" stop-color="${light(c, .55)}"/><stop offset=".5" stop-color="${c}"/><stop offset=".72" stop-color="${light(c, .7)}"/><stop offset="1" stop-color="${dark(c, .18)}"/></linearGradient>`; fill = `url(#${p}ch${i})`; }
-    else if (s.finish === 'cateye') { fill = dark(c, .45); }
-    let over = '';
-    if (s.finish === 'cateye' && n.d !== 'ombre') { defs += `<linearGradient id="${p}ce${i}" x1="0" y1="1" x2="1" y2="0"><stop offset=".25" stop-color="${light(c, .6)}" stop-opacity="0"/><stop offset=".5" stop-color="${light(c, .55)}" stop-opacity=".95"/><stop offset=".75" stop-color="${light(c, .6)}" stop-opacity="0"/></linearGradient>`; over += `<path d="${g.d}" fill="url(#${p}ce${i})"/>`; }
-    if (n.d === 'glitter') over += `<path d="${g.d}" fill="url(#${p}gl)"/>`;
-    if (n.d === 'french') { const S = 6 + w * .1; over += `<path d="M${-g.h - 2} ${S + 4} Q0 ${S - w * .2} ${g.h + 2} ${S + 4} L${g.h + 2} ${g.T - 6} L${-g.h - 2} ${g.T - 6} Z" fill="${n.t || '#FFFFFF'}" clip-path="url(#${p}cl${i})"/>`; }
-    if (s.finish !== 'matte') { const op = s.finish === 'chrome' ? .8 : .55; over += `<path d="M${-g.h * .5} ${g.B - g.h * .9} C${-g.h * .62} ${(g.T + g.B) / 2} ${-g.h * .48} ${g.T + 12} ${-g.h * .2} ${g.T + 9}" stroke="#fff" stroke-width="${w * .07}" stroke-linecap="round" fill="none" opacity="${op}" clip-path="url(#${p}cl${i})"/>`; }
-    defs += `<clipPath id="${p}cl${i}"><path d="${g.d}"/></clipPath>`;
-    const nailAttrs = opt.interactive ? ` class="nail" data-n="${i}" role="button" tabindex="0" aria-label="${t('nail', i + 1)}" aria-pressed="${s.sel.includes(i)}"` : '';
-    body += `<g class="finger${opt.interactive && s.sel.includes(i) ? ' sel' : ''}" transform="translate(${f.x} ${f.y}) rotate(${f.a})">
-      <g${nailAttrs}><path d="${g.d}" fill="${fill}" stroke="rgba(0,0,0,.14)" stroke-width="1"/>${over}
-      ${opt.interactive ? `<path class="sel-ring" d="${g.d}" transform="scale(1.16) translate(0 -4)"/>` : ''}</g>
-    </g>`;
-  });
-  return `<svg viewBox="${vb}" xmlns="http://www.w3.org/2000/svg" aria-hidden="${opt.interactive ? 'false' : 'true'}"><defs>${defs}</defs>${body}</svg>`;
-}
-
-/* ===================== Состояние конфигуратора ===================== */
-const DEFAULT = () => ({ tech: 'gel', shape: 'almond', length: 'medium', finish: 'gloss', skin: SKINS[1], sel: [], nails: Array.from({ length: 5 }, () => ({ c: '#C98A7C', d: 'none', t: '#FFFFFF' })) });
-let S = DEFAULT();
+/* ===================== Выбор: работа из галереи или «пусть решит мастер» ===================== */
+const B = { work: null, master: 'any', day: null, start: null, who: null };   // work: id работы | 'advice' | null
 const extras = { removal: false, pedicure: false };
-const fixLength = () => { if (S.tech !== 'extensions' && S.length === 'long') S.length = 'medium'; if (S.length === 'short' && (S.shape === 'coffin' || S.shape === 'stiletto')) S.length = S.tech === 'extensions' ? 'medium' : 'medium'; };
-const fixFinish = () => { if (S.tech === 'classic' && (S.finish === 'chrome' || S.finish === 'cateye')) S.finish = 'gloss'; };
-const targets = () => S.sel.length ? S.sel : [0, 1, 2, 3, 4];
-
 function quote() {
-  const items = [], tech = TECH[S.tech];
-  items.push([L(tech), tech.price, tech.min]);
-  if (S.tech === 'extensions' && S.length === 'long') items.push([t('q.long'), LENGTHS.long.price, LENGTHS.long.min]);
-  const f = FINISHES[S.finish]; if (f.price || f.min) items.push([t('fin.' + S.finish), f.price, f.min]);
-  const cnt = {}; S.nails.forEach(n => { cnt[n.d] = (cnt[n.d] || 0) + 2; });      // вторая рука повторяет первую
-  Object.keys(cnt).filter(d => d !== 'none').forEach(d => items.push([`${t('des.' + d)} × ${cnt[d]}`, DESIGNS[d].price * cnt[d], DESIGNS[d].min * cnt[d]]));
-  Object.keys(extras).filter(k => extras[k]).forEach(k => items.push([L(EXTRAS[k]), EXTRAS[k].price, EXTRAS[k].min]));
-  const price = items.reduce((a, x) => a + x[1], 0), min = Math.ceil(items.reduce((a, x) => a + x[2], 0) / 15) * 15;
-  return { items, price, min };
+  const items = [];
+  let price = 0, min = 0, from = false;
+  const w = B.work && B.work !== 'advice' ? workById(B.work) : null;
+  if (w) { items.push([L(w), w.price, w.min]); price += w.price; min += w.min; }
+  else if (B.work === 'advice') { items.push([t('adv.name'), ADVICE.price, ADVICE.min]); price += ADVICE.price; min += ADVICE.min; from = true; }
+  Object.keys(extras).filter(k => extras[k]).forEach(k => { items.push([L(EXTRAS[k]), EXTRAS[k].price, EXTRAS[k].min]); price += EXTRAS[k].price; min += EXTRAS[k].min; });
+  return { items, price, min: Math.ceil(min / 15) * 15, from, tech: w ? w.tech : null };
+}
+const priceText = q => q.from ? t('from', eur(q.price)) : eur(q.price);
+function choose(id, go = true) {
+  B.work = id; B.start = null;
+  renderBooking(); renderMbar();
+  if (go) $('#book').scrollIntoView({ behavior: 'smooth' });
 }
 
-/* ===================== Конфигуратор: отрисовка ===================== */
-const shapeIcon = sh => { const g = nailGeom(sh, 30, sh === 'square' || sh === 'oval' ? 'medium' : 'long'); return `<svg viewBox="-16 -22 32 54" aria-hidden="true"><path d="${g.d}" fill="currentColor" opacity=".85"/></svg>`; };
-function opt(group, key, label, small, pressed, disabled, extra = '') {
-  return `<button type="button" class="opt ${extra}" data-g="${group}" data-k="${key}" aria-pressed="${pressed}"${disabled ? ' disabled' : ''}>${extra === 'shape' ? shapeIcon(key) : ''}<b>${label}</b>${small ? `<small>${small}</small>` : ''}</button>`;
+/* ===================== Галерея работ с ценами ===================== */
+let filter = 'all';
+function renderWorks() {
+  const techs = ['all', ...new Set(WORKS.map(w => w.tech))];
+  $('#workFilter').innerHTML = techs.map(k => `<button type="button" class="pill" data-f="${k}" aria-pressed="${filter === k}">${k === 'all' ? t('f.all') : L(TECH[k])}</button>`).join('');
+  const list = WORKS.filter(w => filter === 'all' || w.tech === filter);
+  $('#worksGrid').innerHTML = list.map((w, i) => `<button type="button" class="work reveal" data-work="${w.id}" style="transition-delay:${(i % 3) * .08}s">
+      <span class="ph"><img src="${photo(w)}" alt="${esc(L(w))}" loading="lazy"${w.pos ? ` style="object-position:${w.pos}"` : ''}></span>
+      <span class="cap"><b>${esc(L(w))}</b><small>${L(TECH[w.tech])} · ${dur(w.min)}</small></span>
+      <span class="price">${eur(w.price)}</span>
+    </button>`).join('');
+  reveal($$('#worksGrid .work'));
 }
-const plus = (p, m) => p || m ? `${p ? '+' + eur(p) : ''}${p && m ? ' · ' : ''}${m ? '+' + m + ' ' + t('min') : ''}` : t('free');
-function renderControls() {
-  $('#optTech').innerHTML = Object.keys(TECH).map(k => opt('tech', k, L(TECH[k]), `${eur(TECH[k].price)} · ${dur(TECH[k].min)}`, S.tech === k)).join('');
-  $('#optShape').innerHTML = SHAPES.map(k => opt('shape', k, t('shape.' + k), '', S.shape === k, false, 'shape')).join('');
-  $('#optLength').innerHTML = Object.keys(LENGTHS).map(k => {
-    const dis = k === 'long' && S.tech !== 'extensions';
-    const small = k === 'long' ? (dis ? t('len.ext') : plus(LENGTHS.long.price, LENGTHS.long.min)) : S.tech === 'extensions' ? t('free') : t('len.own');
-    return opt('length', k, t('len.' + k), small, S.length === k, dis);
-  }).join('');
-  $('#optFinish').innerHTML = Object.keys(FINISHES).map(k => {
-    const dis = S.tech === 'classic' && (k === 'chrome' || k === 'cateye');
-    return opt('finish', k, t('fin.' + k), dis ? t('fin.gel') : plus(FINISHES[k].price, FINISHES[k].min), S.finish === k, dis);
-  }).join('');
-  const tg = targets(), d0 = S.nails[tg[0]].d, c0 = S.nails[tg[0]].c;
-  $('#optDesign').innerHTML = Object.keys(DESIGNS).map(k => opt('design', k, t('des.' + k), k === 'none' ? '' : `+${eur(DESIGNS[k].price)} ${t('per')}`, tg.every(i => S.nails[i].d === k))).join('');
-  $('#target').innerHTML = `<button type="button" class="pill" id="selAll" aria-pressed="${!S.sel.length}">${t('tg.all')}</button>${S.sel.length ? `<span class="pill" aria-pressed="true">${t('tg.sel', S.sel.length)}</span>` : ''}<span class="note">${t('tg.note')}</span>`;
-  $('#selAll').addEventListener('click', () => { S.sel = []; render(); });
-  $('#palette').innerHTML = COLORS.map(c => `<button type="button" class="sw" style="background:${c.hex}" data-c="${c.hex}" aria-label="${c.name}" title="${c.name}" aria-pressed="${tg.every(i => S.nails[i].c.toLowerCase() === c.hex.toLowerCase())}"></button>`).join('');
-  const others = [...new Set(S.nails.map(n => colorName(n.c)))].filter(n => n !== colorName(c0));
-  $('#cname').innerHTML = `<b>${colorName(c0)}</b>${others.length ? ' + ' + others.join(', ') : ''}`;
-}
-const phone = matchMedia('(max-width: 900px)');
-phone.addEventListener('change', () => { if (!stage3d) renderHand(); });
-const look3 = st => ({ shape: st.shape, length: st.length, finish: st.finish, nails: st.nails.map(n => ({ c: n.c, d: n.d, t: n.t || '#FFFFFF' })) });
-const togglePick = i => { S.sel = S.sel.includes(i) ? S.sel.filter(x => x !== i) : [...S.sel, i].sort(); render(); };
-let stage3d = null;
-function renderHand() {
-  const el = $('#hand');
-  if (window.Nail3D && !stage3d) {
-    el.innerHTML = `<canvas role="img" aria-label="3D"></canvas>`;
-    try { stage3d = Nail3D.stage(el.firstChild, { onPick: togglePick }); } catch (e) { stage3d = null; }
-  }
-  if (macro3d) macro3d.set(look3(S));
-  if (stage3d) { stage3d.set(look3(S)); stage3d.select(S.sel); }
-  else {
-    el.innerHTML = handSVG(S, { interactive: true, crop: phone.matches });
-    $$('#hand .nail').forEach(n => {
-      n.addEventListener('click', () => togglePick(+n.dataset.n));
-      n.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); togglePick(+n.dataset.n); } });
-    });
-  }
-  $('#picks').innerHTML = T[lang].fingers.map((f, i) => `<button type="button" class="nail" data-n="${i}" aria-pressed="${S.sel.includes(i)}" aria-label="${f}" title="${f}"><i style="background:${S.nails[i].c}"></i></button>`).join('');
-  $('#stageLook').textContent = `${t('shape.' + S.shape)} · ${t('fin.' + S.finish)}`;
-  $('#macroName').textContent = `${t('shape.' + S.shape)} · ${t('fin.' + S.finish)} · ${colorName(S.nails[2].c)}`;
-}
-$('#picks').addEventListener('click', e => { const b = e.target.closest('[data-n]'); if (b) togglePick(+b.dataset.n); });
-function renderSummary() {
-  const q = quote();
-  $('#sumList').innerHTML = q.items.map(([k, p, m]) => `<div><dt>${k}</dt><dd>${p ? eur(p) : t('free')}${m ? ` · ${m} ${t('min')}` : ''}</dd></div>`).join('');
-  $('#sumPrice').textContent = eur(q.price); $('#sumTime').textContent = dur(q.min);
-  $('#mPrice').textContent = eur(q.price); $('#mTime').textContent = dur(q.min);
-}
-function render() {
-  fixLength(); fixFinish();
-  renderControls(); renderHand(); renderSummary(); renderBooking();
-  try { history.replaceState(null, '', location.pathname + location.search + (location.hash.startsWith('#d=') ? '#d=' + encodeDesign() : location.hash)); } catch (e) { /* file:// */ }
-}
-document.addEventListener('click', e => {
-  const b = e.target.closest('.opt[data-g]');
-  if (b) {
-    const g = b.dataset.g, k = b.dataset.k;
-    if (g === 'tech') S.tech = k; else if (g === 'shape') { S.shape = k; if (S.length === 'short' && (k === 'coffin' || k === 'stiletto')) S.length = 'medium'; }
-    else if (g === 'length') { S.length = k; if (k === 'short' && (S.shape === 'coffin' || S.shape === 'stiletto')) S.shape = 'almond'; }
-    else if (g === 'finish') S.finish = k; else if (g === 'design') targets().forEach(i => { S.nails[i].d = k; });
-    render(); return;
-  }
-  const sw = e.target.closest('.sw[data-c]'); if (sw) { targets().forEach(i => { S.nails[i].c = sw.dataset.c; }); render(); return; }
-  const sk = e.target.closest('[data-skin]'); if (sk) { S.skin = sk.dataset.skin; render(); }
-});
-$('#customColor').addEventListener('input', e => { targets().forEach(i => { S.nails[i].c = e.target.value; }); render(); });
-$('#resetBtn').addEventListener('click', () => { const sk = S.skin; S = DEFAULT(); S.skin = sk; render(); });
+$('#workFilter').addEventListener('click', e => { const b = e.target.closest('[data-f]'); if (b) { filter = b.dataset.f; renderWorks(); } });
+$('#worksGrid').addEventListener('click', e => { const b = e.target.closest('[data-work]'); if (b) openWork(b.dataset.work); });
 
-/* Поделиться дизайном: всё состояние — в ссылке */
-const encodeDesign = () => btoa(JSON.stringify({ t: S.tech, s: S.shape, l: S.length, f: S.finish, k: S.skin, n: S.nails.map(n => [n.c, n.d]) })).replace(/=+$/, '');
-function decodeDesign(str) {
-  try {
-    const o = JSON.parse(atob(str));
-    if (!TECH[o.t] || !SHAPES.includes(o.s) || !LENGTHS[o.l] || !FINISHES[o.f] || !Array.isArray(o.n) || o.n.length !== 5) return false;
-    S.tech = o.t; S.shape = o.s; S.length = o.l; S.finish = o.f; if (/^#[0-9a-f]{6}$/i.test(o.k)) S.skin = o.k;
-    S.nails = o.n.map(([c, d]) => ({ c: /^#[0-9a-f]{6}$/i.test(c) ? c : '#C98A7C', d: DESIGNS[d] ? d : 'none', t: '#FFFFFF' })); S.sel = [];
-    return true;
-  } catch (e) { return false; }
+/* окно работы: крупное фото, цена, время, мастер → записаться или спросить в WhatsApp */
+function openWork(id, fromHash) {
+  const w = workById(id); if (!w) return;
+  const m = MASTERS.find(x => x.id === w.master);
+  $('#workBox').innerHTML = `<div class="wk-ph"><img src="${photo(w)}" alt="${esc(L(w))}"></div>
+    <div class="wk-in">
+      <p class="eyebrow">${L(TECH[w.tech])}</p>
+      <h3>${esc(L(w))}</h3>
+      <p class="wk-note">${esc(N(w))}</p>
+      <dl class="wk-facts"><div><dt>${t('w.price')}</dt><dd>${eur(w.price)}</dd></div><div><dt>${t('w.time')}</dt><dd>${dur(w.min)}</dd></div>${m ? `<div><dt>${t('w.master')}</dt><dd>${m.name}</dd></div>` : ''}</dl>
+      <p class="wk-fix">${t('w.fixed')}</p>
+      <div class="wk-acts"><button class="btn" type="button" id="wkBook">${t('w.book')}</button>
+        <a class="btn ghost" href="${waLink(t('wa.like', L(w), eur(w.price)))}" target="_blank" rel="noopener">${t('w.wa')}</a></div>
+    </div>`;
+  $('#wkBook').addEventListener('click', () => { $('#workDlg').close(); choose(w.id); toast(t('w.chosen')); });
+  if (!fromHash) { try { history.replaceState(null, '', '#work/' + w.id); } catch (e) { /* file:// */ } }
+  $('#workDlg').showModal();
 }
-$('#shareBtn').addEventListener('click', async () => {
-  const url = `${location.origin}${location.pathname}#d=${encodeDesign()}`;
-  if (navigator.share) { try { await navigator.share({ title: 'Nácar', url }); return; } catch (e) { if (e.name === 'AbortError') return; } }
-  try { await navigator.clipboard.writeText(url); toast(t('copied')); } catch (e) { prompt(t('share'), url); }
-});
+$('#workDlg').addEventListener('close', () => { if (location.hash.startsWith('#work/')) { try { history.replaceState(null, '', location.pathname + location.search); } catch (e) { /* */ } } });
 
-/* ===================== Снимки 3D для галереи и чека ===================== */
-const snaps = new Map();
-function snapURL(st, w, h) {
-  const k = JSON.stringify([look3(st), w, h]);
-  if (!snaps.has(k)) { try { snaps.set(k, Nail3D.snap(look3(st), w, h)); } catch (e) { return ''; } }
-  return snaps.get(k);
-}
-const preview = (st, w, h) => window.Nail3D ? `<img alt="" src="${snapURL(st, w, h)}" width="${w}" height="${h}">` : handSVG(st, { mini: true });
-
-/* ===================== Галерея «Хочу так же» ===================== */
-function renderLooks() {
-  $('#looksGrid').innerHTML = LOOKS.map(l => {
-    const st = { ...DEFAULT(), tech: l.tech, shape: l.shape, length: l.length, finish: l.finish, skin: S.skin, nails: l.nails.map(n => ({ c: n.c, d: n.d, t: n.t || '#FFFFFF' })) };
-    const s0 = S; S = st; const q = quote(); S = s0;
-    return `<article class="look"><span class="no">SC. ${String(LOOKS.indexOf(l) + 1).padStart(2, '0')}</span><div class="pv" data-pv="${l.id}">${window.Nail3D ? '' : handSVG(st, { mini: true })}</div><div class="meta"><div><h3>${L(l)}</h3><small>${eur(q.price)} · ${dur(q.min)}</small></div><button type="button" class="btn" data-look="${l.id}">${t('looks.btn')}</button></div></article>`;
-  }).join('');
-  fillLooks();
-}
-let fillT = 0;
-function fillLooks() {                               // снимки по одному, чтобы страница не подвисала
-  if (!window.Nail3D) return;
-  clearTimeout(fillT);
-  const el = $$('#looksGrid .pv[data-pv]').find(x => !x.firstChild);
-  if (!el) return;
-  const l = LOOKS.find(x => x.id === el.dataset.pv);
-  el.innerHTML = preview({ ...l, nails: l.nails }, 480, 330);
-  fillT = setTimeout(fillLooks, 30);
-}
-const strip = $('#looksGrid');
-$('#stripPrev').addEventListener('click', () => strip.scrollBy({ left: -strip.clientWidth * .8, behavior: 'smooth' }));
-$('#stripNext').addEventListener('click', () => strip.scrollBy({ left: strip.clientWidth * .8, behavior: 'smooth' }));
-{ let d = null;                                      // плёнку можно тянуть мышью
-  strip.addEventListener('pointerdown', e => { if (e.pointerType === 'mouse' && !e.target.closest('button')) d = { x: e.clientX, l: strip.scrollLeft, moved: false }; });
-  addEventListener('pointermove', e => { if (!d) return; const dx = e.clientX - d.x; if (Math.abs(dx) > 5) { d.moved = true; strip.style.scrollSnapType = 'none'; } strip.scrollLeft = d.l - dx; });
-  addEventListener('pointerup', () => { if (d) { strip.style.scrollSnapType = ''; d = null; } }); }
-$('#looksGrid').addEventListener('click', e => {
-  const b = e.target.closest('[data-look]'); if (!b) return;
-  const l = LOOKS.find(x => x.id === b.dataset.look);
-  Object.assign(S, { tech: l.tech, shape: l.shape, length: l.length, finish: l.finish, sel: [], nails: l.nails.map(n => ({ c: n.c, d: n.d, t: n.t || '#FFFFFF' })) });
-  render(); $('#studio').scrollIntoView({ behavior: 'smooth' }); toast(t('loaded'));
-});
+/* свой дизайн и «пусть решит мастер» */
+$('#ownWa').addEventListener('click', () => { $('#ownWa').href = waLink(t('wa.own')); });
+$('#adviceBtn').addEventListener('click', () => { choose('advice'); });
 
 /* ===================== Цены ===================== */
 function renderPrices() {
   const row = (k, p, m) => `<div><dt>${k}</dt><dd>${p}${m ? `<small>${m}</small>` : ''}</dd></div>`;
-  const base = Object.keys(TECH).map(k => row(L(TECH[k]), eur(TECH[k].price), dur(TECH[k].min))).join('');
-  const decor = [row(t('fin.matte'), '+' + eur(FINISHES.matte.price)), row(t('fin.chrome'), '+' + eur(FINISHES.chrome.price), '+' + FINISHES.chrome.min + ' ' + t('min')),
-    row(t('fin.cateye'), '+' + eur(FINISHES.cateye.price), '+' + FINISHES.cateye.min + ' ' + t('min')), row(t('q.long'), '+' + eur(LENGTHS.long.price), '+' + LENGTHS.long.min + ' ' + t('min')),
-    ...['french', 'glitter', 'ombre'].map(d => row(`${t('des.' + d)}, ${t('per')}`, '+' + eur(DESIGNS[d].price)))].join('');
-  const ex = Object.keys(EXTRAS).map(k => row(L(EXTRAS[k]), eur(EXTRAS[k].price), dur(EXTRAS[k].min))).join('') + row(t('shape.square') + ' / ' + t('shape.almond') + ' / …', t('free'));
+  const base = Object.keys(TECH).map(k => row(L(TECH[k]), t('from', eur(TECH[k].price)), dur(TECH[k].min))).join('');
+  const decor = [row(t('fin.matte'), '+' + eur(FINISHES.matte.price)), row(t('fin.chrome'), '+' + eur(FINISHES.chrome.price)), row(t('fin.cateye'), '+' + eur(FINISHES.cateye.price)),
+    row(t('q.long'), '+' + eur(LENGTHS.long.price)), ...['french', 'glitter', 'ombre'].map(d => row(`${t('des.' + d)}, ${t('per')}`, '+' + eur(DESIGNS[d].price)))].join('');
+  const ex = Object.keys(EXTRAS).map(k => row(L(EXTRAS[k]), eur(EXTRAS[k].price), dur(EXTRAS[k].min))).join('') + row(t('adv.name'), t('from', eur(ADVICE.price)));
   $('#priceCards').innerHTML = [[t('pc.base'), base], [t('pc.decor'), decor], [t('pc.extra'), ex]].map(([h, d]) => `<div class="pcard reveal"><h3>${h}</h3><dl>${d}</dl></div>`).join('');
   reveal($$('#priceCards .pcard'));
 }
@@ -410,93 +359,92 @@ function renderMasters() {
 }
 
 /* ===================== Расписание ===================== */
-// Занятость мастеров — псевдослучайная, но одинаковая для одного дня и мастера (у агентства здесь будет их календарь)
+// Демо: занятость мастеров — псевдослучайная, но постоянная для дня и мастера. У салона здесь будет его календарь.
 function rng(seed) { let h = 2166136261; for (const ch of seed) { h ^= ch.charCodeAt(0); h = Math.imul(h, 16777619); } return () => { h ^= h << 13; h ^= h >>> 17; h ^= h << 5; return ((h >>> 0) % 10000) / 10000; }; }
 const dayKey = d => `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
 const hoursOf = d => d.getDay() === 0 ? null : d.getDay() === 6 ? SITE.hours.saturday : SITE.hours.weekdays;
 const bookings = () => store.get('nc-bookings', []);
 function busyOf(master, d) {
-  const hrs = hoursOf(d); if (!hrs || !master.days.includes(d.getDay())) return null;
-  const r = rng(dayKey(d) + master.id), open = hrs[0] * 60, close = hrs[1] * 60, busy = [];
-  for (let m = open + Math.floor(r() * 4) * 15; m < close;) { const len = 45 + Math.floor(r() * 6) * 15; if (r() < .62) busy.push([m, m + len]); m += len + Math.floor(r() * 3) * 15; }
+  const r = rng(dayKey(d) + master.id), h = hoursOf(d), busy = [];
+  for (let s = h[0] * 60; s < h[1] * 60; s += 30) if (r() < .42) busy.push([s, s + 30 + Math.floor(r() * 3) * 30]);
   bookings().filter(b => b.status !== 'cancel' && b.master === master.id && b.date === dayKey(d)).forEach(b => busy.push([b.start, b.start + b.min]));
-  const now = new Date(); if (dayKey(now) === dayKey(d)) busy.push([open, now.getHours() * 60 + now.getMinutes() + 60]);   // сегодня — не раньше чем через час
-  return { open, close, busy };
+  return busy;
 }
 function freeStarts(master, d, need) {
-  const b = busyOf(master, d); if (!b) return null;
-  const out = [];
-  for (let m = b.open; m + need <= b.close; m += 15) if (!b.busy.some(([x, y]) => m < y && m + need > x)) out.push(m);
+  const h = hoursOf(d); if (!h || !master.days.includes(d.getDay())) return null;
+  const busy = busyOf(master, d), now = new Date(), today = dayKey(d) === dayKey(now), nowMin = now.getHours() * 60 + now.getMinutes() + 30, out = [];
+  for (let s = h[0] * 60; s + need <= h[1] * 60; s += 15) { if (today && s < nowMin) continue; if (!busy.some(([a, b]) => s < b && s + need > a)) out.push(s); }
   return out;
 }
-const canDo = m => m.techs.includes(S.tech);
-function slotsFor(d, need) {                       // { 600: 'lucia', … } — время → кто свободен
-  const list = (B.master === 'any' ? MASTERS.filter(canDo) : MASTERS.filter(m => m.id === B.master && canDo(m)));
-  const map = {}; let open = false;
-  list.forEach(m => { const f = freeStarts(m, d, need); if (f) { open = true; f.forEach(x => { if (!map[x]) map[x] = m.id; }); } });
+const canDo = (m, tech) => !tech || m.techs.includes(tech);
+function slotsFor(d, need, tech) {                    // { 600: 'lucia', … } — время → кто свободен
+  const list = MASTERS.filter(m => canDo(m, tech) && (B.master === 'any' || B.master === m.id)), map = {};
+  let open = false;
+  list.forEach(m => { const fs = freeStarts(m, d, need); if (fs) { open = true; fs.forEach(s => { if (!map[s]) map[s] = m.id; }); } });
   return open ? map : null;
 }
 const days14 = () => Array.from({ length: 14 }, (_, i) => { const d = new Date(); d.setHours(12, 0, 0, 0); d.setDate(d.getDate() + i); return d; });
 
 /* ===================== Запись ===================== */
-const B = { master: 'any', day: null, start: null, who: null };
-let miniT = 0;
 function renderBooking() {
-  const q = quote();
-  const tags = [`<span class="tag">${L(TECH[S.tech])}</span>`, `<span class="tag">${t('shape.' + S.shape)} · ${t('len.' + S.length)}</span>`, `<span class="tag">${t('fin.' + S.finish)}</span>`,
-    ...[...new Set(S.nails.map(n => n.c))].map(c => `<span class="tag"><i style="background:${c}"></i>${colorName(c)}</span>`),
-    `<a class="pill" href="#studio">${t('b.edit')}</a>`];
-  $('#chosen').innerHTML = tags.join('');
+  const q = quote(), w = B.work && B.work !== 'advice' ? workById(B.work) : null;
+  // 1. услуга
+  $('#chosen').innerHTML = w ? `<div class="pick"><img src="${photo(w)}" alt=""><div><b>${esc(L(w))}</b><span>${L(TECH[w.tech])} · ${dur(w.min)} · ${eur(w.price)}</span></div></div>`
+    : B.work === 'advice' ? `<div class="pick adv"><span class="any">✦</span><div><b>${t('adv.name')}</b><span>${t('adv.text')}</span></div></div>`
+    : `<p class="empty">${t('b.pick')}</p>`;
+  $('#chosenActs').innerHTML = `<a class="pill" href="#works">${w || B.work === 'advice' ? t('b.change') : t('b.toWorks')}</a>${B.work === 'advice' ? '' : `<button type="button" class="pill" id="advPick">${t('adv.btn')}</button>`}`;
   $('#extras').innerHTML = Object.keys(EXTRAS).map(k => `<label class="check"><input type="checkbox" data-ex="${k}"${extras[k] ? ' checked' : ''}>${L(EXTRAS[k])} · +${eur(EXTRAS[k].price)}</label>`).join('');
-  if (B.master !== 'any' && !canDo(MASTERS.find(m => m.id === B.master))) B.master = 'any';
+  // 2. мастер
+  if (B.master !== 'any' && !canDo(MASTERS.find(m => m.id === B.master), q.tech)) B.master = 'any';
   $('#mpick').innerHTML = `<button type="button" data-m="any" aria-pressed="${B.master === 'any'}"><span class="any">✦</span>${t('any')}</button>` +
-    MASTERS.map(m => `<button type="button" data-m="${m.id}" aria-pressed="${B.master === m.id}"${canDo(m) ? '' : ` disabled title="${t('m.cant')}"`}><img src="img/${m.photo}.webp" alt="">${m.name}</button>`).join('');
-  // дни
-  const ds = days14();
+    MASTERS.map(m => `<button type="button" data-m="${m.id}" aria-pressed="${B.master === m.id}"${canDo(m, q.tech) ? '' : ` disabled title="${t('m.cant')}"`}><img src="img/${m.photo}.webp" alt="">${m.name}</button>`).join('');
+  // 3. день и время — окна, куда услуга помещается целиком
+  const ds = days14(), need = q.min || ADVICE.min;
   $('#days').innerHTML = ds.map((d, i) => {
-    const map = slotsFor(d, q.min), n = map ? Object.keys(map).length : 0, k = dayKey(d);
+    const map = slotsFor(d, need, q.tech), n = map ? Object.keys(map).length : 0, k = dayKey(d);
     const label = i === 0 ? t('today') : i === 1 ? t('tomorrow') : T[lang].wd[d.getDay()];
     return `<button type="button" class="day${n ? '' : ' full'}" data-day="${k}" aria-pressed="${B.day === k}"><small>${label}</small><b>${d.getDate()}</b><em>${map ? (n ? t('slots', n) : t('nofree')) : t('closed')}</em></button>`;
   }).join('');
-  if (!B.day) { const first = ds.find(d => { const m = slotsFor(d, q.min); return m && Object.keys(m).length; }); if (first) B.day = dayKey(first); $$('#days .day').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.day === B.day))); }
-  // время
-  const d = ds.find(x => dayKey(x) === B.day), map = d ? slotsFor(d, q.min) || {} : {}, starts = Object.keys(map).map(Number).sort((a, b) => a - b);
+  if (!B.day) { const first = ds.find(d => { const m = slotsFor(d, need, q.tech); return m && Object.keys(m).length; }); if (first) B.day = dayKey(first); $$('#days .day').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.day === B.day))); }
+  const d = ds.find(x => dayKey(x) === B.day), map = d ? slotsFor(d, need, q.tech) || {} : {}, starts = Object.keys(map).map(Number).sort((a, b) => a - b);
   if (B.start !== null && !map[B.start]) { B.start = null; B.who = null; }
   const grp = [[t('morning'), x => x < 720], [t('day'), x => x >= 720 && x < 960], [t('evening'), x => x >= 960]];
   $('#slots').innerHTML = !d ? `<p class="empty">${t('pickday')}</p>` : !starts.length ? `<p class="empty">${t('noslots')}</p>` :
     grp.map(([h, f]) => { const xs = starts.filter(f); return xs.length ? `<h4>${h}</h4><div class="row">${xs.map(x => `<button type="button" class="slot" data-start="${x}" aria-pressed="${B.start === x}">${hm(x)}</button>`).join('')}</div>` : ''; }).join('');
-  $('#fit').textContent = t('fit', dur(q.min));
-  // чек
-  clearTimeout(miniT); miniT = setTimeout(() => { $('#rMini').innerHTML = preview(S, 480, 300); }, window.Nail3D ? 160 : 0);
-  $('#rList').innerHTML = q.items.map(([k, p]) => `<div><dt>${k}</dt><dd>${p ? eur(p) : t('free')}</dd></div>`).join('');
-  $('#rTotal').textContent = eur(q.price);
+  $('#fit').textContent = t('fit', dur(need));
+  // билет
+  $('#rMini').innerHTML = w ? `<img src="${photo(w)}" alt="">` : `<div class="mini-empty">${B.work === 'advice' ? '✦' : 'Nácar'}</div>`;
+  $('#rList').innerHTML = q.items.length ? q.items.map(([k, p]) => `<div><dt>${esc(k)}</dt><dd>${q.from && p === ADVICE.price && k === t('adv.name') ? t('from', eur(p)) : eur(p)}</dd></div>`).join('') : `<div><dt>${t('b.pick')}</dt></div>`;
+  $('#rTotal').textContent = q.items.length ? priceText(q) : '—';
   const who = B.who && MASTERS.find(m => m.id === B.who);
-  $('#rWhen').textContent = d && B.start !== null ? `${d.toLocaleDateString(LOCALE[lang], { weekday: 'long', day: 'numeric', month: 'long' })}, ${hm(B.start)}–${hm(B.start + q.min)} · ${t('r.with')} ${who ? who.name : ''}` : t('r.when0');
-  $('#rDep').textContent = t('r.dep', SITE.deposit, Math.max(0, q.price - SITE.deposit));
+  $('#rWhen').textContent = d && B.start !== null ? `${d.toLocaleDateString(LOCALE[lang], { weekday: 'long', day: 'numeric', month: 'long' })}, ${hm(B.start)}–${hm(B.start + need)} · ${t('r.with')} ${who ? who.name : ''}` : t('r.when0');
+  $('#rDep').textContent = q.from ? t('r.depAdv', SITE.deposit) : t('r.dep', SITE.deposit, Math.max(0, q.price - SITE.deposit));
   $('#policyText').textContent = t('policy', SITE.lateMinutes, SITE.deposit);
 }
 $('#book').addEventListener('click', e => {
+  if (e.target.closest('#advPick')) { choose('advice', false); return; }
   const m = e.target.closest('[data-m]'); if (m) { B.master = m.dataset.m; B.start = null; renderBooking(); return; }
   const dd = e.target.closest('[data-day]'); if (dd) { B.day = dd.dataset.day; B.start = null; renderBooking(); return; }
   const s = e.target.closest('[data-start]');
-  if (s) { const q = quote(), d = days14().find(x => dayKey(x) === B.day), map = slotsFor(d, q.min); B.start = +s.dataset.start; B.who = map[B.start]; setErr('ePolicy', ''); renderBooking(); }
+  if (s) { const q = quote(), d = days14().find(x => dayKey(x) === B.day), map = slotsFor(d, q.min || ADVICE.min, q.tech); B.start = +s.dataset.start; B.who = map[B.start]; setErr('ePolicy', ''); renderBooking(); }
 });
-$('#book').addEventListener('change', e => { const x = e.target.closest('[data-ex]'); if (x) { extras[x.dataset.ex] = x.checked; renderSummary(); renderBooking(); } });
+$('#book').addEventListener('change', e => { const x = e.target.closest('[data-ex]'); if (x) { extras[x.dataset.ex] = x.checked; renderBooking(); renderMbar(); } });
 
 const setErr = (id, msg) => { const el = $('#' + id); el.textContent = msg || ''; const f = el.closest('.field'); if (f) { if (msg) f.setAttribute('data-invalid', ''); else f.removeAttribute('data-invalid'); } };
 ['bName', 'bPhone', 'bEmail'].forEach((id, i) => $('#' + id).addEventListener('input', () => setErr(['eName', 'ePhone', 'eEmail'][i], '')));
 $('#bPolicy').addEventListener('change', () => setErr('ePolicy', ''));
 $('#bookForm').addEventListener('submit', e => {
   e.preventDefault();
-  const name = $('#bName').value.trim(), phone = $('#bPhone').value.trim(), email = $('#bEmail').value.trim();
+  if (!B.work) { toast(t('e.work')); $('#chosen').scrollIntoView({ behavior: 'smooth', block: 'center' }); return; }
+  const name = $('#bName').value.trim(), phone = $('#bPhone').value.trim(), email = $('#bEmail').value.trim(), note = $('#bNote').value.trim();
   const errs = [['eName', name ? '' : t('e.name'), '#bName'], ['ePhone', phone.replace(/\D/g, '').length >= 9 ? '' : t('e.phone'), '#bPhone'],
     ['eEmail', /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email) ? '' : t('e.email'), '#bEmail'], ['ePolicy', $('#bPolicy').checked ? '' : t('e.policy'), '#bPolicy']];
   errs.forEach(([id, msg]) => setErr(id, msg));
   if (B.start === null) { toast(t('e.slot')); $('#days').scrollIntoView({ behavior: 'smooth', block: 'center' }); return; }
   const bad = errs.find(x => x[1]); if (bad) { $(bad[2]).focus(); return; }
   const q = quote(), code = 'NC-' + Math.random().toString(36).slice(2, 6).toUpperCase();
-  const bk = { id: Date.now(), code, date: B.day, start: B.start, min: q.min, master: B.who, price: q.price, deposit: SITE.deposit, status: 'active',
-    design: encodeDesign(), summary: `${L(TECH[S.tech])}, ${t('shape.' + S.shape)}, ${[...new Set(S.nails.map(n => colorName(n.c)))].join(', ')}`, name, phone, email };
+  const bk = { id: Date.now(), code, date: B.day, start: B.start, min: q.min, master: B.who, price: q.price, from: q.from, deposit: SITE.deposit, status: 'active',
+    work: B.work, extras: Object.keys(extras).filter(k => extras[k]), summary: q.items.map(i => i[0]).join(' + '), name, phone, email, note };
   const done = () => { store.set('nc-bookings', [...bookings(), bk]); B.start = null; renderBooking(); renderMine(); showOk(bk); };
   if (!SITE.web3formsKey) { done(); return; }
   const btn = $('#bSubmit'); btn.disabled = true; btn.textContent = t('sending');
@@ -518,11 +466,10 @@ function ics(title, date, start, min, note) {
 }
 const addDays = (key, n) => { const [y, m, d] = key.split('-').map(Number), x = new Date(y, m - 1, d + n); return dayKey(x); };
 const fmtDay = key => { const [y, m, d] = key.split('-').map(Number); return new Date(y, m - 1, d).toLocaleDateString(LOCALE[lang], { weekday: 'long', day: 'numeric', month: 'long' }); };
-const masterName = id => (MASTERS.find(m => m.id === id) || {}).name || '';
-const waLink = text => `https://wa.me/${SITE.whatsapp}?text=${encodeURIComponent(text)}`;
+const bkPrice = b => b.from ? t('from', eur(b.price)) : eur(b.price);
 function showOk(bk) {
   const box = $('#okBox');
-  box.innerHTML = `<h3>${t('ok.t')}</h3><span class="code">${bk.code}</span><p>${t('ok.p', `${fmtDay(bk.date)}, ${hm(bk.start)}`, masterName(bk.master))}</p><p class="muted">${bk.summary} · ${eur(bk.price)}</p>
+  box.innerHTML = `<h3>${t('ok.t')}</h3><span class="code">${bk.code}</span><p>${t('ok.p', `${fmtDay(bk.date)}, ${hm(bk.start)}`, masterName(bk.master))}</p><p class="muted">${esc(bk.summary)} · ${bkPrice(bk)}</p>
     <div class="acts"><button class="btn" type="button" id="okIcs">${t('ok.ics')}</button><button class="btn ghost" type="button" id="okRem">${t('ok.remind')}</button>
     <a class="btn wa" href="${waLink(t('wa.code', bk.code))}" target="_blank" rel="noopener">${t('ok.wa')}</a><button class="pill" type="button" id="okMine">${t('ok.mine')}</button></div>`;
   $('#okIcs').addEventListener('click', () => ics(t('ics.title'), bk.date, bk.start, bk.min, `${bk.code} · ${bk.summary}`));
@@ -537,11 +484,11 @@ function renderMine() {
   $('#mineCount').textContent = act || '';
   $('#mineList').innerHTML = !list.length ? `<p class="muted">${t('mine.empty')}</p>` : list.map(b => {
     const st = b.status === 'active' ? ['', t('st.active')] : b.status === 'late' ? ['late', t('st.late')] : ['cancel', b.reason === 'late' ? t('st.lateCancel') : t('st.cancel')];
-    const live = b.status === 'active' || b.status === 'late';
-    return `<div class="bk"><div class="h"><b>${fmtDay(b.date)}, ${hm(b.start)}</b><span class="st ${st[0]}">${st[1]}</span></div>
-      <p>${b.code} · ${masterName(b.master)} · ${b.summary} · ${eur(b.price)}</p>
+    const live = b.status === 'active' || b.status === 'late', w = b.work && workById(b.work);
+    return `<div class="bk">${w ? `<img src="${photo(w)}" alt="">` : ''}<div><div class="h"><b>${fmtDay(b.date)}, ${hm(b.start)}</b><span class="st ${st[0]}">${st[1]}</span></div>
+      <p>${b.code} · ${masterName(b.master)} · ${esc(b.summary)} · ${bkPrice(b)}</p>
       ${b.status === 'late' ? `<p>${t('lateNote', hm(b.start + SITE.lateMinutes))}</p>` : ''}${b.status === 'cancel' ? `<p>${t('refund', b.deposit)}</p>` : ''}
-      ${live ? `<div class="acts"><button class="pill" type="button" data-late="${b.id}">${t('late')}</button><button class="pill" type="button" data-cancel="${b.id}">${t('cancel')}</button></div>` : ''}</div>`;
+      ${live ? `<div class="acts"><button class="pill" type="button" data-late="${b.id}">${t('late')}</button><button class="pill" type="button" data-cancel="${b.id}">${t('cancel')}</button></div>` : ''}</div></div>`;
   }).join('');
 }
 const updateBk = (id, patch) => { store.set('nc-bookings', bookings().map(b => b.id === id ? { ...b, ...patch } : b)); renderMine(); renderBooking(); };
@@ -563,7 +510,7 @@ function openLate(id) {
     if (o.dataset.lo === 'a') updateBk(id, { status: 'late' });
     else {
       updateBk(id, { status: 'cancel', reason: o.dataset.lo === 'b' ? 'late' : 'user' }); toast(t('canceled'));
-      if (o.dataset.lo === 'c' && bk) { decodeDesign(bk.design); render(); $('#lateDlg').close(); $('#mineDlg').close(); $('#book').scrollIntoView({ behavior: 'smooth' }); return; }
+      if (o.dataset.lo === 'c' && bk) { B.work = bk.work || 'advice'; Object.keys(extras).forEach(k => { extras[k] = (bk.extras || []).includes(k); }); renderBooking(); $('#lateDlg').close(); $('#mineDlg').close(); $('#book').scrollIntoView({ behavior: 'smooth' }); return; }
     }
     $('#lateDlg').close();
   };
@@ -575,7 +522,7 @@ $$('dialog').forEach(d => { d.addEventListener('click', e => { if (e.target === 
 function renderContact() {
   $('#cAddr').textContent = SITE.address; $('#cPhone').textContent = SITE.phone;
   $('#cHours').textContent = t('ct.hours', SITE.hours.weekdays[0], SITE.hours.weekdays[1], SITE.hours.saturday[0], SITE.hours.saturday[1]);
-  $('#cWa').href = waLink(t('wa.hello')); $('#waFab').href = waLink(t('wa.hello'));
+  $('#cWa').href = waLink(t('wa.hello')); $('#waFab').href = waLink(t('wa.hello')); $('#ownWa').href = waLink(t('wa.own')); $('#heroWa').href = waLink(t('wa.own'));
   $('#cMaps').href = `https://www.google.com/maps/search/?api=1&query=${SITE.lat},${SITE.lng}`;
   $('#a3').textContent = t('a3', SITE.lateMinutes, SITE.deposit);
 }
@@ -588,13 +535,33 @@ addEventListener('load', () => {
   } catch (e) { /* без карты — остаются адрес и кнопка «Маршрут» */ }
 });
 
+/* ===================== Первый экран: 3D-сцены ===================== */
+const look3 = st => ({ shape: st.shape, length: st.length, finish: st.finish, nails: st.nails.map(n => ({ c: n.c, d: n.d, t: n.t || '#FFFFFF' })) });
+let hero3d = null, macro3d = null, heroI = 2, macroI = 5, macroT = 0;
+function heroScene() {
+  const l = LOOKS[heroI % LOOKS.length];
+  $('#sceneNo').textContent = String(heroI % LOOKS.length + 1).padStart(2, '0');
+  $('#sceneName').textContent = L(l);
+  const sc = $('.scene'); sc.classList.remove('cut'); void sc.offsetWidth; sc.classList.add('cut');
+}
+function initHero() {
+  if (hero3d || !window.Nail3D) return;
+  try { hero3d = Nail3D.stage($('#heroCanvas'), { mode: 'hero', onScene: i => { heroI = i; heroScene(); } }); } catch (e) { return; }
+  heroScene(); hero3d.play(LOOKS.map(look3), heroI);
+  try {                                                   // интерлюдия: крупный план одного ногтя, образы медленно сменяются
+    macro3d = Nail3D.stage($('#macroCanvas'), { mode: 'macro' });
+    const show = () => { const l = LOOKS[macroI % LOOKS.length]; macro3d.set(look3(l)); $('#macroName').textContent = L(l); };
+    show();
+    if (!matchMedia('(prefers-reduced-motion: reduce)').matches) macroT = setInterval(() => { if (!document.hidden) { macroI++; show(); } }, 6500);
+  } catch (e) { macro3d = null; }
+}
+
 /* ===================== Язык, появление, мобильная плашка ===================== */
 const revealIO = 'IntersectionObserver' in window ? new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); revealIO.unobserve(e.target); } }), { rootMargin: '0px 0px -8% 0px' }) : null;
 function reveal(els) { els.forEach(el => { if (revealIO) revealIO.observe(el); else el.classList.add('in'); }); }
 function heroFree() {
   // ближайшее свободное окно для гель-лака у любого мастера
-  const s0 = S; S = DEFAULT(); const need = quote().min; S = s0;
-  const ds = days14(), gel = MASTERS.filter(m => m.techs.includes('gel'));
+  const need = TECH.gel.min, ds = days14(), gel = MASTERS.filter(m => m.techs.includes('gel'));
   const today = gel.reduce((a, m) => a + (freeStarts(m, ds[0], need) || []).length, 0);
   let next = null;
   for (let i = today ? 0 : 1; i < ds.length && !next; i++) {
@@ -604,20 +571,17 @@ function heroFree() {
   $('#heroFreeT').textContent = today ? t('badge.t') : t('badge.t0');
   $('#heroFree').textContent = today ? t('badge.n', today) : next ? t('badge.next', next[0] === 1 ? t('tomorrow').toLowerCase() : ds[next[0]].toLocaleDateString(LOCALE[lang], { weekday: 'long', day: 'numeric' }), hm(next[1])) : '';
 }
-let hero3d = null, heroI = 0;
-function heroScene() {
-  const l = LOOKS[heroI % LOOKS.length];
-  $('#sceneNo').textContent = String(heroI % LOOKS.length + 1).padStart(2, '0');
-  $('#sceneName').textContent = L(l);
-  const sc = $('.scene'); sc.classList.remove('cut'); void sc.offsetWidth; sc.classList.add('cut');
+const mbar = $('#mbar');
+const vis = new Set();
+function renderMbar() {
+  const q = quote();
+  $('#mPrice').textContent = q.items.length ? priceText(q) : '';
+  $('#mTime').textContent = q.items.length ? `${q.items[0][0]} · ${dur(q.min)}` : '';
+  mbar.classList.toggle('on', !!B.work && !vis.has('book') && !vis.has('hero'));
 }
-let macro3d = null;
-function initHero() {
-  if (hero3d || !window.Nail3D) return;
-  try { hero3d = Nail3D.stage($('#heroCanvas'), { mode: 'hero', onScene: i => { heroI = i; heroScene(); } }); } catch (e) { return; }
-  heroI = 2; heroScene();
-  hero3d.play(LOOKS.map(look3), heroI);
-  try { macro3d = Nail3D.stage($('#macroCanvas'), { mode: 'macro' }); macro3d.set(look3(S)); } catch (e) { macro3d = null; }
+if ('IntersectionObserver' in window) {
+  const io = new IntersectionObserver(es => { es.forEach(e => { if (e.isIntersecting) vis.add(e.target.id); else vis.delete(e.target.id); }); renderMbar(); }, { threshold: .05 });
+  io.observe($('#hero')); io.observe($('#book'));
 }
 function applyLang() {
   document.documentElement.lang = lang;
@@ -626,26 +590,21 @@ function applyLang() {
   $('#interQ').innerHTML = t('inter.q').split(' ').map((x, i) => `<span class="w" style="transition-delay:${i * .09}s">${x}</span>`).join(' ');
   $('#heroTitle').innerHTML = t('hero.title').split('|').map(x => `<span class="ln"><span>${x}</span></span>`).join('');
   $('#sceneName').textContent = L(LOOKS[heroI % LOOKS.length]);
+  if (macro3d) $('#macroName').textContent = L(LOOKS[macroI % LOOKS.length]);
   $$('.lang button').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.lang === lang)));
-  render(); renderLooks(); renderPrices(); renderMasters(); renderContact(); renderMine(); heroFree();
+  renderWorks(); renderPrices(); renderMasters(); renderBooking(); renderContact(); renderMine(); heroFree(); renderMbar();
 }
 $$('.lang button').forEach(b => b.addEventListener('click', () => { lang = b.dataset.lang; store.set('nc-lang', lang); applyLang(); }));
-const mbar = $('#mbar');
-if ('IntersectionObserver' in window) {
-  const vis = new Set();
-  const io = new IntersectionObserver(es => { es.forEach(e => { if (e.isIntersecting) vis.add(e.target.id); else vis.delete(e.target.id); }); mbar.classList.toggle('on', vis.has('studio') && !vis.has('book')); }, { threshold: .05 });
-  io.observe($('#studio')); io.observe($('#book'));
-}
 
-if (location.hash.startsWith('#d=')) decodeDesign(location.hash.slice(3));
 applyLang();
 reveal($$('.reveal'));
-const on3d = () => { renderHand(); renderLooks(); renderBooking(); initHero(); };
-if (window.Nail3D) on3d(); else addEventListener('nail3d', on3d, { once: true });
-requestAnimationFrame(() => requestAnimationFrame(() => $('#hero').classList.add('open')));
-// шапка темнеет после первого экрана; кадр-интерлюдия и сцена героя двигаются при прокрутке
-const topBar = $('#top'), heroCopy = $('.hero-copy');
 reveal([$('#interlude')]);
+const fromHash = () => { const m = location.hash.match(/^#work\/([\w-]+)/); if (m && workById(m[1]) && !$('#workDlg').open) openWork(m[1], true); };
+fromHash(); addEventListener('hashchange', fromHash);
+if (window.Nail3D) initHero(); else addEventListener('nail3d', initHero, { once: true });
+requestAnimationFrame(() => requestAnimationFrame(() => $('#hero').classList.add('open')));
+// шапка темнеет после первого экрана; заголовок героя уезжает при прокрутке
+const topBar = $('#top'), heroCopy = $('.hero-copy');
 let ticking = false;
 addEventListener('scroll', () => {
   if (ticking) return; ticking = true;

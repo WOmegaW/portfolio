@@ -128,83 +128,12 @@ a{color:inherit}
 }
 @media (max-height:520px) and (orientation:landscape){.hero{min-height:440px}.hero h1{font-size:clamp(40px,7vw,72px)}.hero .lead{display:none}.free{display:none}}
 
-/* ===== II. Студия: 3D-конфигуратор ===== */
-.studio{background:linear-gradient(var(--bg),var(--bg-2) 30%,var(--bg-2))}
-.studio-grid{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,1fr);gap:clamp(24px,3.5vw,56px);align-items:start}
-.stage-col{position:sticky;top:84px;z-index:6}
-.stage{position:relative;border-radius:var(--r-lg);overflow:hidden;background:radial-gradient(70% 70% at 50% 38%,#2B1E27,#120D11 75%);border:1px solid var(--line)}
-.stage::after{content:"";position:absolute;inset:0;pointer-events:none;box-shadow:inset 0 0 120px rgba(0,0,0,.65)}
-#hand{position:relative;aspect-ratio:1.18/1}
-#hand canvas{position:absolute;inset:0;width:100%;height:100%;display:block;cursor:grab;touch-action:pan-y}
-#hand > svg{position:absolute;inset:0;width:100%;height:100%}
-#hand .nail{cursor:pointer}
-.stage-tag{position:absolute;z-index:2;left:18px;top:16px;font-size:10px;letter-spacing:.32em;text-transform:uppercase;color:var(--muted)}
-.stage-tag b{color:var(--gold);font-weight:600}
-.stage-bar{position:relative;z-index:2;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:10px;padding:12px 16px 16px;border-top:1px solid var(--line)}
-.picks{display:flex;gap:6px}
-.picks .nail{width:40px;height:40px;border-radius:50%;border:1px solid var(--line-2);background:transparent;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;font:italic 400 18px/1 var(--display);color:var(--ink-2);transition:all .25s}
-.picks .nail i{width:12px;height:16px;border-radius:7px 7px 4px 4px;box-shadow:inset 0 0 0 1px rgba(255,255,255,.25)}
-.picks .nail:hover{border-color:var(--pearl)}
-.picks .nail[aria-pressed=true]{border-color:var(--gold);box-shadow:0 0 0 1px var(--gold);background:rgba(217,185,140,.1)}
-.hint{position:absolute;z-index:2;left:0;right:0;bottom:84px;margin:0;text-align:center;font-size:12px;letter-spacing:.06em;color:var(--muted);pointer-events:none}
-.disclaim{font-size:12px;color:var(--muted);margin:10px 2px 0}
-.ctrl{display:grid;gap:30px}
-.ctrl h3{display:flex;justify-content:space-between;font:500 11px/1 var(--text);letter-spacing:.28em;text-transform:uppercase;color:var(--muted);margin:0 0 12px}
-.opts{display:flex;flex-wrap:wrap;gap:8px}
-.opt{display:flex;flex-direction:column;align-items:flex-start;gap:3px;min-width:0;padding:11px 15px;border-radius:var(--r-md);border:1px solid var(--line);background:rgba(243,235,228,.02);cursor:pointer;text-align:left;transition:border-color .25s,background .25s}
-.opt:hover{border-color:var(--line-2);background:rgba(243,235,228,.05)}
-.opt[aria-pressed=true]{border-color:var(--gold);background:rgba(217,185,140,.1)}
-.opt b{font-size:14px;font-weight:500}
-.opt small{font-size:12px;color:var(--muted)}
-.opt[aria-pressed=true] small{color:var(--gold)}
-.opt[disabled]{opacity:.3;pointer-events:none}
-.opt.shape{align-items:center;padding:10px 12px;min-width:76px}
-.opt.shape svg{width:24px;height:38px;color:var(--pearl-2)}
-.opt.shape[aria-pressed=true] svg{color:var(--gold)}
-.target{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
-.target .note{font-size:12px;color:var(--muted)}
-.palette{display:grid;grid-template-columns:repeat(10,minmax(0,1fr));gap:9px}
-.sw{position:relative;aspect-ratio:1;border-radius:50%;border:0;cursor:pointer;box-shadow:inset 0 -6px 10px rgba(0,0,0,.25),inset 0 4px 6px rgba(255,255,255,.35);transition:transform .25s var(--ease)}
-.sw:hover{transform:scale(1.15)}
-.sw[aria-pressed=true]{box-shadow:inset 0 -6px 10px rgba(0,0,0,.25),inset 0 4px 6px rgba(255,255,255,.35),0 0 0 2px var(--bg-2),0 0 0 3px var(--gold)}
-.cname{font-size:13px;color:var(--muted);margin:12px 0 0;min-height:1.6em}
-.cname b{font:italic 400 22px/1 var(--display);color:var(--pearl);margin-right:4px}
-.custom{display:inline-flex;align-items:center;gap:10px;font-size:12px;color:var(--muted);margin-top:8px;cursor:pointer}
-.custom input{width:28px;height:28px;padding:0;border:0;border-radius:50%;background:none;cursor:pointer}
-/* итог — как билет */
-.summary{position:relative;border-radius:var(--r-lg);background:var(--pearl);color:#1A1214;padding:24px 24px 22px}
-.summary::before,.summary::after{content:"";position:absolute;top:calc(100% - 96px);width:22px;height:22px;border-radius:50%;background:var(--bg-2)}
-.summary::before{left:-11px}.summary::after{right:-11px}
-.summary dl{margin:0;display:grid;gap:6px;font-size:13.5px}
-.summary dl div{display:flex;justify-content:space-between;gap:12px;color:rgba(26,18,20,.7)}
-.summary dd{margin:0;white-space:nowrap}
-.summary .tot{display:flex;justify-content:space-between;align-items:baseline;gap:12px;margin-top:14px;padding-top:14px;border-top:1px dashed rgba(26,18,20,.25)}
-.summary .tot b{font:400 52px/1 var(--display);letter-spacing:-.02em}
-.summary .tot span{font-size:14px;color:rgba(26,18,20,.7)}
-.summary .promise{font-size:12px;color:rgba(26,18,20,.62);margin:10px 0 0}
-.summary .acts{display:flex;flex-wrap:wrap;gap:10px;margin-top:18px;padding-top:18px;border-top:1px dashed rgba(26,18,20,.25)}
-.summary .btn{background:#1A1214;border-color:#1A1214;color:var(--pearl)}.summary .btn:hover{background:var(--wine);border-color:var(--wine)}
-.summary .pill{border-color:rgba(26,18,20,.25)}.summary .pill:hover{border-color:#1A1214}
-@media (max-width:980px){
-  .studio-grid{grid-template-columns:minmax(0,1fr)}
-  .stage-col{top:68px}
-  .stage-col .disclaim{display:none}
-  .stage{margin:0 calc(-1 * var(--gutter));border-radius:0;border-left:0;border-right:0}
-  #hand{aspect-ratio:auto;height:min(34svh,300px)}
-  .hint,.stage-tag{display:none}
-  .stage-bar{padding:8px 12px 10px}
-  .picks .nail{width:34px;height:34px}
-  .stage-bar .pill{min-height:34px;font-size:12px}
-  .ctrl > div{scroll-margin-top:calc(68px + 34svh + 70px)}
-  .palette{gap:7px}
-}
-@media (max-height:520px) and (orientation:landscape){.stage-col{position:relative;top:0}#hand{height:70svh}}
 .mbar{position:fixed;left:0;right:0;bottom:0;z-index:30;display:none;align-items:center;gap:12px;padding:10px var(--gutter) calc(10px + env(safe-area-inset-bottom));background:rgba(243,235,228,.97);color:#1A1214;transform:translateY(110%);transition:transform .45s var(--ease)}
 .mbar.on{transform:none}
 .mbar b{font:400 30px/1 var(--display)}
 .mbar span{font-size:12px;color:rgba(26,18,20,.7)}
 .mbar .btn{margin-left:auto;min-height:44px;background:#1A1214;border-color:#1A1214;color:var(--pearl)}
-@media (max-width:980px){.mbar{display:flex}.studio{padding-bottom:120px}}
+@media (max-width:980px){.mbar{display:flex}}
 
 /* ===== Интерлюдия: макро вашего ногтя ===== */
 .interlude{position:relative;height:min(100svh,900px);min-height:520px;overflow:hidden;display:flex;align-items:flex-end;background:radial-gradient(60% 70% at 62% 45%,#2C1D26,#0E0A0D 70%)}
@@ -232,26 +161,6 @@ a{color:inherit}
 @keyframes cut{0%{opacity:0;transform:translateY(10px);filter:blur(6px)}100%{opacity:1;transform:none;filter:none}}
 .hero-copy{will-change:transform,opacity}
 @media (prefers-reduced-motion:reduce){.chap h2{clip-path:none;transform:none;transition:none}.chap .no{opacity:.7;transform:none}.interlude p .w{opacity:1;transform:none;filter:none}}
-
-/* ===== III. Плёнка «Хочу так же» ===== */
-.strip-wrap{position:relative}
-.looks{display:grid;grid-auto-flow:column;grid-auto-columns:clamp(260px,30vw,420px);gap:0;overflow-x:auto;scroll-snap-type:x mandatory;padding:0 var(--gutter);margin:0 calc(-1 * var(--gutter));scrollbar-width:none;cursor:grab}
-.looks::-webkit-scrollbar{display:none}
-.look{position:relative;scroll-snap-align:start;background:#060506;padding:30px 10px;border-right:1px solid #000}
-.look::before,.look::after{content:"";position:absolute;left:0;right:0;height:14px;background:radial-gradient(circle at 50% 50%,var(--bg) 0 3.5px,transparent 4px) 0 0/22px 14px repeat-x}
-.look::before{top:8px}.look::after{bottom:8px}
-.look .pv{position:relative;aspect-ratio:480/330;border-radius:4px;overflow:hidden;background:radial-gradient(80% 80% at 50% 40%,#2B1E27,#100C0F)}
-.look .pv img,.look .pv svg{width:100%;height:100%;object-fit:cover;display:block;transition:transform 1.2s var(--ease)}
-.look:hover .pv img{transform:scale(1.06)}
-.look .no{position:absolute;left:12px;top:10px;font-size:10px;letter-spacing:.3em;color:var(--muted);z-index:1}
-.look .meta{display:flex;align-items:flex-end;justify-content:space-between;gap:10px;padding:14px 4px 0}
-.look h3{font:italic 400 26px/1.05 var(--display)}
-.look .meta small{display:block;margin-top:6px;font-size:12px;color:var(--muted);letter-spacing:.04em}
-.look .btn{min-height:40px;padding:0 16px;font-size:11px;flex:none}
-.strip-nav{display:flex;gap:8px;justify-content:flex-end;margin-top:18px}
-.strip-nav button{width:48px;height:48px;border-radius:50%;border:1px solid var(--line-2);background:transparent;cursor:pointer;font-size:18px}
-.strip-nav button:hover{border-color:var(--pearl)}
-@media (max-width:640px){.looks{grid-auto-columns:78vw}.look h3{font-size:22px}.look .meta{flex-direction:column;align-items:stretch}.strip-nav{display:none}}
 
 /* ===== IV. Цены ===== */
 .prices{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(20px,3vw,48px)}
@@ -384,6 +293,60 @@ footer .fin{font:italic 300 clamp(70px,14vw,220px)/.8 var(--display);letter-spac
 footer .cred{display:grid;gap:8px;margin-top:40px;font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--muted)}
 footer .cred span:last-child{max-width:60em;margin:12px auto 0;letter-spacing:.04em;text-transform:none;line-height:1.6}
 
+
+/* ===== I. Работы с ценами ===== */
+.wfilter{display:flex;flex-wrap:wrap;gap:8px;margin:-12px 0 28px}
+.works-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(14px,2vw,28px)}
+.work{position:relative;display:block;padding:0;border:0;background:none;text-align:left;cursor:pointer;color:inherit}
+.work .ph{display:block;position:relative;aspect-ratio:4/5;border-radius:var(--r-lg);overflow:hidden;background:var(--bg-3)}
+.work .ph img{width:100%;height:100%;object-fit:cover;transition:transform 1.4s var(--ease),filter 1s}
+.work .ph::after{content:"";position:absolute;inset:0;background:linear-gradient(transparent 55%,rgba(8,6,7,.55))}
+.work:hover .ph img{transform:scale(1.05)}
+.work .price{position:absolute;right:14px;top:14px;z-index:1;padding:8px 14px;border-radius:999px;background:var(--pearl);color:#1A1214;font:400 24px/1 var(--display);box-shadow:0 10px 30px rgba(0,0,0,.35)}
+.work .cap{display:flex;flex-direction:column;gap:4px;padding:14px 4px 0}
+.work .cap b{font:italic 400 clamp(22px,2vw,28px)/1.05 var(--display)}
+.work .cap small{font-size:12px;letter-spacing:.04em;color:var(--muted)}
+.work:focus-visible .ph{outline:1px solid var(--gold);outline-offset:4px}
+@media (max-width:900px){.works-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:520px){.works-grid{gap:12px}.work .price{right:8px;top:8px;font-size:19px;padding:6px 10px}.work .cap b{font-size:19px}}
+.own{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:clamp(14px,2vw,28px);margin-top:clamp(40px,5vw,64px)}
+.own-card{border:1px solid var(--line);border-radius:var(--r-lg);padding:clamp(22px,3vw,34px);display:grid;gap:12px;align-content:start;background:linear-gradient(160deg,rgba(243,235,228,.04),transparent)}
+.own-card h3{font:italic 300 clamp(32px,3.4vw,46px)/1 var(--display)}
+.own-card p{margin:0;color:var(--ink-2);font-weight:300}
+.own-card .btn{justify-self:start;margin-top:8px}
+@media (max-width:760px){.own{grid-template-columns:1fr}.own-card .btn{justify-self:stretch}}
+/* окно работы */
+.wdlg{width:min(1000px,calc(100vw - 24px))}
+.wk{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,1fr)}
+.wk-ph{min-height:100%;background:var(--bg-3)}
+.wk-ph img{width:100%;height:100%;max-height:82svh;object-fit:cover}
+.wk-in{padding:clamp(24px,3vw,40px);display:grid;gap:14px;align-content:center}
+.wk-in h3{font:italic 300 clamp(40px,4.4vw,60px)/.95 var(--display)}
+.wk-note{margin:0;color:var(--ink-2);font-weight:300}
+.wk-facts{margin:6px 0 0;display:grid;gap:0;border-top:1px solid var(--line)}
+.wk-facts div{display:flex;justify-content:space-between;align-items:baseline;padding:12px 0;border-bottom:1px solid var(--line)}
+.wk-facts dt{font-size:11px;letter-spacing:.24em;text-transform:uppercase;color:var(--muted)}
+.wk-facts dd{margin:0;font:400 26px/1 var(--display)}
+.wk-fix{margin:0;font-size:12.5px;color:var(--muted)}
+.wk-acts{display:grid;gap:10px;margin-top:8px}
+@media (max-width:760px){.wk{grid-template-columns:1fr}.wk-ph img{max-height:46svh}.wk-in{padding:22px}}
+/* запись: выбранная услуга */
+.pick{display:flex;gap:14px;align-items:center}
+.pick img{width:64px;height:80px;border-radius:var(--r-sm);object-fit:cover;flex:none}
+.pick .any{width:64px;height:64px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;border:1px solid var(--gold);color:var(--gold);font-size:22px;flex:none}
+.pick b{display:block;font:italic 400 26px/1.05 var(--display)}
+.pick span{font-size:13px;color:var(--muted)}
+.chosen .empty{margin:0;color:var(--muted)}
+.chosen-acts{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+.field textarea{width:100%;border:0;border-bottom:1px solid var(--line-2);background:transparent;padding:10px 2px;font-size:16px;resize:vertical;border-radius:0}
+.field textarea:focus{outline:0;border-color:var(--gold)}
+.field textarea::placeholder{color:rgba(243,235,228,.3)}
+.receipt .mini{aspect-ratio:16/10}
+.receipt .mini .mini-empty{width:100%;height:100%;display:flex;align-items:center;justify-content:center;font:italic 300 44px/1 var(--display);color:var(--gold)}
+.bk{display:flex;gap:14px;align-items:flex-start}
+.bk > img{width:56px;height:70px;border-radius:var(--r-sm);object-fit:cover;flex:none}
+.bk > div{flex:1;min-width:0}
+
 /* окна */
 dialog{border:1px solid var(--line);padding:0;border-radius:var(--r-lg);width:min(560px,calc(100vw - 24px));max-height:calc(100svh - 24px);background:var(--bg-2);color:var(--ink);box-shadow:0 40px 120px rgba(0,0,0,.6)}
 dialog::backdrop{background:rgba(5,3,4,.7);backdrop-filter:blur(4px)}
@@ -427,8 +390,7 @@ dialog[open]{animation:pop .45s var(--ease)}
   <div class="wrap">
     <a class="brand" href="#"><b>Nácar</b><span>Nail Studio · Marbella</span></a>
     <nav class="nav" aria-label="Menú">
-      <a href="#studio" data-i="nav.studio">Конфигуратор</a>
-      <a href="#looks" data-i="nav.looks">Дизайны</a>
+      <a href="#works" data-i="nav.works">Работы и цены</a>
       <a href="#prices" data-i="nav.prices">Цены</a>
       <a href="#hygiene" data-i="nav.hyg">Гигиена</a>
       <a href="#book" data-i="nav.book">Запись</a>
@@ -451,45 +413,25 @@ dialog[open]{animation:pop .45s var(--ease)}
     <h1 id="heroTitle"></h1>
     <div class="hero-row">
       <p class="lead" data-i="hero.lead"></p>
-      <div class="ctas"><a class="btn" href="#studio"><span data-i="hero.cta1">Собрать дизайн</span><span class="arr" aria-hidden="true">→</span></a><a class="btn ghost" href="#book" data-i="hero.cta2">Свободные окна</a></div>
+      <div class="ctas"><a class="btn" href="#works"><span data-i="hero.cta1">Выбрать дизайн</span><span class="arr" aria-hidden="true">→</span></a><a class="btn ghost" id="heroWa" href="#" target="_blank" rel="noopener" data-i="hero.cta2">Свой дизайн — в WhatsApp</a></div>
     </div>
   </div>
   <span class="cue" aria-hidden="true"></span>
 </section>
 
-<section class="section studio" id="studio" aria-labelledby="studioTitle">
+<section class="section works" id="works" aria-labelledby="worksTitle">
   <div class="wrap">
-    <header class="chap reveal"><span class="no" aria-hidden="true">I</span><p class="eyebrow" data-i="studio.eyebrow">Конфигуратор</p><h2 id="studioTitle" data-i="studio.title">Соберите свой маникюр</h2><p class="lead" data-i="studio.lead"></p></header>
-    <div class="studio-grid">
-      <div class="stage-col">
-        <div class="stage" id="stage">
-          <p class="stage-tag">3D · <b id="stageLook"></b></p>
-          <div id="hand"></div>
-          <p class="hint" data-i="hint"></p>
-          <div class="stage-bar">
-            <div class="picks" id="picks" role="group"></div>
-            <button type="button" class="pill" id="resetBtn" data-i="reset">Сбросить</button>
-          </div>
-        </div>
-        <p class="disclaim" data-i="disclaim"></p>
+    <header class="chap reveal"><span class="no" aria-hidden="true">I</span><p class="eyebrow" data-i="works.eyebrow">Работы и цены</p><h2 id="worksTitle" data-i="works.title">Понравилось — записывайтесь</h2><p class="lead" data-i="works.lead"></p></header>
+    <div class="wfilter" id="workFilter" role="group"></div>
+    <div class="works-grid" id="worksGrid"></div>
+    <div class="own">
+      <div class="own-card reveal">
+        <p class="eyebrow">WhatsApp</p><h3 data-i="own.title">Свой дизайн?</h3><p data-i="own.text"></p>
+        <a class="btn wa" id="ownWa" href="#" target="_blank" rel="noopener"><svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2z"/></svg><span data-i="own.btn">Отправить фото в WhatsApp</span></a>
       </div>
-      <div class="ctrl">
-        <div><h3 data-i="c.tech">Техника</h3><div class="opts" id="optTech"></div></div>
-        <div><h3 data-i="c.shape">Форма</h3><div class="opts" id="optShape"></div></div>
-        <div><h3 data-i="c.length">Длина</h3><div class="opts" id="optLength"></div></div>
-        <div><h3 data-i="c.finish">Покрытие</h3><div class="opts" id="optFinish"></div></div>
-        <div><h3 data-i="c.target">Что красим</h3><div class="target" id="target"></div></div>
-        <div><h3 data-i="c.color">Цвет</h3><div class="palette" id="palette"></div>
-          <p class="cname" id="cname"></p>
-          <label class="custom"><input type="color" id="customColor" value="#C9877A"><span data-i="c.custom"></span></label>
-        </div>
-        <div><h3 data-i="c.design">Дизайн</h3><div class="opts" id="optDesign"></div></div>
-        <div class="summary" aria-live="polite">
-          <dl id="sumList"></dl>
-          <div class="tot"><b id="sumPrice"></b><span id="sumTime"></span></div>
-          <p class="promise" data-i="promise"></p>
-          <div class="acts"><a class="btn" href="#book" id="toBook" data-i="toBook">Записаться с этим дизайном</a><button class="pill" type="button" id="shareBtn" data-i="share">Поделиться</button></div>
-        </div>
+      <div class="own-card reveal">
+        <p class="eyebrow">✦</p><h3 data-i="adv.title">Не знаете, что выбрать?</h3><p data-i="adv.text"></p>
+        <button class="btn ghost" type="button" id="adviceBtn" data-i="adv.btn">Пусть решит мастер</button>
       </div>
     </div>
   </div>
@@ -501,17 +443,9 @@ dialog[open]{animation:pop .45s var(--ease)}
   <blockquote><p id="interQ"></p><cite>Nácar · Marbella</cite></blockquote>
 </section>
 
-<section class="section" id="looks" aria-labelledby="looksTitle">
-  <div class="wrap">
-    <header class="chap reveal"><span class="no" aria-hidden="true">II</span><p class="eyebrow" data-i="looks.eyebrow">Работы мастеров</p><h2 id="looksTitle" data-i="looks.title">Хочу так же</h2><p class="lead" data-i="looks.lead"></p></header>
-    <div class="strip-wrap"><div class="looks" id="looksGrid"></div></div>
-    <div class="strip-nav"><button type="button" id="stripPrev" aria-label="←">←</button><button type="button" id="stripNext" aria-label="→">→</button></div>
-  </div>
-</section>
-
 <section class="section" id="prices" aria-labelledby="pricesTitle" style="padding-top:0">
   <div class="wrap">
-    <header class="chap reveal"><span class="no" aria-hidden="true">III</span><p class="eyebrow" data-i="prices.eyebrow">Цены</p><h2 id="pricesTitle" data-i="prices.title">Честный прайс</h2></header>
+    <header class="chap reveal"><span class="no" aria-hidden="true">II</span><p class="eyebrow" data-i="prices.eyebrow">Цены</p><h2 id="pricesTitle" data-i="prices.title">Честный прайс</h2></header>
     <div class="prices" id="priceCards"></div>
     <p class="fixed-note reveal"><svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true" style="flex:none"><circle cx="12" cy="12" r="10" fill="none" stroke="#D9B98C" stroke-width="1.4"/><path d="M12 7v6M12 16.5v.5" stroke="#D9B98C" stroke-width="1.8" stroke-linecap="round"/></svg><span data-i="prices.note"></span></p>
   </div>
@@ -519,7 +453,7 @@ dialog[open]{animation:pop .45s var(--ease)}
 
 <section class="section hyg" id="hygiene" aria-labelledby="hygTitle">
   <div class="wrap">
-    <header class="chap reveal"><span class="no" aria-hidden="true">IV</span><p class="eyebrow" data-i="hyg.eyebrow">Гигиена</p><h2 id="hygTitle" data-i="hyg.title">Чистота, которую видно</h2><p class="lead" data-i="hyg.lead"></p></header>
+    <header class="chap reveal"><span class="no" aria-hidden="true">III</span><p class="eyebrow" data-i="hyg.eyebrow">Гигиена</p><h2 id="hygTitle" data-i="hyg.title">Чистота, которую видно</h2><p class="lead" data-i="hyg.lead"></p></header>
     <div class="hyg-grid">
       <div class="hyg-photo reveal"><img src="img/process.webp" alt="" loading="lazy"></div>
       <ol class="hyg-steps">
@@ -534,18 +468,19 @@ dialog[open]{animation:pop .45s var(--ease)}
 
 <section class="section" id="masters" aria-labelledby="mastersTitle">
   <div class="wrap">
-    <header class="chap reveal"><span class="no" aria-hidden="true">V</span><p class="eyebrow" data-i="m.eyebrow">В ролях</p><h2 id="mastersTitle" data-i="m.title">Кто будет делать ваш маникюр</h2></header>
+    <header class="chap reveal"><span class="no" aria-hidden="true">IV</span><p class="eyebrow" data-i="m.eyebrow">В ролях</p><h2 id="mastersTitle" data-i="m.title">Кто будет делать ваш маникюр</h2></header>
     <div class="masters" id="mastersGrid"></div>
   </div>
 </section>
 
 <section class="section book" id="book" aria-labelledby="bookTitle">
   <div class="wrap">
-    <header class="chap reveal"><span class="no" aria-hidden="true">VI</span><p class="eyebrow" data-i="b.eyebrow">Запись</p><h2 id="bookTitle" data-i="b.title">Выберите день и время</h2><p class="lead" data-i="b.lead"></p></header>
+    <header class="chap reveal"><span class="no" aria-hidden="true">V</span><p class="eyebrow" data-i="b.eyebrow">Запись</p><h2 id="bookTitle" data-i="b.title">Выберите день и время</h2><p class="lead" data-i="b.lead"></p></header>
     <div class="book-grid">
       <form id="bookForm" novalidate>
         <div class="step"><h3><i>1</i><span data-i="b.s1">Услуга</span></h3>
           <div class="chosen" id="chosen"></div>
+          <div class="chosen-acts" id="chosenActs"></div>
           <div class="checks" id="extras"></div>
         </div>
         <div class="step"><h3><i>2</i><span data-i="b.s2">Мастер</span></h3><div class="mpick" id="mpick"></div></div>
@@ -560,6 +495,7 @@ dialog[open]{animation:pop .45s var(--ease)}
             <div class="field"><label for="bPhone" data-i="f.phone">Телефон</label><input id="bPhone" type="tel" autocomplete="tel" inputmode="tel" data-i-ph="ph.phone" required><p class="err" id="ePhone"></p></div>
             <div class="field"><label for="bEmail" data-i="f.email">E-mail</label><input id="bEmail" type="email" autocomplete="email" inputmode="email" data-i-ph="ph.email" required><p class="err" id="eEmail"></p></div>
           </div>
+          <div class="field" style="margin-top:18px"><label for="bNote" data-i="f.note">Комментарий мастеру</label><textarea id="bNote" rows="2" data-i-ph="ph.note"></textarea></div>
           <label class="policy"><input type="checkbox" id="bPolicy"><span id="policyText"></span></label>
           <p class="err" id="ePolicy"></p>
         </div>
@@ -580,7 +516,7 @@ dialog[open]{animation:pop .45s var(--ease)}
 
 <section class="section" id="reviews" aria-labelledby="revTitle" style="padding-top:0">
   <div class="wrap">
-    <header class="chap reveal"><span class="no" aria-hidden="true">VII</span><p class="eyebrow" data-i="rv.eyebrow">Отзывы (пример)</p><h2 id="revTitle" data-i="rv.title">Что говорят клиенты</h2></header>
+    <header class="chap reveal"><span class="no" aria-hidden="true">VI</span><p class="eyebrow" data-i="rv.eyebrow">Отзывы (пример)</p><h2 id="revTitle" data-i="rv.title">Что говорят клиенты</h2></header>
     <div class="reviews">
       <div class="rev reveal"><span class="stars">★★★★★</span><p data-i="rv1"></p><small>Sofia · Stockholm</small></div>
       <div class="rev reveal"><span class="stars">★★★★★</span><p data-i="rv2"></p><small>Carmen · Marbella</small></div>
@@ -591,20 +527,21 @@ dialog[open]{animation:pop .45s var(--ease)}
 
 <section class="section" id="faq" aria-labelledby="faqTitle" style="padding-top:0">
   <div class="wrap">
-    <header class="chap reveal"><span class="no" aria-hidden="true">VIII</span><p class="eyebrow">FAQ</p><h2 id="faqTitle" data-i="faq.title">Частые вопросы</h2></header>
+    <header class="chap reveal"><span class="no" aria-hidden="true">VII</span><p class="eyebrow">FAQ</p><h2 id="faqTitle" data-i="faq.title">Частые вопросы</h2></header>
     <div class="faq">
       <details><summary data-i="q1"></summary><p data-i="a1"></p></details>
       <details><summary data-i="q2"></summary><p data-i="a2"></p></details>
       <details><summary data-i="q3"></summary><p id="a3"></p></details>
       <details><summary data-i="q4"></summary><p data-i="a4"></p></details>
       <details><summary data-i="q5"></summary><p data-i="a5"></p></details>
+      <details><summary data-i="faq.q6"></summary><p data-i="faq.a6"></p></details>
     </div>
   </div>
 </section>
 
 <section class="section" id="contact" aria-labelledby="contactTitle" style="padding-top:0">
   <div class="wrap">
-    <header class="chap reveal"><span class="no" aria-hidden="true">IX</span><p class="eyebrow">Marbella</p><h2 id="contactTitle" data-i="ct.title">Как нас найти</h2></header>
+    <header class="chap reveal"><span class="no" aria-hidden="true">VIII</span><p class="eyebrow">Marbella</p><h2 id="contactTitle" data-i="ct.title">Как нас найти</h2></header>
     <div class="contact-grid">
       <div class="contact-card">
         <b style="font:italic 400 40px/1 var(--display)">Nácar Nail Studio</b>
@@ -635,12 +572,13 @@ dialog[open]{animation:pop .45s var(--ease)}
 
 <dialog id="mineDlg" aria-labelledby="mineTitle"><button class="x" type="button" data-close aria-label="×">×</button><div class="dlg-in"><h3 id="mineTitle" data-i="mine">Мои записи</h3><div id="mineList"></div></div></dialog>
 <dialog id="lateDlg" aria-labelledby="lateTitle"><button class="x" type="button" data-close aria-label="×">×</button><div class="dlg-in"><h3 id="lateTitle" data-i="late.title">Опаздываете?</h3><p id="lateText"></p><div class="late-opts" id="lateOpts"></div></div></dialog>
+<dialog id="workDlg" class="wdlg" aria-label="Nácar"><button class="x" type="button" data-close aria-label="×">×</button><div class="wk" id="workBox"></div></dialog>
 <dialog id="okDlg" aria-labelledby="okTitle"><button class="x" type="button" data-close aria-label="×">×</button><div class="dlg-in okbox" id="okBox"></div></dialog>
 
 <script type="importmap">{"imports":{"three":"./vendor/three.module.min.js"}}</script>
-<script src="data.js?v=2026-11-28-8"></script>
+<script src="data.js?v=2026-11-28-9"></script>
 <script src="../villas/vendor/maplibre-gl.js?v=4.7.1" defer></script>
-<script src="app.js?v=2026-11-28-8"></script>
-<script type="module" src="nails3d.js?v=2026-11-28-8"></script>
+<script src="app.js?v=2026-11-28-9"></script>
+<script type="module" src="nails3d.js?v=2026-11-28-9"></script>
 </body>
 </html>

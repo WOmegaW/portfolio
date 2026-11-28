@@ -77,6 +77,32 @@ window.MASTERS = [
     es: 'Manicura rusa y spa', en: 'Russian manicure and spa', ru: 'Аппаратный маникюр и спа' }
 ];
 
+/* ГАЛЕРЕЯ РАБОТ С ЦЕНАМИ — главное на сайте.
+   Клиентка выбирает работу → видит цену и время → записывается.
+   photo — файл в img/works/ (WebP, вертикальное 4:5); pos — какую часть фото показывать в превью (необязательно). price — итоговая цена, €; min — время, минуты.
+   tech — техника (classic / gel / extensions): по ней подбираются мастера, которые это делают.
+   ВНИМАНИЕ: фото сейчас временные (StockSnap, CC0) — у салона будут фото своих работ. */
+window.WORKS = [
+  { id: 'milk', photo: 'milk', tech: 'gel', price: 35, min: 75, master: 'lucia',
+    es: 'Blanco leche', en: 'Milky white', ru: 'Молочный однотон',
+    nes: 'Semipermanente liso, forma oval, uña natural.', nen: 'Plain gel polish, oval shape, natural nails.', nru: 'Гель-лак в один цвет, форма овал, свои ногти.' },
+  { id: 'wine', photo: 'wine', pos: '50% 90%', tech: 'gel', price: 35, min: 75, master: 'elena',
+    es: 'Burdeos corto', en: 'Short burgundy', ru: 'Короткое бордо',
+    nes: 'Semipermanente burdeos, uñas cortas cuadradas suaves.', nen: 'Burgundy gel polish, short soft-square nails.', nru: 'Гель-лак бордо, короткие ногти, мягкий квадрат.' },
+  { id: 'cherry', photo: 'cherry', tech: 'gel', price: 40, min: 90, master: 'amara',
+    es: 'Cereza con brillo', en: 'Cherry with sparkle', ru: 'Вишня с блеском',
+    nes: 'Semipermanente cereza con acabado brillante y destellos.', nen: 'Cherry gel polish with a glossy, sparkly finish.', nru: 'Вишнёвый гель-лак, глянец с лёгким сиянием.' },
+  { id: 'fuchsia', photo: 'fuchsia', tech: 'classic', price: 22, min: 45, master: 'elena',
+    es: 'Fucsia clásico', en: 'Classic fuchsia', ru: 'Фуксия, обычный лак',
+    nes: 'Esmalte clásico, se seca en 15 minutos. Ideal para una ocasión.', nen: 'Classic polish, dries in 15 minutes. Perfect for one event.', nru: 'Обычный лак, сохнет 15 минут. Хорошо «на один выход».' },
+  { id: 'plum', photo: 'plum', tech: 'gel', price: 38, min: 80, master: 'lucia',
+    es: 'Ciruela almendra', en: 'Plum almond', ru: 'Слива, миндаль',
+    nes: 'Semipermanente ciruela, forma almendra, uña natural.', nen: 'Plum gel polish, almond shape, natural nails.', nru: 'Гель-лак сливового цвета, форма миндаль, свои ногти.' }
+];
+
+/* «Не знаю — пусть решит мастер»: цена «от», время закладываем с запасом */
+window.ADVICE = { price: 30, min: 90 };
+
 /* Галерея «Хочу так же»: готовые дизайны (открываются в конфигураторе).
    nails — по одному на палец: [большой, указательный, средний, безымянный, мизинец] */
 window.LOOKS = [
