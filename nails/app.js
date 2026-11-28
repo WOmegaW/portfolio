@@ -535,7 +535,7 @@ addEventListener('load', () => {
   if (!window.maplibregl || !gl) return;
   try {
     const m = new maplibregl.Map({ container: el, style: 'https://tiles.openfreemap.org/styles/liberty', center: [SITE.lng, SITE.lat], zoom: 15.5, cooperativeGestures: true, dragRotate: false, attributionControl: { compact: true } });
-    new maplibregl.Marker({ color: '#5B2C45' }).setLngLat([SITE.lng, SITE.lat]).addTo(m);
+    new maplibregl.Marker({ color: '#5E4234' }).setLngLat([SITE.lng, SITE.lat]).addTo(m);
   } catch (e) { /* без карты — остаются адрес и кнопка «Маршрут» */ }
 });
 
