@@ -342,7 +342,15 @@ footer .cred span:last-child{max-width:60em;margin:12px auto 0;letter-spacing:.0
 .work .cap{display:flex;flex-direction:column;gap:4px;padding:14px 4px 0}
 .work .cap b{font:italic 400 clamp(22px,2vw,28px)/1.05 var(--display)}
 .work .cap small{font-size:12px;letter-spacing:.04em;color:var(--muted)}
+/* наведение: фото медленно наезжает, ценник чуть приподнимается, под названием проступает линия */
+.work .ph{transition:box-shadow .6s var(--ease)}
+.work .price{transition:transform .5s var(--ease),box-shadow .5s var(--ease)}
+.work .cap b{background:linear-gradient(currentColor,currentColor) 0 100%/0 1px no-repeat;transition:background-size .6s var(--ease);justify-self:start;width:fit-content}
+.work:active .ph img{transform:scale(1.02);transition-duration:.3s}
+@media (hover:hover){.work:hover .ph{box-shadow:0 24px 50px -24px rgba(46,30,22,.55)}.work:hover .price{transform:translateY(-3px);box-shadow:0 16px 36px rgba(46,30,22,.3)}.work:hover .cap b{background-size:100% 1px}}
+@media (prefers-reduced-motion:reduce){.work .ph img,.work .price{transition:none}.work:hover .ph img{transform:none}}
 .work:focus-visible .ph{outline:1px solid var(--gold);outline-offset:4px}
+@media (min-width:1200px){.works-grid{grid-template-columns:repeat(4,minmax(0,1fr))}.work .cap b{font-size:24px}}
 @media (max-width:900px){.works-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media (max-width:520px){.works-grid{gap:12px}.work .price{right:8px;top:8px;font-size:19px;padding:6px 10px}.work .cap b{font-size:19px}}
 .own{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:clamp(14px,2vw,28px);margin-top:clamp(40px,5vw,64px)}
@@ -366,6 +374,25 @@ footer .cred span:last-child{max-width:60em;margin:12px auto 0;letter-spacing:.0
 .wk-fix{margin:0;font-size:12.5px;color:var(--muted)}
 .wk-acts{display:grid;gap:10px;margin-top:8px}
 @media (max-width:760px){.wk{grid-template-columns:1fr}.wk-ph img{max-height:46svh}.wk-in{padding:22px}}
+/* открытие работы: фото «вылетает» из карточки (FLIP в app.js), панель и текст проявляются следом */
+.wk-ph{overflow:hidden}.wk-ph img{aspect-ratio:4/5}
+.wdlg[open]{animation:none}
+.wdlg::backdrop{animation:wkBdIn .7s var(--ease) both}
+.wdlg.out::backdrop{animation:wkBdOut .5s cubic-bezier(.4,0,.2,1) both}
+.wdlg .x{z-index:3;background:rgba(211,185,159,.82);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);transition:transform .3s var(--ease),background-color .3s}
+.wdlg .x:hover{transform:rotate(90deg);background:var(--bg-2)}
+/* во время полёта рамка окна рисуется псевдоэлементом — чтобы проявлять её отдельно от фото */
+.wdlg.fx{background:transparent;border-color:transparent;box-shadow:none;overflow:hidden}
+.wdlg.fx::before{content:"";position:absolute;inset:0;z-index:-1;border:1px solid var(--line);border-radius:inherit;background:var(--bg);box-shadow:0 40px 120px rgba(46,30,22,.35);animation:wkPanelIn .75s var(--ease) both}
+.wdlg.fx.out::before{animation:wkPanelOut .42s cubic-bezier(.4,0,.2,1) .06s both}
+.wdlg.fx .wk-ph img{opacity:0}
+.wk-fly{position:fixed;left:0;top:0;z-index:5;margin:0;overflow:hidden;pointer-events:none;transform-origin:0 0;will-change:transform,clip-path;background:var(--bg-3)}
+.wk-fly img{width:100%;height:100%;max-height:none;object-fit:cover;aspect-ratio:auto}
+@keyframes wkBdIn{from{opacity:0}}
+@keyframes wkBdOut{to{opacity:0}}
+@keyframes wkPanelIn{from{opacity:0;transform:scale(.985)}}
+@keyframes wkPanelOut{to{opacity:0;transform:scale(.985)}}
+@media (prefers-reduced-motion:reduce){.wdlg::backdrop{animation-duration:.2s}.wdlg.out::backdrop{animation-duration:.15s}.wdlg.fx::before{animation:none}.wdlg .x:hover{transform:none}}
 /* запись: выбранная услуга */
 .pick{display:flex;gap:14px;align-items:center}
 .pick img{width:64px;height:80px;border-radius:var(--r-sm);object-fit:cover;flex:none}
@@ -612,8 +639,8 @@ dialog[open]{animation:pop .45s var(--ease)}
 <dialog id="workDlg" class="wdlg" aria-label="Nácar"><button class="x" type="button" data-close aria-label="×">×</button><div class="wk" id="workBox"></div></dialog>
 <dialog id="okDlg" aria-labelledby="okTitle"><button class="x" type="button" data-close aria-label="×">×</button><div class="dlg-in okbox" id="okBox"></div></dialog>
 
-<script src="data.js?v=2026-11-28-12"></script>
+<script src="data.js?v=2026-11-28-13"></script>
 <script src="../villas/vendor/maplibre-gl.js?v=4.7.1" defer></script>
-<script src="app.js?v=2026-11-28-12"></script>
+<script src="app.js?v=2026-11-28-13"></script>
 </body>
 </html>

@@ -320,9 +320,41 @@ $('#workFilter').addEventListener('click', e => { const b = e.target.closest('[d
 $('#worksGrid').addEventListener('click', e => { const b = e.target.closest('[data-work]'); if (b) openWork(b.dataset.work); });
 
 /* окно работы: крупное фото, цена, время, мастер → записаться или спросить в WhatsApp */
+const WK_EASE = 'cubic-bezier(.16,1,.3,1)';        /* мягкое «кинематографичное» торможение */
+const WK_EASE_BACK = 'cubic-bezier(.65,0,.25,1)';  /* обратный путь: плавный разгон и посадка */
+const WK_OPEN_MS = 760, WK_CLOSE_MS = 560;
+const calm = () => matchMedia('(prefers-reduced-motion: reduce)').matches;
+let wkAnims = [], wkFrom = null, wkClosing = false;
+const wkStop = () => { wkAnims.forEach(a => { try { a.cancel(); } catch (e) { /* */ } }); wkAnims = []; };
+const wkAnim = (el, kf, o) => { const a = el.animate(kf, { fill: 'both', ...o }); wkAnims.push(a); return a; };
+const wkCard = id => $(`#worksGrid [data-work="${id}"] .ph`);
+const inView = r => r.width > 0 && r.bottom > 0 && r.top < innerHeight && r.right > 0 && r.left < innerWidth;
+const wkClean = () => {
+  wkStop(); const d = $('#workDlg');
+  d.classList.remove('fx', 'out'); $$('#workDlg .wk-fly').forEach(n => n.remove());
+  if (wkFrom) { wkFrom.style.visibility = ''; wkFrom = null; }
+};
+/* «полёт» фото: слой размером с крупное фото, сжатый transform-ом и обрезанный clip-path до карточки */
+function wkFly(src, pos, small, big, rSmall, rBig, back) {
+  const fly = document.createElement('div'); fly.className = 'wk-fly';
+  fly.style.width = big.width + 'px'; fly.style.height = big.height + 'px';
+  fly.innerHTML = `<img src="${src}" alt=""${pos ? ` style="object-position:${pos}"` : ''}>`;
+  $('#workDlg').append(fly);
+  const s = Math.max(small.width / big.width, small.height / big.height);
+  const ix = (big.width - small.width / s) / 2, iy = (big.height - small.height / s) / 2;
+  const a = { transform: `translate(${small.left - ix * s}px,${small.top - iy * s}px) scale(${s})`, clipPath: `inset(${iy}px ${ix}px round ${rSmall / s}px)` };
+  const b = { transform: `translate(${big.left}px,${big.top}px) scale(1)`, clipPath: `inset(0px 0px round ${rBig}px)` };
+  const run = wkAnim(fly, back ? [b, a] : [a, b], { duration: back ? WK_CLOSE_MS : WK_OPEN_MS, easing: back ? WK_EASE_BACK : WK_EASE });
+  return { fly, run };
+}
+/* части окна для лесенки: строки текста и крестик */
+const wkParts = () => [...$$('#workBox .wk-in > *'), $('#workDlg .x')];
+const radius = el => parseFloat(getComputedStyle(el).borderTopLeftRadius) || 18;
 function openWork(id, fromHash) {
   const w = workById(id); if (!w) return;
   const m = MASTERS.find(x => x.id === w.master);
+  const d = $('#workDlg');
+  wkClean(); wkClosing = false;
   $('#workBox').innerHTML = `<div class="wk-ph"><img src="${photoL(w)}" alt="${esc(L(w))}"${w.pos ? ` style="object-position:${w.pos}"` : ''}></div>
     <div class="wk-in">
       <p class="eyebrow">${L(TECH[w.tech])}</p>
@@ -333,11 +365,76 @@ function openWork(id, fromHash) {
       <div class="wk-acts"><button class="btn" type="button" id="wkBook">${t('w.book')}</button>
         <a class="btn ghost" href="${waLink(t('wa.like', L(w), eur(w.price)))}" target="_blank" rel="noopener">${t('w.wa')}</a></div>
     </div>`;
-  $('#wkBook').addEventListener('click', () => { $('#workDlg').close(); choose(w.id); toast(t('w.chosen')); });
+  /* «Записаться»: окно быстро гаснет без полёта, сразу переход к записи */
+  $('#wkBook').addEventListener('click', () => { closeWork(true); choose(w.id); toast(t('w.chosen')); });
   if (!fromHash) { try { history.replaceState(null, '', '#work/' + w.id); } catch (e) { /* file:// */ } }
-  $('#workDlg').showModal();
+  d.dataset.work = w.id;
+  const card = wkCard(w.id), cardR = card && card.getBoundingClientRect(), thumb = card && card.querySelector('img');
+  if (calm()) { /* без движения: короткое проявление */
+    d.showModal();
+    wkAnim(d, [{ opacity: 0 }, { opacity: 1 }], { duration: 200, easing: 'ease-out' }).finished.then(wkStop, () => {});
+    return;
+  }
+  d.classList.add('fx');
+  if (!d.open) d.showModal();
+  const big = $('#workBox .wk-ph img'), bigR = big.getBoundingClientRect();
+  wkParts().forEach((el, i) => wkAnim(el, [{ opacity: 0, transform: 'translateY(14px)' }, { opacity: 1, transform: 'none' }], { duration: 640, delay: 240 + i * 60, easing: WK_EASE }));
+  let fly = null, run;
+  if (cardR && inView(cardR) && thumb && thumb.complete && thumb.naturalWidth) {
+    /* из карточки: летит уже загруженная миниатюра — без ожидания сети */
+    wkFrom = card; card.style.visibility = 'hidden';
+    ({ fly, run } = wkFly(thumb.currentSrc || thumb.src, w.pos, cardR, bigR, radius(card), 0));
+  } else {
+    /* открыто по ссылке #work/… — карточки на экране нет: фото открывается шторкой снизу вверх с лёгким наездом */
+    run = wkAnim(big, [{ opacity: 1, clipPath: 'inset(100% 0 0 0)', transform: 'scale(1.08)' }, { opacity: 1, clipPath: 'inset(0 0 0 0)', transform: 'scale(1)' }], { duration: 1000, easing: WK_EASE });
+  }
+  /* полёт окончен → настоящее крупное фото (когда загрузится) мягко сменяет миниатюру */
+  run.finished.then(() => {
+    const alive = () => !wkClosing && d.open && d.dataset.work === w.id;
+    if (!alive()) return;
+    if (!fly) { wkClean(); return; }
+    const swap = () => {
+      if (!alive()) return;
+      d.classList.remove('fx'); /* рамка окна снова настоящая, фото под слоем полёта уже видно */
+      fly.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 280, easing: 'ease-out', fill: 'both' }).finished.then(() => { if (alive()) wkClean(); }, () => {});
+    };
+    (big.decode ? big.decode() : Promise.resolve()).then(swap, swap);
+  }, () => {});
 }
-$('#workDlg').addEventListener('close', () => { if (location.hash.startsWith('#work/')) { try { history.replaceState(null, '', location.pathname + location.search); } catch (e) { /* */ } } });
+/* закрытие: фото улетает обратно в свою карточку; quick — окно просто быстро гаснет */
+function closeWork(quick) {
+  const d = $('#workDlg'); if (!d.open || wkClosing) return;
+  wkClosing = true;
+  const big = $('#workBox .wk-ph img'), bigR = big && big.getBoundingClientRect();
+  wkClean(); /* прерываем открытие, если оно ещё идёт */
+  /* закрываем по окончании анимации; таймер — страховка, если браузер не дорисовал кадры (фоновая вкладка) */
+  let done = false;
+  const finish = () => { if (done) return; done = true; wkClosing = false; if (d.open) d.close(); };
+  setTimeout(finish, WK_CLOSE_MS + 300);
+  if (calm() || quick) {
+    d.classList.add('out');
+    wkAnim(d, [{ opacity: 1, transform: 'none' }, { opacity: 0, transform: calm() ? 'none' : 'translateY(8px) scale(.99)' }], { duration: quick ? 180 : 150, easing: 'ease-in' }).finished.then(finish, finish);
+    return;
+  }
+  const card = wkCard(d.dataset.work), cardR = card && card.getBoundingClientRect();
+  d.classList.add('fx', 'out');
+  wkParts().reverse().forEach((el, i) => wkAnim(el, [{ opacity: 1, transform: 'none' }, { opacity: 0, transform: 'translateY(8px)' }], { duration: 220, delay: i * 25, easing: 'ease-in' }));
+  let run;
+  if (cardR && inView(cardR) && bigR && bigR.width) {
+    wkFrom = card; card.style.visibility = 'hidden';
+    const pos = card.querySelector('img') && card.querySelector('img').style.objectPosition;
+    run = wkFly(big.currentSrc || big.src, pos, cardR, bigR, radius(card), 0, true).run;
+  } else { /* карточки не видно — фото опускается и гаснет вместе с окном */
+    run = wkAnim(big, [{ opacity: 1, transform: 'none' }, { opacity: 0, transform: 'translateY(16px) scale(.98)' }], { duration: 380, easing: 'ease-in' });
+  }
+  run.finished.then(finish, finish);
+}
+/* Escape: вместо мгновенного закрытия — обратная анимация */
+$('#workDlg').addEventListener('cancel', e => { e.preventDefault(); closeWork(); });
+$('#workDlg').addEventListener('close', () => {
+  wkClosing = false; wkClean();
+  if (location.hash.startsWith('#work/')) { try { history.replaceState(null, '', location.pathname + location.search); } catch (e) { /* */ } }
+});
 
 /* свой дизайн и «пусть решит мастер» */
 $('#ownWa').addEventListener('click', () => { $('#ownWa').href = waLink(t('wa.own')); });
@@ -520,7 +617,7 @@ function openLate(id) {
   };
   $('#lateDlg').showModal();
 }
-$$('dialog').forEach(d => { d.addEventListener('click', e => { if (e.target === d || e.target.closest('[data-close]')) d.close(); }); });
+$$('dialog').forEach(d => { d.addEventListener('click', e => { if (e.target === d || e.target.closest('[data-close]')) { if (d.id === 'workDlg') closeWork(); else d.close(); } }); });
 
 /* ===================== Контакты и карта ===================== */
 function renderContact() {
